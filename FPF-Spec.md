@@ -23598,11 +23598,13 @@ If a pattern or example claims **autonomy** for any Role/Method/Service:
 **Purpose.** Make each pattern’s relationship to contemporary practice explicit and comparable without importing tooling or data governance. This section is prose‑first and notation‑independent.
 
 **Minimum contents (obligations).**
-1) **Sources (post‑2015).** Cite ≥ 3 primary SoTA sources (standards, seminal papers, widely‑used frameworks), at least **two independent Traditions** (per G‑cluster).  
-2) **Practice alignment.** For each cited item, state **what is adopted, adapted, or rejected**, and **why** (in 2–4 sentences).  
-3) **Scale legality.** If numeric operations are implied, **bind** them to **CG‑Spec** (Characteristic ids, Scale/Unit/Polarity, SCP/Γ‑fold) and declare partial‑order stance; **no scalarisation of partial orders**.  
-4) **Cross‑Context reuse.** Any reuse across `U.BoundedContext` **SHALL** cite **Bridge id + CL** with loss notes; penalties route to **R_eff only** (F/G invariant). For plane crossings, publish **Φ(CL)**/**Φ_plane** policy‑ids.  
-5) **Lexical hygiene.** Do **not** use the verb/noun “mapping” outside E.10’s reserved sense; prefer **alignment**/**Bridge**/**relation** language.
+**Minimum contents (obligations).**
+1) **Evidence binding (no duplicate SoTA).** If a **SoTA Synthesis Pack** exists (G.2), this section **SHALL cite** its **ClaimSheet IDs** / **CorpusLedger entries** / **BridgeMatrix rows** as the source‑of‑truth for claims and report `adopt/adapt/reject` **consistent with those IDs**. Avoid forking an untracked SoTA narrative.
+2) **Sources (post‑2015).** Cite ≥ 3 primary SoTA sources (standards/papers/books), with at least **two independent Traditions**.
+3) **Practice alignment.** For each cited item, state **what is adopted/adapted/rejected** and **why** (2–4 sentences).
+4) **Scale legality.** If numeric operations are implied, bind to ComparatorSet/CG‑Spec and declare partial‑order stance (no hidden scalarisation).
+5) **Cross‑Context reuse.** Any reuse across `U.BoundedContext` must surface Bridge+CL/Φ_plane policy‑ids (penalties affect only `R_eff`).
+6) **Lexical hygiene.** Avoid “mapping” unless you mean an explicit Bridge/translation relation with loss notes.
 
 **Writing guidance (readability).**
 *Write short paragraphs, not tag lists.* For each Tradition, provide (a) a one‑sentence capsule of the practice, (b) a one‑sentence comparison to the pattern’s Solution, (c) a one‑sentence adoption status with reason. Where helpful, add one **System** and one **Episteme** micro‑example (Tell–Show–Show).
@@ -25207,6 +25209,10 @@ Think in three layers: **Intension** (what the thing *is*), **Description/Spec**
    Follow these six lines and SD (*Strict Distinction*) stops being an abstraction—you feel it in every sentence you write.
    
 ## E.11 — Authoring‑Tier Scheme (ATS) \[A]
+> **Deprecation notice (2025‑12).** `Authoring‑Tier Scheme (ATS)` is retained for migration and historical traceability.
+> New work **SHOULD** use **E.18 (E.TGA · GateCrossing)** for crossing visibility, audit hooks, and publication gating.
+> **Compatibility rule.** Any requirement phrased as “**AH‑1..AH‑4**” MAY be satisfied by publishing the corresponding
+> `CrossingRef` + `BridgeCard+UTS` row + `CL/Φ_plane` policy‑ids per **E.18**; explicit ATS harness IDs are optional legacy exports.
 
 *Tech token:* `AuthoringTierScheme` (**ATS**).
 
@@ -36632,12 +36638,12 @@ This is pure conceptual, notation-independent.
 
 ### 12 · Relations
 
-**Builds on:** **G.2** (Matrix), **F.9** (Bridges/CL), **B.3** (Φ penalties), **E.10** (LEX), **E.11** (ATS), **C.18/C.19** (QD descriptors & governor), **C.23** (SoS‑LOG). **Prerequisite for:** **G.5** eligibility across bridges and edition‑aware QD parity; **G.11** responds to **Bridge Sentinels**.   
+**Builds on:** **G.2** (Matrix), **F.9** (Bridges/CL), **B.3** (Φ penalties), **E.10** (LEX), **E.18** (GateCrossing), **C.18/C.19** (QD descriptors & governor), **C.23** (SoS‑LOG). **Prerequisite for:** **G.5** eligibility across bridges and edition‑aware QD parity; **G.11** responds to **Bridge Sentinels**.   
 
 ## G.8 — **SoS‑LOG Bundles & Maturity Ladders** \[A]
 
 **Stage:** *design‑time packaging* (authoring & publication) with a *run‑time* consumer facade for **G.5** (selector/registry).
-**Primary hooks:** **C.23** (Method‑SoS‑LOG), **G.4** (Acceptance & EvidenceProfiles), **G.6** (EvidenceGraph & PathId/PathSlice), **G.5** (Registry/Selector), **C.22** (TaskSignature S2), **C.18** (NQD‑CAL), **C.19** (E/E‑LOG), **F.9** (Bridges & CL), **G.7** (Bridge Matrix & CL calibration), **E.11** (ATS AH‑1..AH‑4), **E.5.2** (Notational Independence), **E.10** (LEX twin registers).
+**Primary hooks:** **C.23** (Method‑SoS‑LOG), **G.4** (Acceptance & EvidenceProfiles), **G.6** (EvidenceGraph & PathId/PathSlice), **G.5** (Registry/Selector), **C.22** (TaskSignature S2), **C.18** (NQD‑CAL), **C.19** (E/E‑LOG), **F.9** (Bridges & CL), **G.7** (Bridge Matrix & CL calibration), **E.18** (GateCrossing), **E.5.2** (Notational Independence), **E.10** (LEX twin registers).
 **Why this exists.** Families of methods compete inside a CG‑Frame; the selector must *admit, degrade,* or *abstain* per family without illicit scalarisation and with auditable provenance. This pattern **packages** the rule sets and maturity description defined elsewhere, so G.5 can lawfully dispatch portfolios/archives while keeping thresholds in **Acceptance** and justifications in **EvidenceGraph** paths. **It does not redefine SoS‑LOG semantics** (see **C.23**).
 **Modularity note.** The bundle cleanly separates **LOG decisions** (C.23) from **Acceptance thresholds** (G.4), **evidence wiring** (G.6), **selection semantics** (G.5), and **refresh/decay** (G.11); each module evolves independently under **E.11** harness gates. 
 
@@ -36908,8 +36914,11 @@ Benchmarks routinely compare unlike with unlike: different dataset editions, met
 ## G.10 — **SoTA Pack Shipping (Core Publication Surface)**  \[A]
 
 **Tag:** [A] (conceptual, notation‑independent; Core surface only)
-**Stage:** *release‑time* composition of discipline packs, consumable by selectors and audits; edition‑aware; ATS‑gated
-**Builds on:** **G.1–G.8** (generator → harvester → CHR/CAL → dispatcher → evidence/bridges/log bundle), **F.17–F.18** (UTS & naming), **B.3** (trust calculus), **E.5.2** (notational independence), **E.11** (ATS; AH‑1..AH‑4), **C.18/C.19/C.23** (NQD/QD‑telemetry; E/E‑LOG; SoS‑LOG)
+**Stage:** *release‑time* composition of discipline packs, consumable by selectors and audits; edition‑aware; **GateCrossing‑gated (E.18)** (legacy ATS harness tolerated)
+**Builds on:** **G.1–G.8** (generator → harvester → CHR/CAL → dispatcher → evidence/bridges/log bundle),
+**F.17–F.19** (generator orchestration), **B.3** (trust calculus), **E.5.2** (notational independence),
+**E.18** (E.TGA GateCrossing hooks; legacy AH‑compat), **C.18/C.19/C.23** (NQD/QD‑telemetry; E/E‑LOG; SoS‑LOG)
+
 **Publishes to:** **UTS** (twin‑label Name Cards), **G.5** (selector parity pins & portfolios), **SCR/RSCR**, **G.11** (telemetry/refresh)
 **Optional inputs:** **G.13 `InteropSurface@Context`** (if present) MAY be cited to declare which external‑index editions and gauge/plane embeddings informed the shipped pack; Core remains notation‑independent (Annex handles concrete crosswalks).
 
@@ -36981,7 +36990,7 @@ For every cross‑Context/plane or kind crossing, cite **Bridge ids** and **ΦPo
 
 **S‑4 · Anchor evidence.**
 Provide **A.10 anchors** (lanes + freshness windows) and, where already minted, **PathIds**/**PathSliceIds** for rung changes and LOG decisions; missing anchors **forbid** maturity advance. **Lane tags** remain separable into **TA/VA/LA** and visible in **SCR**.
-
+**S‑5 · Expose GateCrossing hooks (E.18).** *(Legacy AH‑ids MAY be exported as aliases, but are not required.)*
 **S‑5 · Expose ATS harness hooks (AH‑1..AH‑4).**
 The pack exports identifiers so **TierClassifier, GateCheck, LaneCheck, LexicalCheck** can run; publication **fails** if a crossing lacks **UTS+Bridge**, if lane purity is violated, or if **Φ/Ψ** are absent.
 
@@ -37002,7 +37011,7 @@ Mint a **UTS Name Card** for the pack and its major items (e.g., `SoS‑LOGBundl
 | ---------- | -------------------------- | ----------------------------------------------------------------- | ------------------------------------------------------- |
 | **G.10‑1** | `Compose_SoTA_Pack`        | G.1–G.8 outputs, ComparatorSet, Bridges, editions, SCR/DRR deltas | `SoTA‑Pack(Core)` (UTS row + surfaces)                  |
 | **G.10‑2** | `Publish_PortfolioSurface` | Portfolio semantics, parity pins, ε?                              | Selector‑readable parity surface (no formats mandated)  |
-| **G.10‑3** | `Expose_AH_Hooks`          | GateCrossings, lanes, Φ/Ψ policy‑ids                              | AH‑1..AH‑4‑ready ids; **fail** on missing hooks         |
+| **G.10‑3** | `Expose_CrossingHooks`     | GateCrossings, lanes/planes/contexts | CrossingRef bundle (BridgeCard+UTS row + CL/Φ_plane policy‑ids); **fail** on missing crossings |
 | **G.10‑4** | `Emit_TelemetryPins`       | Illumination/archive/OEE events                                   | PathSlice‑keyed telemetry: `policy‑id`, `…Ref.edition`  |
 | **G.10‑5** | `Publish_PathCitations`    | A.10 anchors, PathIds                                             | PathId/PathSlice citations for C.23/H4 & rung changes   |
 | **G.10‑6** | `Ingest_InteropSurface?`   | (optional) **G.13 `InteropSurface@Context`**                       | Annotated pack notes citing external‑index editions      |
@@ -37048,7 +37057,8 @@ This pattern **inherits** order/illumination, evidence, and bridge/penalty legal
 2. **Declare portfolio.** Set `DominanceRegime`/`PortfolioMode`/`ε`.
 3. **Route crossings.** List Bridges + **Φ/Ψ** policy‑ids; put loss notes on UTS.
 4. **Cite evidence.** Include A.10 anchors and any stable **PathIds**; ensure lanes and freshness windows are visible to **SCR**.
-5. **ATS hooks.** Expose ids for **AH‑1..AH‑4**; shipping blocks on missing hooks.
+5. **Crossing hooks (E.18).** Expose `CrossingRef` for every GateCrossing (BridgeCard + UTS row + `CL/Φ_plane` policy‑ids).
+   Shipping **blocks** on missing crossings. *(Legacy: exporting AH‑1..AH‑4 ids is allowed but optional.)*
 6. **Telemetry stubs.** Log **PathSliceId** + **policy‑id** + **edition** fields for QD/OEE **and** the active **`EmitterPolicyRef`/`InsertionPolicyRef`**.
 7. **UTS & twins.** Publish Name Cards (Tech/Plain); keep **local‑first**; Bridges carry identity across.
 
@@ -37062,7 +37072,7 @@ This pattern **inherits** order/illumination, evidence, and bridge/penalty legal
 
 **Tag.** [A] (architectural, notation‑independent; Core)
 **Stage.** *run‑time & maintenance‑time* (drives selective re‑computation and republication)
-**Primary hooks.** **G.6** (EvidenceGraph & Path/PathSlice ids), **G.7** (Bridge Sentinels, CL/Φ/plane), **G.5** (set‑returning selector), **G.8** (SoS‑LOGBundle; maturity ladder; QD/OEE pins), **G.10** (SoTA Pack shipping ↦ telemetry pins), **C.18/C.19** (QD/illumination; E/E‑LOG emitters), **C.23** (Method‑SoS‑LOG duties), **B.3.4** (evidence decay/epistemic debt), **E.11** (ATS AH‑1..AH‑4).       
+**Primary hooks.** **G.6** (EvidenceGraph & Path/PathSlice ids), **G.7** (Bridge Sentinels, CL/Φ/plane), **G.5** (set‑returning selector), **G.8** (SoS‑LOGBundle; maturity ladder; QD/OEE pins), **G.10** (SoTA Pack shipping ↦ telemetry pins), **C.18/C.19** (QD/illumination; E/E‑LOG emitters), **C.23** (Method‑SoS‑LOG duties), **B.3.4** (evidence decay/epistemic debt), **E.18** (E.TGA GateCrossing hooks).       
 
 **Why this exists.** Earlier G‑patterns made SoTA packs lawful and selector‑ready; this pattern closes the loop by **turning telemetry and decay into concrete refresh actions** that (i) keep SoTA packs current without pack‑wide reruns, (ii) preserve lawful orders (set‑returning selection; no forced scalarisation), and (iii) make QD/OEE exploration **operational** (edition‑aware, policy‑tracked) rather than merely auditable.  
 
@@ -37091,7 +37101,7 @@ Blind “full rebuilds” and audit‑only workflows either waste compute or let
 * **Gauge vs. order.** **IlluminationSummary (Q/D/QD‑score)** informs exploration and dashboards as a **gauge**; it **does not** enter dominance unless CAL says so (policy‑id cited). 
 * **Edition‑awareness.** QD/OEE parity requires pinned **`DescriptorMapRef.edition`**, **`DistanceDefRef.edition`**, **`InsertionPolicyRef`**, **`EmitterPolicyRef`**, and (for OEE) **`TransferRulesRef.edition`**.  
 * **Bridge hygiene.** CL/CL^k/CL^plane changes must trigger **path‑local** refresh; penalties route to **R_eff**; **ReferencePlane** is always declared. 
-* **ATS gates.** Crossings must remain visible to **AH‑1..AH‑4** (Tier/Gate/Lane/Lexical). 
+* **GateCrossing gates (E.18).** Crossings must remain visible via `CrossingRef` (BridgeCard + UTS row + `CL/Φ_plane` policy‑ids).
 
 ### 4) Solution — **From telemetry to targeted recomputation**
 
@@ -37154,7 +37164,8 @@ Given: Telemetry events E, Bridge edits B, Freshness expiries F, Policy changes 
 3. **CC‑G11.3 (Gauge legality).** Publish **Q/D/QD‑score** and **IlluminationSummary** as gauges; **exclude from dominance** unless a CAL policy promotes them; record the **policy‑id** in SCR. 
 4. **CC‑G11.4 (Bridge penalties).** CL/CL^k/CL^plane penalties **route to R_eff only**; **F/G invariant**; publish **Φ/Ψ ids** with loss notes. 
 5. **CC‑G11.5 (Selector invariants).** **G.5** is called with the same lawful **ComparatorSet** and returns **sets** (Pareto/Archive); no scalarisation is introduced by refresh. 
-6. **CC‑G11.6 (ATS visibility).** AH‑1..AH‑4 **MUST** pass for all refreshed crossings; missing hooks block publication. 
+6. **CC‑G11.6 (Crossing visibility).** All GateCrossings **MUST** satisfy E.18 (`CrossingRef` + BridgeCard+UTS + `CL/Φ_plane` policy‑ids);
+   missing crossings block publication.
 7. **CC‑G11.7 (Decay governance).** Freshness expiry triggers **Refresh/Deprecate/Waive** with budget notes; decisions appear in **DeprecationNotice** and SCR. 
 
 ### 7) Anti‑patterns & remedies
@@ -37178,7 +37189,7 @@ Given: Telemetry events E, Bridge edits B, Freshness expiries F, Policy changes 
 
 ### 10) Relations
 
-**Builds on:** **G.6** (PathId/PathSlice), **G.7** (Bridge Sentinels & calibration), **G.8** (bundles; maturity), **G.9** (parity scaffolding & edition pins), **C.18/C.19** (QD & E/E‑LOG), **C.23** (SoS‑LOG), **B.3.4** (decay), **E.11** (ATS).
+**Builds on:** **G.6** (PathId/PathSlice), **G.7** (Bridge Sentinels & calibration), **G.8** (bundles; maturity), **G.9** (parity scaffolding & edition pins), **C.18/C.19** (QD & E/E‑LOG), **C.23** (SoS‑LOG), **B.3.4** (decay), **E.18** (GateCrossing).
 **Consumes:** Telemetry pins from **G.10/G.9**; Edition pins and policy ids from **G.5/G.8**.
 **Publishes to:** **UTS** (RefreshPlan/Report; EditionBumpLog; DeprecationNotice), **SCR/RSCR** (path‑local checks), **G.12** (discipline dashboards).  
 
