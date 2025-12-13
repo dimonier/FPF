@@ -1,8 +1,8 @@
 # First Principles Framework (FPF) — Core Conceptual Specification
 by Anatoly Levenchuk and assortment of LLMs.
-September 2025
+Decemper 2025
 
-# Table of Content 
+# Table of Content
 
  **Preface (non-normative)**
 
@@ -350,7 +350,7 @@ While the universe is open, engineering requires us to build systems that are sa
 
 In essence, FPF does not attempt the impossible task of transforming the open world into a closed one. It provides the architectural discipline to draw a firm line in the sand, make a reliable decision based on what's inside that line, and always remain aware of the open, unbounded world that lies beyond it.
 
-## FPF as an Evolutionary Architecture for Thought 
+## FPF as an Evolutionary Architecture for Thought
 
 A method of thinking is itself a system. Like any system, it can be designed with ad-hoc, brittle connections that fail under pressure, or it can be architected for resilience, clarity, and growth. The First Principles Framework is not merely a collection of concepts or a static ontology; it is a formal **architecture for a method of trans-disciplinary thinking**. Its very structure—a collection of interconnected Architectural and Definitional Patterns presented as a series of an architecture/design records — is a deliberate choice that mirrors its function.
 
@@ -389,7 +389,7 @@ Part of FPF architecture for open-ended evolution is counterintuitive. E.g., to 
 
 Therefore, FPF should be understood not as a passive library of terms, but as an **engineered method for thinking**. Its patterns are the architectural decisions that shape this method. Its ultimate value is not in any single model it can produce, but in the enduring quality of the reasoning process it sustains—a discipline that is auditable, evolvable, and coherent by design.
 
-## Beyond Cognitive Biases: FPF as a Generative Architecture for Thought 
+## Beyond Cognitive Biases: FPF as a Generative Architecture for Thought
 
 The modern discipline of critical thinking has rightly focused on identifying and mitigating a long list of cognitive biases—the predictable glitches in our intuitive reasoning, from confirmation bias to the availability heuristic. The practice of "bias hunting" is a valuable diagnostic tool for improving our intellectual hygiene. However, it suffers from a fundamental limitation: it is primarily **corrective, not constructive**. It teaches us how to find flaws in existing arguments but offers little guidance on how to build a robust, complex argument from first principles.
 
@@ -411,7 +411,7 @@ FPF does not make a thinker immune to cognitive biases. Rather, it provides a di
 
 In this way, FPF is not a replacement for critical thinking and creative thinking but its **engineering reinforcement**. It provides the architectural integrity, shared vocabulary, and formal discipline necessary to move from merely avoiding mistakes and generate ad hoc ideas to reliably generating trustworthy and auditable insights.
 
-## Thinking Through Writing: The FPF Discipline of Conceptual Work 
+## Thinking Through Writing: The FPF Discipline of Conceptual Work
 
 A core challenge of any rigorous intellectual effort is that thought itself is intangible. While many frameworks focus on managing data, process, or team activities, FPF uniquely focuses on architecting the *act of reasoning itself*. It achieves this by providing a discipline of "thinking through writing"—a method for giving thought a concrete, shareable, and auditable form. The diverse formats found within the framework—the Cards, Tables, Records, and Specifications—are the instruments for this discipline.
 
@@ -431,7 +431,7 @@ This flexibility is by design. The conceptual Standard of a **Role Description C
 
 Ultimately, the diverse forms within FPF are not bureaucratic artifacts to be produced; they are conceptual instruments to be used. They provide the minimal necessary structure to turn fleeting insights into durable, shareable, and contestable knowledge. They are the grammar that allows a team to write its thoughts, and then, together, to edit them towards truth.
 
-## Descriptive Ontologies vs. A Thinking-Oriented Architecture 
+## Descriptive Ontologies vs. A Thinking-Oriented Architecture
 
 The First Principles Framework (FPF) shares a goal with classical upper ontologies (e.g., **Basic Formal Ontology (BFO)**, **DOLCE**): to provide a universal, unified language that cuts across disciplinary silos. Yet they pursue this from fundamentally different starting points. Understanding this distinction is key to grasping FPF’s unique purpose.
 
@@ -753,7 +753,7 @@ This pattern **instantiates P‑10 Open‑Ended Evolution** by making *generatio
 This pattern is an **on‑ramp**: it **does not replace** C.17–C.19. It binds Plain definitions to **publication/telemetry** expectations so newcomers can *use* NQD/E/E‑LOG immediately while experts follow the formal trails. 
 
 
-## A.1 Holonic Foundation: Entity → Holon  \[A] 
+## A.1 Holonic Foundation: Entity → Holon  \[A]
 
 > *“Name the thing without smuggling in its parts.”*
 
@@ -1035,7 +1035,7 @@ In essence, `U.BoundedContext` is the architectural pattern that allows FPF to b
     *   `Decsn-CAL`: Decisions and objectives are often scoped to a specific context.
 *   **Enables:** The resolution of conflicts as modeled in `D.3 Holonic Conflict Topology`, by showing that many conflicts are context-dependent.
 
-## A.2 Role Taxonomy  \[A] 
+## A.2 Role Taxonomy  \[A]
 
 *A holon’s essence tells us **what it is**; its roles tell us **what it is being, here and now**.*
 
@@ -1062,7 +1062,7 @@ Without an explicit role calculus:
 
 ---
 
-### Solution 
+### Solution
 
 We elevate **Role** to a first‑class, *context‑indexed* concept and make the **binding** between a holon and a role explicit.
 
@@ -3374,7 +3374,7 @@ Use when **adding/removing states**, **changing criteria**, or **bridging** acro
 * **Interacts with.** D‑cluster deontics (speech‑acts gate **Authorized**‑like states for agential roles); F.9 (state‑level alignment across contexts).
 
 
-# A.2.6 · **Unified Scope Mechanism (USM): Context Slices & Scopes**  \[A] 
+# A.2.6 · **Unified Scope Mechanism (USM): Context Slices & Scopes**  \[A]
 
 > **One-line summary.** Introduces a single, context-local **scope mechanism** for all holons: **`U.ContextSlice`** (where we reason and measure) and a family of **set-valued scope types** (**USM scope objects, `U.Scope`**), specialized as **`U.ClaimScope`** for epistemes (**G** in **F–G–R**), **`U.WorkScope`** for system capabilities, and **`U.PublicationScope`** for publication carriers; with one algebra (∩ / SpanUnion / translate / widen / narrow / refit) and uniform Cross-context handling (Bridge + CL).
 
@@ -5261,12 +5261,12 @@ Let `D` be a `U.Dynamics` in context `C`. Let `W` be a set of `U.Work` records p
 
 **Memory hook:** **Method decides · Dynamics predicts · Work reveals.**
 
-## A.4  Temporal Duality & Open‑Ended Evolution Principle \[A] 
+## A.4  Temporal Duality & Open‑Ended Evolution Principle \[A]
 
 *“A holon is born in design‑time, lives in run‑time,  
 and is reborn when the world talks back.”*
 
-### Problem frame  
+### Problem frame
 A holon’s **blueprint** and its **lived reality** are never identical for
 long.  Pumps wear out, theories meet anomalous data, workflows face
 unanticipated load.  FPF therefore requires a temporal framework that:
@@ -5277,7 +5277,7 @@ unanticipated load.  FPF therefore requires a temporal framework that:
 3. Works identically for physical, epistemic, operational (method, work) and future
    holon flavours.
 
-### Problem  
+### Problem
 
 | Failure mode | Consequence |
 |--------------|-------------|
@@ -5285,7 +5285,7 @@ unanticipated load.  FPF therefore requires a temporal framework that:
 | **Implicit magic updates** | Versions overwrite each other; provenance chains snap. |
 | **Observer special‑case** | Measurement treated as metaphysical rather than a normal, physically grounded transformation. |
 
-### Forces  
+### Forces
 
 | Force | Tension |
 |-------|---------|
@@ -5295,7 +5295,7 @@ unanticipated load.  FPF therefore requires a temporal framework that:
 
 ---
 
-### Solution · Temporal Duality Model  
+### Solution · Temporal Duality Model
 
 FPF assigns every holon state to one—and only one—of two **temporal
 scopes**:
@@ -5340,7 +5340,7 @@ the universal external Transformer pattern.
 
 *(Diagrammatic lineage table omitted for brevity but included in annex.)*
 
-### Conformance Checklist  
+### Conformance Checklist
 
 | ID | Requirement | Purpose |
 |----|-------------|---------|
@@ -5352,7 +5352,7 @@ the universal external Transformer pattern.
 
 ---
 
-### Consequences  
+### Consequences
 
 | Benefits | Trade‑offs / Mitigations |
 |----------|--------------------------|
@@ -5362,7 +5362,7 @@ the universal external Transformer pattern.
 
 ---
 
-### Rationale (extended)  
+### Rationale (extended)
 
 1. **Why separate scopes?**  
    Real‑world artefacts SCR the *as‑intended* versus *as‑is* gap.
@@ -5394,7 +5394,7 @@ This pattern therefore realises three core principles in concert:
 > *“Blueprints dream; instances speak.  
 > Evolution is the conversation between them.”*
 
-## A.5 Open‑Ended Kernel & Architheory Layering \[A] 
+## A.5 Open‑Ended Kernel & Architheory Layering \[A]
 
 ### Problem frame
 
@@ -5828,7 +5828,7 @@ This ensures both cross‑family uniformity **and** compatibility with existing 
 * **LOG** and **CHR** architheories **SHALL NOT** export `Γ`.  
 * Import layering **SHALL** respect the holonic stack: **LOG/CHR may import CAL; CAL may import CAL**; import graphs are **acyclic** and respect **LEX‑BUNDLE** strata (Kernel → Architheory → Context → Instance); no cross‑bleed.
 
-#### 4.5 · Signature header 
+#### 4.5 · Signature header
 
 Each Signature begins with:  
 `id` (PascalCase), `version` (SemVer), `status` (draft/review/stable/deprecated), `classification` (CAL/LOG/CHR), `imports` (list), `provides` (list, including Γ if CAL).  
@@ -5907,11 +5907,11 @@ Why “Signature”? Familiar to engineers (function/type signatures) and to log
 
 Give FPF **one uniform kernel shape** for things like **USM** (set‑algebra on context slices) and **UNM** (classes of admissible normalizations with ≡_UNM) so authors can **define, compare, refine, compose, and port** mechanisms **without re‑inventing the meta‑language**; all cross‑context use is **Bridge‑only** with **CL penalties to R/R_eff**, never to **F/G**.
 
-### 2 · Problem 
+### 2 · Problem
 
 Without a kernel abstraction, scope/normalization/comparison constructs proliferate with incompatible algebras and guard surfaces; cross‑context reuse lacks visible **Bridge/CL routing**; comparability drifts into **illegal scalarisation** (e.g., ordinal means). FPF already curbs this via **A.6** (Signature discipline), **USM** (scope algebra & Γ_time), **UNM** (normalize‑then‑compare), and **CG‑Spec** (lawful comparators/ScoringMethods)—but lacks a **common meta‑slot** for “mechanism.”
 
-### 3 · Forces 
+### 3 · Forces
 
 **Locality vs transport.** Semantics are **context‑local**; crossing contexts is **Bridge‑only** (Part F/B.3); penalties hit **R/R_eff**; **F/G** invariant.
 
@@ -5923,7 +5923,7 @@ Without a kernel abstraction, scope/normalization/comparison constructs prolifer
 
 ### 4 · Solution
 
-#### 4.1 **Mechanism Intension** 
+#### 4.1 **Mechanism Intension**
 
 A `U.Mechanism` **publishes**  
         `U.Mechanism.Intension := ⟨IntensionHeader, Imports,
@@ -5989,7 +5989,7 @@ and admits Realizations (kernel‑level or architheory‑level) that respect it.
 `Mechanism: U.<Name>`  *(Kernel conceptual description; no tooling fields)*
 `Imports: <Signatures / U.Types>` · `SubjectBlock: <SubjectKind, BaseType, SliceSet, ExtentRule, ResultKind?>` · `ParamKinds: <name→Kind map>` · `OperatorAlgebra: <operators with types>` · `LawSet: <equations/invariants>` · `AdmissibilityConditions: <admission predicates; Γ_time>` · `Transport: <Bridge channels; CL/CL^k/CL^plane named; ReferencePlane(src,tgt)>` · `PlaneRegime: <world|concept|episteme rules>`
 
-#### 4.4 MechFamilyDescription & MechInstanceDescription 
+#### 4.4 MechFamilyDescription & MechInstanceDescription
 
 * **MechFamilyDescription**: `{Mechanism.Intension, Realizationα, Realizationβ, …}` — each Realization may **tighten** (never relax) Laws (Liskov‑style).
 
@@ -6101,7 +6101,7 @@ Each source corresponds to a distinct *Tradition*: formal semantics, categorical
 The same correspondence holds at **every holonic level**:  
 a part-holon declares its own `OperatorAlgebra/LawSet/AdmissibilityConditions`; a whole-holon merges them via Bridges; a meta-holon re-binds mechanisms under a new Γ-closure. All penalties remain in **R / R_eff**, while **F / G** invariants propagate intact.
 
-### 10 · 60‑second didactic script 
+### 10 · 60‑second didactic script
 
 > *“To mint a mechanism, fill a **Mechanism.Intension**: declare **SubjectBlock** (**SubjectKind**, **BaseType**, **SliceSet**, **ExtentRule**, **ResultKind?**) and **ParamKinds**; then **OperatorAlgebra/Laws/AdmissibilityConditions** and **Γ_time**; define **Transport** (Bridge/CL with penalties to R only), and **Audit** (UTS + Path pins). Realize it as CAL/LOG/CHR under **A.6**. USM and UNM are already such mechanisms; the same template births comparison, scoring, and publication mechanisms—safely bound to **CG‑Spec**—without leaving the kernel grammar.”*
 
@@ -11140,7 +11140,7 @@ Under this pattern, CV is evaluated **inside** transformations. **If** a check d
 * **Reproducible valuation.** Flow = valuation over `U.Transfer`, with slice‑local refresh bounded by sentinels.
 * **LEX hygiene.** ASCII Tech labels, twin Tech/Plain registers, registered tokens.
 
-### 4) Solution 
+### 4) Solution
 
 #### 4.1 Intent & Scope
 
@@ -11623,7 +11623,7 @@ Without a disciplined `DependencyGraph`, four pathologies recur:
 
 ---
 
-### 4) Solution 
+### 4) Solution
 
 #### 4.1 The shape: a typed, scoped, acyclic graph
 
@@ -11714,7 +11714,7 @@ Use this **one‑page decision** to pick the edge correctly:
 > • Using **ConstituentOf** for a module cage or bracket → that is **ComponentOf**.
 > • Treating representation (file ↔ thing) as parthood → keep as value‑level mapping (A.15), not in `D`.
 
-#### 4.5 **Γ_m (Compose‑CAL)** — structural aggregators & trace shape  
+#### 4.5 **Γ_m (Compose‑CAL)** — structural aggregators & trace shape
 
 **Purpose.** Provide a **minimal constructional generator** for **structural mereology** that keeps the kernel small (C-5), aligns with **A.14** (Portions/Phases/Components discipline), and feeds Working-Model layer publication in LOG without importing tooling or notations. 
 
@@ -11764,7 +11764,7 @@ Each Γ flavour (Γ\_sys / Γ\_epist / Γ\_method / Γ\_time / Γ\_work) **must*
 * **WLNK**: weakest‑link bound (e.g., critical input caps, weakest claim).
 * **MONO**: explicit monotone characteristics (what “cannot get worse” means here).
 
-### 5) Didactic mini‑examples 
+### 5) Didactic mini‑examples
 
 * **System (assembly):** a motor **ComponentOf** a chassis; wiring harness **ComponentOf** the motor; a *crew* **MemberOf** a team holon (the crew is not a component of the chassis).
 * **Episteme (paper):** a lemma **ConstituentOf** a proof; appendices **ConstituentOf** the paper; three datasets **MemberOf** a curated collection; version v2 **PhaseOf** the *same* model.
@@ -13830,7 +13830,7 @@ It ensures that when a claim of "synthesis" or "unification" is made, it is not 
 *   **Is performed by:** An external `Transformer` (A.12) executing an abductive leap (B.5.2).
 *   **Produces:** A new `U.Episteme` whose trust and reliability are then governed by `B.3 Trust & Assurance Calculus`.
 
-### **Pattern B.2.4 — MFT (Meta-Functional Transition) [A]** 
+### **Pattern B.2.4 — MFT (Meta-Functional Transition) [A]**
 
 **Context**
 
@@ -13939,7 +13939,7 @@ By defining the transition in terms of the observable B-O-S-C triggers and tying
 *   **Relies on:** The conceptual distinctions defined in `A.15 Role–Method–Work Alignment`.
 
 
-### B.2.5 — Supervisor–Subholon Feedback Loop \[A] 
+### B.2.5 — Supervisor–Subholon Feedback Loop \[A]
 
 **Context**
 
@@ -14515,7 +14515,7 @@ This pattern transforms the assurance framework from a descriptive taxonomy into
 *   **Constrains:** The computation and interpretation of `AssuranceLevel` for all holons.
 *   **Enables:** Objective quality gates in the Canonical Evolution Loop (B.4) and reliable inputs for the Trust-Aware Mediation Calculus (D.4).
 
-### B.3.4 — Evidence Decay & Epistemic Debt \[A] 
+### B.3.4 — Evidence Decay & Epistemic Debt \[A]
 
 **Context**
 
@@ -15061,7 +15061,7 @@ By making the `Transformer`'s role explicit in every phase, the pattern avoids t
 | B.4.3   | Method instantiation                    | \[A] | Dev‑ops pipeline evolution.                                               |
 | **B.5** | **Reasoning Toolkit**                    | \[A] | Core cognitive cycles; role‑projection.                                   |
 
-### **Pattern B.5 — Canonical Reasoning Cycle [A]** 
+### **Pattern B.5 — Canonical Reasoning Cycle [A]**
 
 **Context**
 
@@ -15159,7 +15159,7 @@ This pattern provides the engine that drives an artifact up the ladder of `Assur
 *   **Enables:** The refinement phase of the `B.4 Canonical Evolution Loop`.
 *   **Operationalizes:** The core FPF mission of transforming ideas into reliable, evidence-backed holons.
 
-###  B.5.1 — Explore → Shape → Evidence → Operate \[D]
+### B.5.1 — Explore → Shape → Evidence → Operate \[D]
 
 **Context**
 
@@ -18357,7 +18357,7 @@ Guards must be **reproducible** and **auditable**: same `slice` ⇒ same members
 
 ---
 
-## 0 · Status, Placement, Dependencies 
+## 0 · Status, Placement, Dependencies
 
 **Status.** Normative architheory in **Part C**. Identifier **C.3.3**.
 **Audience.** Engineering managers, architects, assurance leads, editors.
@@ -18617,7 +18617,7 @@ Use the **`Guard_XContext_Typed`** macro (Annex C.3.A), which requires **both br
 
 ---
 
-## 0 · Status, Placement, Dependencies 
+## 0 · Status, Placement, Dependencies
 
 **Status.** Normative architheory in **Part C**. Identifier **C.3.4**.
 **Audience.** Engineering managers, architects, reviewers, editors.
@@ -18861,7 +18861,7 @@ Use **`Guard_MaskedUse`** (Annex **C.3.A §4.3**). It requires:
 
 ---
 
-## 0 · Status, Placement, Dependencies 
+## 0 · Status, Placement, Dependencies
 
 **Status.** Mixed:
 — **Informative** for the anchors, heuristics, examples, and guidance.
@@ -19043,7 +19043,7 @@ This keeps AT **useful** without risking a “second G” or back‑door quality
 
 ---
 
-## 0 · Status, Placement, Dependencies 
+## 0 · Status, Placement, Dependencies
 
 **Status.** Mixed:
 — **Normative**: guard macro clauses, evaluation order, fail‑closed discipline, conformance checklist.
@@ -20373,7 +20373,7 @@ Reading: model M on cohort C shows **3.2 pp**; evidence points conceptually to
 
 **Unification (F‑cluster).** External standards (e.g., ISO 80000 quantity types; W3C SOSA/SSN observable properties; QUDT units/quantity kinds) are related via Concept‑Set rows and Bridges; MM‑CHR treats those alignments as context supplied by F‑patterns, not as local re‑definitions.
 
-## C.17 — **Creativity‑CHR** — Characterising Generative Novelty & Value 
+## C.17 — **Creativity‑CHR** — Characterising Generative Novelty & Value
 
 ### 0 · Status, Placement & Exports
 
@@ -21584,7 +21584,7 @@ The calculus keeps **describedEntity local**, **comparability lawful**, and **as
 **Coordinates with.** C.21 (field‑health CHRs), C.22 (Problem‑CHR), C.23 (Method‑SoS‑LOG).  
 **Constrains.** G.2 **MUST** publish **TraditionCards**/**BridgeMatrix** sufficient for `Γ_disc` to assemble **≥2 Traditions** and **≥3 `U.BoundedContext`** per SoTA synthesis to avoid monoculture. G.5 selector **SHALL** cite Discipline **CG‑Spec ids** and **EvidenceGraph** rows when admitting families.
 
-## C.21 — **Discipline-CHR · Field Health & Structure**  \[A] 
+## C.21 — **Discipline-CHR · Field Health & Structure**  \[A]
 
 > *Purpose.* Give FPF a **typed, auditable** way to speak about the *health, maturity, and structure* of a scientific/engineering **discipline**, without collapsing into taste, anecdotes, or single-number scores. The pattern defines a **portable set of Characteristics** and guards (legality, freshness, scope) that any Context can specialize.
 
@@ -21794,7 +21794,7 @@ C.21.DHC(Context: <name/edition>; TargetSlice: <tuple>; Γ_time: <policy>)
 Guards: ORD_COMPARE_ONLY(StandardisationLevel), UNIT_CHECK(*), FRESHNESS(*), LANE_TAGS, SCOPE_COVERS, BRIDGE_CL(if x-Context)
 Publish: UTS twin labels; RSCR triggers on method edition change.
 ```
-## C.22 — **Problem‑CHR · Problem Typing & TaskSignature Binding**  \[A] 
+## C.22 — **Problem‑CHR · Problem Typing & TaskSignature Binding**  \[A]
 
 **Purpose.** Give FPF a **lawful, minimal, and portable** way to speak about “the problem we face” so that the **selector** (G.5) can legally admit/abstain without prose or guesswork. We do this by (i) **typing problems** with CHR‑grounded traits and (ii) **binding** them to a **TaskSignature (S2)** that downstream architheories can consume. The Standard is **Context‑local**, evidence‑anchored, tri‑state‑aware, and bridge‑savvy. TaskSignature is *minimal* but sufficient for **eligibility**, **acceptance**, and **policy‑governed** choice. 
 
@@ -22577,9 +22577,9 @@ Pattern E.1 governs **E.2 Eleven Pillars** and the Guard‑Rail set **A.5�
 
 *“Purpose without a scaffold is wishful thinking; a scaffold without purpose is cargo‑cult—FPF welds the two into disciplined imagination.”*
 
-## E.2 — The Eleven Pillars \[A] 
+## E.2 — The Eleven Pillars \[A]
 
-### Problem frame 
+### Problem frame
 Pattern E.1 set the FPF mission as an **operating system for thought**. To turn that mission into a durable architecture, FPF needs a small, explicit constitution—principles that remain stable while everything built on top of them can evolve. Without such invariants, domain silos, vocabulary drift, and tool‑centric shortcuts quickly erode coherence and reproducibility across disciplines.
 
 ### Problem
@@ -22691,7 +22691,7 @@ The pillars are distilled from systems engineering, philosophy of science, softw
 *These pillars are not a cage but the load‑bearing columns of a workshop where ideas can be safely built, dismantled, and evolved.*
 
 
-## Pattern E.3 — **Principle Taxonomy & Precedence Model** \[A] 
+## Pattern E.3 — **Principle Taxonomy & Precedence Model** \[A]
 
 ### Problem frame
 Pattern E.2 supplies eleven immutable pillars, yet experience shows that a **flat list of principles invites ambiguity**: reviewers cannot decide which pillar overrules another  and “dead‑letter” rules accumulate. 
@@ -22905,9 +22905,9 @@ This pattern establishes the macro-architecture of the entire FPF ecosystem. By 
 
 > *“A canon without a rationale is scripture; a rationale without a canon is gossip. FPF keeps both, fused in patterns.”*
 
-###  E.5 · Four Guard‑Rails of FPF         \[A]
+### E.5 · Four Guard‑Rails of FPF         \[A]
 
-#### Problem frame  
+#### Problem frame
 FPF positions itself as a **timeless, universal “operating system for
 thought.”**  Collaborative projects of this scope face four predictable
 entropic pulls:
@@ -22920,7 +22920,7 @@ entropic pulls:
 Left unchecked, these forces erode Pillars **P‑1 Cognitive Elegance**,
 **P‑4 Open‑Ended Kernel** and **P‑5 Plug‑in Layering**.
 
-#### Problem  
+#### Problem
 Without explicit, non‑negotiable protectors the Conceptual Core would
 slowly:
 
@@ -22929,7 +22929,7 @@ slowly:
 * devolve into a tightly coupled “big ball of mud”,  
 * betray its trans‑disciplinary promise.
 
-#### Forces  
+#### Forces
 
 | Force | Tension |
 |-------|---------|
@@ -22938,7 +22938,7 @@ slowly:
 | **Modularity vs Integration** | Independent layers ↔ temptation to cross‑link for speed. |
 | **Objectivity vs Perspective** | Neutral framework ↔ Transformers’ unavoidable cultural lens. |
 
-#### Solution — the Four Guard‑Rails  
+#### Solution — the Four Guard‑Rails
 FPF establishes **four architecturally enforced guard‑rails** that every Core, Tooling, and Pedagogy artefact must obey.  They function as an “immune system” resisting each entropic pull.
 **Scope note (conceptual, not lint).** These guard‑rails regulate the **architecture of thought**—concepts, claims, and their relations. They **do not** mandate tools, file formats, notations, or workflows; any linting or automation lives outside the Core and is optional, provided it preserves these conceptual constraints.
 
@@ -22980,7 +22980,7 @@ Concrete rules for each rail live in patterns **E.5.1 – E.5.4**.
 | **Stable yet evolvable ecosystem** – Core stays timeless while Tooling & Pedagogy can iterate rapidly. | Early stage contributions may feel constrained; examples in the Pedagogical Companion show compliant paths. |
 | **Trust & auditability** – stakeholders can verify the framework’s purity independently. | Adds overhead to governance; justified by safety and longevity. |
 
-#### Rationale  
+#### Rationale
 A constitution without enforcement degrades into *dead‑letter rules*.  
 The four guard‑rails translate abstract Pillars into **concrete, testable
 constraints**.  Grouping them under one umbrella pattern:
@@ -23005,21 +23005,21 @@ and reinforce the precedence order defined in **E.3**.
   * `pat:constitution/principle‑taxonomy` (E.3)
 * **Constrains:** every Core, Tooling, and Pedagogy artefact; all DRRs.
 
-####  E.5.1 · DevOps Lexical Firewall \[D]
+#### E.5.1 · DevOps Lexical Firewall \[D]
 
-##### Problem frame  
+##### Problem frame
 The FPF Core is meant to remain valid across decades and technology
 generations.  Implementation details—file formats, build pipelines,
 runtime flags—evolve rapidly and differ between domains.  When such
 terms invade normative prose, the Core ages as quickly as the tools it
 mentions.
 
-##### Problem  
+##### Problem
 *Conceptual erosion*: a rule that cites a transient technology becomes
 obsolete when that technology fades, forcing unnecessary Core revisions
 and fragmenting historical audits.
 
-##### Forces  
+##### Forces
 
 | Force | Tension |
 |-------|---------|
@@ -23027,7 +23027,7 @@ and fragmenting historical audits.
 | **Pedagogic clarity** | Examples need concreteness ↔ too much concreteness hard‑codes technology. |
 | **Cross‑domain reach** | Physical‑system engineers and knowledge‑theorists use different stacks. |
 
-##### Solution  
+##### Solution
 Establish a **Lexical Firewall** around the **Conceptual Core** *(conceptual constraint; not a build‑time linter)*:
 
 1. **Forbidden lexicon**  
@@ -23066,32 +23066,32 @@ Establish a **Lexical Firewall** around the **Conceptual Core** *(conceptual c
 | Core stays evergreen and cross‑domain. | Authors must relocate concrete examples to Tooling or Pedagogy. |
 | Reviewers can machine‑scan for banned tokens. | Requires a small vocabulary allow‑list; maintained in Tooling Guide. |
 
-##### Rationale  
+##### Rationale
 Language shapes thought.  By firewalling transient jargon, we uphold
 **P‑1 Cognitive Elegance** (clarity), **P‑2 Didactic Primacy** (domain‑neutral
 exposition) and **P‑5 Plug‑in Layering** (clean separation between Core
 and Tooling).  The rule is content‑agnostic and thus itself immune to the
 very decay it prevents.
 
-##### Relations  
+##### Relations
 * **Parent umbrella:** `pat:constitution/guard‑rails` (E.5)  
 * **Constrains:** every pattern in Conceptual Core  
 * **Instantiates pillars:** P‑1, P‑2, P‑5
   
-  ####  E.5.2 · Notational Independence \[D]
+  #### E.5.2 · Notational Independence \[D]
 
-##### Problem frame  
+##### Problem frame
 FPF concepts must travel across academic disciplines, modelling tools,
 and future notations we cannot yet foresee. If a normative pattern binds
 its *meaning* to one diagram style, file syntax, or markup dialect, the
 concept ages as soon as the notation does.
 
-##### Problem  
+##### Problem
 *Semantic lock‑in*: when a definition relies on a particular glyph set or
 diagram grammar, alternative communities either translate it—risking
 drift—or ignore FPF altogether.
 
-##### Forces  
+##### Forces
 
 | Force | Tension |
 |-------|---------|
@@ -23144,33 +23144,33 @@ Cards, tables and other "forms" exist in FPF core only as conceptual model, not 
 | Ensures FPF survives notation turnover. | Authors invest time describing mappings; mitigated by reusable mapping templates. |
 | Lowers entry barrier for domains using different diagram traditions. | Excessive illustrations can bloat pages; guidance in Pedagogical Companion limits scope. |
 
-##### Rationale  
+##### Rationale
 Language and diagrams are tools, not truths. By elevating semantics over
 syntax, FPF maintains **P‑1 Cognitive Elegance** and **P‑2 Didactic
 Primacy** while safeguarding **P‑5 Plug‑in Layering**: tooling layers can
 add new renderers without Core edits.
 
-##### Relations  
+##### Relations
 * **Parent umbrella:** `pat:constitution/guard‑rails` (E.5)  
 * **Constrains:** every normative Core pattern and official alternate rendering  
 * **Instantiates pillars:** P‑1, P‑2, P‑5
 
-####  E.5.3 · Unidirectional Dependency \[D]
+#### E.5.3 · Unidirectional Dependency \[D]
 
-##### Problem frame  
+##### Problem frame
 FPF separates artefacts into stable **Conceptual Core**, executable
 **Tooling Reference**, and fast‑evolving **Pedagogical Companion** (see
 E.4 Artefact Architecture).  If dependencies can point *both* ways,
 volatile layers will eventually drag the Core into rapid revision
 cycles or introduce domain‑specific bias.
 
-##### Problem  
+##### Problem
 *Architectural gravity*: a tutorial or helper script adds a new feature,
 Core patterns import it “temporarily,” and within months the supposedly
 timeless layer depends on transient assets—breaking Pillar **P‑5
 Plug‑in Layering**.
 
-##### Forces  
+##### Forces
 
 | Force | Tension |
 |-------|---------|
@@ -23178,7 +23178,7 @@ Plug‑in Layering**.
 | **Reuse vs Isolation** | Authors want to reuse helper concepts ↔ Core cannot depend on volatile code. |
 | **Simplicity** | Rule must be testable and unambiguous ↔ must allow legitimate upward imports. |
 
-##### Solution — One‑Way, Acyclic Imports  
+##### Solution — One‑Way, Acyclic Imports
 Define a strict **partial order** over artefact families **and guard meaning flow** (see **E.10 V‑1**): imports point only **upward** in stability, and **no Core semantics** may derive from Tooling/Pedagogy. No linters or machine checking in Conceptual Core.
 
 Pedagogical Companion  ⟶  Tooling Reference  ⟶  Conceptual Core
@@ -23219,13 +23219,13 @@ Pedagogical Companion  ⟶  Tooling Reference  ⟶  Conceptual Core
 | Core stays free of tool churn and tutorial bias. | Authors must create abstraction layers in Tooling instead of inserting hooks into Core. |
 | Release cadence decoupled: Core (slow), Tooling (medium), Pedagogy (fast). | Slight duplication when multiple tools target same concept; mitigated by shared Core definitions. |
 
-##### Rationale  
+##### Rationale
 One‑way import graphs are a proven safeguard in operating systems
 (kernel vs user land) and layered protocols. Here the rule operationalises
 Pillars **P‑4 Open‑Ended Kernel** and **P‑5 Plug‑in Layering**, ensuring
 that innovation happens “below” without contaminating the timeless Core.
 
-##### Relations  
+##### Relations
 * **Parent umbrella:** `pat:constitution/guard‑rails` (E.5)  
 * **References layer definition:** `pat:constitution/artefact‑architecture` (E.4)  
 * **Instantiates pillars:** P‑4, P‑5  
@@ -23233,19 +23233,19 @@ that innovation happens “below” without contaminating the timeless Core.
 
 #### E.5.4 — Cross‑Disciplinary Bias Audit** \[D]
 
-##### Problem frame  
+##### Problem frame
 FPF calls itself trans‑disciplinary, but every author carries implicit
 metaphors from a home domain. If those metaphors leak into “universal”
 patterns, practitioners from other fields disengage or mis‑interpret the
 rules.
 
-##### Problem  
+##### Problem
 Unrecognised bias hides in wording, examples, unit choices or principle
 weighting. Once embedded in normative language, such bias is hard to
 remove and contradicts Pillars **P‑2 Didactic Primacy** and **P‑8
 Cross‑Scale Consistency**.
 
-##### Forces  
+##### Forces
 
 | Force | Tension |
 |-------|---------|
@@ -23253,7 +23253,7 @@ Cross‑Scale Consistency**.
 | **Conciseness** | Audit guidance must be brief ↔ must cover multiple bias types. |
 | **Longevity** | Guidance must survive emergence of new domains. |
 
-##### Solution — Principle‑Taxonomy‑Guided Bias Audit  
+##### Solution — Principle‑Taxonomy‑Guided Bias Audit
 
 1. **Bias‑Lens set**  
    Every normative pattern is assessed through **five lenses** that match the
@@ -23294,28 +23294,28 @@ Cross‑Scale Consistency**.
 | **CC‑BA.3** | If scope is declared, the pattern **SHALL** reference the mapping or rationale that enables cross‑domain translation. | Keeps pathways open for other calculi. |
 | **CC‑BA.4 (QD‑triad evidence for “universal”).** | Any pattern that labels itself **“universal”** SHALL cite **A.8 CC‑UC 1 + CC‑UC 2** and attach the **QD evidence** (Diversity_P + IlluminationSummary, with edition and binning) or else **scope** the claim to its home Context. | preserves domain quality diversity |
 
-##### Consequences  
+##### Consequences
 
 | Benefits | Trade‑offs / Mitigations |
 |----------|-------------------------|
 | Neutral, inclusive language attracts wider adoption. | Authors spend a few extra lines on Bias‑Annotation; mitigated by template snippet. |
 | Bias is surfaced at writing time, not after publication. | — |
 
-##### Rationale  
+##### Rationale
 Coupling the audit directly to the Principle Taxonomy keeps the guard‑rail
 **concept‑driven**, not workflow‑driven. No mention of review boards,
 CI‑jobs, or checklists appears in the Core; such mechanics belong in the
 Tooling Guide. This guard‑rail therefore satisfies **GR‑1** (Firewall)
 while securing Pillars **P‑2, P‑7 Pragmatic Utility, P‑8**.
 
-##### Relations  
+##### Relations
 * **Parent umbrella:** `pat:constitution/guard‑rails` (E.5)  
 * **Depends on:** `pat:constitution/principle‑taxonomy` (E.3)  
 * **Constrains:** All normative patterns claiming universality
   
 ### E.6 · Didactic Architecture of the Specification \[D]
 
-#### Problem frame  
+#### Problem frame
 FPF addresses readers from at least two characteristics of diversity:
 
 * **Disciplinary** – systems engineers, knowledge scientists, ethicists.  
@@ -23324,13 +23324,13 @@ FPF addresses readers from at least two characteristics of diversity:
 Past drafts mixed governance mandates with domain examples, producing a
 steep learning curve and repeated “forward‑reference” detours.
 
-#### Problem  
+#### Problem
 If core ideas are buried under formalism or scattered across parts,
 readers either give up or misuse the framework. We need a **fixed
 narrative scaffold** that guides cognitive load from low to high while
 keeping normative sections discoverable.
 
-#### Forces  
+#### Forces
 
 | Force | Tension |
 |-------|---------|
@@ -23338,7 +23338,7 @@ keeping normative sections discoverable.
 | **Conceptual Integrity** | Foregoing examples risks abstraction ↔ too many examples delay axioms. |
 | **Uniform Flow** | Single, predictable roadmap ↔ flexibility for future parts. |
 
-#### Solution — “On‑Ramp to Archetypes first, Authoring last” sequence  
+#### Solution — “On‑Ramp to Archetypes first, Authoring last” sequence
 
 The "On-Ramp First" Macro-Structure: The specification is ordered to create a smooth cognitive ramp:
 * It begins with an informal, non-normative Preface (The On-Ramp), which uses storytelling and concrete examples (System and Episteme) to build intuition.
@@ -23393,28 +23393,28 @@ The "On-Ramp First" Macro-Structure: The specification is ordered to create a sm
 | Smooth learning curve; readers can stop at their needed depth. | Template discipline required; mitigated by authoring guide (E.8). |
 | Reduces forward‑reference clutter; each concept is primed before formal use. | Preface evolves when new archetypes added; handled via On‑Ramp revision DRR. |
 
-#### Rationale  
+#### Rationale
 Educational research shows retention improves when abstract rules are
 immediately paired with contrasting illustrations. By fixing the reading
 order and mandating Tell‑Show‑Show inside every `[A]` pattern, FPF
 embeds pedagogy into its architecture, realising Pillars **P‑2 Didactic
 Primacy** and **P‑1 Cognitive Elegance** without weakening rigour.
 
-#### Relations  
+#### Relations
 * **Depends on:** `pat:constitution/guard‑rails` (GR‑1 ensures example jargon stays outside Core).  
 * **Constrains:** Placement of all Parts, patterns, and appendices.  
 * **Instantiates pillars:** P‑1, P‑2
   
-###  E.7 · Archetypal Grounding Principle \[D]
+### E.7 · Archetypal Grounding Principle \[D]
 
-#### Problem frame  
+#### Problem frame
 Universal rules are powerful only when readers can grasp them. In FPF the
 Conceptual Core speaks in substrate‑agnostic language: `U.Holon`,
 Γ‑aggregation, MHT emergence. Practitioners need to “see” those rules in
 familiar matter—physical hardware or bodies of knowledge—before they can
 reuse them.
 
-#### Problem  
+#### Problem
 A purely abstract statement risks two failures:
 
 1. **Didactic failure** – readers dismiss the pattern as “too meta,”
@@ -23422,7 +23422,7 @@ A purely abstract statement risks two failures:
 2. **Unproven universality** – without cross‑domain instantiation the rule
    remains an untested claim.
 
-#### Forces  
+#### Forces
 
 | Force | Tension |
 |-------|---------|
@@ -23430,7 +23430,7 @@ A purely abstract statement risks two failures:
 | **Brevity vs Clarity** | Spec should stay concise ↔ dual examples add length. |
 | **Rigour vs Accessibility** | Formal semantics ↔ intuitive narrative. |
 
-#### Solution — mandatory *Archetypal Grounding* subsection  
+#### Solution — mandatory *Archetypal Grounding* subsection
 
 Every architectural pattern (`[A]`) **SHALL** include a dedicated
 section, titled exactly **“Archetypal Grounding,”** that *shows* how the
@@ -23471,7 +23471,7 @@ This enforces a repeatable **Tell‑Show‑Show** rhythm:
 | **Narrative cohesion** – recurring System/Episteme protagonists create a memorable storyline. | — |
 |Built-in Proof of Universality: The specification consistently demonstrates its trans-disciplinary claims, building trust and credibility. | — |
 
-#### Rationale  
+#### Rationale
 Tell‑Show‑Show is a proven pedagogical sequence. By making it normative,
 FPF hard‑codes **P‑2 Didactic Primacy** into the fabric of every `[A]`
 pattern while still honouring **P‑1 Cognitive Elegance**—the grounding
@@ -23480,22 +23480,22 @@ example. Linking scope‑justification to the five Principle lenses ties the
 pattern to the **Taxonomy‑Guided Bias Audit** and keeps governance
 language out of the Core.
 
-#### Relations  
+#### Relations
 
 * **Implements macro flow:** `pat:authoring/didactic‑architecture` (E.6)  
 * **References base types:** `pat:kernel/holon` (A.1) (`U.System`, `U.Episteme`)  
 * **Interacts with bias guard‑rail:** `pat:guard/bias‑audit` (E.5.4) via CC‑AG.3  
 * **Constrains:** Authoring template in `pat:authoring/pattern‑template` (E.8)
 
-###  E.8 · FPF Authoring Conventions & Style Guide   \[A]
+### E.8 · FPF Authoring Conventions & Style Guide   \[A]
 
-#### Problem frame  
+#### Problem frame
 FPF grows through the addition of patterns written by authors from many
 disciplines.  Without a shared structure *and* voice the framework would
 fracture, violating Pillars **P‑1 Cognitive Elegance** and
 **P‑2 Didactic Primacy**.
 
-#### Problem  
+#### Problem
 *Structural drift* and *stylistic fragmentation* threaten three qualities:
 
 1. **Comparability** – readers cannot align patterns lacking common
@@ -23505,7 +23505,7 @@ fracture, violating Pillars **P‑1 Cognitive Elegance** and
 3. **Auditability** – missing sections hide safety checks
    (Archetypal Grounding, Bias‑Annotation).
 
-#### Forces  
+#### Forces
 
 | Force | Tension |
 |-------|---------|
@@ -23513,9 +23513,9 @@ fracture, violating Pillars **P‑1 Cognitive Elegance** and
 | **Rigor vs Readability** | Formal precision ↔ engaging prose. |
 | **Brevity vs Completeness** | Concise patterns ↔ mandated safety subsections. |
 
-#### Solution — One template, enriched by style principles  
+#### Solution — One template, enriched by style principles
 
-##### 1 · Canonical Pattern Template  
+##### 1 · Canonical Pattern Template
 All patterns **SHALL** follow this section order (headings verbatim).
 Sections marked ✱ are **mandatory for `[A]`**, optional for `[D]`.
 
@@ -23609,7 +23609,7 @@ If a pattern or example claims **autonomy** for any Role/Method/Service:
 
 **Format: human‑first.** A small table is allowed, but each row **MUST** be accompanied by 1–2 sentences as above. Vendor/tool tokens, file formats, or data schemas are out of scope.
 
-##### Conformance Checklist  
+##### Conformance Checklist
 
 | ID | Requirement | Purpose |
 |----|-------------|---------|
@@ -23624,7 +23624,7 @@ If a pattern or example claims **autonomy** for any Role/Method/Service:
 | **CC‑SG.9 (Lexical hygiene).** | The term **mapping** **SHALL NOT** appear in SoTA‑Echoing except in the precise E.10 sense; use **alignment/Bridge/relation** instead. | Avoids overloading reserved vocabulary. |
 | **CC‑SG.10 (No keyword soup).** | SoTA‑Echoing items **MUST** be written as sentences (not bare noun phrases); bullet lists are acceptable only with complete clauses. | Improves didactic quality and comparability. |
 
-##### Consequences  
+##### Consequences
 
 | Benefits | Trade‑offs / Mitigations |
 |----------|-------------------------|
@@ -23632,7 +23632,7 @@ If a pattern or example claims **autonomy** for any Role/Method/Service:
 | **Cohesive voice** – S‑principles give FPF a recognisable style, aiding memorability. | Reviewers must read for style, not only semantics; checklists ease load. |
 | **Embedded pedagogy** – Tell‑Show‑Show and Hook → Close heuristics turn the spec into a self‑teaching text. | Slightly longer patterns; justified by better comprehension and fewer clarifying DRRs. |
 
-##### Rationale  
+##### Rationale
 Structure and style function as FPF’s *grammar*. By unifying what were
 once separate “template” and “style guide” patterns, authors face a
 single reference point that satisfies:
@@ -23647,22 +23647,22 @@ omission via Bias‑Annotation—keeping pedagogy and neutrality explicit.
 
 Conformance checklist often has name conformance criteria in international and industry standards, FPF name it so to easier adopt by engineers and managers.
 
-##### Relations  
+##### Relations
 
 * **Implements:** `pat:authoring/didactic‑architecture` (E 6) & `pat:authoring/archetypal‑grounding` (E 7)  
 * **Constrained by:** Guard‑Rails E 5.1‑E 5.4 (lexical firewall, notation independence, etc.)  
 * **Constrains:** All future `NORM`, `A`, `D`, and `GOV` patterns; DRR template references the same section order.  
 
-###  E.9 · Design‑Rationale Record (DRR) Method \[D]
+### E.9 · Design‑Rationale Record (DRR) Method \[D]
 
-#### Problem frame  
+#### Problem frame
 FPF is engineered for Pillar **P‑10 Open‑Ended Evolution**: its normative
 rules must adapt as new calculi and insights arrive. But change without a
 record of *why* leads to conceptual erosion and undermines auditability.
 Hence FPF requires an explicit **Design‑Rationale Record (DRR)**—a
 durable *conceptual artefact* that precedes every normative change.
 
-#### Problem  
+#### Problem
 Direct edits to the Core, absent a structured rationale, trigger three
 systemic hazards:
 
@@ -23673,7 +23673,7 @@ systemic hazards:
 3. **Conceptual drift** – incremental tweaks slip past the Eleven Pillars
    and Principle Taxonomy lenses, blurring the framework’s foundations.
 
-#### Forces  
+#### Forces
 
 | Force | Tension |
 |-------|---------|
@@ -23681,10 +23681,11 @@ systemic hazards:
 | **Transparency vs Efficiency** | Provide a public argument trail ↔ avoid bureaucratic drag on minor edits. |
 | **Clarity vs Conciseness** | Capture full reasoning ↔ prevent meta‑text from bloating the Core itself. |
 
-#### Solution — the DRR as a structured argument  
+#### Solution — the DRR as a structured argument
 Any proposal to add, modify or deprecate a `NORM`, `A`, `D`, or `GOV`
-rule **MUST** be accompanied by a **Design‑Rationale Record** containing
-exactly four conceptual components:
+rule **MUST** be accompanied by a **Design‑Rationale Record**. By default,
+it contains exactly four conceptual components (below); a lightweight
+editorial variant is permitted by CC‑DRR.5.
 
 | Component | Guiding question | Typical content |
 |-----------|------------------|-----------------|
@@ -23693,9 +23694,16 @@ exactly four conceptual components:
 | **Rationale** | *Why is this the right thing?* | Comparison of alternatives, Pillar check, taxonomy‑lens balance. |
 | **Consequences** | *What happens next?* | Expected benefits, trade‑offs, impacted patterns, risk notes. |
 
-The DRR lives **outside** the normative Core; only its *Decision* flows
-into the specification upon acceptance, preserving Core brevity while
-storing provenance.
+The DRR lives **outside** the normative Core. Upon acceptance, its
+*Decision* **SHALL** be applied to the relevant pattern(s) as explicit
+normative text (the change is "in the Core"; the DRR is not).
+
+To preserve **P‑2 Didactic Primacy** without duplicating meta‑text,
+stable and reusable parts of the DRR’s *Rationale* and *Consequences*
+**SHOULD** be **distilled** into the **informative** sections of the
+affected pattern(s) (Rationale, Consequences, SoTA‑Echoing, Archetypal
+Grounding; per the Pattern Template, E 8). The full DRR remains
+external as provenance.
 
 #### Archetypal Grounding (System / Episteme)
 
@@ -23708,30 +23716,32 @@ storing provenance.
 
 | ID | Requirement | Purpose |
 |----|-------------|---------|
-| **CC‑DRR.1** | Any change to a `NORM`, `A`, `D`, or `GOV` pattern **SHALL** be preceded by an accepted DRR containing Context, Decision, Rationale, Consequences. | Prevents undocumented edits. |
+| **CC‑DRR.1** | Any **semantic** change (Δ‑2/Δ‑3) to a `NORM`, `A`, `D`, or `GOV` pattern **SHALL** be preceded by an accepted DRR containing Problem‑frame (Context), Decision, Rationale, Consequences. | Prevents undocumented semantic edits. |
+| **CC‑DRR.1a** | When the proposed change is expressed as a (new or revised) pattern written in the standard template (E 8), the DRR **MAY** satisfy its four components by **pointing to** the corresponding pattern sections, rather than duplicating prose. | Avoids “double writing” while keeping the argument recoverable. |
 | **CC‑DRR.2** | The *Rationale* element **MUST** assess the proposal against **all Eleven Pillars** and the five Principle‑Taxonomy lenses (`Gov`, `Arch`, `Onto/Epist`, `Prag`, `Did`). | Keeps evolution aligned and cross‑disciplinary. |
 | **CC‑DRR.3** | The DRR **SHALL** list every pattern it supersedes, amends, or risks impacting. | Maintains explicit impact graph. |
-| **CC‑DRR.4** | Once approved, only the *Decision* text is inserted into the Core; other DRR sections **SHALL NOT** migrate into normative prose. | Preserves Core brevity; provenance remains external. |
-| **CC‑DRR.5** | Minor, non‑substantive edits (e.g., typos) **MAY** follow a lightweight DRR variant containing Context + Decision only, provided they do not alter semantics. | Allows efficiency without eroding rigour. |
-| ^^CC‑DRR.6 (LAT pointer)** | For Δ‑2/Δ‑3 changes to part F or part G patterns, the DRR SHALL include a non‑normative pointer (id/URI) to a published LEX‑AUTH Trace (LAT) archived as U.Work; the LAT is evidence, not normative prose.
+| **CC‑DRR.4** | Once approved, the *Decision* text **SHALL** be inserted into the Core as the normative change. Other DRR sections **MAY** be distilled into **informative** pattern sections (Rationale/Consequences/SoTA‑Echoing/Grounding) but **SHALL NOT** introduce new normative constraints except via explicit `NORM`/`A`/`D`/`GOV` text. | Preserves brevity while keeping the Core teachable. |
+| **CC‑DRR.5** | Minor, non‑substantive edits (Δ‑0/Δ‑1; e.g., typos, wording clarity, didactic rearrangements) **MAY** follow a lightweight DRR variant containing Problem‑frame (Context) + Decision only (“no semantic change”), provided they do not alter semantics. | Avoids bureaucratic drag on editorial work. |
+| **CC‑DRR.6 (LAT pointer)** | For Δ‑2/Δ‑3 changes to part F or part G patterns, the DRR **SHALL** include a non‑normative pointer (id/URI) to a published LEX‑AUTH Trace (LAT) archived as `U.Work`; the LAT is evidence, not normative prose. | Binds high‑impact changes to re‑runnable authoring evidence without importing tooling. |
 
 #### Consequences
 
 | Benefits | Trade‑offs / Mitigations |
 |----------|-------------------------|
-| **Complete audit trail** – every normative change carries a structured “why”. | Adds deliberate friction; mitigated by CC‑DRR.5 for trivial fixes. |
+| **Complete audit trail** – every semantic normative change carries a structured “why”. | Adds deliberate friction; mitigated by CC‑DRR.5 (Δ‑0/Δ‑1 lightweight) and CC‑DRR.1a (pointer‑based DRRs). |
 | **Higher decision quality** – Pillar & lens check surfaces hidden conflicts early. | Authors must learn taxonomy; template checklist shortens ramp‑up. |
 | **Institutional memory** – prevents re‑litigation of rejected alternatives. | DRR archive grows; index stored in a non‑normative annex. |
 
-#### Rationale  
-A legal code evolves by amendments, not by editing the statute in place;
-FPF adopts the same discipline. The DRR embodies **P‑10 Open‑Ended
-Evolution** while protecting **P‑1 Cognitive Elegance**: the Core remains
-succinct, yet its evolution is fully transparent. Coupling the argument
-to the Pillars and taxonomy lenses aligns each change with FPF’s
-constitution and Guard‑Rails, without prescribing tooling workflows.
+#### Rationale
+FPF evolves by **explicit, reviewable deltas** rather than silent edits.
+The DRR is the *minimal structured argument* that keeps **P‑10
+Open‑Ended Evolution** compatible with **P‑1 Cognitive Elegance** and
+**P‑2 Didactic Primacy**: the Core stays succinct and teachable, while
+the “why” is recoverable. Pointer‑based DRRs (CC‑DRR.1a) prevent
+duplicated prose, and distillation into informative pattern sections
+(CC‑DRR.4) keeps the spec itself learnable.
 
-#### Relations  
+#### Relations
 
 * **Instantiates:** P‑10 Open‑Ended Evolution, P‑2 Didactic Primacy  
 * **Template governed by:** `pat:authoring/pattern‑template` (E 8)  
@@ -23764,7 +23774,7 @@ constitution and Guard‑Rails, without prescribing tooling workflows.
 
 ---
 
-## 2 · Problem 
+## 2 · Problem
 
 1. **Polysemy drift.** *Process, function, service, agent, activity* slide between structure, recipe, execution, and promise.
 2. **Cross‑context collision.** A label (e.g., *Owner*) is assumed “global” though meanings differ per `U.BoundedContext`.
@@ -23815,7 +23825,7 @@ Below are the **normative clauses**
 
 **V‑4 (Firewall).** Tooling/Pedagogy idioms shall not leak into Kernel prose (DevOps Lexical Firewall). CI/CD jargon, file formats, or API names **MUST NOT** appear in Core definitions. (Pedagogy may use them **as examples** only, in the **Plain** register, with Tech anchors present.)
 
-## 6 · Ontology Guards 
+## 6 · Ontology Guards
 
 ### 6.1 Tech register ontology guards
 
@@ -24715,7 +24725,7 @@ The platform offers **Service** ‘Object Storage’ (access = `S3_API_Spec_vX`;
 
 **Applicability.** Whenever an FPF text introduces or uses an intensional `U.Type` (e.g., `U.Role`, `U.Method`, `U.Service`, `U.System`, `U.Work`, `U.RCS`, `U.RSG`, `U.RoleEnactment`) in any part (A–H).
 
-### 2 · Problem 
+### 2 · Problem
 
 1. **Plane/layer mixing.** Intensions are routinely conflated with their documents and with runtime facts.
 2. **Name drift.** “Spec” gets used for any write‑up; “status” drifts between states of a role and epistemic/deontic statuses over knowledge units.
@@ -25542,7 +25552,7 @@ This pattern does not weaken the formal rigor established by other ADRs; it comp
 *   **Complements:** `E.13 Pragmatic Utility & Value Alignment` (which focuses on the relevance of the *problem*, while this pattern focuses on the usability of the *framework*).
 *   **Is constrained by:** The overall governance process (DRRs), which is the vehicle for implementing the conceptual simplifications proposed by the HF-Loop.
 
-### Pattern E.13 — Pragmatic Utility & Value Alignment \[A] 
+### Pattern E.13 — Pragmatic Utility & Value Alignment \[A]
 
 **Context**
 
@@ -25681,7 +25691,7 @@ This pattern dovetails with the framework’s unification stance (**small Workin
 
 ---
 
-### 4  Solution 
+### 4  Solution
 
 #### 4.1 Human-Centric principles
 
@@ -28845,7 +28855,7 @@ Architheories in Part C (Sys‑CAL, KD‑CAL, Kind-CAL, Method‑CAL, LCA‑CA
 
 > “Before you name anything, **fix the context of meaning**. A *Context* is a **U.BoundedContext** tied to a specific canon—*BPMN 2.0*, *PROV‑O*, *ITIL 4*, *SOSA/SSN*, *IEC 61131‑3*, *OWL 2*. Words are **local to Contexts**: *process (BPMN)* is a workflow graph, *activity (PROV)* is a run‑time occurrence, *service (ITIL)* is a promise vocabulary. Cut the landscape so each unification line sees **at least three domain families**, with **one‑screen Cards** per Context (scope gist, time stance, trip‑wires). **Do not bridge** Contexts here—just write down the itch to bridge and defer it. Keep the cut **small enough to remember**. With Contexts fixed, harvesting (F.2), local clustering (F.3), role/status templates (F.4), and explicit Cross‑context bridges (F.9) become straightforward—and you avoid naming ghosts that come from words floating without walls.”
 
-# F.2 — Term Harvesting & Normalisation \[A] 
+# F.2 — Term Harvesting & Normalisation \[A]
 
 **“Harvest words *inside Contexts*, name them in the Context’s own idiom, and stop there.”**
 **Status.** Architectural pattern \[A], architheory‑agnostic.
@@ -29178,7 +29188,7 @@ Architheories in Part C when referencing domain idioms (labels stay **context�
 
 > “In F.2 you **harvest inside Contexts**. For each Context, pick the canon’s own phrasing, choose a **Local Normal Form** in that idiom, add **Tech** and **Plain** labels, and write a one‑sentence **Gloss** that matches how that Context talks. Stop there. No bridging, no behaviour, no equations. If the same string appears in another Context, treat it as a **different unit**. These units feed F.3, where you’ll sort senses **within** a Context, and F.9, where you’ll relate Contexts explicitly. This keeps meaning local, names faithful, and later reasoning clean.”
 
-# F.3 — Intra‑Context Sense Clustering \[A] 
+# F.3 — Intra‑Context Sense Clustering \[A]
 
 **“Within one context, decide what ‘the same sense’ really is—before you ever cross Contexts.”**
 **Status.** Architectural pattern \[A], architheory‑agnostic.
@@ -29535,7 +29545,7 @@ Part C architheories to ground examples and invariants in **Context‑true** l
 
 > **Within one context,** collect how the canon actually **uses** a head, not how we wish it did. **Merge** aliases that never lead to different conclusions; **split** uses that do. Give each consolidated use a crisp **Tech** label in the Context’s idiom and a faithful **Plain** label. The pair *(Context, Local-Sense)* is your **SenseCell**—the address later cited by Role Descriptions, tables, and bridges. No Cross‑context mergers here; that job belongs to F.9. Keep senses few, boundaries sharp, and labels honest.
 
-## F.4 — Role Description (RCS + RoleStateGraph + Checklists) \[A] 
+## F.4 — Role Description (RCS + RoleStateGraph + Checklists) \[A]
 
 **“Name the mask or the badge — and say what it commits to — but only inside a Context.”**
 **Status.** Architectural pattern \[A], architheory‑agnostic.
@@ -29884,7 +29894,7 @@ A.15 family (Role–Method–Work alignment) to interpret **System‑in‑Role**
 > Keep cards **one‑screen simple**: enough to decide assignments; nothing procedural; no tools; just clear thought.
 
 
-# F.5 — Naming Discipline for U.Types & Roles \[D] 
+# F.5 — Naming Discipline for U.Types & Roles \[D]
 
 **Status.** Definitional pattern \[D], architheory‑agnostic.
 **Depends on.** E.10.D1 **Lexical Discipline for “Context” (D.CTX)**; **E.10.D2 Intension–Description–Specification (I/D/S)**; F.1 **Domain‑Family Landscape Survey**; F.2 **Term Harvesting & Normalisation**; F.3 **Intra‑Context Sense Clustering**; F.4 **Role Description Definition**; A.7 **Strict Distinction**; A.11 **Ontological Parsimony**; F.0.1 **context‑local Lexicon Principle (RLP)**.
@@ -30201,7 +30211,7 @@ ITIL: *incident status* • Safety cert.: *assurance level* • QA: *readiness l
 > The label is the **last step of understanding**, not the first.
 
 
-## F.6 — Role Assignment & Enactment Cycle (Six-Step) \[A] 
+## F.6 — Role Assignment & Enactment Cycle (Six-Step) \[A]
 
 **“Assign only what you can later justify by local meaning and observable facts.”**
 **Status.** Architectural pattern \[A], architheory‑agnostic.
@@ -30774,7 +30784,7 @@ Part C architheories for didactic alignment pages; Part B trust calculus (B.
 
 > “A **Concept-Set row** shows **one idea across Contexts**—but only where explicit **Bridges** license it. Columns are Contexts; cells are **their own labels**. The row prints a **scope** (‘Naming-only’, ‘assignment/enactment-eligibility’, ‘Type-structure’, ‘KD-metric’) and the **weakest CL** that justifies reading across. A **one‑line rationale** says why sameness is safe **here**; a **counter‑example** warns where it breaks. Keep rows small (2–4 Contexts), typed (don’t mix senseFamilies), and temporally honest (design vs run stance). If Bridges don’t suffice, publish a **contrast row** instead. The table doesn’t invent meaning; it **summarises licensed sameness** so readers can cross disciplines without smuggling assumptions.”
 
-# F.8 — Mint or Reuse? (U.Type vs Concept-Set vs Role Description vs Alias) \[A] 
+# F.8 — Mint or Reuse? (U.Type vs Concept-Set vs Role Description vs Alias) \[A]
 
 **“Name only what thinking **requires**, and reuse everything else.”**
 
@@ -31112,7 +31122,7 @@ If assignable behaviour is needed in a model, **mint Role Description** anchored
 > “When you feel like coining a new name, pause. **Which senseFamily** are you in—Role, Status, Measurement, Type‑structure, Method, or Execution? If a **single Context’s SenseCell** already says it, **reuse** that label. If you need an assignable Standard, **mint a Role Description** anchored to that SenseCell. If you must read **across Contexts**, reuse a **Concept‑Set row**—but only **at a stated scope** and only if its **CL meets the threshold** (τ). If it’s just a nicer wording, add an **Alias** (style only). Only in the rare case of a cross‑family, **irreducible** notion do you **mint a new U.Type**. Never let Naming‑only rows justify  **Assignment-eligibility** or structural inference, and never let identical strings force equivalence. This is not process—it’s **discipline of thought**: reuse what exists, declare scope when you bridge, and mint new primitives only when the kernel truly needs them.”
 
 
-# F.9 — Alignment & Bridge across Contexts \[A] 
+# F.9 — Alignment & Bridge across Contexts \[A]
 
 **“Translate across Contexts; never collapse them.”**
 **Status.** Architectural pattern \[A], architheory‑agnostic.
@@ -31497,7 +31507,7 @@ CL expresses how safely meaning carries over.
 
 > “A **Bridge** translates between **local senses** from different **Contexts**. It always declares **what relation** (≈, ⊑, ⋂, ⊥, or an **interpretation** like design↔run), **how strong** (CL 0–3), **which way** (for ⊑/⊒), and **what is lost**. **Substitution** is allowed only on the **same senseFamily** and only with **CL≥2**; **Type‑structure** needs **CL=3**. **Interpretation Bridges** explain, never substitute. Rows in the Concept‑Set table obey the **weakest‑link**: their scope cannot exceed the lowest CL among their Bridges. When editions change or counter‑examples surface, **lower CL** or change **kind**; if two senses truly converge and invariants match, raise to **CL=3**—rarely, and with reasons. Translate across Contexts; never collapse them.”
 
-# F.10 — Status Families Mapping (Evidence • Standard • Requirement) \[A] 
+# F.10 — Status Families Mapping (Evidence • Standard • Requirement) \[A]
 
 **“Keep statuses in their native modality; translate between Contexts explicitly.”**
 **Status.** Architectural pattern \[A], architheory‑agnostic.
@@ -31883,7 +31893,7 @@ Service Acceptance (F.12), Assurance roll‑ups (B.3), any cross‑domain confor
 > Keep **design vs run** stance honest: approval is **design‑time**, evidence is **run‑time**, requirements **span both**. With this habit, “validated”, “approved” and “compliant” stop being a muddle of synonyms and become **precise, local meanings** you can compare **safely** and **audibly**.
 
 
-# F.11 — Method Quartet Harmonisation \[A] 
+# F.11 — Method Quartet Harmonisation \[A]
 
 **“Keep the *how* (Method), the *recipe* (MethodDescription), the *happening* (Work/Execution), and the *control push* (Actuation) in their own Contexts—then relate them explicitly.”**
 
@@ -32239,7 +32249,7 @@ Part C architheories (Sys‑CAL, KD‑CAL, Method‑CAL, Kind-CAL, LCA‑CAL) 
 > For compliance, don’t point at the plan—point at **Work**, show **Observations**, and judge clauses in **F.10**.
 > Hold this quartet in your head and you’ll stop mixing plans with facts, signals with outcomes, and names across Contexts. + Everything else—naming (F.5), `U.RoleDescription` (F.4) and `U.RoleAssignment`/`U.RoleEnactment` (A.2.1/F.6), Bridges (F.7/F.9)—falls into place.
 
-# F.12 — Service Acceptance Binding \[A] 
+# F.12 — Service Acceptance Binding \[A]
 
 **“Judge promises on what happened, not on what was planned.”**
 **Status.** Architectural pattern \[A], architheory‑agnostic.
@@ -32590,7 +32600,7 @@ Every verdict is **time‑bounded**. Changing the Window can change the result; 
 > **Bind promises to runs with measurements in time.**
 > Name the **Clause**, the **Work** it talks about, the **Measure** of what actually happened, and the **Window**. Evaluate the Clause’s **Predicate** on Observations **about that Work in that Window**. If any concept crosses Contexts, declare a **Bridge** with **kind/CL/Loss**. The verdict (**Satisfied/Violated/Inconclusive**) attaches to **Clause\@Window about Work**, never to a plan or to the abstract service.
 
-# F.13 — Lexical Continuity & Deprecation \[A] 
+# F.13 — Lexical Continuity & Deprecation \[A]
 
 **“Change names without changing history.”**
 **Status.** Architectural pattern \[A], architheory‑agnostic.
@@ -32916,7 +32926,7 @@ All Part C architheories when editions shift; all examples and tutorials when 
 
 > **Names are lenses.** The *thing* that persists is the **sense** (a SenseCell in a Context, a Concept‑Set row, a Role Description). When you improve a lens, use **`renames`** or **`aliases`** **inside that same place**. When the *thing* changes, say so with **`splits/merges`**—and adjust rows/Bridges accordingly. **Never rename across Contexts.** Keep at most **one** legacy alias per register. Do **not** rewrite history; give readers **read‑paths** and brief epoch notes. With this discipline, you can clarify language without erasing meaning, and your models keep both **continuity** and **truth**.
 
-# F.14 — Anti‑Explosion Control (Roles & Statuses) \[A] 
+# F.14 — Anti‑Explosion Control (Roles & Statuses) \[A]
 
 **“Name less, express more.”**
 
@@ -33226,7 +33236,7 @@ Let **`rowOf(τ)`** be the Concept‑Set row of template **τ**, **`senseOf(τ)`
 > **(4) Window, don’t multiply** — one **Status** can wear different **windows** (evaluation/active/grace); that’s not four Status types.
 > Keep modifiers as **facets**, not names; keep every Role Description **context‑local** via its SenseCell. If your vocabulary no longer fits in a thoughtful mind, you have an **explosion**—return to the levers and reduce.
 
-# F.15 — SCR/RSCR Harness for Unification \[A] 
+# F.15 — SCR/RSCR Harness for Unification \[A]
 
 **“Prove locality and parsimony first; only then prove composition.”**
 **Status.** Architectural pattern \[A], architheory‑agnostic.
@@ -33642,7 +33652,7 @@ A unification slice is **publish‑ready** when:
 
 > “Use the harness to **think like a safety net**. First, the **SCR** threads: everything is **local** to a Context; **Role Descriptions** point to **one** SenseCell; rows actually **cross** Contexts; Bridges are explicit with CL and a loss note; windows capture variation without spawning new types. Then, the **RSCR** knots: never overwrite an edition—**fork the Context** or mark recency; keep rows stable by **retiring and re-rowing**; Bridges get **re-validated** (CL goes down unless you bring proof); renames become **aliases** unless meaning changes; **windows** absorb time/scale shifts; **SoD** stays intact. If you can pass these thoughts on a small slice—and explain each pass in **one breath**—your unification is green. No tooling, no roles, no dashboards. Just clean Contexts, honest rows, cautious bridges, and names that help minds meet.”
 
-# F.16 — Worked‑Example Template (Cross‑Domain) \[A] 
+# F.16 — Worked‑Example Template (Cross‑Domain) \[A]
 
 **“Show the thought, not the tooling.”**
 **Status.** Architectural pattern \[A], architheory‑agnostic.
@@ -35428,7 +35438,7 @@ CharacteristicSpace includes a **domain‑family coordinate** (grid or CVT / Cen
 * **Local first, portable later:** clear Context‑local semantics with **explicit Bridges** (CL) for crossing.
 * **Direct line to F:** outputs are *immediately usable* in F.17 UTS & F.18 naming; no translation pass.
 
-### 10) Worked micro‑sketch 
+### 10) Worked micro‑sketch
 
 **CG-Frame:** Multi‑criteria Decisions in R\&D
 
