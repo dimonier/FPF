@@ -41,6 +41,7 @@ Pattern and headers templates are explained in pattern E.8.
 | A.2.4 | **`U.EvidenceRole`: The Evidential Stance** | Stable | *Keywords:* evidence, claim, support, justification, episteme. *Queries:* "How does an episteme serve as evidence?", "Modeling evidence roles." | **Builds on:** A.2. **Informs:** A.10, B.3. |
 | A.2.5 | **`U.RoleStateGraph`: The Named State Space of a Role**| Stable | *Keywords:* state machine, RSG, role state, enactability, lifecycle. *Queries:* "How to model the state of a role?", "What is a Role State Graph?" | **Builds on:** A.2.1. **Prerequisite for:** A.15. |
 | A.2.6 | **Unified Scope Mechanism (USM): Context Slices & Scopes**| Stable | *Keywords:* scope, applicability, ClaimScope (G), WorkScope, set-valued. *Queries:* "How to define the scope of a claim or capability?", "What is G in F-G-R?" | **Builds on:** A.1.1. **Constrains:** A.2.2, A.2.3, B.3. |
+| A.2.7 | **`U.RoleAlgebra`: In-Context Role Relations (`≤`, `⊥`, `⊗`)** | New | *Keywords:* role algebra, specialization (`≤`), incompatibility (`⊥`), bundles (`⊗`), separation of duties (SoD), requiredRoles substitution. *Queries:* "What does `RoleS ≤ RoleG` mean in FPF?", "How do I encode Separation of Duties with `⊥`?", "How do role bundles (`⊗`) work?" | **Builds on:** A.2. **Prerequisite for:** A.15, A.2.5. |
 | ***Cluster A.II - Transformation Engine*** | | | | |
 | A.3 | **Transformer Constitution (Quartet)** | Stable | *Keywords:* action, causality, change, System-in-Role, MethodDescription, Method, Work. *Queries:* "How does FPF model an action or a change?", "What is the transformer quartet?" | **Builds on:** A.2. **Prerequisite for:** A.3.1, A.3.2, A.15. |
 | A.3.1 | **`U.Method`: The Abstract Way of Doing** | Stable | *Keywords:* recipe, how-to, procedure, abstract process. *Queries:* "What is a Method in FPF?", "Difference between Method and Work." | **Refines:** A.3. **Prerequisite for:** A.15. |
@@ -1032,7 +1033,7 @@ A `U.BoundedContext` is a composite holon whose *parts* constitute the context�
 
 > *If meaning is local by design, then translation must be explicit by design.*
 
-**Invariants (must‑hold, concept‑level).**
+**Admissibility constraints (concept-level; non-deontic).**
 
 * **BC‑1 (Holon nature).**  A `U.BoundedContext` is a `U.Holon` and declares a `U.Boundary`.
 * **BC‑2 (Flat context map).** No `U.BoundedContext` is modeled as inheriting from, containing, or being contained by another `U.BoundedContext`; cross-context relations are represented only via explicit `Bridges` (E.10.D1 / E.10.U9).
@@ -1203,7 +1204,7 @@ Short form (readable): `Holder#Role:Context@Window`.
 * **MethodDescription** persists as Episteme. A Role **binds** to Method (design‑time), and Work **performs** Method under that Role (run‑time). This preserves the *role ≠ behaviour* split and the *design ↔ run* duality.
 * Only **Work** carries resource deltas (feeds Γ\_work); a Role never does.
 
-#### A.2:4.3 - Invariants (must‑hold, concept‑level)
+#### A.2:4.3 - Admissibility constraints (concept-level; non-deontic).
 
 1. **Locality.** `role ∈ Roles(context)`. Outside its context, a role’s meaning is undefined.
 2. **Non‑mereological.** No Role (nor Method/MethodDescription) may appear in any `partOf` chain; holarchies are for substantial holons only.
@@ -1359,7 +1360,9 @@ Recommended for governance‑heavy domains; it improves explainability without c
 
 **Builds on:** A.1 **Holonic Foundation**, A.1.1 **`U.BoundedContext`**, A.2 **Role Taxonomy**.  
 **Coordinates with:** A.13 **Agential Role & Agency Spectrum**, A.15 **Role–Method–Work Alignment**, E.10.D1 **D.CTX (Context discipline)**, E.10.D2 **Strict Distinction**.  
-**Lexical discipline.** *Context* ≡ `U.BoundedContext` (E.10.D1). *Appointment* is **colloquial only** and must not appear in normative clauses. Canonical term: **Role Assignment**.
+**Lexical discipline.** *Context* ≡ `U.BoundedContext` (E.10.D1). *Appointment* is **colloquial only**; the canonical term in this specification is **Role Assignment** (see **CC‑LX‑1**).
+
+**Mint vs reuse.** This pattern defines `U.RoleAssignment` and `U.RoleEnactment` and introduces the labels `Role Characterisation Space (RCS)` and `Role State Graph (RSG)` as intensional facets recorded in `RoleDescription` / `RoleSpec`. It reuses existing kernel terms (`U.Holon`, `U.System`, `U.Episteme`, `U.BoundedContext`, `U.Work`, `U.Method`) without changing their meanings.
 
 ### A.2.1:1 - Problem frame
 
@@ -1371,6 +1374,7 @@ Recommended for governance‑heavy domains; it improves explainability without c
 * Separates that binding from **`U.RoleEnactment`** (the run‑time fact that a piece of **Work** was performed under that assignment).
 * Names the **Role Characterisation Space (RCS)** and the **Role State Graph (RSG)** as **intensional** facets of a Role (recorded in its `RoleDescription`, upgraded to `RoleSpec` only after tests exist).
 * Declares **eligibility** constraints so Roles apply to the right holon kinds, **without badge‑of‑badge chains** like “TransformerRole is assigned to be AgentRole”. If your Context wants taxonomic inheritance between role names, express it with in‑Context role algebra (`≤`), not via chained assignments.
+* Declares **eligibility** constraints so Roles apply to the right holon kinds, **without badge‑of‑badge chains** like “TransformerRole is assigned to be AgentRole”. If a Context intends taxonomic inheritance between role names, that relation is expressed in‑Context via role algebra (`≤`), not via chained assignments.
 
 **Non‑goals.** No storage models, no workflows, no org charts. This is a **thinking Standard**; all semantics are notation‑free.
 
@@ -1411,16 +1415,16 @@ RoleAssignment ::=
    provenance?: U.Method〉
 ```
 
-**Invariants (must‑hold, concept‑level).**
+**Admissibility constraints (concept‑level; non‑deontic).**
 
-* **RA‑1 (Locality).** `role ∈ Roles(context)`. The role’s meaning is exactly the one recorded in that Context’s RoleDescription/RoleSpec.
-* **RA‑2 (No role‑of‑role).** `holder` is a `U.Holon` (System, Episteme, or composite). Assigning roles **to roles** is forbidden.
-* **RA‑3 (Eligibility by role kind).**
+* **Invariant RA‑1 (Locality).** `role ∈ Roles(context)`. The role’s meaning is exactly the one recorded in that Context’s RoleDescription/RoleSpec.
+* **Invariant RA‑2 (No role‑of‑role).** `holder : U.Holon` and `holder ∉ {U.Role, U.RoleAssignment}`. (Roles/assignments are never holders.)
+* **Invariant RA‑3 (Eligibility by role kind).**
   * **Behavioural roles** (agential/transformer/observer/speech and their refinements): `holder` is a `U.System`. Only systems can enact Methods and produce Work.
   * **Status roles** (epistemic‑status / normative‑status / service‑governance): `holder` is a `U.Episteme`. Epistemes never enact Work; they gate and justify.
-  * Contexts may refine eligibility (e.g., “Approver must be human”), but may not weaken the System/Episteme split.
-* **RA‑4 (Window discipline).** If `window` is present, enactments occur within it. If `window` is absent, interpret the assignment as open‑ended **from an assignment time that is still traceable** (e.g., via an issuing `U.RoleAssigning` SpeechAct Work or other evidence).
-* **RA‑5 (Separation).** A RoleAssignment confers **the capacity/authorization to act** (or the status to be recognised), but it is **not behaviour** (no Work implied), **not capability** (intrinsic ability lives elsewhere), and **not structure** (may never appear in a BoM).
+  * Context refinements may tighten eligibility (e.g., “Approver must be human”) but are restrictions of the System/Episteme split (they do not weaken it).
+* **Invariant RA‑4 (Window discipline).** If `window` is present, enactments occur within it. If `window` is absent, interpret the assignment as open‑ended **from an assignment time that is still traceable** (e.g., via an issuing `U.RoleAssigning` SpeechAct Work or other evidence).
+* **Invariant RA‑5 (Separation).** A RoleAssignment confers **the capacity/authorization to act** (or the status to be recognised), but it is **not behaviour** (no Work implied), **not capability** (intrinsic ability lives elsewhere), and **not structure** (it does not participate in BoM / part‑of structure).
 
 **Governance metadata (optional but first‑class when present).**
 
@@ -1442,12 +1446,12 @@ A RoleAssignment can be:
 RoleEnactment ::= 〈work: U.Work, by: U.RoleAssignment〉
 ```
 
-**Invariants (must‑hold, concept‑level).**
+**Admissibility constraints (concept‑level; non‑deontic).**
 
-* **RE‑1 (Actor reality).** `by.holder` **MUST** be a `U.System`. (Epistemes never enact Work.)
-* **RE‑2 (Temporal fit).** `work.window` **MUST** overlap `by.window` (or `by.window` is open and contains `work.window`).
-* **RE‑3 (Method gate).** For the `MethodStep` realised by `work`, `by.role` **MUST** satisfy the step’s `requiredRoles` in that **same Context** (directly or via `≤` specialization inside the Context).
-* **RE‑4 (Traceability shape).** `U.Work` records cite the performer as `performedBy = some U.RoleAssignment`. `U.RoleEnactment` is the conceptual (or derived) association `〈work, work.performedBy〉`; if a system persists it explicitly, it is 1:1 with Work.
+* **Invariant RE‑1 (Actor reality).** `by.holder : U.System`. (Epistemes never enact Work.)
+* **Invariant RE‑2 (Temporal fit).** `work.window` overlaps `by.window` (or `by.window` is open and contains `work.window`).
+* **Invariant RE‑3 (Method gate).** For the `MethodStep` realised by `work`, `by.role` satisfies the step’s `requiredRoles` in that **same Context** (directly or via `≤` specialization inside the Context).
+* **Invariant RE‑4 (Traceability shape).** `U.Work` records cite the performer as `performedBy = some U.RoleAssignment`. `U.RoleEnactment` is the conceptual (or derived) association `〈work, work.performedBy〉`; if a system persists it explicitly, it is 1:1 with Work.
 
 *Reading:* **Assignments authorize; enactments happen.** That single sentence prevents months of muddled logs.
 
@@ -1463,12 +1467,12 @@ These are **intensional facets** of a **Role**, not containers “inside” the 
   * Each **state** has a **Conformance Checklist** (set of observable cues) supporting **Evaluations** (“X ∈ *Authorized*@context in W”).
   * RSG governs **role state transitions**, independent of any Work instance.
 
-**Discipline.** Say *“Role is **characterised by** RCS/RSG recorded in RoleDescription”*, never “Role **contains** its states.”
+**Discipline.** Prefer the phrasing *“Role is **characterised by** RCS/RSG recorded in RoleDescription”*; avoid “Role **contains** its states.”
 
 
 #### A.2.1:4.4 - Shorthand & reading
 
-Use the canonical compact form in prose and diagrams:
+The canonical compact form used in prose and diagrams is:
 
 ```
 Holder#Role:Context@Window
@@ -1484,13 +1488,13 @@ Examples:
 
 #### A.2.1:4.5 - No role chains (use algebra, not badge‑of‑badge)
 
-You must not encode taxonomy by chaining assignments (e.g., “X is assigned TransformerRole, therefore TransformerRole is assigned AgentRole”). Chaining hides intent and defeats validation.
+Chained assignments are ill‑formed for encoding taxonomy (see **Invariant RA‑2** and **CC‑ELIG‑3**). Chaining hides intent and defeats validation.
 
-If your Context intends taxonomic inheritance between role names, declare it **explicitly** in the Context’s role algebra. For example, if (per A.13) your Context treats every transformer as a kind of agent, state:
+Taxonomic inheritance between role names is declared explicitly in the Context’s role algebra. For example, if (per A.13) your Context treats every transformer as a kind of agent, state:
 
 * `TransformerRole ≤ AgentialRole` *(in that Context’s role algebra)*
 
-When a holder must satisfy two independent requirements, express the conjunction where it belongs:
+When a MethodStep requires two independent roles, express the conjunction where it belongs:
 
 * the **MethodStep** requires both roles; the holder **wears two badges**, not a badge‑of‑a‑badge.
 
@@ -1512,11 +1516,11 @@ A Role’s **family** constrains **who can wear its badge**. Eligibility is part
 | **Transformer/Constructor** (e.g., *Welder*, *ETL‑Runner*)               |           **✓**           |              ✗              | Performs Methods; produces Work; often requires *Capability* evidence.                                                         |
 | **Observer/Measurer** (e.g., *Observer*, *Monitor*)                      |           **✓**           |              ✗              | Produces `U.Observation`; may be passive (probe) or active (test rig).                                                         |
 | **Communicator/Speech** (e.g., *Authorizer*, *Notifier*)                 |           **✓**           |              ✗              | A behavioural role; produces `U.Work` typed as SpeechAct.                                                                      |
-| **Service‑Governance** (e.g., *ServiceOffering*, *SLO‑ClauseCarrier*)    |           (rare)          |            **✓**            | Usually **Episteme** (catalog entry, policy). If a System “offers”, the *offer* is a SpeechAct; the *offering* is an Episteme. |
+| **Service‑Governance** (e.g., *ServiceOffering*, *SLO‑ClauseCarrier*)    |             ✗             |            **✓**            | **Episteme** (catalog entry, policy). If a System “offers”, the *offer* is a SpeechAct; the *offering* is an Episteme.         |
 | **Epistemic‑Status** (e.g., *Evidence*, *Definition*, *AxiomaticCore*)   |             ✗             |            **✓**            | Status roles for knowledge; never enact Work.                                                                                  |
 | **Normative‑Status / Deontic** (e.g., *Requirement*, *Standard*)         |             ✗             |            **✓**            | Source of obligations; Work is checked **against** them, not enacted by them.                                                  |
 
-**Invariant — RA‑3 (eligibility)** *(restated)*: Assignments **MUST** respect this matrix. A Context may **tighten** (e.g., “Approver must be human”), never loosen.
+**Invariant — RA‑3 (eligibility)** *(restated)*: RoleAssignments are ill‑formed if they violate this matrix. A Context may **tighten** (e.g., “Approver must be human”), never loosen.
 
 **Conformance checks (easy to remember).**
 
@@ -1527,31 +1531,11 @@ A Role’s **family** constrains **who can wear its badge**. Eligibility is part
 
 #### A.2.1:4.7 - Role algebra within a single Context (meaning relations)
 
-Role algebra relates **role types** inside **one** `U.BoundedContext`. It is **not** mereology.
+Role algebra 
 
-##### A.2.1:4.7.1 - Specialization (narrower assignment)
+The in‑Context role algebra relates **role types** inside **one** `U.BoundedContext`. It is **not** mereology. Its operators (`≤`, `⊥`, `⊗`) is specified normatively in **A.2.7 `U.RoleAlgebra`**.
 
-* **Notation:** `RoleS ≤ RoleG`
-* **Semantics (normative):** For any `U.RoleAssignment` with `role = RoleS` in this Context, the holder **also satisfies** requirements for `RoleG` in this Context.
-* **Use:** Stable expertise ladders, privilege inheritance.
-* **CC‑ALG‑1.** Engines that check `requiredRoles` **MUST** treat `≤` as admissible substitution.
-
-##### A.2.1:4.7.2 - Incompatibility (conceptual role incompatibility)
-
-* **Notation:** `RoleA ⊥ RoleB`
-* **Semantics (normative):** A single holder **MUST NOT** have overlapping `window`s for assignments to both roles in this Context.
-* **CC‑ALG‑2.** Validation **MUST** reject overlapping assignments that violate `⊥`.
-
-##### A.2.1:4.7.3 - Bundles (conjunctive requirement)
-
-* **Notation:** `RoleC := Role1 ⊗ Role2 ⊗ …`
-* **Semantics:** `RoleC` is **satisfied iff** the holder has **simultaneous** valid assignments for each conjunct role (in this Context).
-* **Use:** “On‑call Incident Commander” = *Engineer ⊗ Communicator ⊗ Decision‑Maker*.
-* **CC‑ALG‑3.** Checking `requires: [RoleC]` **MUST** expand to conjunctive checks.
-
-> **Didactic guardrails.**
-> Use `≤` for lasting ladders, `⊥` for critical safety/governance, `⊗` for frequent conjunctions. Prefer listing multiple `requiredRoles` on Method steps to avoid ornate lattices.
-
+A.2.1 relies on it for (i) `requiredRoles` substitution checks (`≤`), (ii) separation‑of‑duties validation (`⊥`), and (iii) conjunctive bundles (`⊗`), but does not restate the operator semantics here.
 
 #### A.2.1:4.8 - Time & state transition calculus (windows, RSG, enactability)
 
@@ -1560,17 +1544,17 @@ Role algebra relates **role types** inside **one** `U.BoundedContext`. It is **n
 ##### A.2.1:4.8.1 - Windows and overlap
 
 * **Window form:** `@t_start..t_end` (ends may be open).
-* **RE‑2 (temporal fit)** *(restated)*: `work.window` **MUST** lie within (or overlap appropriately with) `assignment.window`.
-* **Handover pattern:** Close `A#Role@..t` and open `B#Role@t..` — never delete history.
-* **CC‑WIN‑1.** Historic assignments **MUST NOT** be erased; close the window instead.
+* **RE‑2 (temporal fit)** *(restated)*: `work.window` lies within (or overlaps appropriately with) `assignment.window`.
+* **Handover pattern:** Close `A#Role@..t` and open `B#Role@t..` — history is preserved by closing windows rather than deletion.
+* **(Conformance hook.)** See **CC‑WIN‑1**: preserve history by closing windows rather than erasing RoleAssignments.
 
 ##### A.2.1:4.8.2 - RSG gating of enactment
 
-Each Role’s **RoleDescription/RoleSpec** defines an **RSG** with named states. Some states are **enactable**.
+Each Role’s **RoleDescription/RoleSpec** defines an **RSG** with named states; some states are **enactable**.
 
-* **RSG‑1 (state types).** A state **MUST** declare whether it **permits** enactment (*enactable: true/false*).
-* **RSG‑2 (checklists).** Each state **MUST** list a **Conformance Checklist** (E.10.D2) — observable cues to support **U.Evaluation** yielding a **StateAssertion**.
-* **RE‑5 (RSG gate).** A `U.RoleEnactment` is valid **iff** at enactment time the `U.RoleAssignment` can be supported by a **valid StateAssertion** that the holder is in an **enactable** state of the Role’s RSG **in this Context**.
+* **Delegation.** Normative author‑facing requirements for `U.RoleStateGraph` structure (including enactability marking and per‑state checklists) and the shape of `StateAssertion` evidence are defined in **A.2.5**; A.2.1 only relies on the resulting enactment gate.
+* **Invariant RE‑5 (RSG gate).** A `U.RoleEnactment` is valid **iff** at enactment time the `U.RoleAssignment` can be supported by a **valid StateAssertion** that the holder is in an **enactable** state of the Role’s RSG **in this Context**.
+* **(A.2.5 hook.)** The Role’s `U.RoleStateGraph` (A.2.5) identifies enactable states and attaches a Conformance Checklist to each state; checklist verdicts can be recorded as `StateAssertion`s (see SCR‑A2.5‑S02/S03).
 * **Example.** *SurgeonRole* states: *Eligible → Authorized → Active → Suspended → Revoked*. Only **Active** is enactable. A pre‑op checklist produces `StateAssertion(SurgeonRole, Active)`.
 
 **Practical reading.** *Badge valid* (window) ∧ *state is right* (RSG) ⇒ you may act.
@@ -1580,7 +1564,7 @@ Each Role’s **RoleDescription/RoleSpec** defines an **RSG** with named states.
 * **Suspend:** transition to a **non‑enactable** state (e.g., *Suspended*). Keep the assignment’s window open; enactment is blocked by **RE‑5**.
 * **Revoke:** either (a) close the window, or (b) transition to *Revoked* (non‑enactable).
 * **Probation:** a dedicated RSG state with limited enactability (e.g., only under supervision, modelled as an extra required role on Method steps).
-* **CC‑RSG‑1.** RSG transitions **MUST** be explicit; no implicit “back to Active”.
+* **Discipline (A.2.5).** RSG transitions are explicit; no implicit “back to Active”.
 
 ##### A.2.1:4.8.4 - Typical temporal patterns (didactic)
 
@@ -1603,7 +1587,7 @@ For every **MethodStep**:
 
 ##### A.2.1:4.9.2 - Run‑time check (inside `U.Work`)
 
-A `U.Work` record must carry:
+A `U.Work` record provides (or allows derivation of) the fields needed to satisfy **CC‑ENACT‑1..3**:
 
 * **`performedBy` =** a concrete **`U.RoleAssignment`** (not just a person/system name).
 * **Window gate.** The Work timestamp falls inside the assignment’s `@Window`.
@@ -1618,7 +1602,7 @@ A `U.Work` record must carry:
 
 ##### A.2.1:4.9.4 - Planning & scheduling (design‑time “who will enact”)
 
-* **`U.WorkDescription`** (renamed from “WorkPlan”) binds forthcoming steps to **candidate RoleAssignments** and time windows.
+* **`U.WorkPlan`** (aka “WorkDescription” in prose) binds forthcoming steps to **candidate RoleAssignments** and time windows.
 * **Checks before the fact.** Validate windows (no gaps/overlaps where disallowed), enforce `⊥`, ensure expected RSG state will be **enactable** at scheduled time (or flag a pre‑flight checklist).
 
 > **Didactic cue.** Think **“Step asks for badges; Run cites a badge; Badge must be valid & green.”**
@@ -1626,45 +1610,9 @@ A `U.Work` record must carry:
 
 #### A.2.1:4.10 - Cross‑Context bridges in practice (with CL penalties)
 
-> **Rule.** **No Cross‑context substitution by name.** If a step in **Context A** needs `Role_A`, and the performer only holds `Role_B` in **Context B**, you must use an explicit **Bridge** (F.9) that says how `Role_B@B` relates to `Role_A@A`, with a **Congruence Level (CL)** and **loss notes**.
+Cross‑Context role substitution is **Bridge‑only** and is specified in **F.9** (with CL/waiver regimes) and **B.3** (CL‑penalty routing).
 
-##### A.2.1:4.10.1 - Directional substitution
-
-A Bridge may assert, *directionally*:
-
-* **`substitutesFor(Role_B@B → Role_A@A)`** with a CL and a list of **kept** and **lost** RCS characteristics / RSG nuances.
-* The reverse direction **does not** follow unless declared.
-
-##### A.2.1:4.10.2 - CL → gating policy (normative thresholds)
-
-| **CL** | Meaning (intuitive)                     | **Permit** | **Guard**                                                                            | **Block** |
-| :----: | --------------------------------------- | :--------: | ------------------------------------------------------------------------------------ | :-------: |
-|  **3** | Near‑isomorphic sense; no material loss |     Yes    | None beyond ordinary RSG/Window gates                                                |     —     |
-|  **2** | Close but with stated losses            |     Yes    | Require **extra evidence** (e.g., additional checklist item) **or** a named reviewer |     —     |
-|  **1** | Distant analogy; risky                  |  Exception | Only by explicit **Waiver SpeechAct** naming the Bridge + loss rationale             |  Default  |
-|  **0** | Incompatible                            |     No     | —                                                                                    |    Yes    |
-
-*Normative hooks.* The **Trust & Assurance Calculus (B.3)** aggregates CL penalties into confidence scores; **D.2** may mandate CL≥2 for safety‑critical enactments.
-
-##### A.2.1:4.10.3 - Typical bridges (worked patterns)
-
-* **BPMN Task ↔ PROV Activity.**
-  `substitutesFor(Task@BPMN → Activity@PROV)` with **CL=2**; **lost:** BPMN control‑flow guards; **kept:** “bounded occurrence consuming/producing entities.”
-  *Effect.* A Work logged as `Activity@PROV` may satisfy a step requiring a `Task@BPMN` **if** an extra guard enforces the BPMN pre‑/post‑conditions.
-
-* **Essence Alpha‑State ↔ RoleStateGraph state.**
-  `substitutesFor(“Alpha.State:Ready”@Essence → “Ready”@RSG)` with **CL=2**; **lost:** Alpha‑specific narrative criteria; **kept:** checklist‑based readiness.
-  *Effect.* A team may reuse Essence states as labels in RSG, but still maintains local checklists as **StateAssertions**.
-
-* **ITIL Service Owner ↔ RBAC Administrator.**
-  Typically **CL=1** and **directional** (Administrator\@RBAC → ServiceOwner\@ITIL) **rejected** unless a policy Bridge enumerates compensating controls.
-  *Effect.* Prevents “ops admin = service owner” conflations without an explicit waiver.
-
-##### A.2.1:4.10.4 - Bridge invariants
-
-* **Local first.** Substitution never overrides in‑Context `⊥`, `⊗`, or `≤`.
-* **Evidence trail.** Every Cross‑context enactment relying on a Bridge **shall** reference its Bridge id in the `U.Work` justification.
-* **Loss visibility.** The Bridge **must** state which **RCS characteristics** are preserved vs dropped; if a dropped characteristic is required by the step, substitution is **invalid**, regardless of CL.
+A.2.1’s only rule is *no substitution by label*: any “`Role_B@B` satisfies `Role_A@A`” claim used for checking or enactment **MUST** cite an explicit Bridge (direction, CL, loss notes) and **MUST NOT** override in‑Context `≤`, `⊥`, or `⊗`.
 
 #### A.2.1:4.11 - Everyday pattern snippets (didactic moves)
 
@@ -1819,34 +1767,32 @@ Lenses tested: **Arch**, **Onto/Epist**, **Socio‑tech**, **Prag**, **Did**. Sc
 
 **Anchoring & locality**
 
-1. **CC‑CTX‑1.** Every `role` reference names a **role defined in the same `U.BoundedContext`** as the assignment.
-2. **CC‑CTX‑2.** No cross‑Context equivalence is assumed by label; relations across Contexts live only in **Bridges** (F.9).
+1. **CC‑CTX‑1.** A conformant model/record **MUST** ensure that every RoleAssignment’s `role` names a role defined in the same `U.BoundedContext` as that assignment.
+2. **CC‑CTX‑2.** Authors and validators **MUST NOT** assume cross‑Context equivalence by label; any cross‑Context relation used for substitution or checking **MUST** be represented only in **Bridges** (F.9).
 
 **Eligibility & families**
-3\. **CC‑ELIG‑1.** Behavioral roles (`Agential/Transformer/Observer/Speech`) **MUST** bind **`U.System`** holders.
-4\. **CC‑ELIG‑2.** Status roles (`Epistemic‑Status/Normative/Service‑Governance`) **MUST** bind **`U.Episteme`** holders.
+3\. **CC‑ELIG‑1.** Validators **MUST** reject any RoleAssignment record where `role.family ∈ {Agential, Transformer, Observer, Speech}` but `holder :̸ U.System`.
+4\. **CC‑ELIG‑2.** Validators **MUST** reject any RoleAssignment record where `role.family ∈ {Epistemic‑Status, Normative‑Status, Service‑Governance}` but `holder :̸ U.Episteme`.
+5\. **CC‑ELIG‑3.** Validators **MUST** reject any RoleAssignment record whose `holder ∈ {U.Role, U.RoleAssignment}` (no badge‑of‑badge chains).
 
 **Role algebra (in‑Context)**
-5\. **CC‑ALG‑1.** `≤` permits substitution for `requiredRoles`.
-6\. **CC‑ALG‑2.** `⊥` forbids overlapping windows on the same holder.
-7\. **CC‑ALG‑3.** `⊗` expands to conjunctive checks at performance time.
+See **A.2.7 `U.RoleAlgebra`** (CC‑ALG‑1, 2, 3).
 
 **Time & gating**
-8\. **CC‑WIN‑1.** Historic RoleAssignments are never deleted; windows are **closed**, not erased.
-9\. **CC‑ENACT‑1.** Every `U.Work` has `performedBy = some U.RoleAssignment`.
-10\. **CC‑ENACT‑2.** At the `U.Work` timestamp, an **enactable** `RSG` state is asserted for that assignment (via **StateAssertion**).
-11\. **CC‑ENACT‑3.** If state flips to non‑enactable (e.g., **Suspended**), enactment is blocked until an **Active** assertion reappears.
+9\. **CC‑WIN‑1.** Record‑keeping systems and models **MUST NOT** delete historic RoleAssignment records; they close windows instead. If `window` is absent, the record **MUST** retain a traceable assignment start time (e.g., via a `U.RoleAssigning` SpeechAct Work or other evidence).
+10\. **CC‑ENACT‑1.** Conformant Work records **MUST** cite `performedBy = some U.RoleAssignment`; validators **MUST** be able to check that the Work interval fits the assignment window (or that an open‑ended window contains it).
+11\. **CC‑ENACT‑2.** At the Work time, validators **MUST** be able to (a) locate/derive a **StateAssertion** supporting an **enactable** RSG state for the cited assignment, and (b) verify that the assignment’s `role` satisfies the executed MethodStep’s `requiredRoles` in that **same Context** (directly or via `≤`; `⊗` expands to conjunctions).
+12\. **CC‑ENACT‑3.** Runtime gates and validators **MUST** block enactment while the assignment lacks a supporting **StateAssertion** for an enactable state (e.g., during **Suspended**).
 
 **Strict distinction & category hygiene**
-12\. **CC‑SD‑1.** No Role in a BoM/structure tree; roles do not participate in mereology.
-13\. **CC‑SD‑2.** Epistemes never enact Work; only Systems do.
+13\. **CC‑SD‑1.** Models and tools **MUST NOT** place Roles into BoM/structure trees; roles do not participate in mereology.
+14\. **CC‑SD‑2.** Models and tools **MUST NOT** treat Epistemes as Work actors; validators **MUST** enforce **RE‑1** (`by.holder : U.System`).
 
 **Lexical hygiene**
-14\. **CC‑LX‑1.** Do not use *appointment* as a synonym for *Role Assignment* in normative clauses.
+15\. **CC‑LX‑1.** Authors **MUST NOT** use *appointment* as a synonym for *Role Assignment* in normative clauses.
 
 **Traceability**
-15\. **CC‑TRC‑1.** From any `U.Work`, reviewers can trace **performedBy → RoleAssignment → Role → (RCS,RSG) → Context** and retrieve supporting **StateAssertion** evidence.
-
+16\. **CC‑TRC‑1.** From any `U.Work`, reviewers **MUST** be able to trace **performedBy → RoleAssignment → Role → (RCS,RSG) → Context** and retrieve supporting **StateAssertion** evidence.
 
 #### A.2.1:7.2 - RSCR (regression harness)
 
@@ -1920,6 +1866,16 @@ Lenses tested: **Arch**, **Onto/Epist**, **Socio‑tech**, **Prag**, **Did**. Sc
 > Documents don’t act — they hold status roles; only systems enact Work.
 > With this, factories, clouds, and knowledge all speak the same, small grammar.”
 
+#### A.2.1:9.2 - So what? Adoption test (1 minute)
+
+If a team claims to “use A.2.1”, a random audit sample should pass all of these in minutes:
+
+1. **Badge locality:** every role label is always read as `Role:Context` (or explicitly bridged), never as a global name.
+2. **Work attribution:** each sampled `U.Work` cites a concrete `performedBy = U.RoleAssignment`, not just a person/system string.
+3. **Window + state gate:** at the Work time, the assignment window fits and an enactable RSG `StateAssertion` exists (or the run is correctly blocked/exceptioned).
+4. **No badge‑of‑badge:** no assignment ever binds a `U.Role` or `U.RoleAssignment` as its holder.
+5. **Status hygiene:** no Episteme (Standard/Requirement/Evidence) is ever an actor of Work; it only gates/justifies/evaluates.
+
 ### A.2.1:10 - Rationale
 
 * **Strict Distinction (A.7).** Keeps **identity** (Holon) separate from **assignment** (RoleAssignment), **behaviour** (Method/Work), and **knowledge** (Episteme).
@@ -1946,6 +1902,7 @@ Lenses tested: **Arch**, **Onto/Epist**, **Socio‑tech**, **Prag**, **Did**. Sc
 * **A.1 Holonic Foundation** — `U.Holon` (holders).
 * **A.1.1 `U.BoundedContext`** — the Context of meaning.
 * **A.2 Role Taxonomy** — role kinds for Systems vs Epistemes; context‑local naming.
+* **A.2.7 `U.RoleAlgebra`** — in‑Context `≤/⊥/⊗` relations used for substitution, SoD, and bundles.
 * **E.10.D1 (D.CTX)** & **E.10.D2 (Strict Distinction of intensional vs description)** — locality & description discipline.
 
 **Enables / instantiated by**
@@ -1962,7 +1919,6 @@ Lenses tested: **Arch**, **Onto/Epist**, **Socio‑tech**, **Prag**, **Did**. Sc
 * **Service & Deontics (Part D/E)** — obligations and acceptance evaluated against role‑gated Work.
 
 ### A.2.1:End
-
 
 ## A.2.2 — U.Capability
 
@@ -4298,7 +4254,80 @@ def covers(scope: Set[Slice], target: Union[Slice, Set[Slice]]) -> bool:
 
 **Outcome.** The UTS shows strong convergence across SoTA Contexts on **addressable context** and **set‑valued applicability**. F.18 therefore fixes: **Context slice**, **Scope**, **Claim scope (G)**, **Work scope**, **Publication scope** with the algebra and guard clauses mandated in A.2.6. This closes synonym drift while remaining readable for engineering managers and precise for assurance tooling.
 
-### A.2.5:End
+### A.2.6:End
+
+## A.2.7 - U.RoleAlgebra: In‑Context Role Relations
+
+> **Type:** Definitional (D)
+> **Status:** Stable
+> **Normativity:** Normative
+
+*with `requiredRoles` substitution, SoD (`⊥`), and bundle (`⊗`) hooks*
+
+**Builds on:** A.1.1 **`U.BoundedContext`**, A.2 **Role Taxonomy**.  
+**Coordinates with:** A.2.1 **`U.RoleAssignment`**, A.15 **Role–Method–Work Alignment**.
+
+### A.2.7:1 - Problem frame
+
+**Intent.** Provide a tiny, explicit algebra over **role types** inside one Context so engines can (a) substitute specialisations, (b) enforce separation of duties, and (c) treat frequent conjunctions as named bundles—without encoding taxonomy in RoleAssignments.
+
+**Scope.**
+
+* Defines three in‑Context relations/operators: specialization `≤`, incompatibility `⊥`, and bundle `⊗`.
+* States substitution semantics used when checking `MethodStep.requiredRoles`.
+* States overlap‑prohibition semantics used to validate RoleAssignments.
+
+**Non‑goals.**
+
+* No cross‑Context equivalence by label; cross‑Context reuse is **Bridge‑only** (F.9).
+* No mereology; role algebra does not describe part‑of or structure membership.
+* No capability model; intrinsic ability evidence lives in `U.Capability` and related patterns.
+
+**Disambiguation.** Do not confuse role specialization `≤` with kind subsumption `⊑` (Kind‑CAL).  
+`≤` is **requirement substitution** between role *types* in one Context; `⊑` is **typing** between kinds.
+
+### A.2.7:2 - Solution (the three operators)
+
+Role algebra relates **role types** inside **one** `U.BoundedContext`. It is **not** mereology.
+
+#### A.2.7:2.1 - Specialization (narrower assignment)
+
+* **Notation:** `RoleS ≤ RoleG`
+* **Semantics (normative):** For any `U.RoleAssignment` with `role = RoleS` in this Context, the holder **also satisfies** requirements for `RoleG` in this Context.
+* **Use:** Stable expertise ladders; privilege inheritance; “junior→senior” substitution.
+* **CC‑ALG‑1.** Engines that check `requiredRoles` **MUST** treat `≤` as admissible substitution.
+
+#### A.2.7:2.2 - Incompatibility (conceptual role incompatibility)
+
+* **Notation:** `RoleA ⊥ RoleB`
+* **Semantics (normative):** Overlapping `window`s on the same holder for assignments to both roles in this Context are **ill‑formed**.
+* **Use:** Separation‑of‑duties (SoD); independence constraints (e.g., performer vs reviewer).
+* **CC‑ALG‑2.** Validation **MUST** reject overlapping assignments that violate `⊥`.
+
+#### A.2.7:2.3 - Bundles (conjunctive requirement)
+
+* **Notation:** `RoleC := Role1 ⊗ Role2 ⊗ …`
+* **Semantics:** `RoleC` is **satisfied iff** the holder has **simultaneous** valid assignments for each conjunct role (in this Context).
+* **Use:** Frequent conjunctions (e.g., “On‑call Incident Commander” = *Engineer ⊗ Communicator ⊗ Decision‑Maker*).
+* **CC‑ALG‑3.** Engines that check `requires: [RoleC]` **MUST** expand to conjunctive checks.
+
++> **Didactic guardrails.**
++> Use `≤` for lasting ladders, `⊥` for critical safety/governance, `⊗` for frequent conjunctions. Prefer listing multiple `requiredRoles` on Method steps to avoid ornate lattices.
+
++### A.2.7:3 - Relations
+
+**Builds on / depends on**
+
+* **A.1.1 `U.BoundedContext`** — the locality boundary within which the algebra holds.
+* **A.2 Role Taxonomy** — role families and context‑local naming.
+
+**Used by**
+
+* **A.2.1 `U.RoleAssignment`** — avoids chained assignments; uses `≤/⊥/⊗` for checking and validation.
+* **A.15 Role–Method–Work Alignment** — expands `requiredRoles` and enforces SoD requirements.
+* **D.2** ethics/governance patterns — encode SoD and independence via `⊥`.
+
+### A.2.7:End
  
 ## A.3 - Transformer Constitution (Quartet)
 
@@ -17811,7 +17840,7 @@ It reuses:
 * **Formality F** (C.2.3) when transitions gate on rigor,
 * **Assurance R** (C.2.2) for evidence freshness and penalties Φ/Ψ.
 
-**Guard macros.** The **normative guard shapes** for ESG and Method–Work (**Guard_TypedClaim**, **Guard_TypedJoin**, **Guard_MaskedUse**, **Guard_XContext_Typed**) are specified in **Annex C.3.A С**. Use those shapes; the present section is a manager‑level overview only.
+**Guard macros.** The **normative guard shapes** for ESG and Method–Work (**Guard_TypedClaim**, **Guard_TypedJoin**, **Guard_MaskedUse**, **Guard_XContext_Typed**) are specified in **Annex C.3.A**. Use those shapes; the present section is a manager‑level overview only.
 
 ##### 7.5.2 - Inputs & roles (at guard time)
 
@@ -19575,24 +19604,26 @@ Use **Guard\_MaskedUse** + **Guard\_XContext\_Typed**: registered mask, determin
 
 ##### A.2 Normative obligations  \[A]
 
+**Conformance.** A model or authoring action conforms to A.2 iff it satisfies **C‑REG‑1..C‑REG‑8** below.
+
 **C‑REG‑1 (Regulatory kinds).** Regulatory categories **SHALL** be represented as `U.Kind` in the authority’s Context (e.g., `AdultPerson@RegY`, `MedicalDeviceClassII@FDA`, `PersonalData@GDPR`, `Lease@IFRS`). Each such kind **SHALL** have a `KindSignature` with a declared **F** level (C.3.2).
 
-**C‑REG‑2 (KindBridge).** Cross‑context reuse of a regulatory category **MUST** declare a **KindBridge** with a kind‑bridge congruence level (**CL^k**) and **loss notes** (C.3.3). The mapping **SHALL** preserve the “is‑a / subkind‑of” direction (no inversions).
+**C‑REG‑2 (KindBridge).** Cross‑context reuse of a regulatory category **MUST** declare a **KindBridge** with a kind‑bridge congruence level (**CL^k**) and **loss notes** (C.3.3). The mapping **SHALL** preserve the “is‑a / subkind‑of” direction and **MUST NOT** invert it.
 
-**C‑REG‑3 (Scope is USM).** Regulatory **applicability** (jurisdiction, effective dates, product families, platforms) **SHALL** be expressed as **Claim scope (G)** over `U.ContextSlice`, with an explicit **time selector (Γ_time)**. Do **not** encode applicability into kinds.
+**C‑REG‑3 (Scope is USM).** Regulatory **applicability** (jurisdiction, effective dates, product families, platforms) **SHALL** be expressed as **Claim scope (G)** over `U.ContextSlice`, with an explicit **time selector (Γ_time)**. Applicability **MUST NOT** be encoded into kinds.
 
 **C‑REG‑4 (No synonym shortcuts).** Editors **MUST NOT** treat legal terms as synonyms of local kinds without a KindBridge. Any term alignment **SHALL** be documented (mapping + `CL^k` + loss notes).
 
 **C‑REG‑5 (Determinism).** `MemberOf(e, k_reg, slice)` **MUST** be deterministically evaluable when used in guards (no “latest law” or unstated grace periods).
 
-**C‑REG‑6 (Penalties land in R).** When a claim or guard relies on Cross‑context classification (membership decided via a KindBridge), the receiving Context **MUST** apply the **kind‑bridge penalty** (based on **CL^k**) to **R**; if the **Scope** is also bridged, apply the **scope‑bridge penalty** (based on **CL**) to **R** as well. **F** and **G** remain unchanged.
+**C‑REG‑6 (Penalties land in R).** When a claim or guard relies on Cross‑context classification (membership decided via a KindBridge), the receiving Context **MUST** apply the **kind‑bridge penalty** (based on **CL^k**) to **R**; if the **Scope** is also bridged, apply the **scope‑bridge penalty** (based on **CL**) to **R** as well. **Invariant:** penalty routing changes **R** only; **F** and **G** remain unchanged.
 
-**C‑REG‑7 (Editioning).** Changes in law/regulator guidance that alter membership or applicability **SHALL** be recorded as content changes: update `KindSignature` (kinds) and/or update **Claim scope** (ΔG±). Using an implicit “latest” time is forbidden; guards must name a time selector (Γ_time).
+**C‑REG‑7 (Editioning).** Changes in law/regulator guidance that alter membership or applicability **SHALL** be recorded as content changes: update `KindSignature` (kinds) and/or update **Claim scope** (ΔG±). Guards **MUST** name a time selector (Γ_time) and **MUST NOT** rely on an implicit “latest” time.
 
-**C‑REG‑8 (Masks, not clones).** Local process nuances (e.g., clinic‑specific cohort definitions) **SHALL** be captured with **RoleMasks** over the adopted kind; do **not** clone a new kind unless a stable **subkind** is warranted.
+**C‑REG‑8 (Masks, not clones).** Local process nuances (e.g., clinic‑specific cohort definitions) **SHALL** be captured with **RoleMasks** over the adopted kind; editors **MUST NOT** clone a new kind unless a stable **subkind** is warranted.
 
 
-##### A.3 Guard macros (ready to use)  \[A]
+##### A.3 Guard macros (ready to use)
 
 **(a) `Guard_RegAdopt` — adopt a regulatory requirement into a Context (Plain: check scope, map the legal category, and account for penalties)**
 
@@ -21870,7 +21901,7 @@ Define a **portable minimal set** of CHR **slots**. Each slot is **CHR-typed** (
    Fineness of evidential units and declared envelopes (experiment cards, benchmark tasks, audit granules). Encourages *smaller, well-scoped* claims over monoliths.
 
   6. **MetaDiversity** *(portfolio dispersion; polarity ↑ to band; ReferencePlane=episteme; CG‑Spec‑bound)*  
-  Use entropy/HHI **over MethodFamily/Tradition shares** (method edition id в UTS); publish **guard‑band** as **Acceptance** binding; cross‑ordinal scalarisation is forbidden.
+  Use entropy/HHI **over MethodFamily/Tradition shares** (method edition id in UTS); publish **guard‑band** as **Acceptance** binding; cross‑ordinal scalarisation is forbidden.
   Entropy/Herfindahl-type dispersion across `U.Tradition`s, method families, or data regimes, bounded by a **Context-declared guard-band** (too low ⇒ monoculture; too high ⇒ incoherence).
 
 > **Typing & legality.** Each slot **MUST** declare **Scale/Unit/Polarity**; illegal ops (e.g., mean on ordinals; unit mixing) are **fail-fast** per **A.18/MM-CHR**.
@@ -21957,7 +21988,7 @@ Define a **portable minimal set** of CHR **slots**. Each slot is **CHR-typed** (
 **CC-C.21-1 (CHR typing).** Every DHC slot **MUST** declare **Characteristic + Scale/Unit/Polarity**, with CSLC legality proved before any aggregation.
 **CC-C.21-2 (Freshness).** Published values MUST carry Γ_time selector and freshness window; stale rows escalate to {degrade|abstain} in **G.4 Acceptance**.
 **CC-C.21-3 (Plane).** ReferencePlane declared; cross‑plane re‑use publishes **CL^plane** (policy id) alongside CL; both penalties route to **R_eff**.
-**CC‑C.21‑4 (DesignRunTag).** Every DHC row SHALL declare **DesignRunTag ∈ {design, run}**; design‑ и run‑characteristics **not mixing** in one value/aggregate.
+**CC‑C.21‑4 (DesignRunTag).** Every DHC row SHALL declare **DesignRunTag ∈ {design, run}**; design‑ and run‑characteristics **not mixing** in one value/aggregate.
 **CC-C.21-5 (Lane tags).** Each value **MUST** tag **TA/VA/LA** lanes of contributing evidence.
 **CC-C.21-6 (Ordinal discipline).** **StandardisationLevel** is ordinal; **no means**, **no z-scores**.
 **CC-C.21-7 (Scope).** All computations declare **TargetSlice**; **USM** membership is decidable and deterministic.
@@ -21967,7 +21998,7 @@ Define a **portable minimal set** of CHR **slots**. Each slot is **CHR-typed** (
 **CC-C.21-11 (Unknowns).** Unknown inputs propagate tri-state {pass|degrade|abstain} to Acceptance; **no `unknown→0` coercion**.
 **CC-C.21-12 (No tool/vendor tokens).** Core narrative follows **E.5.1** (Lexical Firewall).
 **CC-C.21-13 (CG‑Spec citation).** Any numeric operation (comparison/aggregation) in DHC **MUST** refer to **CG‑Spec** (characteristics, gauge/Γ‑fold, MinimalEvidence).
-**CC-C.21-14 (Φ‑policies).** **Φ(CL)** и **Φ_plane** — **monotone** and **table‑backed**; published by policy id.
+**CC-C.21-14 (Φ‑policies).** **Φ(CL)** and **Φ_plane** — **monotone** and **table‑backed**; published by policy id.
 **CC‑C.21‑15 (Ref discipline).** Any edition pinning **SHALL** appear as `…Ref.edition` on the relevant reference field (DHCPack/MethodSpec/DistanceDef/DHCMethodRef); bare `…Edition` fields are non‑conformant.
 **CC‑C.21‑16 (Role kit, informative).** Use standard roles from F.4: `DisciplineStewardRole` (governs DHCPack), `DHCMethodAuthorRole`, `DHCSeriesPublisherRole`. Roles are **design‑time**; values are **run‑ or design‑stance** per slot and must declare **ReferencePlane**.
 
@@ -23840,6 +23871,13 @@ Legacy square‑bracket tags (`[A]`, `[D]`, `[INF]`) are deprecated; do not intr
 
 When you need an enforceable constraint that is *mathematical* rather than *deontic*, express it as a non‑deontic predicate using one of: `Definition:`, `Invariant:`, or `Well‑formedness constraint:` (optionally with formal quantifiers). Prefer mathematical terms like `cardinality 1..1 (total)` / `0..1 (partial)` / `0..n` over deontic adjectives like “mandatory/optional” when the intent is cardinality, not duty.
 
+**Admissibility predicate discipline (recommended shape).**
+When expressing admissibility/validity constraints as predicates (`Definition:` / `Invariant:` / `Well‑formedness constraint:`):
+* Authors **MUST NOT** use RFC keywords inside the predicate block.
+* Authors **SHOULD** give each predicate a stable identifier and short name (e.g., `RA‑1 (Locality)`, `RE‑3 (Method gate)`), so that Conformance Checklist items can reference it without re‑authoring the rule.
+* Authors **SHOULD** write the constraint as a declarative predicate (optionally quantified), e.g., `role ∈ Roles(context)`, rather than as “X MUST …”.
+* If the constraint needs to be enforceable as part of a pattern’s contract, authors **SHOULD** reference the predicate identifier from the Conformance Checklist (and/or call out validator behaviour), rather than duplicating the predicate with RFC keywords.
+
 **H‑9 (Footer marker sentinel).** Footer marker **SHALL** be a single heading line whose `FullId` is the pattern ID followed by the reserved sentinel token `:End` (no ordinals, no title, no square‑bracket tags): 
 `### <PatternId>:End`
 It is the only allowed heading *inside* a pattern whose section token is non‑numeric. It **MUST** be the final line of the pattern and **MUST NOT** carry any prose. Tooling and readers **MUST** treat it as a boundary sentinel, not as a semantic section.
@@ -23912,13 +23950,18 @@ This guidance biases toward **Did** (readability, narrative flow) and **Arch** (
 
 ### E.8:7 - Conformance Checklist
 
+**CC style (canonical).**
+Conformance Checklist items are obligations/conditions in the **authoring plane**: they constrain artefacts that claim conformance (and the reviewers/validators that accept them). A CC clause of the form “X SHALL …” is to be read as “In a conforming artefact, X SHALL …”, not as a deontic statement about the modeled world.
+
+**Preferred wording for new or edited CC items:** start with an explicit conformance subject (e.g., “Authors …”, “Reviewers …”, “A conforming implementation …”, “A validator …”). If a CC item is enforcing an admissibility predicate, it **SHOULD** cite the predicate’s identifier (from a `Definition:` / `Invariant:` / `Well‑formedness constraint:` block) rather than restating the predicate as “X MUST …”.
+
 | ID | Requirement | Purpose |
 |----|-------------|---------|
 | **CC‑SG.0 (Heading discipline).** | Pattern and subsection headings **SHALL** follow **H‑1 … H‑9** (FullId prefix, reserved punctuation, heading levels, ellipsis discipline). The Footer marker **SHALL** follow **H‑9**. | Makes chunks self‑contained; reduces ambiguity between author elision and retrieval truncation. |
 | **CC‑SG.1** | Every new pattern **SHALL** follow the section order defined in the Canonical Template (Title block → … → Footer marker). | Guarantees structural comparability. |
 | **CC‑SG.2 (Grounding required).** | Every pattern **MUST** include an *Archetypal Grounding* section. If **System** or **Episteme** grounding is inapplicable, authors **MUST** state `Not applicable` and give a one‑paragraph justification. | Keeps patterns teachable and reduces “definition‑only” ambiguity. |
 | **CC‑SG.3** | The *Bias‑Annotation* section **SHALL** cite the five Principle‑Taxonomy lenses and declare either “Universal” or an explicit scope limitation. | Keeps cross‑disciplinary neutrality explicit (ties to Guard‑Rail 4). |
-| **CC‑SG.4** | Deontic normative sentences **MUST** use only RFC‑style keywords (see **H‑8**); RFC keywords **MUST NOT** be used to state definitions or admissibility constraints (use `Definition:`/`Invariant:`/`Well‑formedness constraint:` blocks instead). Informal deontic verbs are prohibited in normative clauses. | Prevents ambiguity between obligation language and model validity; improves auditability. |
+| **CC‑SG.4** | Deontic normative sentences **MUST** use only RFC‑style keywords (see **H‑8**); RFC keywords **MUST NOT** appear inside `Definition:`/`Invariant:`/`Well‑formedness constraint:` blocks. When enforceable, admissibility/validity predicates **SHOULD** be referenced by id from the Conformance Checklist (rather than duplicated as “X MUST …”). Informal deontic verbs are prohibited in normative clauses. | Prevents ambiguity between obligation language and model validity; improves auditability. |
 | **CC‑SG.5** | Pattern prose **SHOULD** demonstrate adherence to Style Principles **S‑0 … S‑13**; reviewers are empowered to request revision when clarity or didactic quality suffers. | Embeds common narrative voice without rigid policing. |
 | **CC‑SG.6 (SoTA‑Echo required).** | Every pattern **SHALL** include a **SoTA‑Echoing** section and clearly state divergence of its Solution from SoTA with explanation of why. Architectural patterns **SHALL** satisfy the full obligations below; Definitional patterns **MAY** satisfy the reduced obligations (terminology drift + ≥ 1 post‑2015 primary source) when a full SoTA comparison is not meaningful. | Ensures explicit lineage and guards against vocabulary drift. |
 | **CC‑SG.7 (Post‑2015, multi‑Tradition).** | For Architectural patterns, SoTA‑Echoing **SHALL** cite ≥ 3 post‑2015 sources across ≥ 2 Traditions; each item **MUST** carry adoption status (adopt/adapt/reject) with reason. | Guards against monoculture; makes intent explicit. |
@@ -24553,7 +24596,7 @@ Example: using a `KernelToken` in a Context constraint may require a Bridge/alia
 
 **Rule L-CHR-S1 (Reservation).** Use **Characteristic** **only** for variables that **declare a CSLC scale** (nominal/ordinal/interval/ratio) with admissible values/units/polarity (Part C.16/A.17–A.18).  
 **Rule L-CHR-S2 (USM).** `U.Scope` / `U.ClaimScope (G)` / `U.WorkScope` are **USM scope objects**, not Characteristics; they **must not** appear in any `CharacteristicSpace`.  
-**Rule L-CHR-S3 (Status).** ESG/RSG statuses and deоntic/epistemic statuses — **not Characteristics**; its statuses/states.  
+**Rule L-CHR-S3 (Status).** ESG/RSG statuses and deontic/epistemic statuses — **not Characteristics**; its statuses/states.  
 **Rule L-CHR-S4 (Lexical classifiers).** Lexical classifiers/tags — **Facets**/**attributes**; do not name them as Characteristics, if not declared **CSLC**.
 **Checks.**  
 — **CC-L-CHR-1.** `scope characteristic(s)` is banned in Core/Context.  
@@ -28597,7 +28640,8 @@ Mechanical checks (template/heading discipline, RFC-keyword hygiene, LEX-BUNDLE 
 1. **Internal coherence (contract ↔ solution)**
    The Conformance Checklist matches the Solution (no “orphan requirements” and no “unclaimed obligations”).
 2. **Deontic clause hygiene (RFC keywords)**
-   Deontic requirements are expressed with RFC-style keywords (see H‑8); obligations are not smuggled into prose as informal imperatives. Admissibility/validity constraints are stated non‑deontically as `Invariant:` / `Well‑formedness constraint:` predicates and referenced from the Conformance Checklist when enforceable.
+   Deontic requirements are expressed with RFC-style keywords (see H‑8); obligations are not smuggled into prose as informal imperatives. Admissibility/validity constraints are stated non‑deontically as `Invariant:` / `Well‑formedness constraint:` predicates and referenced from the Conformance Checklist when enforceable. 
+   **Subject discipline for RFC keywords.** If a sentence uses RFC keywords, its grammatical subject **MUST** be an agent or a publishable artefact (author, reviewer, tool, model, record, validator). RFC keywords **MUST NOT** modify modeled‑world entities (e.g., “Earth”, “RoleAssignment”, “Role”, “holon”) — express those as `Invariant:` / `Well‑formedness constraint:` predicates instead, and (if needed) reference them from CC items.
 3. **Lexical discipline & reserved vocabulary**
    Terms and registers follow lexical rules; ambiguous “everyday” synonyms do not silently replace kernel vocabulary.
 4. **SoTA‑Echoing minimum compliance (E.8)**
@@ -28615,8 +28659,8 @@ PQG is meant to increase *semantic and ontological trust*, not to turn every rev
 
 * Treat **load-bearing surfaces** as the primary depth targets:
   * the pattern’s **Conformance Checklist** (the enforceable contract): keep items universal, cognitively ergonomic, not overly prohibitive, and avoid duplicating checks that belong to other patterns (modularity),
-  * **deontic clauses** (`MUST/SHALL/SHOULD/MAY`) that define obligations (not laws of nature or mathematical facts),
-  * **admissibility constraints** (`Invariant:` / `Well‑formedness constraint:`) that define valid models (cardinality, typing/kinds, totality),
+  * **deontic clauses** (`MUST/SHALL/SHOULD/MAY`) that define obligations on the authoring/validation plane (not laws of nature or mathematical facts; ensure an explicit conformance subject),
+  * **admissibility constraints** (`Invariant:` / `Well‑formedness constraint:`) that define valid models (cardinality, typing/kinds, totality) and are written as non‑deontic predicates (no RFC keywords inside the predicate),
   * **definitions and mint/reuse decisions** (new terms, renamed terms, scope claims baked into names, names that are not overloaded and are properly chosen),
   * **cross-context / cross-plane claims** (Bridge hygiene and “sameness” assertions),
   * **SoTA** (when the pattern claims state‑of‑the‑art rather than a popular‑but‑outdated solution or vocabulary),
@@ -28628,7 +28672,7 @@ PQG is meant to increase *semantic and ontological trust*, not to turn every rev
 #### E.19:4.3 - Add risk-driven profiles
 
 **PCP‑MOD (Modularity & contradiction hygiene)** — Trigger: the pattern is overloaded or expands obligations/dependencies significantly.
-Checks include: scope hygiene, split/refactor recommendation when warranted, and contradiction scan against neighbor patterns in Relations.
+Checks include: scope hygiene, split/refactor recommendation when warranted, and contradiction scan against neighbor patterns in Relations. Pattern should respect balance of coheiseveness and coupling of its content among other patterns in FPF.
 
 **PCP‑PRAG (Pragmatic utility & adoption)** — Trigger: the pattern is Normative and claims practice guidance.
 Checks include: minimally viable example, non-decorative Consequences/Anti-Patterns, and an explicit “So what?” adoption test.
@@ -31883,6 +31927,51 @@ CL expresses how safely meaning carries over.
 * **Permitted use**
   Didactic contrast only; prevents accidental substitution in SLO calculus.
 
+#### F.9:12.6 - Role substitution & CL gating (RoleAssignment/enactment scope)
+
+> **Use.** A worked, role‑focused restatement of Bridge usage for the recurring question:
+> “May `Role_B@B` satisfy `Role_A@A` for `requiredRoles` / enactment checks?”
+
+**Rule.** **No Cross‑context substitution by name.** If a step in **Context A** needs `Role_A`, and the performer only holds `Role_B` in **Context B**, an explicit **Bridge** **MUST** be used that states how `Role_B@B` relates to `Role_A@A`, with direction, **CL**, and **loss notes**.
+
+##### F.9:12.6.1 - Directional substitution (role‑oriented shorthand)
+
+A Bridge may assert, *directionally*:
+
+* **`substitutesFor(Role_B@B → Role_A@A)`** with a CL and a list of **kept** and **lost** characteristics (for roles: typical losses are RCS characteristics and/or RSG nuances).
+* The reverse direction **does not** follow unless declared (F.9:13.7).
+
+##### F.9:12.6.2 - CL → gating policy (didactic default)
+
+| **CL** | Meaning (intuitive)                     | **Permit** | **Guard**                                                                            | **Block** |
+| :----: | --------------------------------------- | :--------: | ------------------------------------------------------------------------------------ | :-------: |
+|  **3** | Near‑isomorphic sense; no material loss |    Yes     | None beyond ordinary gates (e.g., window + RSG state)                                |     —     |
+|  **2** | Close but with stated losses            |    Yes     | Require **extra evidence** (e.g., additional checklist item) **or** a named reviewer |     —     |
+|  **1** | Distant analogy; risky                  | Exception  | Only by explicit **Waiver SpeechAct** naming the Bridge + loss rationale             |  Default  |
+|  **0** | Incompatible                            |     No     | —                                                                                    |    Yes    |
+
+*Notes.* The **substitution licence** is defined in **F.9:13.2–13.3** (Role‑Assignment/Enactment‑eligible substitution requires **CL≥2**; naming‑only is **CL≥1**).  
+CL penalties route to assurance (R) per **B.3**; safety‑critical policies may require CL≥2 by default (D.2).
+
+##### F.9:12.6.3 - Typical bridges (worked patterns)
+
+* **BPMN Task ↔ PROV Activity.**  
+  `substitutesFor(Task@BPMN → Activity@PROV)` with **CL=2**; **lost:** BPMN control‑flow guards; **kept:** “bounded occurrence consuming/producing entities.”  
+  *Effect.* A Work logged as `Activity@PROV` may satisfy a step requiring a `Task@BPMN` **iff** an extra guard enforces the BPMN pre‑/post‑conditions.
+
+* **Essence Alpha‑State ↔ RoleStateGraph state.**  
+  `substitutesFor(“Alpha.State:Ready”@Essence → “Ready”@RSG)` with **CL=2**; **lost:** Alpha‑specific narrative criteria; **kept:** checklist‑based readiness.  
+  *Effect.* A team may reuse Essence states as labels in RSG, but still maintains local checklists as **StateAssertions**.
+
+* **ITIL Service Owner ↔ RBAC Administrator.**  
+  Typically **CL=1** and **directional** (Administrator\@RBAC → ServiceOwner\@ITIL) **rejected** unless a policy Bridge enumerates compensating controls.  
+  *Effect.* Prevents “ops admin = service owner” conflations without an explicit waiver.
+
+##### F.9:12.6.4 - Bridge invariants (role‑relevant reminders)
+
+* **Local first.** Substitution never overrides in‑Context role algebra (`≤`, `⊥`, `⊗`).
+* **Loss honesty.** If a Bridge’s loss notes indicate that a dropped characteristic is required by a step, substitution is invalid (regardless of CL).
+* **No silent inversion.** Direction is explicit; substitution does not reverse unless declared (F.9:13.7).
 
 ### F.9:13 - Reasoning primitives (judgement schemas)
 
