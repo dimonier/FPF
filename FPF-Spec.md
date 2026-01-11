@@ -226,7 +226,7 @@ Pattern and headers templates are explained in pattern E.8.
 | E.17.2 | **TEVB — Typical Engineering Viewpoints Bundle** | Stable | Keywords: engineering viewpoints, holon, Functional/Procedural/Role-Enactor/Module-Interface views, EoIClass = U.Holon, ISO 42010 mapping, E.TGA bindings. Queries: “What are canonical engineering viewpoints over a holon?”, “How does TEVB relate to E.TGA and MVPK?”, “How do ISO 42010 architecture viewpoints map onto FPF engineering viewpoints?” | Builds on: E.17.0 (U.MultiViewDescribing), E.17.1 (U.ViewpointBundleLibrary), C.2.1 (U.EpistemeSlotGraph; DescribedEntity/Viewpoint/View slots), A.1 (Holon; U.System/U.Episteme as typical EoI), A.6.2–A.6.4 (episteme morphisms), A.7/E.10.D2 (Strict Distinction & I/D/S discipline). Used by: E.18:5.12 (E.TGA engineering viewpoint families), E.17 (MVPK — publication of engineering morphisms via EngineeringVPId/PublicationVPId correspondences), engineering description/spec patterns and future ISO-aligned architecture description species. |
 | E.17 | **Multi‑View Publication Kit (for Morphisms)** | Stable | Keywords: publication, U.View/U.EpistemeView, multi-view, viewpoints, PublicationScope (USM), PlainView/TechCard/InteropCard/AssuranceLane, functorial views, reindexing (PromoteView[s→t]), Publication characteristics (PC.Number, PC.EvidenceBinding, PC.ComparatorSetRef, PC.CharacteristicSpaceRef), CHR/UNM/CG-Spec anchoring, UTS, pin discipline, D/S→Surface (no I→D/D→S). Queries: “How to publish any morphism across Plain/Tech/Interop/Assurance views without changing semantics?”, “How do MVPK faces relate to U.View/U.EpistemeView and U.Viewpoint/PublicationVPId?”, “How to pin numeric claims and evidence lanes on publication faces so they stay functorial and audit-ready?” | Builds on: A.7/E.10.D2 (Strict Distinction & I/D/S discipline; Surface orthogonality), A.6.2–A.6.3 (U.EffectFreeEpistemicMorphing, U.EpistemicViewing), C.2.1 (U.EpistemeSlotGraph; View/Viewpoint slots), E.17.0 (U.MultiViewDescribing), E.17.1 (U.ViewpointBundleLibrary), E.17.2 (TEVB), E.8 (Authoring conventions), E.10 (LEX-BUNDLE incl. L-SURF), Part F/G (UTS, CG-Spec, CHR pins, UNM). Used by / Coordinates with: E.18 (E.TGA — publication of morphisms via MVPK faces), Part G (SoTA pack shipping surfaces, EvidenceGraph views), tooling that emits human-readable cards/lanes over D/S-epistemes about morphisms. |
 | E.18 | **Transduction Graph Architecture (E.TGA)** | Stable | *Keywords:* transduction graph, **nodes=morphisms**, **edge=U.Transfer** (single-edge kind), **OperationalGate(profile)**, **CV⇒GF** (ConstraintValidity → GateFit), **MVPK** faces, **SquareLaw**, **UNM single-writer**, **CSLC normalize-then-compare**, **Set-return selection**, **PathSlice/Sentinel refresh**, **DesignRunTag**. *Queries:* “What is E.TGA?”, “How do gates/bridges publish crossings?”, “How to model flows of morphisms?” | **Builds on:** E.17 (MVPK), E.8, E.10, A.7. **Coordinates with:** A.20–A.26 (Flow/GateProfilization/Profiles/Sentinels), F.9 (Bridges & CL), G.11 (Refresh). |
-| E.19 | **Pattern Quality Gates: Review & Refresh Profiles** | New | *Keywords:* pattern review, quality gates, admission, refresh, staleness, profile-based checks, PQG, PCP, SoTA-Echoing, conformance coherence. *Queries:* "How to review a new FPF pattern before admitting it?", "How to refresh stale patterns in FPF?", "What are PQG/PCP in FPF?" | **Builds on:** E.8, E.10, E.9, E.15. **Coordinates with:** F.8 (Mint/Reuse), F.18 (Naming protocol), F.9 (Bridges & CL), F.15 (Harness), G.11 (Refresh). **Constrains:** Admission/refresh decisions for patterns intended for the canonical corpus. |
+| E.19 | **Pattern Quality Gates: Review & Refresh Profiles** | Stable | *Keywords:* pattern review, quality gates, admission, refresh, staleness, profile-based checks, PQG, PCP, suite-level review (PCP‑SUITE), planned baseline & P2W seam (PCP‑P2W), `SlotFillingsPlanItem`, MVPK projections, guard vs gate separation. *Queries:* "How to review a new FPF pattern before admitting it?", "How to refresh stale patterns in FPF?", "What are PQG/PCP in FPF?", "How to review a MechSuiteDescription (suite obligations, contract pins, protocols)?", "How to review SlotFillingsPlanItem / planned slot filling and its MVPK projections?" | **Builds on:** E.8, E.10, E.9, E.15. **Coordinates with:** F.8 (Mint/Reuse), F.18 (Naming protocol), F.9 (Bridges & CL), F.15 (Harness), E.17 (MVPK), A.6.7 (MechSuiteDescription), A.15.3 (SlotFillingsPlanItem), G.11 (Refresh). **Constrains:** Admission/refresh decisions for patterns intended for the canonical corpus. |
 
 **Part F — The Unification Suite (U‑Suite): Concept‑Sets, SenseCells & Contextual Role Assignment**
 
@@ -260,7 +260,8 @@ Pattern and headers templates are explained in pattern E.8.
 
 | § | ID & Title | Status | Keywords & Search Queries | Dependencies |
 | :--- | :--- | :--- | :--- | :--- |
-| G.0 | **CG-Spec - Frame Standard & Comparability Governance**| Stable | *Keywords:* CG-Frame, governance, Standard, comparability, Comparability Governance, evidence, trust folding, Γ-fold, rules, policy. *Queries:* "How does FPF ensure metrics are comparable?", "What are the rules for comparing data across different models?", "What is a CG-Spec?". | **Builds on:** B.3 (Trust), A.17-A.19 (MM-CHR), Part F (Bridges). **Prerequisite for:** G.1, G.2, G.3, G.4, G.5. |
+| G.Core | Part G Core Invariants | Draft | *Keywords:* Part‑G invariants, delegation-first core, RSCR trigger kinds, default ownership index, ID continuity, core linkage. *Queries:* "How to universalize Part G without drift?", "How to make RSCR triggers id-based?" | **Builds on:** E.8/E.10/E.19, A.6.7, A.15.3, A.19, G.0, A.6.7.CHR. Used by: all `G.0…G.13`. |
+| G.0 | **CG-Spec — Frame Standard & Comparability Governance** | Stable | *Keywords:* CG-Spec, CG-Frame, legality gate, ComparatorSet, ScaleComplianceProfile (SCP), MinimalEvidence, Γ-fold, Φ(CL), Φ_plane, CL-routing, ReferencePlane, edition pins, RSCRTriggerKindId. *Queries:* "What is CG-Spec in FPF?", "How does CG-Spec constrain lawful comparison and aggregation?", "What must be pinned for CG-Spec reproducibility?" | **Builds on:** G.Core, A.19 (CN-Spec), A.10, A.17–A.19 / C.16 (MM-CHR legality), A.18 (CSLC), B.3, Part F (Bridges/UTS), E.10, E.5.2. **Prerequisite for:** G.1–G.6. |
 | G.1 | **CG-Frame-Ready Generator**| Stable | *Keywords:* generator, SoTA, variant candidates, scaffold, F-suite, artifact creation, UTS, Role Description. *Queries:* "How to create new FPF artifacts for a domain?", "What is the process for extending FPF with a new theory?", "How does FPF generate candidate solutions?". | **Builds on:** G.0, C.17 (Creativity-CHR), C.18 (NQD-CAL), C.19 (E/E-LOG). **Produces:** Artifacts for Part F. |
 | G.2 | **SoTA Harvester & Synthesis**| Stable | *Keywords:* SoTA, harvester, synthesis, literature review, state-of-the-art, competing Traditions, triage, Bridge Matrix, Claim Sheets. *Queries:* "How does FPF incorporate existing research?", "How to model competing scientific theories?", "What is a SoTA Synthesis Pack?". | **Builds on:** F.9 (Bridges). **Prerequisite for:** G.3, G.4. |
 | G.3 | **CHR Authoring: Characteristics - Scales - Levels - Coordinates**| Stable | *Keywords:* CHR, authoring, characteristics, scales, levels, coordinates, CSLC, measurement, metrics, typing. *Queries:* "How do I define a new metric in FPF?", "What are the rules for creating characteristics?", "What is the CHR layer?". | **Builds on:** G.2, A.17-A.19 (MM-CHR), C.16. **Prerequisite for:** G.4. |
@@ -34979,7 +34980,7 @@ A **Pattern Check Profile (PCP)** is a named bundle of check families. Profiles 
 
 **Terminology note (disambiguation).** PQG/PCP are editorial review constructs in the authoring plane (Part E). They are distinct from enactment/runtime gating constructs such as `OperationalGate(profile)` / `GateProfile` (A.21), which govern Work transitions and gate decision policies elsewhere in FPF.
 
-**Mint vs reuse.** This pattern mints **PQG**, **PCP**, and the profile IDs **PCP‑BASE/MOD/PRAG/NORM/SOTA/BRIDGE/TERM/DEONT/REFRESH**. It reuses existing FPF terms (e.g., **Delta‑Class**, **DRR**, **Bridge**, **CL**, **SoTA Synthesis Pack**) without changing their meanings.
+**Mint vs reuse.** This pattern mints **PQG**, **PCP**, and the profile IDs **PCP‑BASE/MOD/PRAG/NORM/SOTA/BRIDGE/SUITE/P2W/TERM/DEONT/REFRESH**. It reuses existing FPF terms (e.g., **Delta‑Class**, **DRR**, **Bridge**, **CL**, **SoTA Synthesis Pack**) without changing their meanings.
 
 #### E.19:4.1 - Define the review target
 
@@ -35006,7 +35007,10 @@ Every run MUST include **PCP‑BASE**, reviewer depth SHOULD prioritize the load
 6. **Template & section integrity**
    This is lowest priority for review depth and **SHOULD NOT** consume effort that would displace ontology/semantics/modularity/slots/SoTA checks. 
 7. **Modularity & contradiction hygiene**
-   The pattern **SHOULD NOT** be overloaded or expands obligations/dependencies  significantly. Checks include: scope hygiene, split/refactor recommendation when warranted, and contradiction scan against neighbor patterns in Relations. Pattern should respect balance of coheiseveness and coupling of its content among other patterns in FPF. If pattern define specialization it should not show mix of slots/parameters of different levels. 
+   The pattern **SHOULD NOT** be overloaded or significantly expand obligations/dependencies without an explicit reason and impact record.
+   Checks include: scope containment, split/refactor recommendations when warranted, and contradiction scans against neighbor patterns in Relations.
+   The pattern SHOULD balance cohesion and coupling across FPF.
+   If the pattern defines specialization or layering, it SHOULD NOT mix slot interfaces or parameters from different levels; use explicit `⊑/⊑⁺` or `Uses` cuts instead.
 
 ##### E.19:4.2.1 - Triage: spend depth on load-bearing surfaces without making reviews heavier
 
@@ -35030,6 +35034,15 @@ PQG is meant to increase *semantic and ontological trust*, not to turn every rev
 
 **PCP‑PRAG (Pragmatic utility & adoption)** — Trigger: the pattern is Normative and claims practice guidance.
 Checks include: minimally viable example, non-decorative Consequences/Anti-Patterns, and an explicit “So what?” adoption test.
+
+**PCP‑MOD (Modularity & layering discipline)** — Trigger: the review target shows scope creep or level-mixing (e.g., one pattern bundles universal core rules with frame-specific content and discipline-specific method semantics; or it mixes `Intension`/`Description`/`Spec` roles in one object).
+Checks include:
+
+* an explicit **core vs extensions** cut (universal invariants are factored into one stable “core”, and extensions reference it rather than re-stating or mutating it),
+* no conflation of **specialization vs dependency**: use `⊑/⊑⁺` for refinement/extension and `Uses` for pipelines; do not mix their semantics,
+* no conflation of container roles: **Pack vs Kit vs Suite vs Family** are not interchanged, and “family of implementations” is not used as “set of mechanisms”,
+* level hygiene: Description-level artefacts do not grow mechanism semantics; MVPK faces remain projections and do not become “the place of truth”,
+* slot-discipline hygiene for any ladder: SlotKind invariance is preserved and inherited operations do not gain new mandatory inputs (A.6.5 / A.6.1 specialization discipline).
 
 **PCP‑REFRESH (Staleness & compatibility refresh)** — Trigger: staleness signals are present (e.g., outdated SoTA rows, renamed/superseded Relations targets, terminology drift, or an explicit refresh window in LAT/DRR).
 Checks include:
@@ -35063,6 +35076,35 @@ Checks include:
 * Congruence / loss is surfaced where applicable,
 * any cross-plane reuse is explicitly acknowledged and its penalties do not leak into unrelated assurances.
 
+**PCP‑SUITE (Mechanism-suite integrity)** — Trigger: the review target introduces or revises a suite-level Description that enumerates multiple distinct mechanisms (e.g., `MechSuiteDescription` or a suite specialization) and/or changes suite obligations, contract pins, or suite protocols.
+Checks include:
+
+* the suite remains a **Description-level** object: it enumerates member `U.Mechanism.Intension` refs and declares shared obligations/pins, but does **not** define mechanism blocks (`OperationAlgebra`, `Transport`, `Audit`, …) and is not used as a mechanism node,
+* membership has **set semantics**: `mechanisms` is duplicates-free and order carries no semantics; any intended ordering is expressed only in `suite_protocols`,
+* suite protocols are **closed over membership**: if `suite_protocols` is present, each protocol step references a member mechanism (no “step points outside the suite”),
+* the suite is not a family of implementations: it MUST NOT be encoded as a `MechFamilyDescription` (families remain “many realizations of one mechanism”, not “many mechanisms”),
+* the suite does **not** mint transport exceptions: any cross-context/plane/kind obligation remains Bridge-only; loss/penalties route to `R/R_eff` only; the suite does not embed CL/Φ/Ψ/Φ_plane tables (references/pins only),
+* CG/CN contract pins remain the single contract surface: if suite protocols include numeric comparison/aggregation/scoring, they cite `CG‑Spec` (SCP + Γ-fold + MinimalEvidence) and (where applicable) `CN‑Spec`, rather than duplicating “local CG‑Spec-like” content,
+* suite protocols contain **no hidden tails**: if UNM/UINDM/ULSAM are required, the protocol expresses them as explicit `Uses` steps and suite audit obligations cite the chosen mechanism ids/refs (no “implicit normalization/aggregation inside score/compare/select”),
+* gate separation is preserved: mechanisms/guards use tri-state `GuardDecision := {pass|degrade|abstain}` and MUST NOT publish `GateDecision` / `DecisionLog`; `block` remains gate-level only (`OperationalGate(profile)`),
+* defaults remain single-sourced: portfolio mode, dominance regime, and unknown/failure behavior are either pinned in `TaskSignature` / a single policy map or not claimed; the suite does not define competing defaults,
+* when the suite claims reusable outputs, publish/telemetry is explicit and terminates via existing publication surfaces (e.g., G.10 and/or PTM), not as a hidden tail inside a selection step.
+
+**PCP‑P2W (Planned baseline & slot-fillings seam integrity)** — Trigger: the review target introduces or revises WorkPlanning artifacts that pin planned fillers for an owner’s slots (e.g., `SlotFillingsPlanItem` or specializations), and/or introduces view projections of such artifacts.
+Checks include:
+
+* the PlanItem remains a **WorkPlanning baseline** (`U.WorkPlan.PlanItem`, `kind = SlotFillingsPlanItem`), not an execution log and not a mechanism,
+* planned slot filling stays **WorkPlanning-only**: plan items publish planned fillers/pins (ByValue or `<RefKind>`) and MUST NOT include launch values, `FinalizeLaunchValues` witnesses, gate decisions, or decision logs (these are `U.WorkEnactment` / gate-level only),
+* ownership and scope are explicit and non-leaky:
+  * the item targets exactly one slot owner via `target_slot_owner_ref`,
+  * `target_slot_owner_ref` is a **Description-level, edition-addressable** slot-owner ref (kit/suite) and MUST NOT be a `U.Mechanism.IntensionRef`,
+  * the item carries explicit P2W anchors (bounded context; and CG-frame/path-slice/scope anchors when used for legality/selection baselines),
+* time is explicit: the item includes `Γ_time_selector` or `Γ_time_rule_ref` (XOR); implicit “latest/current” is nonconformant,
+* `planned_fillings` is the authority: duplicate `slot_kind` rows are nonconformant unless the slot owner declares the slot multi-valued; any “indices” are derivable projections and are not maintained independently,
+* crossing information is referenced, not duplicated: the plan item (and any associated views) cite CrossingSurface/Bridge/policy-id pins rather than embedding CL/Φ/Ψ/Φ_plane tables or defining transport edges,
+* MVPK projections remain projections: any `U.View` face (TechCard/PlainView/InteropCard/AssuranceLane) over a plan item MUST NOT add new claims, MUST NOT introduce “shadow defaults”, and MUST avoid “signature” language (signatures belong to intensional objects),
+* if a view publishes edition pins or makes claims about crossing/comparability/selection/launch, it MUST also carry the required audit/ownership pins (UTS + Path pins, crossing pins, applicable guard-owner pins); missing pins are treated as nonconformance and read fail-closed downstream.
+
 **PCP‑TERM (Terminology & naming protocol)** — Trigger: the pattern introduces new terms, new U.Types, new “unified names”, or redefines existing labels.
 Checks include:
 
@@ -35070,7 +35112,7 @@ Checks include:
 * naming follows the local-first naming protocol and avoids scope smuggling (roles/metrics/stages baked into labels; overloaded words used as terms with a local sense). Remediation **SHOULD** use F.18,
 * deprecated aliases and continuity rules are respected.
 
-**PCP-DEONT (Deontic clause hygiene - RFC keywords)** - Trigger: the pattern mismatch admissibility (like in laws in physics) and deontic laws (like in law enforcement). 
+**PCP‑DEONT (Deontic clause hygiene: RFC keywords)** — Trigger: the pattern conflates admissibility/validity constraints with deontic obligations (e.g., uses RFC keywords where a non-deontic `Invariant:` predicate is required).
 Checks include:
 * Deontic requirements are expressed with RFC-style keywords (see H‑8); 
 * obligations are not smuggled into prose as informal imperatives. Admissibility/validity constraints are stated non‑deontically as `Invariant:` / `Well‑formedness constraint:` predicates and referenced from the Conformance Checklist when enforceable. 
@@ -35167,17 +35209,19 @@ The baseline profile protects cross-pattern comparability and editorial sanity. 
   * `E.10` (lexical discipline and reserved vocabulary)
   * `E.9` (design rationale records for changes that affect semantics)
   * `E.15` (authoring/evolution protocol; harness mindset; refresh planning)
-  * `A.6.1.5` (Slot discipline)
+  * `A.6.5` (slot discipline; SlotKind/ValueKind/refMode invariants)
 * **Coordinates with:**
 
   * `F.8` (mint vs reuse decisions)
   * `F.18` (local-first naming protocol)
   * `F.9` (cross-context alignment discipline)
   * `F.15` (conceptual harness and regression framing)
+  * `E.17` (MVPK / `U.View` projection discipline)
+  * `A.6.7` (`MechSuiteDescription` suite-level semantics)
+  * `A.15.3` (`SlotFillingsPlanItem` P2W planned-baseline seam)
   * `G.11` (refresh/decay orchestration principles, where applicable)
 
 ### E.19:End
-
 
 # **Part F — The Unification Suite (U‑Suite): Concept‑Sets, SenseCells & Contextual Role Assignment**
 
@@ -41858,311 +41902,753 @@ All patterns that propose or consume unified names and rows in Part F; any Part 
 
 # Part G – Discipline SoTA Patterns Kit
 
-## G.0 - Frame Standard & Comparability Governance (CG‑Spec)
+## G.Core - Part G Core Invariants
 
-**Tag:** Architectural pattern (foundational Standard; constrains G.1–G.5)
-**Stage:** *design‑time* (establishes comparison legality & evidence minima; constrains run‑time gates)
-**Primary hooks:** **USM / Scope (G)** (A.2.6), **Design–Run split** (A.4), **Evidence carriers** (A.10), **Assurance F–G–R with Γ‑fold** (B.1, B.3), **Change rationale** (B.4), **MM‑CHR discipline** (A.17–A.19/C.16), **Creativity‑CHR** (C.17), **NQD‑CAL** (C.18), **E/E‑LOG** (C.19), **Method‑SoS‑LOG** (C.23), **Bounded Contexts & Bridges + CL** (F.1–F.3, F.9), **Concept‑Sets** (F.7), **Mint/Reuse** (F.8), **RSCR** (F.15), **Lifecycle/Deprecations** (F.13–F.14), **UTS & Naming** (F.17–F.18), **No tool lock‑in** (E.5.1–E.5.3), **Lexical rules** (E.10), **GateCrossing visibility hooks** (E.18; GateChecks **A.21**; Bridge+UTS **A.27**; BridgeCard **F.9**).
+**Tag.** Architectural pattern (Part‑G core invariants hub; refactoring/deduplication)
+**Stage.** *design‑time* (authoring discipline + ID‑stable routing; no run‑time mechanism)
+**Primary hooks.** E.8 (pattern template), E.10 (lexical/ontological rules), E.19 (conformance discipline), A.6.7 (SuiteObligations + suite protocol pins), A.15.3 (planned baseline), A.19 (CN‑Spec), G.0 (CG‑Spec), A.6.7.CHR (CHR suite boundary), C.23 (SoS‑LOG), F.15 (RSCR).
 
-Comparability Governance is the design‑time standard that fixes, for a given `CG‑Frame`, **what comparisons and aggregations are lawful**, under which declared **normalization/UNM** assumptions and **evidence minima**, so that run‑time publication and selection remain auditable. CG constrains run‑time gate checks (E.TGA/E.18) by supplying the referenced `CG‑Spec` artifacts and pinned editions; CG itself is not an admissibility mechanism.
+**Status.** Draft (Phase‑2 deliverable)  
+**Placement.** Part G → immediately after `G.0` (without renumbering `G.0…G.13`)  
+**Normativity.** Normative unless explicitly marked informative  
 
-**Didactic subtitle:** “Design‑time rules for safe, auditable comparison.”
+**Purpose.** Provide a *single owner* for Part‑G‑wide invariants (**delegation‑first routing**), plus a typed **RSCR trigger kind catalogue** and a **Default Ownership Index**, so Part G can be refactored without semantic drift or public‑ID breakage.
 
-### G.0:1 - Intent (informative)
+**Phase‑2 constraint.** `G.Core` is the only new Part‑G pattern introduced in Phase‑2; discipline/method/generator specifics remain in `G.x` as `Extensions`, citations to existing owner‑patterns, or Phase‑3 seeds (appendix) without new Phase‑2 norms.
 
-Provide a **single, normative Standard** for a **CG‑Frame** that (a) names *what may be compared or aggregated*, (b) defines **lawful ScaleComplianceProfile (SCP) and aggregators** over CHR‑typed data, and (c) sets **minimal evidence** and **trust folding** rules so that all downstream generation (G.1), harvesting (G.2), measurement authoring (G.3), calculus (G.4), and dispatch/selection (G.5) operate **safely, comparably, and in‑scope**.
+### G.Core:1 - Problem frame
 
-### G.0:2 - Problem frame (informative)
+Part G contains patterns for CG‑frame characterization and its downstream artefacts (cards, evidence graphs, bridge surfaces, refresh/shipping orchestration, parity harnesses, dashboards, interop surfaces). In the current spec, several invariants are already present as **suite obligations/protocol norms** and are **reused across Part G**.
 
-A team is extending FPF with a **CG‑Frame** (e.g., *Creativity*, *Decision*, *Architecture trade‑offs*). G.1–G.5 reference **CG‑Spec** for lawful comparison, but absent a clear Standard, projects drift into hidden cardinalization, ad‑hoc thresholds, and opaque evidence minima. **G.0** authors and publishes that Standard.
+*Part‑G‑wide* invariants reside in `G.Core` as a single-owner pattern so every `G.x` can:
 
-### G.0:3 - Problem (informative)
+* cite the core invariants rather than restating them, and
+* isolate pattern-scoped specifics as `Extensions` without turning each `G.x` into a mixed bag of universal rules, kit surfaces, and method/generator descriptions.
 
-Recurring pains without a frame‑level spec:
+This pattern (`G.Core`) therefore acts as the **deduplication hub** for FPF Part G.
 
-* **Undefined comparison set.** Teams compare quantities without a declared **Characteristic/SCP** basis.
-* **Illicit arithmetic.** Ordinals get averaged; units are mixed; polarity flips are implicit.
-* **Opaque evidence minima.** Numeric gates run on *whatever is at hand*, not on declared **KD‑CAL lanes** or carriers.
-* **Trust blur.** Cross‑Context reuse lacks **CL penalties** and Γ‑fold rules; selection **R_eff** is not auditable.
-* **Inconsistent scope.** Global claims leak; boundaries and *describedEntity* are not attached to names.
+### G.Core:2 - Problem
 
-### G.0:4 - Forces (informative)
+Without a single owner for Part‑G‑wide invariants, Part G drifts in at least six recurring ways:
 
-* **Pluralism vs. comparability.** Rival Traditions must co‑exist while enabling lawful comparison.
-* **Expressiveness vs. safety.** Rich **SCP profiles** and aggregators vs. **MM‑CHR** legality.
-* **Locality vs. portability.** Context‑local semantics with explicit **Bridges + CL** when crossing.
-* **Assurance vs. agility.** Minimal evidence gates that are strong enough to matter, light enough to adopt.
-* **Design‑time vs. run‑time.** Keep Standards and thresholds **design‑time**; run‑time only *uses* them.
+1. **Shadow contract surfaces** emerge: downstream patterns restate CN‑Spec / CG‑Spec constraints, accidentally creating “local specs” that can diverge from the canonical contract surfaces.
+2. **Crossing discipline becomes inconsistent**: “crossing events” and “crossing visibility” are described differently across `G.x`, causing ambiguity about what must be pinned (UTS/Path/policy‑ids/editions) and what triggers refresh/regression.
+3. **Guard semantics drift**: tri‑state eligibility and “unknown handling” can be reinterpreted in local prose, producing hidden fourth statuses or implicit coercions.
+4. **Hidden scalarization appears**: partial orders are silently collapsed into scalars, or totalization is introduced implicitly through “helpful” numeric summaries.
+5. **Suite/kit/pack mixing blurs ownership**: downstream patterns drift into “owning” what should remain owned by the suite boundary (A.6.7/A.6.7.CHR), kit surfaces (each `G.x`), or shipping (G.10).
+6. **Refactoring breaks public IDs**: CC items and trigger labels become hard to evolve because removing duplicates risks breaking external references.
 
-### G.0:5 - Solution — **The CG‑Spec Standard**
+Part G requires a single place where these invariants and refactoring disciplines live, while keeping Part G patterns modular and method/discipline specifics explicitly separated.
 
-A **notation‑independent** object, published to **UTS**, that fixes *what is comparable, how, and under which evidence and trust minima*.
+### G.Core:3 - Forces
 
-For top‑level disciplines, CG‑Spec is restricted to comparability, tolerances, and aggregation surfaces where sufficient basis exists (KD‑CAL lanes, Worked Examples, Γ‑fold reliability). CG‑Spec MUST NOT introduce “universal” cross‑Tradition scoring; run‑time choice belongs to the G.5 selector under CHR/CAL legality.
+* **Single source of truth vs. usability:** We must centralize universal invariants, but `G.x` must remain readable and pattern-scoped for authors.
+* **Delegation-first vs. completeness:** Many norms already have canonical owners (A.6.7 / A.15.3 / A.19 / G.0 / A.6.7.CHR / E.*). G.Core must route to them rather than duplicating semantics.
+* **Backwards compatibility:** Public CC IDs and legacy trigger tokens must remain stable; deduplication must not break citations.
+* **Typed change control:** RSCR/refresh must become *id‑based* (catalogued trigger kinds) rather than prose-based “meaning”.
+* **Strict distinction:** Keep contract surfaces (CN‑Spec, CG‑Spec), suites, kits/surfaces, policies, planned baselines, audits, and refresh orchestration distinct.
+* **Minimal specificity naming:** New IDs must be kind‑suffixed and minimally specific, to reduce semantic lock‑in while remaining precise.
+* **Phase‑2 scope discipline:** `G.Core` must not become a container for discipline/method/generator taxonomies; those remain pattern-scoped (`Extensions`), delegated to existing owner‑patterns, or marked Phase‑3 seeds (appendix) without new Phase‑2 norms.
 
-#### G.0:5.1 - CG‑Spec - Data Model (normative)
+### G.Core:4 - Solution
+
+`G.Core` establishes Part‑G‑wide invariants as **routing rules + typed catalogs + authoring discipline**.
+
+#### G.Core:4.1 - Delegation-first routing for Part‑G‑wide invariants
+
+`G.Core` is a *routing hub*, not a “second spec”. For any Part‑G‑wide invariant that already has an owner, `G.Core`:
+
+1) standardises naming via `SuiteObligations.*` (A.6.7:4.2), and  
+2) records where the invariant is owned, so downstream patterns cite rather than restate.
+
+**Routing table (normative index; no semantic duplication).**
+
+| SuiteObligations key | Canonical owner(s) | Part‑G note |
+| --- | --- | --- |
+| `no_shadow_specs` | A.19 (CN‑Spec), G.0 (CG‑Spec), A.6.7.CHR | CN/CG are *pins*, not copies (“contract surfaces are pins, not copies”). |
+| `bridge_only_crossings` | A.6.7 + E.18 | Any cross‑Context/plane/kind move is Bridge‑mediated; no implicit crossings. |
+| `crossing_visibility_required` | E.18 (CrossingSurface) + A.6.7 | Crossing visibility is a published **CrossingSurface**; missing/non‑conformant surface is fail‑fast for downstream consumption. |
+| `edition_key_change_is_crossing_event` | A.6.7 | Edition‑key changes on pinned refs are treated as crossing‑sensitive events (RSCR/refresh relevant). |
+| `two_bridge_rule_describedEntity_change` | A.6.7 | describedEntity retargeting requires an explicit KindBridge (`CL^k`) in addition to any Context/Plane Bridge. |
+| `guard_decision_tristate` + `unknown_never_coerces_to_pass` + `sandbox_is_soslog_branch` | A.6.7 + C.23 + G.5/G.8 | `GuardDecision := {pass|degrade|abstain}` only; `unknown` maps to `degrade`/`abstain` via explicit SoS‑LOG branch/policy. |
+| `penalties_route_to_r_eff_only` + `F_G_invariance_under_penalties` | A.6.7 + G.6/G.5 | Penalties affect the **R lane (R_eff)** only; **F/G invariants** must not be altered by penalties. |
+| `set_returning_on_partial_orders` + `no_silent_scalarisation_of_partial_orders` + `no_silent_totalisation` | A.6.7 + G.5 | Partial orders stay set‑valued; no silent scalar ranks or “helpful” totalisation. |
+| `p2w_planned_baseline_in_workplanning_only` + `no_launch_values_in_workplanning` + `no_gate_decision_in_plans` | A.15.3 + A.6.7.CHR | Planned baselines are WorkPlanning‑only; no launch values and no GateDecision/DecisionLog in plans. |
+| `single_default_owner_per_default_id` | A.6.7 + this pattern | Any default has exactly one owner; `G.Core.DefaultOwnership` is an index, not a second spec. |
+
+This pattern also owns three pieces of Part‑G‑wide infrastructure that are **not** already owned elsewhere:
+
+* the typed **RSCRTriggerKindId catalogue** (single writer),
+* the **Default Ownership Index** (single owner per DefaultId; index only), and
+* the **Δ‑discipline** for ID‑stable deduplication (delegation without public‑ID breakage).
+
+#### G.Core:4.2 - Mandatory `G.Core linkage` contract for every `G.x`
+
+Every pattern `G.x` in Part G SHALL include a short, explicit **Core linkage** section:
+
+* `Builds on: G.Core` in Relations.
+* A section named `G.x:<n> - G.Core linkage (normative)` that lists:
+
+  * `CoreConformanceIds := { CC‑GCORE‑… }` (the core CC items this pattern relies on).
+  * `CorePinsRequired := { … }` (pins/refs that must be surfaced by this pattern; MUST include `UTSRowId` pins when minting/deprecating public identifiers; MUST include `PathId` / `PathSliceId` pins when citing evidence or crossings; plus relevant policy-ids and edition pins).
+  * `DefaultsConsumed := { DefaultId → DefaultOwnerRef }` (citations only; no competing defaults).
+  * `RSCRTriggerKindIds := { RSCRTriggerKindId… }` (typed reason classes relevant to this pattern).
+  * `TriggerAliasMapRef?` (present or cited) if the pattern uses local trigger tokens.
+
+This linkage section is the *preferred* place where a `G.x` enumerates which core invariants it depends on. For ID-continuity, legacy CC items MAY remain in `G.x` as delegation points (see Δ‑discipline), but they SHALL NOT reintroduce duplicated semantics as locally owned norms. All other prose should cite `G.Core` (or the canonical owners routed by `G.Core`).
+
+#### G.Core:4.3 - RSCR Trigger Catalogue and docking discipline
+
+`G.Core` is the **single writer** for Part‑G‑wide trigger kinds.
+
+##### G.Core:4.3.1 - Definitions
+
+* **RSCRTriggerKindId**
+  Canonical, stable identifier for a *trigger kind* (a class of “why RSCR/refresh must fire”). Cross-pattern reason code.
+
+* **RSCRTriggerAliasId**
+  Pattern-scoped human label/token kept for ergonomics/backward compatibility (e.g., `G.11:T4`, `G.6:H3:lane-tag correction`).
+
+* **TriggerAliasMap**
+  Mapping table: `RSCRTriggerAliasId → {RSCRTriggerKindId…}` (1..n).
+
+* **RSCRTrigger**
+  Minimal conceptual form (notation-independent):
+
+  ```
+  RSCRTrigger := ⟨
+    triggerKindId: RSCRTriggerKindId,
+    scope: PathSliceId[] | PathId[] | PatternScopeId,
+    payloadPins: { …id pins… }
+  ⟩
+  ```
+
+  Where `payloadPins` contains any edition pins, policy-ids, Bridge ids, evidence pins, regression-set ids, etc., required to make the trigger actionable.
+
+##### G.Core:4.3.2 - Owner model
+
+* TriggerOwner := `G.Core`.
+* Any new trigger kind SHALL be added to `G.Core` first.
+* Other patterns MAY define aliases only (or cite shared alias maps), and MUST map aliases to canonical kinds.
+
+##### G.Core:4.3.3 - Authoring rules
+
+* **No implicit triggers:**
+  Any RSCR/SCR/refresh artefact that *records reasons* MUST record canonical `RSCRTriggerKindId`. Aliases may be recorded as labels, but must not be the only reason code.
+
+* **No implicit overloading:**
+  A local token string (e.g., `T4`) SHALL NOT silently change meaning across patterns; namespace is part of the alias (`G.11:T4` ≠ `A.20:T4`).
+
+* **Granularity discipline:**
+  If a local cause is narrower than an existing canonical kind, map it to that kind and keep the nuance as a local scope note. If the difference matters for planning/selection, add a new canonical kind.
+
+* **Multi-cause discipline:**
+  When an event spans multiple canonical kinds, record multiple triggers (preferred) or map the alias to a set `{…}` and require emitting the full set.
+
+##### G.Core:4.3.4 - Seed canonical catalogue (Phase‑2 minimum)
+
+The Phase‑2 stabilized canonical catalogue (based on the Phase‑2 inventory; sufficient to dock legacy `G.6:H3` and `G.11:T0…T7` triggers and to populate `RSCRTriggerKindIds` in `G.0…G.13`):
+
+* `RSCRTriggerKindId.LegalitySurfaceEdit`
+* `RSCRTriggerKindId.PenaltyPolicyEdit`
+* `RSCRTriggerKindId.CrossingSurfaceEdit`
+* `RSCRTriggerKindId.ReferencePlaneEdit`
+* `RSCRTriggerKindId.EditionPinChange`
+* `RSCRTriggerKindId.TokenizationOrNameChange`
+* `RSCRTriggerKindId.PolicyPinChange`
+* `RSCRTriggerKindId.TelemetryDelta`
+* `RSCRTriggerKindId.FreshnessOrDecayEvent`
+* `RSCRTriggerKindId.EvidenceSurfaceEdit`
+* `RSCRTriggerKindId.MaturityRungChange`
+* `RSCRTriggerKindId.BaselineBindingEdit`
+* `RSCRTriggerKindId.DefaultOwnerChange`
+
+##### G.Core:4.3.4.1 - Canonical kind definitions (normative, minimal)
+
+Each `RSCRTriggerKindId` SHALL have a short, stable definition in `G.Core` (single-writer) to prevent semantic drift.
+
+| RSCRTriggerKindId | Minimal meaning (cause class) | Typical payload pins (non-exhaustive) |
+| --- | --- | --- |
+| `LegalitySurfaceEdit` | A legality surface changed (CG‑Spec: ComparatorSet/SCP/Γ_fold/MinimalEvidence, or equivalent legality inputs). | `CGSpecRef.edition`, `ComparatorSetRef.edition`, `SCPRef.edition`, `ΓFoldRef.edition` |
+| `PenaltyPolicyEdit` | A penalty / Φ / Ψ / FailureBehavior / SoS‑LOG branch policy changed. | penalty policy ids, `Φ`/`Ψ` policy ids, SoS‑LOG branch id pins |
+| `CrossingSurfaceEdit` | A crossing surface changed (Bridge/CL routing, crossing registry cards, crossing policy pins). | `BridgeId`, `CL*` ids, `UTS/Path` pins, crossing policy ids |
+| `ReferencePlaneEdit` | ReferencePlane or plane-routing surface changed. | `ReferencePlaneId`, plane-policy ids |
+| `EditionPinChange` | Any pinned edition relevant to downstream artifacts changed (including **`CNSpecRef.edition`**, `CGSpecRef.edition`, comparator/method/descriptor/distance/etc.). | changed `*.edition` pins, affected `PathSliceId`s |
+| `TokenizationOrNameChange` | A published tokenization / naming / alias surface changed in a way that can affect docking, citations, or dispatch (e.g., UTS Name Cards, twin labels, alias maps). | affected `UTSRowId[]`, `NameCardId[]`, alias ids / maps |
+| `PolicyPinChange` | A policy-id pin used by characterization changed (selection, insertion, emission, routing, refresh policy, etc.). | policy ids, `TaskSignatureRef` pins (if applicable) |
+| `TelemetryDelta` | Telemetry inputs that influence refresh/selection changed (not merely display-only). | telemetry ids/refs, `Audit`-published pins |
+| `FreshnessOrDecayEvent` | Time/freshness/decay conditions affecting validity changed (window shift, decay thresholds, freshness policy edits). | `Γ_timePolicy` pins, freshness policy ids |
+| `EvidenceSurfaceEdit` | Evidence graph / evidence surface changed in ways that affect admissibility/acceptance/comparison. | evidence pins, `EvidenceGraph` refs, affected `PathId`s |
+| `MaturityRungChange` | Maturity rung/ladder state changed for relevant artifacts or paths. | maturity rung ids, affected scopes |
+| `BaselineBindingEdit` | Planned baseline bindings changed (planned slot fillings / binding refs), requiring a re-run along the P2W path. | `SlotFillingsPlanItem` refs, planned pins, variance pins |
+| `DefaultOwnerChange` | The owner of a `DefaultId` (as recorded in `G.Core.DefaultOwnershipIndex`) changed, or a default row was added/deprecated. | affected `DefaultId.*`, old owner ref, new owner ref |
+
+##### G.Core:4.3.5 - Initial alias maps
+
+These alias maps are normative docking artefacts and preserve legacy tokens while moving semantics to canonical ids.
+
+**TriggerAliasMap.G11**
+Based on the existing trigger catalogue in `G.11` (`T0…T7`).
+
+* `G.11:T0 → { RSCRTriggerKindId.PolicyPinChange }`
+* `G.11:T1 → { RSCRTriggerKindId.TelemetryDelta }`
+* `G.11:T2 → { RSCRTriggerKindId.EditionPinChange }`
+* `G.11:T3 → { RSCRTriggerKindId.EditionPinChange }`
+* `G.11:T4 → { RSCRTriggerKindId.CrossingSurfaceEdit, RSCRTriggerKindId.PenaltyPolicyEdit }`
+* `G.11:T5 → { RSCRTriggerKindId.FreshnessOrDecayEvent }`
+* `G.11:T6 → { RSCRTriggerKindId.MaturityRungChange }`
+* `G.11:T7 → { RSCRTriggerKindId.PolicyPinChange }`
+
+**TriggerAliasMap.G0 (reserved; empty in Phase‑2).**
++Map any stable legacy registry‑hook labels emitted/recorded by `G.0` to the canonical kinds above (typically `LegalitySurfaceEdit`, `PenaltyPolicyEdit`, `CrossingSurfaceEdit`, `ReferencePlaneEdit`, `TokenizationOrNameChange`), preserving the original label text as `RSCRTriggerAliasId`. If none exist, `G.0` SHOULD emit canonical `RSCRTriggerKindId` values directly.
+ 
+**TriggerAliasMap.G6**
+EvidenceGraph `H3` example causes → canonical kinds:
+
+* `G.6:H3:freshness/decay change → { RSCRTriggerKindId.FreshnessOrDecayEvent }`
+* `G.6:H3:Bridge CL/CL^k or loss update → { RSCRTriggerKindId.CrossingSurfaceEdit }`
+* `G.6:H3:Φ/Ψ policy change → { RSCRTriggerKindId.PenaltyPolicyEdit }`
+* `G.6:H3:lane tag correction → { RSCRTriggerKindId.EvidenceSurfaceEdit }`
+* `G.6:H3:ReferencePlane correction → { RSCRTriggerKindId.ReferencePlaneEdit }`
+* `G.6:H3:QD/OEE artefact updates (U.DescriptorMapRef.edition/DistanceDef, EmitterPolicyRef, InsertionPolicyRef, archive K-capacity) → { RSCRTriggerKindId.EditionPinChange, RSCRTriggerKindId.PolicyPinChange }`
+
+#### G.Core:4.4 - Default Ownership Index
+
+`G.Core` provides an index of Part‑G defaults with a **single owner** per `DefaultId`. The index is not a “second spec”; it is a cross-reference table that points to the *true owner* (a CC item, policy‑id, or TaskSignature rule) and states applicability conditions.
+
+##### G.Core:4.4.1 - Definitions
+
+* **DefaultId**
+  Stable identifier of a default (a default constant or default rule).
+
+* **DefaultOwnerRef**
+  A reference to the single owner of the default (e.g., a CC item id like `CC‑G5.23`, or a policy id, or a TaskSignature rule definition).
+
+##### G.Core:4.4.2 - Rules
+
+* Exactly one owner per `DefaultId`.
+* Any other mention in `G.x` MUST be a citation/delegation to the owner, not a competing statement.
+* A default may be conditional (default-rule) with explicit applicability conditions.
+* The Default Ownership Index SHALL NOT be used to “smuggle” mandatory invariants as defaults. Invariants remain invariants (typically routed via `CC‑GCORE‑…` to canonical owners).
+
+##### G.Core:4.4.3 - Seed Default Ownership entries (Phase‑2 minimum)
+
+| DefaultId                       | DefaultOwnerRef                                           | Notes |
+| ------------------------------ | --------------------------------------------------------- | ----- |
+| `DefaultId.PortfolioMode`       | `CC‑G5.23`                                                | Existing owner; other mentions delegate to it. |
+| `DefaultId.DominanceRegime`     | `CC‑G5.28`                                                | Existing owner; other mentions delegate to it. |
+| `DefaultId.GammaFoldForR_eff`   | `CC‑G5.4`                                                 | Default Γ‑fold for `R_eff` is weakest‑link; overrides require explicit CAL support. |
+
+This table may grow over time; the rule is that the **owner must already exist** (or be intentionally set to `G.Core` when the default is truly Part‑G‑wide and not owned elsewhere). Any change in a row (add/remove/change owner) SHALL be treated as a refresh‑sensitive edit and recorded as `RSCRTriggerKindId.DefaultOwnerChange` (payload: affected `DefaultId.*`, old owner ref, new owner ref).
+
+#### G.Core:4.5 - ID continuity protocol (Δ‑discipline)
+
+When moving universal norms out of `G.x` into `G.Core`:
+
+* existing public CC ids in `G.x` that may be referenced externally SHALL NOT be deleted or renamed;
+* such CC items SHALL become **delegation** items that point to the relevant `CC‑GCORE‑…` item(s);
+* each `G.x` SHALL add exactly one bridge CC item `CC‑Gx‑CoreRef` (first in its CC list) that makes linked `CC‑GCORE‑…` items mandatory for `G.x` conformance.
+
+Legacy trigger tokens (e.g., `G.11:T*`, `G.6:H3:*`) are preserved as aliases and MUST map to canonical trigger kinds.
+
+Non-CC public identifiers (e.g., `UTSRowId`, `RSCRTriggerAliasId`, deprecation notices, edition bumps) MUST obey the same Δ-discipline: preserve old ids; represent drift via alias/deprecation/edition evolution (see `F.17 (UTS)`); and emit canonical trigger kinds (`RSCRTriggerKindId.TokenizationOrNameChange`, `RSCRTriggerKindId.EditionPinChange`) when downstream impact is possible.
+
+#### G.Core:4.6 - Explicit non-goals
+
+`G.Core` does not:
+
+* introduce CG‑frame kit entities (e.g., BridgeMatrix/ReferencePlane/Φ registries); those remain in their owning `G.x`;
+* introduce method-family taxonomies, discipline packs, or generator orchestration mechanisms; those remain as `Extensions` in their owners (e.g., synthesis/shipping/refresh patterns);
+* define refresh algorithms; it defines trigger kinds and docking only.
+
+---
+
+### G.Core:5 - Archetypal grounding
+
+**Tell.**
+In Phase‑2 refactoring, `G.Core` is the hub that allows each `G.x` to become structurally predictable: (a) a short, normative “Core linkage” slice, and (b) pattern‑scoped `Extensions`. Universal obligations are routed to canonical owners (A.6.7 / A.15.3 / A.19 / G.0 / A.6.7.CHR), while RSCR causes and default ownership become typed and single-owned.
+
+**Show 1: Refresh triggers without semantic drift.**
+`G.11` already uses trigger tokens `T0…T7`. `G.Core` keeps them as aliases and maps them to canonical trigger kinds (e.g., `TelemetryDelta`, `EditionPinChange`, `CrossingSurfaceEdit`). This makes RSCR reason codes consistent across patterns and avoids re-explaining trigger semantics in every pattern.
+
+**Show 2: Resolving competing defaults.**
+If multiple patterns imply a default for `PortfolioMode`, the Default Ownership Index points to a single owner (currently `CC‑G5.23`). Other patterns (e.g., bundles/log patterns) must cite that owner or delegate to it, rather than restating the default with slightly different wording. This preserves intent while preventing drift and ambiguity. 
+
+### G.Core:6 - Bias-annotation (informative)
+
+* **Centralization bias:** A single hub can become too “thick”. Mitigation: delegation-first routing; keep only true Part‑G invariants and typed indices here.
+* **Over-typing bias:** A trigger catalogue can become overly granular. Mitigation: granularity discipline + scope notes; only add new kinds when planning/selection needs it.
+* **Refactor rigidity bias:** Preserving IDs can feel cumbersome. Mitigation: delegation items preserve IDs while enabling deduplication.
+* **Default absolutism bias:** Defaults may require conditional rules. Mitigation: Default Ownership Index allows conditional default rules with explicit applicability conditions.
+* **Single-writer bias:** prefers single‑writer *authoring* for catalogs and explicit ownership tables.  
+  *Mitigation:* delegation-first routing; keep catalogs minimal; avoid “second specs”.
+* **Architectural bias:** centralizes invariants to prevent accidental coupling across `G.x`.  
+  *Mitigation:* keep core thin; force `Extensions` to remain pattern‑scoped.
+* **Ontological/epistemic bias:** enforces strict distinction between contract surfaces, kits, mechanisms, and orchestration.  
+  *Mitigation:* allow didactic scope notes while keeping normative surface id‑based.
+* **Pragmatic bias:** adds authoring overhead (linkage sections, alias maps).  
+  *Mitigation:* one small mandatory bridge CC item per pattern (`CC‑Gx‑CoreRef`) and short linkage slices only.
+* **Didactic bias:** risks “glossy hub prose” that hides missing CC coverage.  
+  *Mitigation:* enforce CC/Solution coherence (E.19) and keep invariants checkable via `CC‑GCORE‑…`.
+
+### G.Core:7 - Conformance checklist (normative) — **CC‑GCORE**
+
+Conformance items are authoring obligations and are enforced transitively by `CC‑Gx‑CoreRef` in every `G.x`.
+
+| ConformanceId        | Statement |
+| -------------------- | --------- |
+| **CC‑GCORE‑DEL‑1**   | A conforming `G.Core` SHALL be delegation‑first: if a norm is already owned by A.6.7 / A.15.3 / A.19 / G.0 / A.6.7.CHR / E.*, `G.Core` routes to it rather than duplicating semantics. |
+| **CC‑GCORE‑CN‑CG‑1** | Any pattern in Part G that builds on `G.Core` SHALL cite `CN‑Spec` and `CG‑Spec` as the only contract/legality surfaces and SHALL NOT introduce shadow specs (`SuiteObligations.no_shadow_specs`). |
+| **CC‑GCORE‑OBL‑1**   | A conforming `G.Core` SHALL treat the obligation vocabulary in `A.6.7:4.2` as the canonical naming surface for Part‑G‑wide obligations and SHALL NOT introduce competing obligation names for the same norms. |
+| **CC‑GCORE‑CROSS‑1** | A Part‑G pattern that introduces or consumes crossings SHALL enforce `SuiteObligations.bridge_only_crossings` and `SuiteObligations.crossing_visibility_required` (CrossingSurface per E.18); SHALL prohibit implicit crossings; SHALL treat `SuiteObligations.edition_key_change_is_crossing_event` as RSCR/refresh‑relevant; and SHALL route `SuiteObligations.two_bridge_rule_describedEntity_change` to its canonical owner. |
+| **CC‑GCORE‑GUARD‑1** | A Part‑G pattern SHALL treat `GuardDecision := {pass|degrade|abstain}` as the only admissibility/eligibility decision domain (`SuiteObligations.guard_decision_tristate`); `unknown` SHALL NOT silently coerce to `pass` (`SuiteObligations.unknown_never_coerces_to_pass`); “sandbox/probe‑only” SHALL be expressed via SoS‑LOG branch pins (policy/FailureBehavior) (`SuiteObligations.sandbox_is_soslog_branch`), not as an extra decision value. |
+| **CC‑GCORE‑PEN‑1**   | A Part‑G pattern SHALL route penalties/assurance loss to the **R lane (`R_eff`) only** (`SuiteObligations.penalties_route_to_r_eff_only`) and SHALL preserve **F/G invariants** under penalties (`SuiteObligations.F_G_invariance_under_penalties`). |
+| **CC‑GCORE‑SET‑1**   | A Part‑G pattern SHALL preserve set-return semantics for partial orders (`SuiteObligations.set_returning_on_partial_orders`) and SHALL prohibit silent scalarization/totalization (`SuiteObligations.no_silent_scalarisation_of_partial_orders`, `SuiteObligations.no_silent_totalisation`); any scalar summary SHALL be report-only unless declared as a lawful comparator surface. |
+| **CC‑GCORE‑SKP‑1**   | A Part‑G pattern SHALL preserve the suite/kit/pack distinction (`SuiteObligations.suite_kit_pack_distinction`) and SHALL keep shipping concerns owned by their canonical owner patterns (e.g., G.10) rather than embedding shipping semantics into unrelated kits or core invariants. |
+| **CC‑GCORE‑P2W‑1**   | A Part‑G pattern that uses planned baselines SHALL anchor them via `SlotFillingsPlanItem` in WorkPlanning (`SuiteObligations.p2w_planned_baseline_in_workplanning_only`) and SHALL NOT move launch/finalization values or gate decisions into WorkPlanning (`SuiteObligations.no_launch_values_in_workplanning`, `SuiteObligations.no_gate_decision_in_plans`). |
+| **CC‑GCORE‑LINK‑1**  | Every conforming `G.x` SHALL (a) declare `Builds on: G.Core`, and (b) contain a `G.Core linkage` section enumerating: `CoreConformanceIds`, `CorePinsRequired`, `DefaultsConsumed`, `RSCRTriggerKindIds`, and `TriggerAliasMapRef` if aliases are used. |
+| **CC‑GCORE‑LINK‑2**  | Every conforming `G.x` SHALL include `CC‑Gx‑CoreRef` as the first CC item, making the linked `CC‑GCORE‑…` items mandatory for `G.x` conformance. |
+| **CC‑GCORE‑UTS‑1**   | If a Part‑G pattern mints, deprecates, or evolves any public identifier, it SHALL publish/update the corresponding UTS entries and cite them via `UTSRowId` pins, delegating UTS semantics (twin labels, alias/deprecation discipline, edition pins) to its canonical owner `F.17 (UTS)`. |
+| **CC‑GCORE‑ID‑1**    | When deduplicating, existing public CC ids in `G.x` SHALL NOT be deleted/renamed; they SHALL become delegation items to relevant `CC‑GCORE‑…` items. |
+| **CC‑GCORE‑ID‑2**    | Public id continuity applies beyond CC item ids: `UTSRowId` rows, `RSCRTriggerAliasId` tokens (e.g., `T0…T7`), deprecation notices, and edition bumps SHALL preserve prior ids and express drift via alias/deprecation/edition evolution (never by reusing/redefining an old id). When downstream behaviour can change, the change SHALL emit a canonical `RSCRTriggerKindId` (e.g., `TokenizationOrNameChange`, `EditionPinChange`). |
+| **CC‑GCORE‑TRIG‑1**  | A conforming `G.Core` SHALL define the canonical `RSCRTriggerKindId` catalogue and SHALL be its single writer. |
+| **CC‑GCORE‑TRIG‑2**  | Any `G.x` that uses local trigger tokens SHALL provide (or cite) a `TriggerAliasMap` mapping each alias to canonical `RSCRTriggerKindId`. |
+| **CC‑GCORE‑TRIG‑3**  | Any artefact that records RSCR/SCR/refresh reasons SHALL record canonical `RSCRTriggerKindId` (aliases may be recorded as labels only). |
+| **CC‑GCORE‑TRIG‑4**  | A conforming `G.Core` SHALL keep `TriggerAliasMap.*` consistent with the owner patterns’ legacy trigger catalogues (e.g., `G.11:T*`) and SHALL treat any change as a refresh‑sensitive edit (RSCR required). |
+| **CC‑GCORE‑DEF‑1**  | A conforming `G.Core` SHALL maintain a Default Ownership Index for Part‑G defaults, ensuring each `DefaultId.*` has exactly one owner (a CC item or a policy id). All other patterns SHALL cite the owner and SHALL NOT state competing defaults. Any owner change MUST be recorded as `RSCRTriggerKindId.DefaultOwnerChange`. |
+
+### G.Core:8 - Common anti-patterns and how to avoid them
+
+* **Anti-pattern:** Restating CN‑Spec/CG‑Spec rules inside a `G.x` “for convenience”.  
+  **Avoid:** cite A.19 / G.0; route via `CC‑GCORE‑CN‑CG‑1`.
+
+* **Anti-pattern:** Adding a fourth guard status (“unknown”, “maybe”, “probe-only”) as a separate decision value.  
+  **Avoid:** keep guard domain tri‑state; express “probe-only” as policy/branching and record via pins/audit.
+
+* **Anti-pattern:** Treating mandatory invariants as “defaults” to centralize them.  
+  **Avoid:** keep invariants as invariants (CC‑GCORE‑* routed to canonical owners); restrict the Default Ownership Index to true defaults (constants or conditional default-rules).
+
+* **Anti-pattern:** Turning partial orders into scalar ranks silently.  
+  **Avoid:** keep set‑valued semantics unless a total order is explicitly declared by a comparator/policy.
+
+* **Anti-pattern:** Competing defaults scattered across multiple patterns.  
+  **Avoid:** Default Ownership Index; delegate duplicate statements to the single owner.
+
+* **Anti-pattern:** Local trigger tokens without canonical mapping.  
+  **Avoid:** provide/cite a `TriggerAliasMap` with namespace‑qualified aliases.
+
+* **Anti-pattern:** Breaking public CC ids during dedup.  
+  **Avoid:** convert to delegation items; preserve IDs.
+
+
+### G.Core:9 - Consequences
+
+* **Positive:** Part‑G‑wide invariants become single-owned; refactors become safer and easier to audit.
+* **Positive:** RSCR becomes reason-code driven (typed triggers), improving traceability and preventing semantic drift.
+* **Positive:** Default conflicts become detectable and resolvable via single-owner discipline.
+* **Negative:** Adds an extra authoring step (linkage sections and CoreRef CC item) to each `G.x`.
+* **Negative:** Requires careful governance of the trigger catalogue to avoid excessive fragmentation.
+
+### G.Core:10 - Rationale
+
+Universalization of Part G requires a stable “gravity center” for invariants, otherwise each pattern becomes a competing source of truth. Delegation-first routing prevents duplication and makes ownership explicit, while typed triggers and default ownership turn historically prose-driven drift into checkable, id-based structure.
+
+### G.Core:11 - SoTA alignment (informative)
+
+Although FPF is conceptual (not a data governance framework), `G.Core` aligns Part‑G authoring with modern best practice patterns seen across post‑2015 work:
+
+* **Selective prediction / abstention** informs tri‑state guard discipline: abstaining or degrading is a first-class outcome, not an error coerced into a scalar.
+* **Set-valued / conformal methods** motivate set-return semantics: when comparability is partial or uncertainty is structural, returning sets/regions is often the SoTA-friendly representation.
+* **Multiobjective optimization and quality-diversity** reinforce portfolio/Archive semantics instead of forced “best single scalar”.
+* **Monotone constrained modelling** (where used) supports “legality-first” scoring/aggregation: constraints and admissibility precede optimization, mirroring CG‑Spec gate discipline.
+* **Schema evolution and contract testing** motivate id-stable conformance points and typed trigger catalogues: stable identifiers + regression hooks are the practical mechanism for safe refactoring.
+
+### G.Core:12 - Relations
+
+* **Builds on:**
+
+  * `E.8` pattern template and section discipline
+  * `E.10` lexical/ontological rules (strict distinction; twin naming; kind‑suffix discipline)
+  * `E.18` CrossingSurface (crossing visibility surface)
+  * `E.19` conformance discipline
+  * `A.6.7` SuiteObligations + suite protocol pins (routing surface)
+  * `A.15.3` SlotFillingsPlanItem (planned baseline anchor)
+  * `A.19` CN‑Spec contract surface
+  * `G.0` CG‑Spec legality gate
+  * `A.6.7.CHR` CHR suite boundary and “contract surfaces are pins, not copies” discipline
+  * `C.23` SoS‑LOG (tri‑state branches; sandbox/probe‑only)
+  * `F.15` RSCR (regression/conformance loop)
+
+* **Used by:**
+
+  * `G.0…G.13` patterns (each adds `Builds on: G.Core`, linkage section, CoreRef CC item)
+
+* **Constrains:**
+
+  * Part‑G authoring: no shadow specs, no silent scalarization, tri‑state guards, penalties routing, typed RSCR causes, single-owner defaults, and ID‑continuity refactors.
+
+### G.Core:End
+
+## G.0 - Frame Standard and Comparability Governance — CG‑Spec
+
+**Tag.** Architectural pattern (foundational Standard; constrains G.1–G.5)
+**Stage.** *design-time* contract surface (establishes comparison legality & evidence minima; constrains run-time gates)
+**Primary output.** `CG‑Spec` — a notation-independent legality gate for a `CG‑Frame`, published to UTS (with explicit edition pins for downstream reproducibility and RSCR).
+**Primary hooks.** `USM.ScopeSlice(G)`, `describedEntity`, `SCP`, `MinimalEvidence`, `CNSpecRef`, `Γ‑fold`, `Φ(CL)` / `Φ_plane` policy pins, `UTS` publication (Name Cards + edition pins).
+**Non-duplication note.** Universal Part‑G invariants are owned by `G.Core` and are satisfied here **only via delegation** (`CC‑G0‑CoreRef` → `CC‑GCORE‑*`). Single‑owner contract-surface discipline (CN/CG) is enforced via `CC‑GCORE‑CN‑CG‑1` (no shadow specs; no competing defaults).
+
+### G.0:1 - Problem frame
+
+A team defines or evolves a `CG‑Frame` (e.g., a frame for creativity measurement, decision quality, architecture trade‑offs, or portfolio selection). Downstream mechanisms (G.1–G.5 and beyond) must compare, aggregate, and publish CHR‑typed observations in ways that are:
+
+* lawful with respect to measurement legality (scale/unit/polarity constraints),
+* auditable with explicit evidence minima and provenance,
+* reproducible via pinned editions and explicit policy ids,
+* portable only via explicit crossings (bridges and reference-plane moves), never via implicit semantic leakage.
+
+`CG‑Spec` is the single design-time object that fixes *what comparisons and aggregations are lawful in this frame*, under which pinned assumptions and minimal evidence requirements, so that run-time selection and publication can be audited without inventing new “local legality gates”.
+
+Didactic subtitle: **Design-time rules for safe, auditable comparison.**
+
+### G.0:2 - Problem
+
+Without a single, frame-level legality standard:
+
+* comparisons and aggregations drift into *implicit assumptions* (hidden scalarisation; silent totalisation of partial orders),
+* numeric gates run on “whatever is available” rather than declared evidence minima and lane/carrier requirements,
+* cross-context reuse happens without explicit crossing visibility and stated losses,
+* selection outcomes become hard to audit because legality, evidence minima, and penalty routing are not pinned and traceable.
+
+### G.0:3 - Forces
+
+* **Pluralism vs. comparability.** Multiple traditions must co-exist while allowing lawful comparison where justified.
+* **Expressiveness vs. safety.** Rich comparator sets and aggregators vs. measurement legality constraints.
+* **Locality vs. portability.** Context-local semantics first; portability only via explicit bridges and explicit losses.
+* **Assurance vs. agility.** Evidence minima must be strong enough to matter, light enough to adopt.
+* **Design-time vs. run-time.** Keep legality standards and templates design-time; run-time only cites and applies them.
+
+### G.0:4 - Solution — CG‑Spec as the design-time legality gate
+
+`CG‑Spec` is a **notation-independent** UTS-published object that, for a given `CG‑Frame`, defines:
+
+* the **ComparatorSet** (explicit, finite, typed) permitted in this frame,
+* the **ScaleComplianceProfile** (SCP) that constrains lawful operations per characteristic,
+* **MinimalEvidence** requirements per characteristic (lanes, carriers, freshness windows, crossing allowances, failure behavior),
+* the frame’s **penalty and trust folding wiring** (by explicit policy ids and edition pins),
+* **AcceptanceStubs** as design-time templates (thresholds remain owned by CAL, not by CG‑Spec),
+* optional method-family hooks (e.g., illumination/QD or explore↔exploit guards) *as wiring only*, with semantics owned by the corresponding patterns.
+
+`CG‑Spec` constrains downstream gate checks by being *referenced and pinned*; it is not itself an admissibility mechanism.
+
+#### G.0:4.1 - G.Core linkage (normative)
+
+**Builds on:** `G.Core` (Part‑G core invariants; single-owner routing)
+
+**CoreConformanceIds (delegation targets; no restatement).** A conformant `G.0` MUST satisfy:
+
+* `CC‑GCORE‑CN‑CG‑1` (no shadow specs; contract surfaces are single-owner)
+* `CC‑GCORE‑CROSS‑1` (Bridge-only crossings + visibility; edition-key change as a crossing event)
+* `CC‑GCORE‑GUARD‑1` (tri-state guard semantics; no silent coercion; degrade is policy-bound)
+* `CC‑GCORE‑PEN‑1` (penalties route to `R_eff` only; lane purity preserved)
+* `CC‑GCORE‑SET‑1` (set-return semantics; ban hidden scalarisation/totalisation)
+* `CC‑GCORE‑P2W‑1` (P2W split: planned baseline in WorkPlanning; finalize only in WorkEnactment)
+* `CC‑GCORE‑LINK‑1`, `CC‑GCORE‑LINK‑2` (explicit pins/refs + `CC‑Gx‑CoreRef` discipline)
+* `CC‑GCORE‑ID‑1` (Δ-discipline: ID continuity; delegation instead of rename)
+* `CC‑GCORE‑TRIG‑1`, `CC‑GCORE‑TRIG‑2`, `CC‑GCORE‑TRIG‑3`, `CC‑GCORE‑TRIG‑4` (typed RSCR triggers; canonical ids; alias docking)
+* `CC‑GCORE‑DEF‑1` (single-owner defaults; cite owner, don’t restate)
+* `CC‑GCORE‑UTS‑1` (UTS/naming publication discipline)
+
+**CorePinsRequired (minimum; explicit).** A conformant `CG‑Spec` MUST expose (as pins/refs, notation-independent):
+
+* edition pins for the `CG‑Spec` itself (`CGSpecRef.edition`) and for its edition-addressable segments (as applicable):
+
+  * `ComparatorSetRef.edition`
+  * `SCPRef.edition`
+  * `ΓFoldRef.edition` *(if `Γ‑fold` is a separately pinned segment; otherwise covered by `CGSpecRef.edition`)*
+  * `MinimalEvidenceRef.edition?` *(optional: if `MinimalEvidence` is segmented/pinned separately; minimum pin is `CGSpecRef.edition`)*
+* required policy ids (as applicable):
+
+  * `Φ(CL)` policy id and, if used, `Φ_plane` policy id
+  * any penalty-routing/CL-routing policy ids referenced by the frame
+  * `FailureBehaviorPolicyId` / SoS‑LOG branch policy id when `degrade(mode=…)` is used
+* explicit anchors for:
+
+  * `describedEntity := ⟨GroundingHolon, ReferencePlane⟩`
+  * `ReferenceMap` (minimum viable map for term/id stabilisation)
+  * any freshness window references (e.g., `PathSliceId` for time-windowed minima)
+* explicit `CNSpecRef.edition` (delegated semantics; owner `A.19`)
+
+**DefaultsConsumed (single-owner; cite owner via `G.Core.DefaultOwnership`).**
+
+* `DefaultId.GammaFoldForR_eff` → owner `CC‑G5.4` (as indexed by `G.Core.DefaultOwnership`).
+  All other mentions in `G.0` are citations to the single owner.
+
+**RSCRTriggerKindIds (from `G.Core`).** `G.0` MUST list (and emit in affected artefacts) canonical trigger kinds:
+
+`{RSCRTriggerKindId.LegalitySurfaceEdit, RSCRTriggerKindId.EvidenceSurfaceEdit, RSCRTriggerKindId.CrossingSurfaceEdit, RSCRTriggerKindId.ReferencePlaneEdit, RSCRTriggerKindId.TokenizationOrNameChange, RSCRTriggerKindId.EditionPinChange, RSCRTriggerKindId.PolicyPinChange, RSCRTriggerKindId.DefaultOwnerChange, RSCRTriggerKindId.FreshnessOrDecayEvent}`
+
+Payload pins (minimum): `CGSpecRef.edition`, `CNSpecRef.edition`, `ComparatorSetRef.edition`, `SCPRef.edition`, `ΓFoldRef.edition?`, `MinimalEvidenceRef.edition?`, `Φ/CL policy-ids`, `ReferencePlane`, `ReferenceMap`, `UTS.id` *(or equivalent UTS row id)*.
+
+**TriggerAliasMapRef.** `∅` (this pattern introduces no local trigger-token aliases).
+
+#### G.0:4.2 - CG‑Spec object model (normative)
+
+`CG‑Spec` is authored per `CG‑Frame`. It SHALL:
+
+* be **published to UTS** as a notation-independent object,
+* reference CHR characteristics by id (measurement semantics remain owned by CHR packs),
+* constrain what comparisons and aggregations are lawful in this frame via explicit comparator specs and SCP bindings,
+* declare minimal evidence gates per characteristic, including explicit failure behavior wiring,
+* cite `CN‑Spec` for normalization/comparability policies (no duplication and no shadow specs),
+* publish edition pins and policy ids so downstream selection, parity, shipping, and refresh can be reproducible and RSCR-aware.
+
+#### G.0:4.3 - CG‑Spec conceptual model (normative)
 
 ```
 CG‑Spec :=
-⟨ UTS.id, Edition, Context, Purpose, Audience,
+⟨
+  UTS.id, Edition,
+  Context, Purpose, Audience,
+
   Scope := USM.ScopeSlice(G) ⊕ Boundary{TaskKinds, ObjectKinds},
+
   describedEntity := ⟨GroundingHolon, ReferencePlane ∈ {world|concept|episteme}⟩,
-  WorldRegime? ∈ {prep|live}, // refines ReferencePlane=world; affects acceptance/telemetry; introduces no new planes
-  ReferenceMap := minimal map{term/id → UTS|CHR|G.2} (stabilizes naming & describedEntity),
+  WorldRegime? ∈ {prep|live},          // only refines ReferencePlane=world; introduces no new planes
 
-  ComparatorSet := [ComparatorSpec…],                 // finite, explicit
-    // MUST NOT encode illegal scalarisation of partial orders;
-    // lawful forms include: ParetoDominance, Lexicographic over typed traits,
-    // medoid/median on ordinals; WeightedSum only on interval/ratio with unit alignment (CSLC‑proven)
-  Characteristics := [CHR.Characteristic.id…],        // must exist in G.3 pack
+  ReferenceMap := minimal map{term/id → UTS|CHR|SoTA-pack refs},
 
-  SCP := map Characteristic.id → ⟨
-    ScaleTypes, Polarity ∈ {↑|↓|=}, Unit alignment rules,
-    CoordinatePolicy?, GuardMacros ⊇ {UNIT_CHECK, ORD_COMPARE_ONLY, FRESHNESS_CHECK, PLANE_NOTE, PHI_CL_MONOTONE(policy_id), METRIC_EDITION_REF(id)?},
-    AggregationSpecs
-  ⟩,
+  CNSpecRef := ⟨A.19 ref, CNSpecRef.edition⟩,          // CN‑Spec is the contract surface (single-owner)
 
-  MinimalEvidence := map Characteristic.id → ⟨
-    KD‑CAL lanes ⊆ {TA,LA,VA}, Carriers ⊆ A.10,
-    Sample/Replication minima, Freshness/HalfLife (PathSlice window), ReferencePlane,
-    Bridge allowances (CL thresholds, CL^plane policy id), I/D/S layer exposed to SCR fields,
-    FailureBehavior ∈ {abstain | degrade.order | sandbox},
-    UnknownHandling := tri‑state {pass|degrade|abstain} with explicit binding to Acceptance (no silent `unknown→0` coercion)
-  ⟩,
+  Characteristics := [CHR.Characteristic.id…],          // pointers only; authored in G.3 CHR pack
 
-  Γ‑fold := ⟨default:=weakest‑link | override(proof_refs, monotonicity, boundary)⟩,
-  CL‑Routing := map Bridge.CL → penalty on R_eff only (F invariant),
-  Φ := ⟨ Φ(CL) MUST be monotone, bounded (R_eff ≥ 0), and table‑backed; optional Φ_plane for {world|concept|episteme} crossings (unaffected by WorldRegime) ⟩,
-  AcceptanceStubs := [AcceptanceClause template…],    // templates only; **context‑local thresholds live in CAL.Acceptance (G.4)**
-  
-  E/E‑LOG Guard := ⟨explore↔exploit budgets, probe accounting, NQD constraints⟩,
-  Illumination := ⟨
+  // Edition-addressable segments (pins MUST be exposed)
+  ComparatorSet := ⟨ComparatorSetId, ComparatorSetRef.edition, [ComparatorSpec…]⟩,
+  SCP := ⟨SCPId, SCPRef.edition, map Characteristic.id → SCPEntry⟩,
+  MinimalEvidence := ⟨MinEvId, MinimalEvidenceRef.edition?, map Characteristic.id → MinEvidenceEntry⟩,  // min pin: CGSpecRef.edition
+
+  Γ‑fold := ⟨GammaFoldId, ΓFoldRef.edition,
+             defaultRef := DefaultId.GammaFoldForR_eff,
+             override? := ⟨overrideRef, proof_refs, boundary_notes⟩
+           ⟩,
+
+  // Penalty routing and plane policies are by explicit policy ids.
+  // Semantics (tri-state, penalties→R_eff-only, crossing visibility, set-return) are owned by G.Core.
+  CL‑Routing := ⟨policy_id, map Bridge.CL → penalty_spec⟩,
+  Φ := ⟨phi_policy_id, phi_table_ref?, psi_policy_id?, phi_plane_policy_id?⟩,
+
+  AcceptanceStubs := [AcceptanceStubId…],     // templates only; thresholds remain owned by CAL (G.4)
+
+  // Optional hooks are wiring-only; semantics live in owners.
+  E/E‑LOG Guard? := ⟨policy_id, pins…⟩,
+  Illumination? := ⟨
     Q_refs ⊆ Characteristics, D_refs ⊆ Characteristics,
-    QD_score := definition (typed), ArchiveRef := U.DescriptorMapRef (Tech; d≥2),
-    InsertionPolicy, Edition := ⟨DHCMethodRef.edition, DistanceDefRef.edition⟩,
-    DominanceDefault := exclude, PromotionPolicy? := lens/policy‑id
-  ⟩, // IlluminationSummary is a report‑only telemetry summary over Diversity_P (coverage/QD‑score) and informs exploration; not part of dominance unless PromotionPolicy (lens/policy‑id) is named
+    DescriptorMapRef.edition?, DistanceDefRef.edition?, DHCMethodRef.edition?,
+    InsertionPolicyRef?, PromotionPolicyId?
+  ⟩,
 
- RSCR := testset{
-    illegal_op_refusals,
-    unit/scale checks,
-    freshness windows,
-    partial‑order scalarisation refusals,
-    threshold semantics,
-    CL→R_eff routing,
-    refuse degrade.order on unit mismatches (MM‑CHR)
- },
+  RSCR := ⟨
+  RSCRTestId[]?,             // SHOULD cover: illegal_op_refusals; unit/scale legality checks; freshness windows; // partial-order scalarisation refusals; threshold semantics; CL→R_eff routing;
+                            // and refusal of degrade.order on unit mismatches (MM‑CHR).
+    RSCRTriggerKindId[]
+  ⟩,
 
-  Naming := UTS Name Cards (required fields per F.17/F.18) with **Unified Tech** and **Plain** labels, Concept‑Set linkage, Bridge loss/fit notes, and lifecycle,
-  Lifecycle := ⟨owner, DRR link, refresh cadence, decay/aging, deprecation + lexical continuity⟩,
-  Provenance := ⟨carrier types, SoTA pack refs (G.2), DRR/SCR linkage⟩
+  Naming := UTS Name Cards (twin labels + lifecycle + bridge notes),
+  Lifecycle := ⟨owner, DRR link, refresh cadence, decay/aging, deprecations⟩,
+  Provenance := ⟨carrier types, SoTA-pack refs, DRR/SCR linkage⟩
 ⟩
 ```
 
-**Notes:**
-* `Characteristics[]` are pointers—no measurement semantics live here; those are authored in **G.3**.
-* `SCP` binds **what** aggregations/comparisons are lawful **for this Frame** over those characteristics (using **G.3 AggregationSpecs**).
-* `MinimalEvidence` is the **gate** consumed by G.1/M4 and G.5: if not met, numeric comparisons **degrade** to safe forms or **abstain** (see **§7.13**).
-* `Γ‑fold` must state monotonicity and boundary behavior if not weakest‑link; proofs/anchors go to **CAL.ProofLedger** (G.4); legality constraints summarized in **§7.5–§7.7**.
-* **Legality proof.** Units/scale/polarity legality **MUST** be proven via **MM‑CHR/CSLC** before any aggregation; **no silent `unknown→0` coercion**; thresholds live **only** in Acceptance (G.4) — see **§7.7** and **§7.8**.
-* `CL‑Routing` sends penalties to **R_eff only**; **F** is invariant under Bridging.
-* **Illumination default.** **IlluminationSummary** is a **report‑only telemetry summary** over **Diversity_P** (coverage/QD‑score). It informs exploration/refresh and tie‑breaks; it is **not** in the dominance set unless a **PromotionPolicy (lens/policy‑id)** is named.
-* **Partial orders.** Where only a partial order is lawful, **do not force total orders** in `ComparatorSet`; downstream (G.5) returns explicit non‑dominated sets.
-* **Guard macros.** Recommended set includes: `UNIT_CHECK`, `ORD_COMPARE_ONLY`, `FRESHNESS_CHECK`, `PLANE_NOTE`, `PHI_CL_MONOTONE(policy_id)`.
+**Local typing notes (non-exhaustive; normative intent but no shadow specs).**
 
-#### G.0:5.2 - SoTAPalette
+* `ComparatorSpec` MUST be typed against SCP/CHR constraints. Examples of lawful comparators are frame-local choices and are authored here (e.g., dominance where lawful; lexicographic over typed traits; medoid/median for ordinal where lawful; explicit weighted sums only where legality is proven and units are aligned).
+* `MinimalEvidenceEntry` MUST declare: lane requirements, evidence carriers, freshness window (if any), and explicit failure behavior wiring. The semantics of `{pass|degrade|abstain}` and `degrade(mode=…)` are delegated to `G.Core`.
 
-1. **SoTAPalette (I).** Intensional profile of a discipline’s Traditions and method‑families with intentions and tolerances:
-* admissible TaskKinds/ObjectKinds,
-* required CHR types,
-* characteristic operators/proofs,
-* typical CL bridges (with known loss).
+#### G.0:4.4 - Interfaces (normative)
 
-2. **SoTAPaletteDescription (D).** Publication of the palette: 
-* metadata of Traditions, 
-* Operator & Object Inventory, 
-* Bridge Matrix with CL/loss notes, 
-* micro‑examples, 
-* UTS drafts. 
- 
-This is the “SoTA Synthesis Pack” of G.2 and must be citable in G.5 decisions.
+| Interface          | Consumes                             | Produces / constrains                                                      |
+| ------------------ | ------------------------------------ | -------------------------------------------------------------------------- |
+| **G.0‑1 Charter**  | CG‑Frame brief, USM scope signals    | `CG‑Spec.Scope`, `describedEntity`, `ReferenceMap`                         |
+| **G.0‑2 SCP**      | CHR pack refs (G.3), legality proofs | `CG‑Spec.SCP` + bindings to lawful operators/aggregators                   |
+| **G.0‑3 Evidence** | SoTA inputs (G.2), carriers (A.10)   | `CG‑Spec.MinimalEvidence`, `Γ‑fold` segment pins, `CL‑Routing`, `Φ` ids    |
+| **G.0‑4 Publish**  | All above                            | Versioned `CG‑Spec@UTS` + Name Cards, lifecycle, RSCR tests/trigger kinds  |
+| **G.0‑5 Expose_CrossingHooks** | `CG‑Spec` + crossing/plane/policy pins | GateCrossing inputs for `GateChecks` (`E.18/A.21`): plane checks, lane purity, lexical SD pins |
+| **→ G.1**          | `CG‑Spec`                            | Generator guardrails (Comparator/SCP/MinEv pins); degrade/abstain wiring   |
+| **→ G.2**          | `CG‑Spec`                            | Harvesting inclusion/exclusion and crossing policy constraints             |
+| **→ G.3**          | `CG‑Spec`                            | Required CHR characteristics/scales/operators to exist                     |
+| **→ G.4**          | `CG‑Spec`                            | Acceptance templates; evidence minima; Γ‑fold override proof hooks         |
+| **→ G.5**          | `CG‑Spec`                            | Eligibility gates and explainability pins (Path/UTS/policy ids)            |
+| **→ G.6**          | `CG‑Spec`                            | EvidenceGraph/SCR pinning surface (policy ids + Path/PathSlice discipline) |
 
-3. **SoTAPaletteSpec (S).** Minimal gates on completeness/quality of a palette: 
-* coverage of Traditions/sub‑tasks, 
-* minimum replications/carriers across KD‑CAL lanes (TA/LA/VA), 
-* explicit CL penalties for reductions, and bans on illegal operations (e.g., ordinal ≠ mean). 
- 
-These gates are consumed by CG‑Spec.Acceptance and Γ‑fold where cross‑Tradition comparison/aggregation is attempted
+#### G.0:4.5 - Authoring workflow for CG‑Spec (informative)
 
-#### G.0:5.3 - Tradition
+1. **Charter the frame.** Declare `Context`, `Scope`, `describedEntity`, boundary examples/non-examples, and `ReferenceMap`.
+2. **Draft ComparatorSet and SCP.** Enumerate permitted comparator forms and bind each to CHR characteristics and legality constraints (scale/unit/polarity discipline). Attach guard bindings as explicit references/pins.
+3. **Bind Characteristics.** Ensure every compared quantity is a CHR characteristic id (reuse/mint via UTS discipline).
+4. **Declare MinimalEvidence.** For each characteristic: required lanes/carriers, freshness window, crossing allowances (if any), and explicit failure behavior wiring (tri-state semantics delegated to `G.Core`).
+5. **Pin trust folding and penalties.** Cite the single owner for `DefaultId.GammaFoldForR_eff` unless explicitly overridden with proof refs; publish `Φ`/CL policy ids explicitly.
+6. **Publish and register regression tests.** Publish `CG‑Spec@UTS` with edition-pinned segments; register RSCR tests for the frame’s legality surfaces and evidence minima.
+7. **Lifecycle and refresh readiness.** Declare refresh cadence and deprecations with lexical continuity notes; ensure RSCR trigger kinds are emitted as canonical ids.
 
-* In this framework, **“scientific/engineering Tradition/lineage/tradition” is an epistemic kind**: **`Tradition`** (I) with its **`TraditionDescription`** (D) and **`TraditionSpec`** (S).
-* The **community of people** behind a Tradition is modeled separately as an optional **`TraditionCarrier`** that _carries_ a `Tradition` but does **not** determine cross‑Tradition comparability rules.
-* In the **SoTA‑palette**, entries are **`Tradition`** items (epistemic) with their D/S artifacts; the palette composes them and exposes bridges/limits. The Dispatcher (G.5) selects among these entries under CHR/CAL constraints; CG‑Spec (G.0) only governs comparability/Γ‑fold where justified.
+#### G.0:4.6 - Extensions (pattern-scoped; non-core)
 
-Tradition (I): an epistemic formation (Tradition‑of‑thought, lineage) identified by its method family:
-- operator set and admissible transformations,
-- admissible TaskKinds/ObjectKinds,
-- necessary CHR types and proof idioms,
-- canonical CL bridges and stated limits,
-- stance on measurement scales and allowed algebra.
-(Notes: This is an epistemic kind, not a social group. See §TraditionCarrier for the social carrier.)
+All blocks below are `GPatternExtension` modules (PatternScopeId; not new PatternIds). They store wiring only and cite semantic owners.
 
-TraditionDescription (D): the documentary corpus of a Tradition:
-- charter/lineage and key references,
-- Operator & Object inventory with CHR preconditions,
-- Bridge Matrix (CL) with loss and validity regions,
-- Worked Examples with CHR annotations,
-- UTS drafts for typical tasks,
-- KD‑CAL lane coverage and replication notes,
-- explicit anti‑operators / banned reductions (e.g., ordinal ≠ mean).
+**GPatternExtension: ContractSurfaces**
 
-TraditionSpec (S): inclusion gates for a Tradition to be considered comparable/aggregable:
-- minimum replication across KD‑CAL lanes (TA/LA/VA),
-- declared CHR prerequisites and proof idioms,
-- declared CL penalties/conditions for any cross‑Tradition bridge,
-- Γ‑fold contribution rule (how evidence accumulates),
-- prohibitions on illegal scale algebra.
-These S‑level gates are referenced by CG‑Spec.acceptance only where aggregation/comparison is attempted; otherwise the Tradition remains descriptive.
+* **PatternScopeId:** `G.0:Ext.ContractSurfaces`
+* **GPatternExtensionId:** `ContractSurfaces`
+* **GPatternExtensionKind:** `InteropSpecific`
+* **SemanticOwnerPatternId:** `A.19`
+* **Uses:** `{A.19}`
+* **⊑/⊑⁺:** `∅`
+* **RequiredPins/EditionPins/PolicyPins (minimum):**
 
-TraditionCarrier (I): role of a social/organizational system (people, labs, consortia) that holds a Tradition. Carriers supply replication capacity and provenance but have no normative authority over cross‑Tradition aggregation rules.
+  * `CNSpecRef.edition` (and any CN-side policy ids referenced by `CG‑Spec` fields)
+* **RSCRTriggerKindIds:** `{RSCRTriggerKindId.EditionPinChange, RSCRTriggerKindId.PolicyPinChange, RSCRTriggerKindId.LegalitySurfaceEdit}`
+* **Notes (wiring-only):** `CG‑Spec` SHALL cite CN‑Spec; it SHALL NOT restate normalization/comparability semantics.
 
-Γ‑fold: an evidence/reliability fold that aggregates only along declared commensurate dimensions; includes penalties from CL bridges and lane‑mismatch factors. Γ‑fold parameters MUST be cited to KD‑CAL lanes and Worked Examples; when absent, aggregation is disallowed.
+**GPatternExtension: BridgeAndCLWiring**
 
-Default composition: weakest‑link; admissible overrides: {min‑k‑of‑n, harmonic, conservative Bayesian}; override requires CAL.ProofLedger refs
+* **PatternScopeId:** `G.0:Ext.BridgeAndCLWiring`
+* **GPatternExtensionId:** `BridgeAndCLWiring`
+* **GPatternExtensionKind:** `InteropSpecific`
+* **SemanticOwnerPatternId:** `F.9`
+* **Uses:** `{F.9, G.7}`
+* **⊑/⊑⁺:** `∅`
+* **RequiredPins/EditionPins/PolicyPins (minimum):**
 
-#### G.0:5.4 - Authoring Steps (S1–S6)
+  * `BridgeCardId/BridgeId` (when crossings are permitted)
+  * `CL` / `CL^k` and `Φ`/`Φ_plane` policy ids (when penalties are in play)
+* **RSCRTriggerKindIds:** `{RSCRTriggerKindId.CrossingSurfaceEdit, RSCRTriggerKindId.PolicyPinChange, RSCRTriggerKindId.ReferencePlaneEdit}`
+* **Notes (wiring-only):** Crossing semantics and penalty routing are delegated to `G.Core`; this module only lists the required pins used by `CG‑Spec` entries.
 
-**S1 - Frame Charter (Scope & describedEntity)**
-Declare **Context**, **USM scope**, *describedEntity* (`GroundingHolon`, `ReferencePlane`), TaskKinds/ObjectKinds; record boundary examples and non‑examples.
+**GPatternExtension: SoTAPaletteInputs**
 
-**S2 - ComparatorSet & SCP Draft**
-List **which** comparisons/aggregations the Frame intends (e.g., dominance, lexicographic, Pareto, affine sums on interval/ratio with unit alignment). Bind each comparator to **G.3/AggregationSpecs** and attach **GuardMacros**; capture legality/tolerance assumptions in the CG‑Spec **ScaleComplianceProfile (SCP)**. **Do not** scalarise partial orders; for ordinals, use medoid/median; **WeightedSum is forbidden** on mixed scale types.
+* **PatternScopeId:** `G.0:Ext.SoTAPaletteInputs`
+* **GPatternExtensionId:** `SoTAPaletteInputs`
+* **GPatternExtensionKind:** `DisciplineSpecific`
+* **SemanticOwnerPatternId:** `G.2`
+* **Uses:** `{G.2}`
+* **⊑/⊑⁺:** `∅`
+* **RequiredPins/EditionPins/PolicyPins (minimum):**
 
-**S3 - Characteristics Binding**
-For each comparison you intend to allow, bind the **CHR.Characteristic id** and required **Scale/Unit/Polarity**; if missing, author in **G.3** or reuse via UTS (F.8). For any numeric encoding of ordinals, publish **CoordinatePolicy** with non‑entitlements.
+  * `SoTA-Pack@CG‑Frame` refs used to justify comparator admissibility, evidence minima, and crossing allowances (e.g., claim sheets, operator inventory, bridge matrix ids)
+* **RSCRTriggerKindIds:** `{RSCRTriggerKindId.EvidenceSurfaceEdit, RSCRTriggerKindId.CrossingSurfaceEdit, RSCRTriggerKindId.FreshnessOrDecayEvent}`
+* **Notes (wiring-only):** Any SoTA palette/tradition semantics are owned by `G.2`. `G.0` only requires that `CG‑Spec` entries cite the needed SoTA artefacts for auditability.
 
-**S4 - Minimal Evidence Gates**
-Per characteristic, declare **KD‑CAL lanes** (TA/LA/VA), required **carriers** (A.10), freshness/half‑life, and **Bridge/CL allowances**. Define **failure behavior**: **degrade to order‑only**, **sandbox**, or **abstain**.
+**GPatternExtension: QDAndExplorationHooks**
 
-For unit mismatches specify **sandbox (quarantine) or refuse**; **degrade.order is not permitted for unit mismatches under MM‑CHR**.
+* **PatternScopeId:** `G.0:Ext.QDAndExplorationHooks`
+* **GPatternExtensionId:** `QDAndExplorationHooks`
+* **GPatternExtensionKind:** `MethodSpecific`
+* **SemanticOwnerPatternId:** `C.18`
+* **Uses:** `{C.18, C.19, C.23}`
+* **⊑/⊑⁺:** `∅`
+* **RequiredPins/EditionPins/PolicyPins (minimum):**
 
-MinimalEvidence MUST name **CHR.Characteristics** used by Acceptance/Flows and the **TaskSignature fields** they constrain (by id), so **G.5** can gate **before** selection.
+  * `DescriptorMapRef.edition?`, `DistanceDefRef.edition?`, `InsertionPolicyRef?`
+  * `FailureBehaviorPolicyId` / SoS‑LOG branch policy id when `degrade(mode=…)` is used
+* **RSCRTriggerKindIds:** `{RSCRTriggerKindId.EditionPinChange, RSCRTriggerKindId.PolicyPinChange, RSCRTriggerKindId.TelemetryDelta, RSCRTriggerKindId.FreshnessOrDecayEvent}`
+* **Notes (wiring-only):** `CG‑Spec` may declare optional QD/exploration hooks; semantics remain owned by the referenced method patterns.
 
-**S5 - Γ‑fold & CL Routing**
-Set default **Γ‑fold** for trust aggregation and the **CL penalty** table. Document proofs or references if overriding weakest‑link.
+### G.0:5 - Archetypal Grounding — Tell–Show–Show; System / Episteme
 
-**S6 - Publication & Tests**
-Mint **UTS** Name Cards with twin labels; attach **loss notes** for Bridges. Register **RSCR** tests: (i) refuse illegal ops (e.g., mean on ordinal), (ii) enforce unit/scale checks, (iii) verify freshness/PathSlice handling, (iv) refuse illegal scalarisation of partial orders, (v) verify **CL → R_eff** routing and **Φ(policy‑id)** publication in SCR.
-Acceptance depends on (a) presence of SoTAPaletteDescription (G.2) with attached CHR/CAL evidence (G.3–G.4), and (b) justification of any aggregation via Γ‑fold (reliability fold) with explicit CL loss accounting. Where evidence is insufficient, acceptance MUST fall back to per‑Tradition reporting without cross‑Tradition aggregation.
+#### G.0:5.1 - Archetype 1: System comparability under mixed evidence and unit constraints
 
-### G.0:6 - Interfaces — minimal I/O Standard (normative)
+**Tell.** Two labs compare energy efficiency results of a physical system where measurements use different rigs and units, and some evidence is missing.
 
-| Interface          | Consumes                                | Produces / Constrains                                                    |
-| ------------------ | --------------------------------------- | ------------------------------------------------------------------------ |
-| **G.0‑1 Charter**  | CG‑Frame brief, USM scope, SoTA signals | `CG‑Spec.Scope`, `describedEntity`, `ComparatorSet`                            |
-| **G.0‑2 SCP**      | G.3 CHR Pack, AggregationSpecs          | `CG‑Spec.SCP` + guard bindings                                           |
-| **G.0‑3 Evidence** | SoTA carriers (G.2), KD‑CAL norms       | `CG‑Spec.MinimalEvidence`, `Γ‑fold`, `CL‑Routing`                        |
-| **G.0‑4 Publish**  | All above                               | Versioned `CG‑Spec@UTS` + Name Cards, RSCR ids, Lifecycle                |
-| **→ G.1**          | `CG‑Spec`                               | M1/M4 guardrails; abstain/degrade paths wired; M3/M4 scoring legality; Characteristic refs bound (F invariant) |
-| **→ G.2**          | `CG‑Spec`                               | Inclusion/exclusion & Bridge/CL policy for SoTA Synthesis                |
-| **→ G.3**          | `CG‑Spec`                               | Which Characteristics/Scales must exist; legality macros to expose       |
-| **→ G.4**          | `CG‑Spec`                               | Acceptance templates; evidence gates; Γ‑fold/CL routing Standards        |
-| **→ G.5**          | `CG‑Spec`                               | Eligibility gates; minimum **R_eff** checks; degradation/abstain policies; Illumination hooks (ArchiveRef/U.DescriptorMapRef, InsertionPolicy, Edition), publication of **Φ(CL)/Φ_plane policy‑ids** in SCR |
-| **→ G.6**          | `CG‑Spec`                               | EvidenceGraph guard fields (**Φ(CL)/Φ_plane policy‑ids**, freshness windows, **PathId/PathSliceId**) made citable; selectors/audits reference PathIds (no formats mandated) |
+**Show (failure without CG‑Spec).** The team averages an ordinal safety rating, mixes units (“kWh” vs “MJ”), and silently treats missing lanes as zeros. Cross-lab reuse happens without explicit bridge/loss notes, so selection becomes a black box.
+
+**Show (repair with CG‑Spec).** A conformant `CG‑Spec`:
+
+* pins the lawful comparator(s) (e.g., unit-aligned ratio comparisons only; ordinal comparisons are order-only),
+* declares `MinimalEvidence` lanes/carriers and freshness windows per characteristic,
+* declares explicit failure behavior wiring (tri-state semantics delegated to `G.Core`),
+* exposes crossing pins (bridge ids + CL/policy ids) when reuse across rigs is attempted,
+* publishes the pinned editions so parity/refresh can detect drift.
+
+#### G.0:5.2 - Archetype 2: Epistemic comparability for portfolio selection across traditions
+
+**Tell.** A team selects an R&D portfolio using multiple evaluation traditions: safety assurance, cost models, and readiness heuristics.
+
+**Show (failure without CG‑Spec).** The team collapses partial orders into a single score, hides the threshold policy in code, and cannot explain why cross-tradition penalties changed between runs.
+
+**Show (repair with CG‑Spec).** A conformant `CG‑Spec`:
+
+* defines a comparator portfolio (e.g., Pareto dominance + explicit lexicographic tiebreaks where lawful),
+* pins `CNSpecRef.edition` and the editioned segments (`ComparatorSetRef.edition`, `SCPRef.edition`, `MinimalEvidenceRef.edition`),
+* makes `AcceptanceStubs` explicit as templates while locating thresholds in CAL (G.4),
+* ensures RSCR triggers are emitted when comparator or policy pins change.
+
+### G.0:6 - Bias-Annotation
+
+`CG‑Spec` can encode (and therefore amplify) biases if authored carelessly:
+
+* **Tradition favoritism.** Comparator choices may privilege a tradition’s evidence style; mitigation: require explicit evidence minima and explicit crossing costs, and keep cross-tradition aggregation gated by explicit justifications.
+* **Metric gaming and Goodhart effects.** Overemphasis on a single scalar can lead to gaming; mitigation: preserve set-return semantics and require explicit, auditable scalarisations when they are lawful and intended.
+* **Hidden thresholds and opaque safety policy.** Embedding acceptance thresholds in prose or code hides value judgments; mitigation: keep thresholds in CAL acceptance clauses and pin policy ids.
+* **Scope creep.** Comparisons leak across describedEntity or reference planes; mitigation: require explicit `describedEntity` and `ReferencePlane` pins and treat plane moves as explicit crossing events.
 
 ### G.0:7 - Conformance Checklist (normative)
 
-1. **Context declared.** `CG‑Spec` is published **in** a `U.BoundedContext`; no global claims.
-2. **Comparator set explicit.** Every permitted comparison/aggregation is named and typed; anything else **abstains by default**.
-3. **CHR‑bound.** All compared quantities reference **CHR.Characteristic ids** with declared **Scale/Unit/Polarity**; guard macros attached.
-4. **Minimal evidence published.** Per characteristic: **KD‑CAL lanes**, carriers, freshness, Bridge/CL allowances, and **failure behavior** are declared.
-5. **Γ‑fold stated.** Default **weakest‑link**, or an alternative with proof obligations (monotonicity, boundary).
-6. **CL penalties** routed to R_eff only; F is invariant; **publish Φ(CL)/Φ_plane policy‑ids in SCR** for any penalised claim.
-7. **No illegal ops.** Ordinal **SHALL NOT** be averaged/subtracted; unit mismatches **SHALL** fail fast (MM‑CHR).
-8. **Design/run split.** **AcceptanceStubs** provide templates in **G.0**; all **context‑local thresholds live only in CAL.Acceptance (G.4)**; nothing is hidden in CHR or code paths; manifests are externally inspectable.
-9. **UTS‑ready.** Name Cards minted/reused with twin labels; Bridges carry **CL** and loss notes.
-10. **RSCR wired.** Tests exist for refusal paths, unit/scale checks, threshold semantics, and CL→R_eff routing.
-11. **Lifecycle set.** Refresh cadence and decay policy declared; deprecations follow **F.13–F.14** with lexical continuity notes.
-12. **describedEntity present.** `GroundingHolon`, `ReferencePlane`, and a minimal `referenceMap` are recorded.
-13. **Pre‑flight numeric gates.** Any numeric comparison/aggregation **MUST** cite a `CG‑Spec` entry with lawful **SCP/Γ‑fold** and **MinimalEvidence** satisfied; cross‑Context reuse requires **Bridge + CL** with penalties routed to **R_eff only** (never F).
-14. **Partial‑order stance.** `ComparatorSet` SHALL NOT force total orders where only partial orders are lawful; **no scalarisation of partial orders**. Use Pareto/Lexicographic/medoid/median as lawful.
-15. **Illumination discipline.** If Illumination is used, publish `ArchiveRef`, `InsertionPolicy`, and `Edition`; **exclude from dominance by default**; any promotion into dominance **MUST** cite a named lens/policy‑id and be recorded in provenance.
-16. **Freshness/PathSlice.** Freshness windows are published and enforced; PathSlice identifiers are recorded in SCR when freshness gates influence gating/selection.
-17. **GateCrossing hook exposure.** Exports **MUST** provide `Expose_CrossingHooks` inputs so GateChecks (**A.21**) can validate EvidenceGraph paths and crossings: **CrossingSurface** present/consistent (**E.18/A.27/F.9**), **LanePurity**, and **Lexical SD** (**E.10**). Any failure is **blocking** for publication.
+| ConformanceId | Statement |
+| --- | --- |
+| **CC‑G0‑CoreRef** | `G.0` is conformant only if the applicable core obligations listed in `G.0:4.1` are satisfied (delegation to `CC‑GCORE‑*`; no shadow specs, no competing defaults, typed RSCR triggers, explicit pins). |
+| CC‑G0‑01 | `CG‑Spec` is published as a notation-independent UTS object with explicit `Edition`, `Context`, `Scope`, `describedEntity`, and a minimum `ReferenceMap`. |
+| CC‑G0‑02 | `CNSpecRef.edition` is present and is treated as an external contract surface reference (no local redefinition of CN semantics). *(Delegation target: `CC‑GCORE‑CN‑CG‑1`.)* |
+| CC‑G0‑03 | `ComparatorSet` is explicit and finite; each comparator is typed and bound to `SCP` and referenced CHR characteristics; **anything not enumerated MUST be treated as illegal/abstain by default** (no implicit comparator defaults). |
+| CC‑G0‑04 | `SCP` declares, per characteristic, the lawful operation regime needed for each referenced comparator (scale/unit/polarity constraints and any required proofs/refs). |
+| CC‑G0‑05 | `MinimalEvidence` is declared per characteristic and includes explicit lane/carrier requirements, freshness window references (if any), and explicit failure behavior wiring (tri-state semantics delegated). If freshness windows are used, a stable window id (e.g., `PathSliceId`) MUST be pinned for audit. |
+| CC‑G0‑06 | `Γ‑fold` is present as an edition-pinned segment and either (i) cites `DefaultId.GammaFoldForR_eff` (single owner) or (ii) provides an explicit override with proof refs. |
+| CC‑G0‑07 | If crossing penalties are used, `CL‑Routing` and `Φ` policy ids are explicit and auditable (policy ids are exposed as pins/refs) **and are required pins for downstream SCR publication on penalised claims** (see `G.6`). |
+| CC‑G0‑08 | `AcceptanceStubs` in `CG‑Spec` are templates only; any context-local thresholds/acceptance policies are owned by CAL acceptance artefacts (G.4) and are cited, not duplicated. |
+| CC‑G0‑09 | RSCR tests/triggers for edits to legality surfaces and evidence minima are present and use canonical `RSCRTriggerKindId`s. The RSCR test set SHOULD cover at least: illegal_op_refusals; unit/scale legality checks; freshness windows; partial-order scalarisation refusals; threshold semantics; CL→`R_eff` routing; refusal of `degrade.order` on unit mismatches (MM‑CHR). |
+| CC‑G0‑10 | `Lifecycle` is declared: owner, DRR link, refresh cadence, decay/aging policy, and deprecations. Deprecations preserve lexical continuity (Δ-discipline; delegated to `CC‑GCORE‑ID‑*`). |
+| CC‑G0‑11 | *(Conditional)* If `Illumination` / QD hooks are present, `DescriptorMapRef.edition`, `DistanceDefRef.edition`, and any `InsertionPolicyRef` / promotion policy ids are pinned (or explicitly marked absent) and are recorded in provenance/audit pins. |
+| CC‑G0‑12 | *(Conditional)* If freshness windows influence gating/selection, they are published and enforced, and the relevant window ids (`PathSliceId` or equivalent) are recorded in SCR/audit pins. |
+| CC‑G0‑13 | **Pre-flight numeric gates.** Any numeric comparison/aggregation declared in `ComparatorSet` has associated `GateChecks` for unit legality, scale legality, pinned SOP/editions, and declared comparability assumptions; failing any check yields `refuse` or `abstain` (tri-state semantics delegated). |
+| CC‑G0‑14 | **GateCrossing hook exposure.** Exports provide `Expose_CrossingHooks` inputs so `GateChecks` (`E.18/A.21`) can validate plane consistency, crossing intent, lane purity, and lexical SD; failures MUST block publication. |
+| **CC‑G0‑Φ** | `Φ(CL)` (and `Φ_plane`, if used) is monotone, bounded, and table-backed; policy ids are published; construction preserves `R_eff ≥ 0`. |
+| **CC‑G0‑Unknowns** | *Delegated.* Unknown handling MUST follow the tri-state guard semantics `{pass|degrade|abstain}` with no silent coercions. (See `CC‑GCORE‑GUARD‑1`.) |
+| **CC‑G0‑CSLC** | Scale/unit/polarity legality MUST be proven before any aggregation; illegal arithmetic on ordinal/nominal values is nonconformant. (Ownered by the relevant legality patterns; `G.0` only binds and cites.) |
+### G.0:8 - Common Anti-Patterns and How to Avoid Them
 
-**Guards as in C.20:**
-* **CC‑G0‑Φ.** **Φ(CL)** (and **Φ\_plane**, if used) **MUST** be **monotone, bounded, table‑backed**; publish policy ids; **R\_eff ≥ 0** by construction.
-* **CC‑G0‑Unknowns.** **Unknowns propagate tri‑state** {pass|degrade|abstain} to **Acceptance**; **no silent coercions**.
-* **CC‑G0‑CSLC.** **Scale/Unit/Polarity legality** MUST be proven (MM‑CHR/CSLC) **before** any aggregation; **no mean on ordinals; no unit mixing**.
-**Registry hooks.** Every CG‑Spec entry declares Lifecycle/DRR and **RSCR triggers for Φ‑table, SCP, Γ‑fold, Bridge edits** (parity re‑runs required).
+* **Anti-pattern: shadow legality gates in downstream code.** Avoid by requiring downstream to cite `CG‑Spec` segments by id+edition.
+* **Anti-pattern: “one number to rule them all”.** Avoid by preserving set-return outputs when only partial orders are lawful; any scalarisation must be explicit, typed, and justified.
+* **Anti-pattern: thresholds inside CG‑Spec or CHR.** Avoid by keeping thresholds and acceptance logic in CAL and citing from `CG‑Spec` only via stubs/templates.
+* **Anti-pattern: implicit crossings.** Avoid by requiring explicit bridge ids, CL/policy ids, and reference-plane pins.
 
-### G.0:8 - Consequences (informative)
+### G.0:9 - Consequences
 
-* **Lawful comparability.** Teams know *exactly* what can be compared/aggregated and under which evidence minima.
-* **Auditable trust.** Γ‑fold and CL routing make **R_eff** computation transparent to selectors and reviewers.
-* **Frictionless downstream.** G.1–G.5 consume a single spec; CHR/CAL avoid hidden thresholds; dispatch is explainable.
-* **Local first, portable later.** Context‑local semantics are primary; Bridges make portability deliberate and costed.
+* **Lawful comparability.** The frame declares exactly what can be compared/aggregated and under what constraints.
+* **Auditable selection.** Downstream selectors can justify outcomes via pinned legality surfaces and explicit evidence minima.
+* **Explicit portability costs.** Cross-context reuse becomes deliberate and costed via visible crossings and penalties.
+* **Lower drift under evolution.** Edition pinning + typed RSCR triggers makes comparability drift detectable and refreshable.
 
-### G.0:9 - Worked micro‑example (indicative)
+### G.0:10 - Rationale
 
-CG‑Frame: R&D Portfolio Decisions
-Scope: ObjectKinds={Project}, TaskKinds={SelectPortfolio}
-describedEntity: ⟨GroundingHolon=R&D, ReferencePlane=world⟩
+`CG‑Spec` centralises frame-level comparability constraints so that:
 
-ComparatorSet = {
-  ParetoDominance,
-  LexicographicMin(SafetyClass),
-  AffineSum(CostUSD_2025)
-}
+* CHR authorship (G.3) remains about *measurement meaning* rather than implicit thresholds,
+* CAL (G.4) owns context-local acceptance/threshold policies and proof ledgers,
+* selectors and dispatchers (G.5) remain policy-governed and auditable rather than encoding hidden legality assumptions,
+* refresh (G.11) can treat legality edits and pin changes as explicit causes with canonical trigger ids.
 
-Characteristics = \[
-  SafetyClass : scale=ordinal,  polarity=↑, levels={D,C,B,A,AA},
-  CostUSD_2025 : scale=ratio,   polarity=↓, unit=USD_2025,
-  Readiness : scale=nominal,    polarity="="
-]
+### G.0:11 - SoTA‑Echoing
 
- SCP:
-  SafetyClass   → ORD_COMPARE_ONLY; aggregator=LexiMin; coordinate=Isotonic(order‑only) // no means
-  CostUSD_2025  → UNIT_CHECK; aggregator=Sum; unit_alignment=USD_2025; polarity=↓
-  Readiness     → equality_only; aggregator=None; ordering via Bridge only (CL≥2 with loss note)
+This pattern aligns with post‑2015 best practice in evaluation and governance by:
 
-MinimalEvidence:
-  SafetyClass  → lanes={LA}, carriers={test_reports}, freshness≤18mo,
-                  failure={abstain if lanes/carriers missing; refuse if mean() attempted}
-   CostUSD_2025 → lanes={LA,VA}, carriers={ERP,audit}, freshness≤12mo,
-                  failure={refuse if unit misaligned; sandbox if carrier missing}
+* treating “abstain / defer” as a first-class outcome rather than forcing a single brittle scalar (cf. selective prediction / abstention and set-valued reporting practices),
+* preserving multiobjective / partial-order outputs as sets (Pareto / archive thinking) rather than silently collapsing to a scalar,
+* emphasising reproducibility via explicit versioning/pinning of evaluation surfaces (editions) and explicit policy identifiers,
+* making evidence minima explicit and auditable (a conceptual analogue of modern reproducibility/robustness checklists and evaluation protocols),
+* keeping method-family specifics modular (e.g., QD/archives, open-ended exploration budgets) via explicit wiring to owner patterns rather than embedding method semantics into the universal legality gate.
 
-  Readiness    → lanes={VA}, carriers={process_docs}, freshness≤12mo,
-                  failure={abstain for ordering unless Bridge(CL≥2)}
+### G.0:12 - Relations
 
-Γ‑fold := weakest‑link across lanes
-CL‑Routing: CL=2 (Marketing→Engineering) → multiplicative penalty on R_eff; F invariant
-
-AcceptanceStubs:
-  AC_SafetyGate: SafetyClass ≥ B
-  AC_Budget: Σ CostUSD_2025 ≤ Envelope
-
-RSCR:
-* refuse mean(SafetyClass)
-* fail on (USD + Readiness)
-* verify AC_Budget on worked examples
-
-### G.0:10 - Relations (wiring)
-
-**Builds on:** A.4, A.10; **B.1/B.3/B.4**; **A.17–A.19/C.16**; **C.17–C.19**; **F.1–F.3/F.7–F.9/F.13–F.15/F.17–F.18**; **E.5.1–E.5.3** (no tool lock‑in); **E.10**.
-**Publishes to:** G.1 (generator guards), G.2 (harvesting policy & CL), G.3 (required CHR), G.4 (acceptance/evidence), G.5 (eligibility gates).
-**Constrains:** any LOG implementation via CAL/CHR legality and evidence minima.
-
-### G.0:11 - Author’s quick checklist
-
-1. Write the **Frame Charter** (Context, USM scope, describedEntity).
-2. Enumerate the **ComparatorSet**; bind **SCP** with guard macros and AggregationSpecs.
-3. Bind **Characteristics\[]** to **CHR** ids; ensure Scale/Unit/Polarity are declared (reuse or mint in UTS).
-4. Publish **MinimalEvidence** per characteristic (KD‑CAL lanes, carriers, freshness, Bridge/CL allowances, failure behavior).
-5. State Γ‑fold and CL‑Routing; **default Γ‑fold = weakest‑link**; if overriding, attach CAL proofs (monotonicity, boundary behavior). Record **Φ(CL)/Φ_plane** **policy ids**; penalties → **R_eff only**.
-6. Publish to **UTS** with Name Cards, twin labels, Bridges (+loss notes); register **RSCR** tests.
-7. Set **refresh/decay**; log changes to **DRR/SCR**; maintain lexical continuity on deprecations.
+**Builds on:** `G.Core`, `A.19 (CN‑Spec)`, `A.10 (evidence carriers)`, `A.17–A.19 / C.16 (MM‑CHR legality)`, `A.18 (CSLC)`, `B.3 (trust / Γ‑fold family)`, `F.* (contexts, bridges, CL, UTS)`, `E.10 (lexical rules)`, `E.5.* (notation independence discipline)`.
+**Used by:** `G.1` (generator guards), `G.2` (harvesting constraints), `G.3` (required CHR), `G.4` (acceptance templates / proof hooks), `G.5` (eligibility gates), `G.6` (evidence/pin surfaces), and downstream parity/shipping/refresh where `CG‑Spec` is pinned.
+**Publishes to:** `UTS` (Name Cards + editioned `CG‑Spec` segments).
 
 ### G.0:End
 
