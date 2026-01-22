@@ -33,11 +33,14 @@ description: First Principles Framework for structured reasoning. Use for any ta
 
 **Location**: SKILL.md markdown content (after frontmatter)
 
+**Purpose**: AI-centric navigation hub with decision logic
+
 **Content**:
-- Core workflow that always applies
-- Essential concepts (minimal)
-- Domain navigation table
-- Tool documentation (if any)
+- Pattern selection logic (decision tree)
+- Core workflow (if applicable)
+- Domain navigation hub (with "Load when..." guidance)
+- Starter patterns (for first-time usage)
+- Critical disciplines (cross-cutting concerns)
 
 **Loaded on skill trigger** - when Claude determines skill is relevant.
 
@@ -45,48 +48,97 @@ description: First Principles Framework for structured reasoning. Use for any ta
 ```markdown
 # [Skill Name]
 
+## Pattern Selection Logic
+
+Choose path based on your task:
+1. First-time user → [Starter Patterns](#starter-patterns)
+2. Specific domain → [Navigation Hub](#navigation-hub)
+3. Cross-cutting concern → [Critical Disciplines](#critical-disciplines)
+
 ## Core Workflow
 [Essential steps that always apply]
 
-## Domain Navigation
+## Navigation Hub
 
-| Domain | Index | Load when... |
-|--------|-------|--------------|
-| foundations | fpf-core/foundations/index.md | Understanding basic concepts |
-| workflows | fpf-core/workflows/index.md | Planning task execution |
+**Choose domain based on what you need:**
+
+- **Domain A** ([index](content-dir/domain-a/index.md))
+  - **Load when:** [specific usage scenario]
+  - **Starters:** A.1, A.2
+  - **Complements:** Domain B (for X)
+
+## Starter Patterns
+
+1. **A.1** - Foundation concept: why/when
+2. **A.2** - Core distinction: why/when
+
+## Critical Disciplines
+
+- **Evidence chains:** Always link claims to evidence (A.10)
+- **Boundary discipline:** Respect context boundaries (A.6)
 ```
 
-**Constraint**: Keep under 500 lines / 50KB. If approaching limit, move content to Level 3.
+**Constraint**: Keep under 500 lines / 50KB. If approaching limit, move detailed content to Level 3.
+
+See [navigation-architecture.md](navigation-architecture.md) for detailed SKILL.md structure patterns.
 
 ## Level 3: Domain Indexes
 
-**Location**: `{skill}/references/{domain}/index.md` or `{skill}/{content-dir}/{domain}/index.md`
+**Location**: `{skill}/{content-dir}/{domain}/index.md`
+
+**Purpose**: Navigation hub + pattern catalog for specific domain
 
 **Content**:
-- 1-2 sentence domain description
-- Table of units with "Load when..." guidance
-- Key concepts summary (optional, brief)
+- Brief domain description (1-2 sentences)
+- When to Load guidance (decision criteria)
+- Starter Patterns (entry points)
+- Core Pattern Clusters (conceptual groupings)
+- Related Domains (cross-domain integration)
+- Pattern table (auto-generated from source metadata)
 
 **Structure**:
 ```markdown
 # [Domain Name]
 
-Brief description of what this domain covers.
+Brief description.
 
-## Units
+## When to Load This Domain
 
-| ID | Title | Load when... |
-|----|-------|--------------|
-| A.1 | Holonic Foundation | Understanding entity composition |
-| A.2 | Role Taxonomy | Modeling responsibilities |
+**Load [domain] when you need to:**
+- [Specific scenario 1]
+- [Specific scenario 2]
 
-## Key Concepts
+## Starter Patterns (Read First)
 
-- **Holon**: Whole that is also a part
-- **Role**: Function vs identity distinction
+- **A.1** - Pattern Name: brief why/when
+- **A.2** - Pattern Name: brief why/when
+
+## Core Pattern Clusters
+
+**Cluster Name (A.1-A.5):**
+- A.1 - Brief description
+- A.2 - Brief description
+
+## Related Domains
+
+**Use together with:**
+- **domain-b** - for [use case] (patterns X, Y)
+
+## Patterns
+
+| Pattern | Title | Status | Keywords & Queries | Dependencies | Size |
+|---------|-------|--------|--------------------|--------------|------|
+| [A.1](A.1_file.md) | Title | Stable | *Keywords:* x... | **Builds on:** A.0 | 25 KB |
 ```
 
+**Maintenance**:
+- Navigation sections (When to Load, Starters, Clusters, Related) are **manually authored**
+- Pattern table is **auto-generated** from source spec metadata
+- Generation scripts should **preserve navigation** while regenerating table
+
 **Constraint**: Keep under 200 lines / 20KB. This is navigation, not content.
+
+See [navigation-architecture.md](navigation-architecture.md) for detailed domain index patterns and generation script examples.
 
 ## Level 4: Individual Units
 

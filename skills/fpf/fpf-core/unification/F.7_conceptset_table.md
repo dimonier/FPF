@@ -2,11 +2,10 @@
 
 **“Show one thing across Contexts—only where explicit bridges allow it.”**
 
-**Status.** Architectural pattern, architheory‑agnostic.
+**Status.** Architectural pattern.
 **Depends on.** E.10.D1 **Lexical Discipline for ‘Context’** (Context ≡ `U.BoundedContext`); **F.0.1 senseFamily (normative)**; F.1 **Domain‑Family Landscape Survey**; F.2 **Term Harvesting**; F.3 **Intra‑Context Sense Clustering** (SenseCells); F.5 **Naming Discipline**; F.9 **Alignment & Bridge Across Contexts**.
-**Coordinates with.** F.4 **Role Description**; F.6 **Role Assignment & Enactment Cycle (Six-Step)**; Part C architheories (for examples), **MM‑CHR (for Characteristic)**.
+**Coordinates with.** F.4 **Role Description**; F.6 **Role Assignment & Enactment Cycle (Six-Step)**; Part C patterns (for examples), **MM‑CHR (for Characteristic)**; A.6.9 (RPR‑XCTX for repairing umbrella cross‑Context sameness/alignment prose before it justifies rows).
 **Aliases (informative).** *Concept‑Set table*, *comparison grid*.
-
 
 ### F.7:1 - Intent & applicability
 
@@ -148,7 +147,7 @@ FPF Label (Tech / Plain) | Row Scope | Row CL(min) | [Context A] local label | [
 | **AP‑10** | **Implied transitivity**    | A↔B and B↔C Bridges exist; row silently assumes A↔C at the same CL.            | Paths can reduce CL; semantics might not compose.                    | Compute CL for **A↔C via bottleneck**; if too low, either reduce **Row Scope** or **omit** the cell.              |
 
 
-### F.7:11 - Worked examples (multi‑architheory)
+### F.7:11 - Worked examples
 
 > Each example gives a **row** (compact), then a **reading** explaining scope and limits. All sameness claims presuppose suitable **F.9 Bridges** with the stated CL.
 
@@ -257,7 +256,7 @@ F.4 **Role Description** — when a template cites an FPF label from the table, 
 F.6 **Role Assignment & Enactment Cycle (Six-Step)** — Move M‑4 (“choose label”) must reference a row if it wants Cross‑context reading.
 
 **Used by.**
-Part C architheories for didactic alignment pages; Part B trust calculus (B.3) may consume **Row CL(min)** when computing translation penalties.
+Part C patterns for didactic alignment pages; Part B trust calculus (B.3) may consume **Row CL(min)** when computing translation penalties.
 
 
 ### F.7:14 - Migration notes (conceptual)

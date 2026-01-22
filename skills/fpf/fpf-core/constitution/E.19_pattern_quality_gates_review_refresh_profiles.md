@@ -42,7 +42,7 @@ A **Pattern Check Profile (PCP)** is a named bundle of check families. Profiles 
 
 **Terminology note (disambiguation).** PQG/PCP are editorial review constructs in the authoring plane (Part E). They are distinct from enactment/runtime gating constructs such as `OperationalGate(profile)` / `GateProfile` (A.21), which govern Work transitions and gate decision policies elsewhere in FPF.
 
-**Mint vs reuse.** This pattern mints **PQG**, **PCP**, and the profile IDs **PCP‑BASE/MOD/PRAG/NORM/SOTA/BRIDGE/TERM/DEONT/REFRESH**. It reuses existing FPF terms (e.g., **Delta‑Class**, **DRR**, **Bridge**, **CL**, **SoTA Synthesis Pack**) without changing their meanings.
+**Mint vs reuse.** This pattern mints **PQG**, **PCP**, and the profile IDs **PCP‑BASE/MOD/PRAG/NORM/SOTA/BRIDGE/SUITE/P2W/TERM/DEONT/REFRESH**. It reuses existing FPF terms (e.g., **Delta‑Class**, **DRR**, **Bridge**, **CL**, **SoTA Synthesis Pack**) without changing their meanings.
 
 #### E.19:4.1 - Define the review target
 
@@ -69,7 +69,10 @@ Every run MUST include **PCP‑BASE**, reviewer depth SHOULD prioritize the load
 6. **Template & section integrity**
    This is lowest priority for review depth and **SHOULD NOT** consume effort that would displace ontology/semantics/modularity/slots/SoTA checks. 
 7. **Modularity & contradiction hygiene**
-   The pattern **SHOULD NOT** be overloaded or expands obligations/dependencies  significantly. Checks include: scope hygiene, split/refactor recommendation when warranted, and contradiction scan against neighbor patterns in Relations. Pattern should respect balance of coheiseveness and coupling of its content among other patterns in FPF. If pattern define specialization it should not show mix of slots/parameters of different levels. 
+   The pattern **SHOULD NOT** be overloaded or significantly expand obligations/dependencies without an explicit reason and impact record.
+   Checks include: scope containment, split/refactor recommendations when warranted, and contradiction scans against neighbor patterns in Relations.
+   The pattern SHOULD balance cohesion and coupling across FPF.
+   If the pattern defines specialization or layering, it SHOULD NOT mix slot interfaces or parameters from different levels; use explicit `⊑/⊑⁺` or `Uses` cuts instead.
 
 ##### E.19:4.2.1 - Triage: spend depth on load-bearing surfaces without making reviews heavier
 
@@ -93,6 +96,15 @@ PQG is meant to increase *semantic and ontological trust*, not to turn every rev
 
 **PCP‑PRAG (Pragmatic utility & adoption)** — Trigger: the pattern is Normative and claims practice guidance.
 Checks include: minimally viable example, non-decorative Consequences/Anti-Patterns, and an explicit “So what?” adoption test.
+
+**PCP‑MOD (Modularity & layering discipline)** — Trigger: the review target shows scope creep or level-mixing (e.g., one pattern bundles universal core rules with frame-specific content and discipline-specific method semantics; or it mixes `Intension`/`Description`/`Spec` roles in one object).
+Checks include:
+
+* an explicit **core vs extensions** cut (universal invariants are factored into one stable “core”, and extensions reference it rather than re-stating or mutating it),
+* no conflation of **specialization vs dependency**: use `⊑/⊑⁺` for refinement/extension and `Uses` for pipelines; do not mix their semantics,
+* no conflation of container roles: **Pack vs Kit vs Suite vs Family** are not interchanged, and “family of implementations” is not used as “set of mechanisms”,
+* level hygiene: Description-level artefacts do not grow mechanism semantics; MVPK faces remain projections and do not become “the place of truth”,
+* slot-discipline hygiene for any ladder: SlotKind invariance is preserved and inherited operations do not gain new mandatory inputs (A.6.5 / A.6.1 specialization discipline).
 
 **PCP‑REFRESH (Staleness & compatibility refresh)** — Trigger: staleness signals are present (e.g., outdated SoTA rows, renamed/superseded Relations targets, terminology drift, or an explicit refresh window in LAT/DRR).
 Checks include:
@@ -126,6 +138,35 @@ Checks include:
 * Congruence / loss is surfaced where applicable,
 * any cross-plane reuse is explicitly acknowledged and its penalties do not leak into unrelated assurances.
 
+**PCP‑SUITE (Mechanism-suite integrity)** — Trigger: the review target introduces or revises a suite-level Description that enumerates multiple distinct mechanisms (e.g., `MechSuiteDescription` or a suite specialization) and/or changes suite obligations, contract pins, or suite protocols.
+Checks include:
+
+* the suite remains a **Description-level** object: it enumerates member `U.Mechanism.Intension` refs and declares shared obligations/pins, but does **not** define mechanism blocks (`OperationAlgebra`, `Transport`, `Audit`, …) and is not used as a mechanism node,
+* membership has **set semantics**: `mechanisms` is duplicates-free and order carries no semantics; any intended ordering is expressed only in `suite_protocols`,
+* suite protocols are **closed over membership**: if `suite_protocols` is present, each protocol step references a member mechanism (no “step points outside the suite”),
+* the suite is not a family of implementations: it MUST NOT be encoded as a `MechFamilyDescription` (families remain “many realizations of one mechanism”, not “many mechanisms”),
+* the suite does **not** mint transport exceptions: any cross-context/plane/kind obligation remains Bridge-only; loss/penalties route to `R/R_eff` only; the suite does not embed CL/Φ/Ψ/Φ_plane tables (references/pins only),
+* CG/CN contract pins remain the single contract surface: if suite protocols include numeric comparison/aggregation/scoring, they cite `CG‑Spec` (SCP + Γ-fold + MinimalEvidence) and (where applicable) `CN‑Spec`, rather than duplicating “local CG‑Spec-like” content,
+* suite protocols contain **no hidden tails**: if UNM/UINDM/ULSAM are required, the protocol expresses them as explicit `Uses` steps and suite audit obligations cite the chosen mechanism ids/refs (no “implicit normalization/aggregation inside score/compare/select”),
+* gate separation is preserved: mechanisms/guards use tri-state `GuardDecision := {pass|degrade|abstain}` and MUST NOT publish `GateDecision` / `DecisionLog`; `block` remains gate-level only (`OperationalGate(profile)`),
+* defaults remain single-sourced: portfolio mode, dominance regime, and unknown/failure behavior are either pinned in `TaskSignature` / a single policy map or not claimed; the suite does not define competing defaults,
+* when the suite claims reusable outputs, publish/telemetry is explicit and terminates via existing publication surfaces (e.g., G.10 and/or PTM), not as a hidden tail inside a selection step.
+
+**PCP‑P2W (Planned baseline & slot-fillings seam integrity)** — Trigger: the review target introduces or revises WorkPlanning artifacts that pin planned fillers for an owner’s slots (e.g., `SlotFillingsPlanItem` or specializations), and/or introduces view projections of such artifacts.
+Checks include:
+
+* the PlanItem remains a **WorkPlanning baseline** (`U.WorkPlan.PlanItem`, `kind = SlotFillingsPlanItem`), not an execution log and not a mechanism,
+* planned slot filling stays **WorkPlanning-only**: plan items publish planned fillers/pins (ByValue or `<RefKind>`) and MUST NOT include launch values, `FinalizeLaunchValues` witnesses, gate decisions, or decision logs (these are `U.WorkEnactment` / gate-level only),
+* ownership and scope are explicit and non-leaky:
+  * the item targets exactly one slot owner via `target_slot_owner_ref`,
+  * `target_slot_owner_ref` is a **Description-level, edition-addressable** slot-owner ref (kit/suite) and MUST NOT be a `U.Mechanism.IntensionRef`,
+  * the item carries explicit P2W anchors (bounded context; and CG-frame/path-slice/scope anchors when used for legality/selection baselines),
+* time is explicit: the item includes `Γ_time_selector` or `Γ_time_rule_ref` (XOR); implicit “latest/current” is nonconformant,
+* `planned_fillings` is the authority: duplicate `slot_kind` rows are nonconformant unless the slot owner declares the slot multi-valued; any “indices” are derivable projections and are not maintained independently,
+* crossing information is referenced, not duplicated: the plan item (and any associated views) cite CrossingSurface/Bridge/policy-id pins rather than embedding CL/Φ/Ψ/Φ_plane tables or defining transport edges,
+* MVPK projections remain projections: any `U.View` face (TechCard/PlainView/InteropCard/AssuranceLane) over a plan item MUST NOT add new claims, MUST NOT introduce “shadow defaults”, and MUST avoid “signature” language (signatures belong to intensional objects),
+* if a view publishes edition pins or makes claims about crossing/comparability/selection/launch, it MUST also carry the required audit/ownership pins (UTS + Path pins, crossing pins, applicable guard-owner pins); missing pins are treated as nonconformance and read fail-closed downstream.
+
 **PCP‑TERM (Terminology & naming protocol)** — Trigger: the pattern introduces new terms, new U.Types, new “unified names”, or redefines existing labels.
 Checks include:
 
@@ -133,7 +174,7 @@ Checks include:
 * naming follows the local-first naming protocol and avoids scope smuggling (roles/metrics/stages baked into labels; overloaded words used as terms with a local sense). Remediation **SHOULD** use F.18,
 * deprecated aliases and continuity rules are respected.
 
-**PCP-DEONT (Deontic clause hygiene - RFC keywords)** - Trigger: the pattern mismatch admissibility (like in laws in physics) and deontic laws (like in law enforcement). 
+**PCP‑DEONT (Deontic clause hygiene: RFC keywords)** — Trigger: the pattern conflates admissibility/validity constraints with deontic obligations (e.g., uses RFC keywords where a non-deontic `Invariant:` predicate is required).
 Checks include:
 * Deontic requirements are expressed with RFC-style keywords (see H‑8); 
 * obligations are not smuggled into prose as informal imperatives. Admissibility/validity constraints are stated non‑deontically as `Invariant:` / `Well‑formedness constraint:` predicates and referenced from the Conformance Checklist when enforceable. 
@@ -230,18 +271,16 @@ The baseline profile protects cross-pattern comparability and editorial sanity. 
   * `E.10` (lexical discipline and reserved vocabulary)
   * `E.9` (design rationale records for changes that affect semantics)
   * `E.15` (authoring/evolution protocol; harness mindset; refresh planning)
-  * `A.6.1.5` (Slot discipline)
+  * `A.6.5` (slot discipline; SlotKind/ValueKind/refMode invariants)
 * **Coordinates with:**
 
   * `F.8` (mint vs reuse decisions)
   * `F.18` (local-first naming protocol)
   * `F.9` (cross-context alignment discipline)
   * `F.15` (conceptual harness and regression framing)
+  * `E.17` (MVPK / `U.View` projection discipline)
+  * `A.6.7` (`MechSuiteDescription` suite-level semantics)
+  * `A.15.3` (`SlotFillingsPlanItem` P2W planned-baseline seam)
   * `G.11` (refresh/decay orchestration principles, where applicable)
 
 ### E.19:End
-
-
-# **Part F — The Unification Suite (U‑Suite): Concept‑Sets, SenseCells & Contextual Role Assignment**
-
-# Cluster F.I — context of meaning & Raw Material

@@ -563,7 +563,7 @@ If a team claims to “use A.2.1”, a random audit sample should pass all of th
 
 **Interacts with**
 
-* **C.* Architheories*** (Sys‑CAL, KD‑CAL, Method‑CAL, CHR‑CAL) — enactment hooks, measurement via Observations.
+* **C.\* Patterns** (Sys‑CAL, KD‑CAL, Method‑CAL, CHR‑CAL) — enactment hooks, measurement via Observations.
 * **Service & Deontics (Part D/E)** — obligations and acceptance evaluated against role‑gated Work.
 
 ### A.2.1:End

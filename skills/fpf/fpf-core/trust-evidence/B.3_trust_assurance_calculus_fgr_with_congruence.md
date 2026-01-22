@@ -16,7 +16,7 @@ To make such claims comparable and auditable across domains, B.3 introduces a **
 * accounts for **integration quality** via **Congruence Level (CL)** along the edges of a `DependencyGraph` (B.1.1, A.14),
 * and composes these values with **Γ‑flavours** while respecting the **Invariant Quintet** (IDEM, COMM/LOC or their replacements, WLNK, MONO).
 
-B.3 is **conceptual and normative**: it defines *what must be measured and how the measures propagate*. How you improve those measures (e.g., formalize, replicate, reconcile) is the job of KD‑CAL actions (the knowledge‑dynamics architheory; references are descriptive, not required to read here).
+B.3 is **conceptual and normative**: it defines *what must be measured and how the measures propagate*. How you improve those measures (e.g., formalize, replicate, reconcile) is the job of KD‑CAL actions (the knowledge‑dynamics patterns; references are descriptive, not required to read here).
 
 **Mechanism linkage.** For law‑governed operation families (e.g., **USM/UNM**) authored as **mechanisms**, use A.6.1 — U.Mechanism to publish **OperationAlgebra/LawSet/AdmissibilityConditions** and the **Transport** clause (Bridge‑only, CL/CL^k/CL^plane). All such penalties **reduce `R/R_eff` only**; **F/G** remain invariant.
 
@@ -151,7 +151,7 @@ Any Γ‑flavour that claims an **Assurance** result **must** adopt the followin
    * The SCR SHALL additionally surface the **describedEntity** (`describe(Object→GroundingHolon)`) and the **ReferencePlane** for the claim, and present a **separable TA/VA/LA table** of evidence contributions with **valid_until/decay** marks and the **Epistemic‑Debt** per § B.3.4.  
    * If order/time mattered for the claim, attach the OrderSpec or TimeWindow identifiers (B.1.4).
 
-This skeleton is **mandatory**. Domain‑specific architheories may add **refinements** (e.g., separate epistemic “replicability” vs. “calibration”) as long as they **do not violate** WLNK or MONO and preserve scale kinds.
+This skeleton is **mandatory**. Domain‑specific patterns may add **refinements** (e.g., separate epistemic “replicability” vs. “calibration”) as long as they **do not violate** WLNK or MONO and preserve scale kinds.
 
 
 #### B.3:4.5 - System vs. Episteme — same shape, different readings

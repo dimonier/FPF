@@ -6,7 +6,7 @@
 
 ### C.2:1 - Problem Frame
 
-FPF fixes two archetypal sub‑holons: **`U.System`** (physical/operational) and **`U.Episteme`** (knowledge holon). KD‑CAL is the **home architheory** of `U.Episteme`, giving engineers a compact, testable way to say (a) how strictly an episteme is written (**F**), (b) how much structure it manages (**G**), (c) how well it is warranted by evidence or severe tests (**R**), and (d) how closely **two** epistemes coincide (**CL**). KD‑CAL is built atop **C.2.1 U.Episteme — Semantic Triangle via Components**, which reifies every episteme as **Concept** (claim‑graph), **Object** (describedEntity & evaluation rules), and **Symbol** (notation)—*not the file itself*; **carriers** and **work/executions** remain outside and are linked via `isCarriedBy` / `producedBy(U.Work)`.
+FPF fixes two archetypal sub‑holons: **`U.System`** (physical/operational) and **`U.Episteme`** (knowledge holon). KD‑CAL is the **home pattern** of `U.Episteme`, giving engineers a compact, testable way to say (a) how strictly an episteme is written (**F**), (b) how much structure it manages (**G**), (c) how well it is warranted by evidence or severe tests (**R**), and (d) how closely **two** epistemes coincide (**CL**). KD‑CAL is built atop **C.2.1 U.Episteme — Semantic Triangle via Components**, which reifies every episteme as **Concept** (claim‑graph), **Object** (describedEntity & evaluation rules), and **Symbol** (notation)—*not the file itself*; **carriers** and **work/executions** remain outside and are linked via `isCarriedBy` / `producedBy(U.Work)`.
 
 ### C.2:2 - Problem
 

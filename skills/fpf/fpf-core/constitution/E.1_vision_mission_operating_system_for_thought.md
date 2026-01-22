@@ -22,13 +22,13 @@ Absent such a scaffold, every discipline re‑invents epistemology and systems t
 
 **Vision Statement**
 
-> *Reliable reasoning should be as accessible as version control: clone the conceptual kernel, extend it with domain plugins, and commit decisions that remain traceable across time, scale, and discipline.*
+> *Reliable reasoning should be as accessible as version control: clone the conceptual kernel, extend it with domain patterns, and commit decisions that remain traceable across time, scale, and discipline.*
 
 ### E.1:4 - Solution — *FPF as an Operating System for Thought*
 FPF delivers a **generative scaffold** realised as:
 
-1. a **micro‑kernel** of non‑derivable, cross‑domain **first principles**;
-2. pluggable **architheories**—Systemic Calculus, Knowledge Dynamics, etc.—that instantiate those principles;
+1. a **Kernel** of non‑derivable, cross‑domain **first principles**;
+2. pluggable **patterns**—Systemic Calculus, Knowledge Dynamics, etc.—that instantiate those principles;
 3. a **pattern language** (*Architectural* ► why/ how; *Definitional* ► what) with embedded **Conformance Checklist (CC)**;
 4. **Design Rationale Records (DRRs)** that govern safe, auditable evolution;
 5. three **core invariants** that every artefact must honour

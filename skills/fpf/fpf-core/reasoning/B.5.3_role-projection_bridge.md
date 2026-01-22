@@ -82,7 +82,7 @@ To illustrate the pattern in action, let's consider how we would bridge the doma
 | :--- | :--- | :--- |
 | **The "Subtype Explosion"** | The list of system "types" in the project grows endlessly: `ThermodynamicSystem`, `EconomicSystem`, `SoftwareSystem`, etc. The ontology becomes bloated and unmanageable. | **CC-B5.3.2** forbids this. There is only one `U.System`. Different perspectives on it are modeled as `Role`s, which keeps the core ontology lean. |
 | **The "Magic Synonym"** | A developer simply renames `U.System` to "Thermodynamic System" in their diagrams, but there are no formal rules or constraints attached. The term is just an alias. | The FPF pattern requires a formal `Role` with a `refinesType` link. This is a rich, structural connection, not just a cosmetic name change. |
-| **The "One-Hat Fallacy"** | The model forces an entity to be only one thing. An asset can be a "Physical Component" or a "Financial Asset," but not both, leading to duplicated models. | **CC-B5.3.3** explicitly allows an entity to play multiple roles. A single server in your data center can simultaneously `play_role_of` "PhysicalComponent" (for Sys-CAL) and "DepreciableAsset" (for a financial architheory). |
+| **The "One-Hat Fallacy"** | The model forces an entity to be only one thing. An asset can be a "Physical Component" or a "Financial Asset," but not both, leading to duplicated models. | **CC-B5.3.3** explicitly allows an entity to play multiple roles. A single server in your data center can simultaneously `play_role_of` "PhysicalComponent" (for Sys-CAL) and "DepreciableAsset" (for a financial mechanisms). |
 
 ### B.5.3:6 - **Consequences**
 
@@ -95,21 +95,21 @@ To illustrate the pattern in action, let's consider how we would bridge the doma
 
 ### B.5.3:7 - **Rationale**
 
-The Role-Projection pattern is the cornerstone of FPF's approach to **universality with specificity**. It is a direct implementation of the **Open-Ended Kernel (P-4)** and **Plug-in Layering (P-5)** principles. By separating the timeless, universal concepts (`U.Types`) from their context-dependent, domain-specific interpretations (`Role`s), FPF achieves a powerful balance.
+The Role-Projection pattern is the cornerstone of FPF's approach to **universality with specificity**. It is a direct implementation of the **Open-Ended Kernel (P-4)** and **FPF Layering (P-5)** principles. By separating the timeless, universal concepts (`U.Types`) from their context-dependent, domain-specific interpretations (`Role`s), FPF achieves a powerful balance.
 
 This approach is inspired by contemporary practices in both ontology engineering (e.g., the use of role concepts in foundational ontologies like UFO) and software architecture (e.g., aspect-oriented programming and role-based modeling), but it integrates them into a single, coherent pattern. It provides a formal, scalable, and semantically rich solution to the perennial problem of bridging the universal and the particular.
 
 ### B.5.3:8 - **Relations**
 
 *   **Implements:** `ADR-003: Role-Projection Pattern and Concept-Bridge`.
-*   **Enables:** The practical application of all architheories by providing the "glue" that connects them to the FPF kernel.
+*   **Enables:** The practical application of all FPF patterns by providing the "glue" that connects them to the FPF kernel.
 *   **Used By:** All other patterns in the reasoning cycle, as it provides the vocabulary for framing hypotheses and interpreting evidence in a domain-specific context.
 
 ### B.5.3:End
 
-# **Part C — Architheory Specifications**
+# **Part C — Kernel Extensions Specifications**
 
-| §                                            | Architheory                        | Tag | Scope & Exports                                                      |
+| §                                            | Pattern                        | Tag | Scope & Exports                                                      |
 | -------------------------------------------- | ---------------------------------- | --- | -------------------------------------------------------------------- |
 | **Cluster C.I – Core CALs / LOGs / CHRs**    |                                    |     |                                                                      |
 | C.1                                          | **Sys‑CAL**                        | CAL | Physical holon composition; conservation invariants; resource hooks. |

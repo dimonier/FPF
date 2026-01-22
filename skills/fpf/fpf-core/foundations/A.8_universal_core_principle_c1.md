@@ -54,7 +54,7 @@ Implementation steps (Domain Families):
 
    as a health signal; target ≤ 0.05 (not a bureaucratic gate).
 
-*Rule of thumb for busy managers:* “**One idea, three worlds.** If you can’t point to the trio, park it in a plug‑in.”
+*Rule of thumb for busy managers:* “**One idea, three worlds.** If you can’t point to the trio, park it in a Extention Pattern.”
 
 
 ### A.8:5 - Archetypal Grounding (System / Episteme)
@@ -83,8 +83,8 @@ These juxtapositions give engineer‑managers an immediate sense of *why* each p
 | Benefit                                                                                                    | Trade‑off                                     | Mitigation                                                 |
 | ---------------------------------------------------------------------------------------------------------- | --------------------------------------------- | ---------------------------------------------------------- |
 | **Lean, trusted kernel** – every primitive earns its place by real work in three worlds.                   | Authoring effort for projections.             | Patterns A 5/A 6 provide templates and exemplar libraries. |
-| **Cross‑disciplinary uptake** – physicists, managers, and biologists see their own language reflected.     | Some novel ideas wait to gather evidence.     | They live safely in plug‑ins until mature.                 |
-| **Resilience to domain drift** – if one field’s jargon changes, the other two anchors preserve continuity. | Possible oversimplification of niche nuances. | Domain‑specific elaborations belong in architheories.      |
+| **Cross‑disciplinary uptake** – physicists, managers, and biologists see their own language reflected.     | Some novel ideas wait to gather evidence.     | They live safely in Extention Patterns until mature.                 |
+| **Resilience to domain drift** – if one field’s jargon changes, the other two anchors preserve continuity. | Possible oversimplification of niche nuances. | Domain‑specific elaborations belong in FPF patterns.      |
 
 
 ### A.8:8 - Rationale

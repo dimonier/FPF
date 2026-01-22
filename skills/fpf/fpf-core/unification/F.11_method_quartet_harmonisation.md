@@ -2,7 +2,7 @@
 
 **“Keep the *how* (Method), the *recipe* (MethodDescription), the *happening* (Work/Execution), and the *control push* (Actuation) in their own Contexts—then relate them explicitly.”**
 
-**Status.** Architectural pattern, architheory‑agnostic.
+**Status.** Architectural pattern.
 **Builds on:** E.10.D1 **D.CTX** (Context discipline); A.3/**A.3.1**/**A.3.2** (Transformer Constitution; `U.Method`, `U.MethodDescription`); A.15/**A.15.1** (`U.Work` as record of occurrence); Sys‑CAL (control/actuation semantics); KD‑CAL (observation).
 **Coordinates with.** F.1–F.3 (Contexts, Seeds → SenseCells), F.4 (Role Description), F.5 (Naming), F.6 (Role Assignment & Enactment Cycle (Six-Step)), F.7/F.9 (Bridges), F.10 (Status families & Windows).
 **Aliases (informative).** *Method/Spec/Work/Actuation split*; *design/run harmonisation*.
@@ -17,7 +17,7 @@
 * **`U.Work`** (informal: *Execution*) — the **run‑time occurrence** of doing (recorded event).
 * **`U.Actuation`** — the **control output** applied to a plant (domain‑specific Work in Sys‑CAL).
 
-The pattern makes the split **usable across architheories** (Role Assignment & Enactment, Sys-CAL, KD-CAL, Kind-CAL, planned LCA-CAL) and **legible across Contexts** (SPEM/BPMN for design; PROV-O/SOSA for run; IEC 61131-3/state-space for control).
+The pattern makes the split **usable across FPF patterns** (Role Assignment & Enactment, Sys-CAL, KD-CAL, Kind-CAL, planned LCA-CAL) and **legible across Contexts** (SPEM/BPMN for design; PROV-O/SOSA for run; IEC 61131-3/state-space for control).
 
 **Applicability.** Any time a discussion risks **mixing designs with executions**, **recipes with runs**, or **workflow with control signals**; whenever you need to **name** or **reason** about “how we do X”, “the SOP/script/model”, “the actual run”, or “the actuator push”.
 
@@ -39,7 +39,7 @@ When Method, MethodDescription, Work, and Actuation **collapse into one another*
 | Force                        | Tension to resolve                                                                                             |
 | ---------------------------- | -------------------------------------------------------------------------------------------------------------- |
 | **Fidelity vs didactics**    | We must honour domain nuance yet teach a split that fits in working memory.                                    |
-| **Universality vs locality** | Quartet must be reusable across architheories, while meanings stay **context‑local**.                             |
+| **Universality vs locality** | Quartet must be reusable across FPF patterns, while meanings stay **context‑local**.                             |
 | **Evidence vs approval**     | Evidence (run‑time) should support decisions, but must **not** be mistaken for deontic approval (design‑time). |
 | **Action vs signal**         | Executing a method is not the same as emitting a control signal; both can co‑occur in one scenario.            |
 
@@ -135,7 +135,7 @@ Each box/arrow is **context‑local** (SPEM, PROV‑O, IEC…). **Cross‑contex
 7. **Bridge guard.** Cross‑context moves **MUST** declare **kind** (≈, ⊑, ⊒, ⋂, ⊥, Interpretation), **CL**, and **Loss** (F.7/F.9).
 
 
-### F.11:9 - Micro‑examples (didactic, cross‑architheory)
+### F.11:9 - Micro‑examples (didactic)
 
 1. **Data pipeline deploy (software).**
    *Method*: “Delta‑load transform”. *MethodDescription*: `etl_delta.py@v3`. *Work*: nightly run 2025‑07‑14. *Actuation*: none.
@@ -167,7 +167,7 @@ Each box/arrow is **context‑local** (SPEM, PROV‑O, IEC…). **Cross‑contex
 | **A12** | **Actuation Outside Work**     | Commands modeled without enclosing Work.                              | Severs signal from enactment context; breaks traceability.                  | Embed **Actuation** **within** **Work** intervals; relate to the enacting Role and Method/MethodDescription references.                                                                                                     |
 
 
-### F.11:11 - Worked examples (extended, multi‑architheory)
+### F.11:11 - Worked examples (extended)
 
 > Each scenario names Contexts (from your F.1 cut), identifies the quartet boxes, and shows safe Cross‑context moves.
 
@@ -296,7 +296,7 @@ E.10.D1 **D.CTX** (Context ≡ `U.BoundedContext`); A.3/**A.3.1**/**A.3.2**/**A.
 * **F.7/F.9 Bridges:** All Cross‑context assertions among quartet terms **must** go through explicit Bridges with **kind/CL/Loss**.
 
 **Used by.**
-Part C architheories (Sys‑CAL, KD‑CAL, Method‑CAL, Kind-CAL, LCA‑CAL) when describing examples, proofs, and cross‑disciplinary mappings.
+Part C patterns (Sys‑CAL, KD‑CAL, Method‑CAL, Kind-CAL, LCA‑CAL) when describing examples, proofs, and cross‑disciplinary mappings.
 
 
 ### F.11:14 - Migration notes (conceptual)

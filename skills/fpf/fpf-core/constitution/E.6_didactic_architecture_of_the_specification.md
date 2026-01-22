@@ -42,7 +42,7 @@ The "On-Ramp First" Macro-Structure: The specification is ordered to create a sm
    Tell‑Show‑Show pedagogy: universal rule → Sys‑CAL example →
    KD‑CAL example.
 
-4. **Part C Architheories**  
+4. **Part C Extention Patterns**  
    Domain‑specific calculi expand on the examples already seen.
 
 5. **Part D Ethics & Conflict Optimisation**  

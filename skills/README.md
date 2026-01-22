@@ -33,68 +33,82 @@ The agent should confirm that they found and use FPF, and start operating FPF te
 
 ```
 skills/fpf/
-├── SKILL.md                    # Skill manifest for AI agents
+├── SKILL.md                    # Skill manifest (AI navigation hub)
 ├── glossary.md                 # FPF terminology
-├── fpf-core/                   # 159 patterns split by domain
-│   ├── index.md                # Master index
-│   ├── foundations/            # 26 patterns: entities, roles, identity
-│   ├── transformation/         # 9 patterns: planning, work execution
+├── fpf-core/                   # 169 patterns split by domain
+│   ├── index.md                # Master index with domain navigation
+│   ├── foundations/            # 32 patterns: entities, roles, identity
+│   ├── transformation/         # 10 patterns: planning, work execution
 │   ├── reasoning/              # 5 patterns: problem-solving, abduction
 │   ├── trust-evidence/         # 9 patterns: reliability, evidence chains
 │   ├── aggregation/            # 13 patterns: composition, emergence
 │   ├── signature/              # 15 patterns: interfaces, boundaries
 │   ├── architheories/          # 20 patterns: specialized calculi
-│   ├── constitution/           # 28 patterns: FPF governance
+│   ├── constitution/           # 30 patterns: FPF governance, authoring
 │   ├── unification/            # 19 patterns: cross-domain bridges
 │   ├── ethics/                 # 1 pattern: ethical considerations
-│   └── sota/                   # 14 patterns: benchmarks, best practices
+│   └── sota/                   # 15 patterns: benchmarks, best practices
 ├── prompts/                    # Workflow and principle guides
-└── scripts/                    # Python tools
+└── scripts/                    # Automation and maintenance tools
+    ├── index.md                # Scripts documentation
     ├── fpf_tools.py            # Search & load functions
-    └── split_fpf_spec.py       # Specification splitting utility
+    └── split_fpf_spec.py       # Specification splitting & regeneration
 ```
 
 ## Agent Workflow
 
-AI agents using this skill have to follow the canonical reasoning cycle:
+AI agents using this skill follow the canonical reasoning cycle:
 
 1. **OBSERVE** → Understand the user's request
-2. **SEARCH** → Use `fpf_search_index` to find relevant patterns
-3. **LOAD** → Use `fpf_read_pattern` to load specific pattern details
-4. **PLAN** → Create MethodDescription based on loaded patterns
-5. **EXECUTE** → Implement the plan (actual work)
-6. **AUDIT** → Record Work with evidence
+2. **NAVIGATE** → Use SKILL.md decision tree to select relevant domain
+3. **SEARCH** → Use `fpf_search_index` to find patterns (optional, for keyword search)
+4. **LOAD** → Read domain/pattern indexes and load specific pattern details
+5. **PLAN** → Create MethodDescription based on loaded patterns
+6. **EXECUTE** → Implement the plan (actual work)
+7. **AUDIT** → Record Work with evidence
 
-See [SKILL.md](skills/fpf/SKILL.md) for complete usage guidelines.
+See [SKILL.md](skills/fpf/SKILL.md) for complete usage guidelines and navigation patterns.
+
+## Maintenance Workflow
+
+For maintaining and updating the FPF skill structure:
+
+1. **Edit source**: Update `FPF-Spec.md` (patterns, TOC metadata)
+2. **Regenerate files**: Run `uv run skills/fpf/scripts/split_fpf_spec.py`
+3. **Review changes**: Pattern tables updated, navigation sections preserved
+4. **Enhance navigation**: Manually update domain index.md navigation sections if needed
+5. **Commit**: Version control the changes
+
+See [scripts/index.md](skills/fpf/scripts/index.md) for detailed automation workflow and best practices.
 
 ## Quick Domain Reference
 
 
 | Domain         | Patterns | Use when...                                      |
 | -------------- | -------- | ------------------------------------------------ |
-| foundations    | 26       | understanding entities, roles, distinctions      |
-| transformation | 9        | planning tasks, executing work                   |
+| foundations    | 32       | understanding entities, roles, distinctions      |
+| transformation | 10       | planning tasks, executing work                   |
 | reasoning      | 5        | problem-solving, hypothesis generation           |
 | trust-evidence | 9        | evaluating claims, checking reliability          |
 | aggregation    | 13       | combining parts, understanding emergence         |
 | signature      | 15       | designing interfaces, defining boundaries        |
 | architheories  | 20       | domain-specific modeling, specialized calculi    |
-| constitution   | 28       | understanding FPF rules, authoring patterns      |
+| constitution   | 30       | understanding FPF rules, authoring patterns      |
 | unification    | 19       | integrating across domains, building bridges     |
 | ethics         | 1        | ethical considerations, conflict resolution      |
-| sota           | 14       | benchmarking, discipline-specific best practices |
+| sota           | 15       | benchmarking, discipline-specific best practices |
 
 
-**Total**: 159 patterns
+**Total**: 169 patterns
 
 ## Difference from Original
 
 
 | Original FPF                   | This Branch                         |
 | ------------------------------ | ----------------------------------- |
-| Single 4MB file (50,000 lines) | 159 separate pattern files          |
-| Load entire spec to LLM        | Progressive loading via tools       |
-| Requires RAG infrastructure    | Uses function calling + file access |
+| Single 4MB file (50,000 lines) | 169 separate pattern files          |
+| Load entire spec to LLM        | Progressive loading via navigation  |
+| Requires RAG infrastructure    | Uses file access + progressive disclosure |
 | Monolithic specification       | Domain-organized pattern library    |
 | For LLM context                | For AI agent skill system           |
 
@@ -112,10 +126,19 @@ This repository also includes **[Spec Decomposer](skills/spec-decomposer/SKILL.m
 **How it was applied to FPF:**
 1. Analyzed 4MB `FPF-Spec.md` structure and pattern semantics
 2. Identified 11 semantic domains (foundations, reasoning, aggregation, etc.)
-3. Mapped 159 patterns to domains by usage context
+3. Mapped 169 patterns to domains by usage context
 4. Generated navigational indexes with "load when..." guidance
-5. Created Python implementation (`skills/fpf/scripts/split_fpf_spec.py`) for automated processing
+5. Created Python implementation (`skills/fpf/scripts/split_fpf_spec.py`) for automated processing and updates
+
+**Key innovations developed during FPF decomposition:**
+- **AI-centric navigation**: SKILL.md as decision hub with pattern selection logic
+- **Manual + auto hybrid**: Domain indexes preserve manual navigation sections while auto-generating pattern tables
+- **Metadata enrichment**: Pattern tables populated from source spec Table of Contents
+- **Navigation preservation**: Generation scripts preserve manually authored guidance across regenerations
 
 The Spec Decomposer skill is reusable for any large documentation, framework, or knowledge base that needs conversion into AI agent skill format.
 
-**See**: [skills/spec-decomposer/](skills/spec-decomposer/) for complete skill documentation and reference materials.
+**See**: 
+- [skills/spec-decomposer/](skills/spec-decomposer/) for complete skill documentation
+- [skills/spec-decomposer/references/navigation-architecture.md](skills/spec-decomposer/references/navigation-architecture.md) for detailed SKILL.md and index.md patterns
+- [skills/fpf/scripts/index.md](skills/fpf/scripts/index.md) for FPF automation workflow

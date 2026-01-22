@@ -7,7 +7,7 @@
 
 ### B.5.2.1:1 - **Problem Frame**
 * **Conceptual binding:** **B.5.2 Abductive Loop** (this pattern specifies the *how* for Steps 2–3).
-* **Architheory anchor:** a domain‑neutral **Creativity‑CHR** (C‑cluster) that declares the **Characteristics** used here (see §2). (No change to Γ/LOG.) This binding also references **C.18 NQD-CAL** (operators Γ_nqd.*) and **C.19 E/E-LOG** (EmitterPolicy).
+* **FPF pattern:** a domain‑neutral **Creativity‑CHR** (C‑cluster) that declares the **Characteristics** used here (see §2). (No change to Γ/LOG.) This binding also references **C.18 NQD-CAL** (operators Γ_nqd.*) and **C.19 E/E-LOG** (EmitterPolicy).
 * **Manager’s mental model (informative):** “We add measurable characteristics for *newness*, *spread*, and *fit*, then use a generator that explores widely and returns a **Pareto set** (not a single winner) of non‑dominated options.”
 * **Operational loops:** compatible with **B.4 Canonical Evolution Loop** (ideas generated here flow into Run→Observe→Refine→Deploy) and with **B.5 Canonical Reasoning Cycle** (ADI), preserving abductive primacy. 
 * **Agency note.** Decisions are taken by a **system in role**. **Contexts publish** measurement spaces and admissible policies as **semantic frames**; they do **not** enact choices.
@@ -16,7 +16,7 @@
 
 **Intent.** Turn Step 2 (*generate*) and Step 3 (*filter*) of the Abductive Loop from ad‑hoc brainstorming into a **disciplined, instrumented exploration** that can (i) *produce many* distinct, plausible hypotheses and (ii) *surface the few worth pursuing*—*without* bloating the kernel or forcing a specific creative method.
 
-**Problem.** Unstructured ideation routinely fails on two fronts: it either produces *too little variety* (pet ideas win by seniority) or *too little plausibility* (grand theories with no testable predictions). **B.5.2** names these failure modes; this plug‑in adds a minimal, measurable counter‑mechanism aligned to FPF’s assurance lanes and state machine.
+**Problem.** Unstructured ideation routinely fails on two fronts: it either produces *too little variety* (pet ideas win by seniority) or *too little plausibility* (grand theories with no testable predictions). **B.5.2** names these failure modes; this pattern adds a minimal, measurable counter‑mechanism aligned to FPF’s assurance lanes and state machine.
 
 ### B.5.2.1:3 - The **Creativity‑CHR** (references only; no re‑definitions here)
 
@@ -59,7 +59,7 @@ All listed **Characteristics** are **context‑local** with explicit units/range
 **Step 2 — Generate candidates.** 
 **Precondition (USM+RSG).** Generation is permitted only when the **Claim/Work Scope** covers the TargetSlice (USM) **and** the performer’s **RoleAssignment** is in an **enactable RSG state** (Green-Gate law). 
 
-When the plug‑in is imported, replace or *supplement* freeform brainstorming with **NQD‑Generate**; the output is a *pool* of L0 hypotheses annotated by `{N, D, Q, S, I, V?}` **plus provenance/DRR refs**. The abductive step remains *abduction* (a conjecture), now instrumented and diverse by construction.
+When the pattern is imported, replace or *supplement* freeform brainstorming with **NQD‑Generate**; the output is a *pool* of L0 hypotheses annotated by `{N, D, Q, S, I, V?}` **plus provenance/DRR refs**. The abductive step remains *abduction* (a conjecture), now instrumented and diverse by construction.
 
 **Step 3 — Plausibility filters.** Apply B.5.2’s plausibility criteria, now with explicit hooks:
 
@@ -84,12 +84,12 @@ By default in B.5.2.1, `Surprise` functions solely as a secondary tie‑break am
 
 ### B.5.2.1:6 - Conformance Checklist (normative)
 
-**CC‑B.5.2.1‑1 (CHR discipline).** If a Context uses this plug‑in, it **SHALL** declare the Creativity‑CHR **Characteristics** with **A.18**‑style templates (type, unit/range, polarity). No new kernel terms are introduced.
+**CC‑B.5.2.1‑1 (CHR discipline).** If a Context uses this pattern, it **SHALL** declare the Creativity‑CHR **Characteristics** with **A.18**‑style templates (type, unit/range, polarity). No new kernel terms are introduced.
 **CC‑B.5.2.1‑2 (Instrumented generation).** Step 2 of **B.5.2** **SHALL** either (a) invoke *NQD‑Generate* or (b) justify a Context‑specific generator of equivalent effect (diversity + quality + novelty with measurable **Characteristics**).
-**CC‑B.5.2.1‑3 (Diversity coupling).** When this plug‑in is used, **D MUST be ΔDiversity_P** computed against the current candidate Pool using the **C.17** definition of **Diversity_P** under the same Context, CharacteristicSpace, kernel, and TimeWindow.
+**CC‑B.5.2.1‑3 (Diversity coupling).** When this pattern is used, **D MUST be ΔDiversity_P** computed against the current candidate Pool using the **C.17** definition of **Diversity_P** under the same Context, CharacteristicSpace, kernel, and TimeWindow.
 **CC‑B.5.2.1‑Eligibility**: Eligibility requires **(i)** `ConstraintFit = pass` for the candidate (Norm‑CAL must‑set), **then (ii)** **USM** coverage for the TargetSlice and **(iii)** an enactable **RSG** state for the performer; only then may calls to `Γ_nqd.*` occur.
 **CC‑B.5.2.1‑4 (Non‑dominated shortlist).** The *CandidateSet* **MUST** include the **Pareto front** over `{Q₁…Q_k, N, D}`; any pruned candidate **MUST** carry a DRR note (“dominated by … on {Characteristics}”).
-**CC‑B5.2.1‑5 (Abductive primacy preserved).** The plug‑in **MUST NOT** bypass the ADI ordering mandated by **B.5**: induction may not start before deduction; abductive L0 creation remains the start.
+**CC‑B5.2.1‑5 (Abductive primacy preserved).** The pattern **MUST NOT** bypass the ADI ordering mandated by **B.5**: induction may not start before deduction; abductive L0 creation remains the start.
 **CC‑B.5.2.1‑6 (Normalization for Pareto).** When **Q** has multiple components with different units/scales, Contexts **SHALL** normalize or use declared utility‑free monotone transforms before dominance tests.
 **CC‑B.5.2.1‑7 (Use‑Value separation). ** If Use‑Value (C.17 §5.2) is recorded, it SHALL remain outside Assurance scores; it MAY inform decision lenses (Decsn‑CAL). Do not alter **R/G** semantics based on Use‑Value. (see **C.17 §5.2** for `Use-Value / ValueGain` definition)
 **CC‑B.5.2.1‑8 (Provenance).** Each `h_i` in the *CandidateSet* **MUST** reference its `provenance_i` sufficient to reproduce scores given the same `Policy(TimeWindow)`, score/metric versions, and `DeterminismSeed?`.
@@ -111,7 +111,7 @@ By default in B.5.2.1, `Surprise` functions solely as a secondary tie‑break am
 
 ### B.5.2.1:8 - Placement in the Reasoning Cycle (ADI)
 
-This plug‑in **only structures hypothesis exploration** (Abduction) and does not define or imply any **operational** gates. It respects ADI ordering (Abduct → Deduct → Induct) and leaves deployment/readiness concerns to patterns outside this spec.
+This pattern **only structures hypothesis exploration** (Abduction) and does not define or imply any **operational** gates. It respects ADI ordering (Abduct → Deduct → Induct) and leaves deployment/readiness concerns to patterns outside this spec.
 
 ### B.5.2.1:9 - Context‑Level KPIs (optional, informative)
 
@@ -120,7 +120,7 @@ Contexts *may* monitor these—*not* as gates, but to improve practice:
 1. **Generativity (Gv).** Fraction of abductive cycles whose selected candidate reaches **L1/L2** within policy windows (time‑to‑L1; time‑to‑evidence). (Maps onto state transitions driven by **B.5**.)
 2. **Frontier‑Hit Rate (FHR).** % of cycles where the chosen candidate lies on the **Pareto front** of `{Q, N, D}` at selection time.
 3. Coverage Gain (ΔI, report). Change in the *illumination summary* (coverage map/%filled cells) per cycle (how much of the descriptor space is now “lit”).
-4. **Exploration Cost Ratio (ECR).** Compute/time spent in NQD‑Generate divided by downstream Shape/Evidence cost saved (tracks whether the plug‑in pays for itself).
+4. **Exploration Cost Ratio (ECR).** Compute/time spent in NQD‑Generate divided by downstream Shape/Evidence cost saved (tracks whether the pattern pays for itself).
 5. **Refutation Learning Yield (RLY).** Among *refuted* candidates, % that added new coverage or raised SurpriseScore—turning “failures” into map‑building.
 
 ### B.5.2.1:10 - Worked micro‑example (abbreviated)
@@ -134,21 +134,21 @@ Contexts *may* monitor these—*not* as gates, but to improve practice:
 * **Q‑measures:** {*editor effort↓*, *time‑to‑L1↓*, *reader clarity↑*}.
 * **Output Pareto set (sketch):**
 
-  * `h₁ = “Add Creativity‑CHR + NQD plug‑in (this pattern)”` — high *D*, high *N*, medium *Q*.
+  * `h₁ = “Add Creativity‑CHR + NQD pattern (this pattern)”` — high *D*, high *N*, medium *Q*.
   * `h₂ = “Rename governance terms to arts vocabulary”` — low *N*, low *D*, medium *Q*.
   * `h₃ = “Add live ideation sandbox (ops tooling)”` — medium *N*, medium *D*, high *Q*.
 
 **Step 3 (Filters).**
 
 * **Falsifiability:** `h₂` weak—no testable prediction → drop.
-* **Scope (USM):** `h₁` scoped to Part B; `TimeWindow = edition 2025‑Q4` → *covers TargetSlice*. `h₃` crosses Contexts (tooling) → requires Bridge; the overhead is accounted for in **R** (not **F/G**). *(This plug‑in does not create or alter Bridges.)*
+* **Scope (USM):** `h₁` scoped to Part B; `TimeWindow = edition 2025‑Q4` → *covers TargetSlice*. `h₃` crosses Contexts (tooling) → requires Bridge; the overhead is accounted for in **R** (not **F/G**). *(This pattern does not create or alter Bridges.)*
 * **Select prime:** `h₁` → formalize as L0 episteme (this pattern), move to *Shaping* (define checklist), then *Evidence* (track KPIs).
 
 ### B.5.2.1:10 - Trade‑offs & mitigations
 
 * **Cognitive effort.** Interpreting Pareto sets and coverage maps adds thinking overhead. *Mitigation:* standard “NQD Card” + default grids; keep **Characteristics** small in number (≤ 7). *Manager shortcut:* pick 2–3 **Q** characteristics that reflect the anomaly, then run with defaults.
 * **Locality.** Novelty/diversity are **context‑local**; Cross‑context reuse requires **re‑measurement or an explicit mapping**. This pattern **does not define** Cross‑context operational controls.
-* **Not a magic idea machine.** Abduction remains human/agentic; the plug‑in *structures* search, it does not automate insight. B.5’s abductive primacy stands.
+* **Not a magic idea machine.** Abduction remains human/agentic; the pattern *structures* search, it does not automate insight. B.5’s abductive primacy stands.
 * **Metric gaming & collinearity.** Avoid making **N** and **S** redundant by policy; when strong collinearity is detected, freeze one as informative only and record rationale in the DRR.
 
 ### B.5.2.1:11 - Related Patterns

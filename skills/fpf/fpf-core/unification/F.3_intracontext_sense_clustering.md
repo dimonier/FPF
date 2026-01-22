@@ -1,7 +1,7 @@
 ## F.3 - Intra‑Context Sense Clustering
 
 **“Within one context, decide what ‘the same sense’ really is—before you ever cross Contexts.”**
-**Status.** Architectural pattern, architheory‑agnostic.
+**Status.** Architectural pattern.
 **Depends on.** F.1 **Domain‑Family Landscape Survey**; F.2 **Term Harvesting & Normalisation**; E.10.D1 **Lexical Discipline for “Context” (D.CTX)**; A.7 **Strict Distinction**; A.11 **Ontological Parsimony**.
 **Coordinates with.** F.4 **Role Description**; F.7 **Concept‑Set Table**; F.8 **Mint or Reuse Decision**; F.9 **Alignment & Bridge Across Contexts**.
 **Aliases (informative).** *context‑local clustering*; *Sense consolidation*.
@@ -148,7 +148,7 @@ These are **thinking reference points** (cognitive only), not records or files. 
 * **Counter‑example** — a short use that must **not** be included
 
 
-### F.3:12 - Worked examples (multi‑architheory, all **intra‑Context**)
+### F.3:12 - Worked examples (all **intra‑Context**)
 
 #### F.3:12.1 - BPMN 2.0 (workflow Context)
 
@@ -298,7 +298,7 @@ F.1 **Domain‑Family Landscape Survey** (Contexts fixed); F.2 **Term Harvesting
 * **F.9 Alignment & Bridge.** Bridges connect **SenseCell ↔ SenseCell** across Contexts; F.3 provides the stable endpoints.
 
 **Is used by.**
-Part C architheories to ground examples and invariants in **Context‑true** language.
+Part C Extention Patterns to ground examples and invariants in **Context‑true** language.
 
 
 ### F.3:15 - Migration notes (conceptual)

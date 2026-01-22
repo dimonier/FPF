@@ -26,7 +26,7 @@ FPF therefore needs a **more modular, graph‑shaped ontology** for epistemes wh
 * and demotes the old non-SoTA **semanit triangle** to a **didactic projection**, not the normative ontology.
 
 In this pattern:+
-* `U.Episteme` is the **holon genus** for epistemes (C.2), with components and identity governed by A.1/A.6.A/A.7.
+* `U.Episteme` is the **holon genus** for epistemes (C.2), with components and identity governed by A.1/A.6.0/A.7.
 * `U.EpistemeSlotGraph` names the **internal ontology graph** of `U.Episteme`: the small, typed n-ary relation over episteme positions (`DescribedEntitySlot`, `GroundingHolonSlot`, `ClaimGraphSlot`, `ViewpointSlot`, `ViewSlot`, `ReferenceSchemeSlot`) on which KD-CAL, A.6.2–A.6.4 and E.17.* rely.
 * Species such as `U.EpistemeCard`, `U.EpistemeView`, `U.EpistemePublication` are holonic realisations of `U.Episteme` whose component structure is constrained to be compatible with `U.EpistemeSlotGraph`.
 

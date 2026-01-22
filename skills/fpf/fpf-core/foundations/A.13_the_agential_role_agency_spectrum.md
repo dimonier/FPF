@@ -57,7 +57,7 @@ This means an Agent is simply a **`U.System`** that is currently playing an **`A
 
 #### A.13:4.3 - Measuring Agency: The `Agency-CHR` and the Spectrum
 
-Agency is not a binary switch; it is a multi-dimensional spectrum of capabilities. FPF models this using a dedicated architheory, **`Agency-CHR` (C.9)**, which is a **Characterization** that attaches a set of measurable properties to a `U.RoleAssignment`.
+Agency is not a binary switch; it is a multi-dimensional spectrum of capabilities. FPF models this using a dedicated pattern, **`Agency-CHR` (C.9)**, which is a **Characterization** that attaches a set of measurable properties to a `U.RoleAssignment`.
 
 The `Agency-CHR` profile is grounded in contemporary research (e.g., Active Inference, Basal Cognition) and includes the following key characteristics. Each is measured for a specific agent in a specific context and must be backed by evidence (A.10).
 
@@ -139,6 +139,6 @@ In essence, this pattern does not *invent* a new theory of agency. It **distills
     *   `B.3 Trust & Assurance Calculus`: The `Agency-CHR` profile provides crucial inputs for assessing the reliability and safety of an autonomous system.
     *   `D.2 Multi-Scale Ethics Framework`: The Agency Grade is used to determine the level of moral responsibility and accountability assigned to a system.
 *   **Instantiates:**
-    *   The `Agency-CHR` (C.9) architheory, which provides the formal definitions for the characteristics (BMC, PH, etc.).
+    *   The `Agency-CHR` (C.9), which provides the formal definitions for the characteristics (BMC, PH, etc.).
 
 ### A.13:End

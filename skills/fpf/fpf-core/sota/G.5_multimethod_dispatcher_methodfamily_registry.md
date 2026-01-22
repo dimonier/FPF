@@ -1,214 +1,388 @@
 ## G.5 - Multi‑Method Dispatcher & MethodFamily Registry
 
-**Tag:** Architectural pattern (uses CHR/CAL/LOG)
-**Stage:** *design‑time* (authoring & registration) with a *run‑time* selector facade (policy‑governed; edition‑aware)
-**Primary hooks:** G.1 CG-Frame Card, G.2 SoTA Synthesis Pack, G.3 CHR authoring, G.4 CAL variants, **KD‑CAL** (C.2), **Trust & Assurance** (B.3), **Formality F** (C.2.3), **USM / Scope (G)** (A.2.6), **Bounded Contexts & Bridges with CL** (Part F + B‑patterns), **SCR/RSCR** (F.15), **NQD‑CAL** (C.18), **E/E‑LOG** (C.19), **SoS‑LOG** (C.23), **GateCrossing / CrossingSurface** (**E.18**; GateChecks **A.21**; Bridge+UTS **A.27**; BridgeCard **F.9**), **G.6 Evidence Graph (PathId)**, **UTS & Naming** (F.17–F.18), **Guard‑Rails E.5.1–E.5.3** (no tool lock‑in, unidirectional dependency), **CSLC** (A.18).
+**Tag.** Architectural pattern (dispatcher/registry kit; selector façade)
+**Stage.** *design‑time* authoring & registration with a *run‑time* selector façade (policy‑governed; edition‑aware)
+**Primary output.** `MethodFamily Registry@CG‑Frame` + `GeneratorFamily Registry@CG‑Frame` + `Selector façade` surfaces (candidate sets, portfolio artefacts, DRR/SCR‑addressable audit pins)
+**Primary hooks.** `G.Core`, `G.0 (CG‑Spec)`, `A.19 (CN‑Spec)`, `G.1–G.4`, `G.6–G.7`, `G.9–G.11`, `UTS (F.17–F.18)`, `GateCrossing/CrossingSurface (E.18; A.21)`, `CSLC (A.18)`, optional method/generator owners via Extensions (`C.18`, `C.19`, `C.23`, …).
 
-### G.5:1 - Intent
+**Non‑duplication note (Phase‑2, normative intent).** Universal Part‑G invariants (no shadow specs, crossing visibility, tri‑state, penalties→`R_eff` only, set‑return semantics, P2W split, typed RSCR causes, default ownership, shipping boundary) are **single‑owner in `G.Core`** and are **not re‑specified** here. This pattern cites them through the linkage manifest in **`G.5:4.1`** and (where needed for ID‑continuity) via **delegation statements** in `CC‑G5.*`.
 
-Provide a **notation‑independent** architecture to register **families of methods** (LOG bundles) and to **select, combine, or fall back** among them for a concrete problem instance—*given typed characteristics (CHR), admissible calculi (CAL), and trust constraints (F–G–R).* The pattern embraces **No‑Free‑Lunch** realities: *there is no universal best method*, so selection is **trait‑ and evidence‑aware**, under explicit **explore↔exploit** policy. The selector returns a **Pareto set** and explicit **abstain/degrade** outcomes under **No‑Free‑Lunch**, governed by the **E/E‑LOG** policy lens. Optionally, the selector operates in **Quality‑Diversity (Illumination)** and **Open‑Ended Family** modes that (co‑)evolve solver families and, when registered, their task/environments; both modes remain **notation‑independent** and policy‑governed.
+### G.5:1 - Problem frame
 
-### G.5:2 - Problem frame
+A `CG‑FrameContext` (from **G.1**) and a `SoTA Synthesis Pack@CG‑Frame` (from **G.2**) expose multiple rival, internally coherent **method families** (and sometimes **generator families**) that can plausibly act on the same *describedEntity / ReferencePlane*.
 
-You have executed **G.1** (CG-Frame Card) and **G.2** (SoTA Synthesis Pack), which surfaced **rival Traditions and operator palettes**. **G.3/G.4** produced *candidate* CHR/CAL content. You now need a **registry and dispatcher** that:
-(a) keeps Traditions **disjoint** yet comparable; (b) chooses a **method family** at run time from typed evidence **without collapsing semantics** across Contexts; (c) publishes names and obligations to **UTS**. 
+At the same time, CHR/CAL authoring (from **G.3/G.4**) yields typed slots/scales/coordinates and admissible calculi/acceptance clauses—enough to formulate *eligibility*, *assurance*, and *legality* constraints, but not enough to pick “the method” without collapsing plurality.
 
-### G.5:3 - Problem
+You need a **notation‑independent** way to:
 
-How to design a **general, auditable selector** that:
+1. register method/generator families as *auditable, versioned* entries,
+2. select/compose/fallback among them at run time for a concrete task instance,
+3. publish stable identities to UTS, and
+4. emit RSCR‑relevant triggers and pins without inventing new “shadow specs”.
 
-* prefers **well‑matched** methods for a task instance (shape, noise, constraints) *without* hard‑coding an algorithmic dogma;
-* respects **Bounded Contexts**, using **Bridges + CL** only when crossing (with penalties routed to **R**, never **F**);
-* explains *why* a choice was made and **how much trust** it buys (F–G–R) with a **SCR**;
-* remains free of **tooling jargon** and **implementation bias** at the Core level.   
+### G.5:2 - Problem
 
-### G.5:4 - Forces
+How to design a **general, auditable dispatcher** that:
 
-* **Pluralism vs. dispatchability.** Competing Traditions expose different invariants; the selector must compare **without semantic flattening**.
-* **Evidence vs. formality.** **F** shapes expression rigor; **R** tracks support; **G** is scope—**orthogonal** yet interacting under composition. 
-* **Local semantics vs. reuse.** Cross‑Context reuse requires **Bridges** with **CL** and **loss notes**; penalties hit **R_eff**, not F. 
-* **Exploration vs. exploitation.** Run‑time must sometimes **probe alternatives** (NQD/E‑E), but within declared **risk envelopes**.
+* supports **pluralism** (families from competing Traditions stay disjoint) while remaining **dispatchable** (selection is possible and explainable);
+* does **not embed algorithmic dogma** in the core selector kernel;
+* respects Context boundaries and crossing discipline (Bridge‑only; explicit pins);
+* produces **set‑valued outcomes** when only partial orders are lawful;
+* cleanly separates:
 
-### G.5:5 - Solution — *Dispatcher & Registry chassis*
+  * **pattern‑owned kit/surfaces** (registry + selector façade + publication surfaces),
+  * **universal Part‑G invariants** (owned by `G.Core`),
+  * **method/generator specifics** (wired only via `Extensions` blocks).
 
-**Selection kernel.** Apply **lawful orders only**; for partial orders **return a set** governed by **`PortfolioMode ∈ {Pareto | Archive}`** (default **Pareto**; **Archive** when QD is active), no forced scalarisation; **unit/scale mismatches fail fast**. **Default `DominanceRegime = ParetoOnly`; inclusion of Illumination in dominance requires an explicit `CAL.Acceptance` policy and its policy‑id recorded in SCR.** Eligibility/Acceptance are **tri‑state**; unknowns behave per MethodFamily policy (**pass**/**degrade**/**abstain**) and are logged in **SCR** **together with MinimalEvidence verdicts for each referenced characteristic**; **gate additionally by CG‑Spec.minimal_evidence** (by Characteristic id) before applying orders. **SoS‑LOG rule sets (C.23) are the executable shells consumed here**; any **maturity floors** are enforced via **CAL.AcceptanceClause** (not by LOG). **Maturity is an ordinal poset; no global scalarisation is permitted in Core.**
+### G.5:3 - Forces
 
-**Strategizing escalation.** When no admissible `MethodFamily` exists for the declared `TaskSignature`, the selector **MUST NOT fail closed**; it **SHALL** return an **empty `CandidateSet`** together with a **`Run‑safe Plan`** that includes an **`ActionHint=strategize`** (C.23 branch‑id), and—where registered—a **`GeneratorFamily`** stub (`EnvironmentValidityRegion`, `TransferRulesRef`). This escalates to **method creation/selection** under **E/E‑LOG**, avoiding ad‑hoc execution.
+* **Pluralism vs. forced totalisation.** Many selection regimes are inherently partial‑order; forcing a scalar winner often creates illegal semantics.
+* **Evidence realism vs. hard gates.** Eligibility/acceptance frequently depends on incomplete evidence; selection must remain auditable under tri‑state unknowns.
+* **Reuse vs. leakage.** Cross‑Context reuse is valuable but must be explicit (Bridge + loss notes) and must not silently re‑ground semantics.
+* **Exploration vs. exploitation.** Dispatch sometimes must probe alternatives under explicit policy/risk envelopes, but probing must not become an implicit fourth status.
+* **Evolvability vs. churn.** Registries evolve (new families, deprecations, edition bumps); continuity must not be broken by “rename by meaning”.
 
-**Telemetry & parity.** Open hooks for **G.11** (refresh) and **G.9** (parity/baselines). Route **CL penalties → R_eff only**; declare **ReferencePlane** for any claim; **record Φ(CL)/Φ_plane policy‑ids in SCR (Φ MUST be monotone and bounded)**; on plane/context crossings **cite Bridge ids**. When **Illumination** is active, compute and publish **Q (quality), D (diversity), and QD‑score** and the **Archive state**; **IlluminationSummary is a lawful telemetry summary over `Diversity_P`** and **does not enter dominance** unless an explicit **CAL** policy states otherwise **and its policy‑id is recorded in SCR**. **Any increase of Illumination MUST log `PathSliceId`, the active policy‑id, and the active editions of `DescriptorMapRef` and `DistanceDefRef`.**
+### G.5:4 - Solution
 
-“Strategy” is a **composition** inside G.5 under **E/E‑LOG** governance; **no new U.Type ‘Strategy’** is minted (**Plain‑register only** per E.10).
+#### G.5:4.1 - G.Core linkage (normative)
 
-**S1 - MethodFamily Registry (design‑time, per CG-Frame)**
-Define a **registry row** per *MethodFamily* (e.g., *Outranking*, *CDT*, *Active‑Inference*, *Pareto‑front MOMAs*, *Gradient‑based optimizer*, *RL policy search*), each row comprising:
+**Builds on:** `G.Core` (Part‑G core invariants; single‑owner routing)
 
-* **Identity:** local Context, lineage/Tradition, version, **UTS name card**;
-* **SolverSignature:** I/O contracts and invariants (types, units, monotonicity), objective kinds, side‑effect constraints;
-* **ValidityRegion:** declared TaskClass and tolerances (shape/conditioning/noise) for which guarantees apply; if applicable, **EnvironmentValidityRegion** (for co‑evolved tasks);
-* **Eligibility Standard** (typed): required **Object/Task kinds**, **Data shape/regularity traits**, **Noise/uncertainty model**, **Resource envelope**, **Scope prerequisites** (USM claims), **Evidence lanes per KD‑CAL** (e.g., VA/LA/TA) it relies on; **predicates MUST support tri‑state {true|false|unknown} and define a failure policy for `unknown` (degrade/abstain)**. If a “sandbox/probe‑only” route is desired, it MUST be modeled as a distinct **SoS‑LOG** branch (C.23) with a branch‑id and not as a fourth Acceptance status;
-* **Assurance profile:** **I/D/S** of the method artefact (e.g., `MethodDescription` vs `MethodSpec` per E.10.D2), **Formality F** anchored to **U.Formality** scale **F0…F9** (C.2.3), expected **R** lane(s), **CL** allowances for cross‑Context operation; **CL penalties SHALL route to R_eff only**;
-* **Guarantees:** accuracy/robustness/regret bounds and their preconditions; **EvidenceRefs** to **EvidenceGraph** paths supporting claims;
-* **CostModel** and **KnownFailures** (adversarial/degenerate cases);
-* **PolicyHooks:** E/E‑LOG knobs (exploration quota, risk budget); optional **EmitterPolicyRef** (C.19) when Illumination is used;
-* **BridgeUsage:** declared Bridges and **CL** allowances with loss notes for any cross‑Context transfer;
-* **Twin‑naming (E.10):** **Tech:** `U.DescriptorMapRef`; **require `d≥2` only when QD/illumination surfaces are active** (otherwise `d≥1` is lawful); **Plain twin:** `CharacteristicSpaceRef`. **Aliases between them are forbidden** (distinct objects);
-* When Illumination is used, declare `U.DescriptorMapRef.edition` and **pin all QD metrics to it**, together with **`DistanceDefRef.edition`** (diversity metric) and **`DHCMethodRef.edition`** to ensure reproducible fronts;
-* **InsertionPolicyRef** for archives (elitist replacement, **K‑capacity**, dedup/tie rules);
-* **Proof obligations** (what must be established before/after selection).
-* **Artefacts:** list **MethodDescription** ids (UTS); where harnessed, also **MethodSpec** ids; cross‑Context reuse requires Bridges + CL.
+**GCoreLinkageManifest (normative; size‑controlled via profiles/sets).**
+Effective obligations/pins/triggers are computed by union expansion of the referenced ids (per `G.Core:4.2.1`). Profiles/sets + explicit deltas; `Nil‑elision` applies.
 
-  All fields are **Core‑level concepts**; concrete notations live in Tooling per **E.5.1–E.5.3**. Publish to **UTS** with twin labels and loss notes if bridged. 
+* `CoreConformanceProfileIds :=`
 
-**S1′ - GeneratorFamily Registry (design‑time, Open‑Ended mode)**
-Register **GeneratorFamily** (POET/Enhanced‑POET‑class) entries that (co‑)evolve **tasks/environments** and solvers. Each row declares:
-* **GeneratorSignature** (I/O, state, budget semantics), **EnvironmentValidityRegion**, **TransferRules** (when/what to transfer across environments) with **`TransferRulesRef.edition` (mandatory in OEE mode)**, **CoEvoCouplers** (which MethodFamilies co‑evolve), **Stop/Refresh** conditions;
-* **SoS‑LOG/Acceptance hooks** (discipline‑level gates for validity of generated tasks); any thresholds live in CAL.Acceptance (not LOG);
-* **Publication shape:** the selector returns portfolios of pairs `{Environment, MethodFamily}` with their **Eligibility/Assurance** and **PortfolioMode**; telemetry records **coverage/regret** and **IlluminationSummary** (**edition‑aware**, pinned to `DescriptorMapRef.edition` and `DistanceDefRef.edition`).
+  * `GCoreConformanceProfileId.PartG.AuthoringBase`
+  * `GCoreConformanceProfileId.PartG.TriStateGuard`
+  * `GCoreConformanceProfileId.PartG.UTSWhenPublicIdsMinted`
+  * `GCoreConformanceProfileId.PartG.ShippingBoundary`
+* `CorePinSetIds :=`
 
-**S2 - TaskSignature & Trait Inference (design‑time + run‑time)**
-A **TaskSignature** is a *minimal typed record* the dispatcher consumes:
-`⟨Context, TaskKind, KindSet:U.Kind[], DataShape, NoiseModel, ObjectiveProfile, Constraints{incl. ResourceEnvelope}, ScopeSlice(G), EvidenceGraphRef, Size/Scale, Freshness, Missingness, PortfolioMode⟩`. Values are **CHR‑typed** (Characteristics/Scales/Levels/Coordinates per MM‑CHR discipline) with provenance. Traits may be **inferred** from CHR/CAL bindings (e.g., *convexity known? differentiable? ordinal vs interval scales?*) and from **USM** scope metadata. **When Illumination is active**, extend with `QualityDiversity: {DescriptorMapRef (Tech; d≥2), CharacteristicSpaceRef (Plain twin)}`, `ArchiveConfig (grid/CVT cells)`, `EmitterPolicyRef`, `InsertionPolicyRef`, `DistanceDefRef.edition`, `Q‑budget/D‑budget`. Descriptor and space are distinct objects (no aliases) and must be provided as twins.
-**Design/Run hygiene.** No mixed‑stance signatures; GateCrossings publish Bridge+UTS and record **Φ(CL)/Φ_plane** ids.
-**UnknownHandling:** all fields admit `unknown` (tri‑state {true|false|unknown}); **Missingness semantics MUST align with CHR.Missingness** (MCAR/MAR/MNAR or mapped equivalents) and be honored by Acceptance/Flows.
+  * `GCorePinSetId.PartG.AuthoringMinimal`
+  * `GCorePinSetId.PartG.CrossingVisibilityPins` *(crossing‑aware use; pins from this set may be intentionally strengthened (optional→required) via `CorePinsRequired`)*
+* `CorePinsRequired :=` *(delta over PinSets; pins/refs are id‑only; prefer strengthening optional→required over restating pins already covered by PinSets)*
 
-**S3 - Selection Kernel (run‑time, policy‑governed)**
-**No‑Free‑Lunch is enforced**: choose Tradition/Operator sets from the SoTAPaletteDescription conditioned on task/object/CHR preconditions, rather than by “universal” cross‑Tradition formulas in CG‑Spec. Selector decisions MUST cite palette entries and CHR/CAL constraints used. **CG‑Spec MUST NOT override this with one‑size‑fits‑all formulas.**
+  * `TaskSignatureRef` *(see `G.5:4.2` / S2)*
+  * `MethodFamilyId[]` *(registry keys in scope)*
+  * `GeneratorFamilyId[]?` *(when generator families are in scope)*
+  * `PathId[]` *(audit citations for “why” and for evidence)*
+  * `PathSliceId[]` *(audit citations for “why” and for evidence)*
+  * `UTSRowId[]` *(published identities for selected/registered families and selector policy surfaces)*
+  * `FailureBehaviorPolicyId?` *(only when degrade/abstain behavior is explicitly policy‑bound)*
+  * `SoSLogBranchId?` *(only when degrade/abstain behavior is explicitly policy‑bound)*
+* `DefaultsConsumed :=`
 
-The selector MUST:
+  * `DefaultId.GammaFoldForR_eff`
+  * `DefaultId.PortfolioMode`
+  * `DefaultId.DominanceRegime`
+* `RSCRTriggerSetIds :=`
 
-(1) read SoTAPaletteDescription,
-(2) filter Traditions by CHR preconditions and KD‑CAL lane fit,
-(3) pick operators consistent with declared scales and taboos,
-(4) emit a rationale with links to palette entries and Worked Examples.
+  * `GCoreTriggerSetId.RefreshOrchestration`
+    *(payload pins: `TaskSignatureRef`, `CGSpecRef.edition`, `CNSpecRef.edition`, `MethodFamilyId[]`, `GeneratorFamilyId[]?`, `AcceptanceClauseId[]?`, `SoSLogBranchId?`, `FailureBehaviorPolicyId?`, `DescriptorMapRef.edition?`, `DistanceDefRef.edition?`, `TransferRulesRef.edition?`, `InsertionPolicyRef?`, `PathId`, `PathSliceId`, `SCRId`, `DRRId`, `RSCRTestId[]`)*
 
-A **pure selector** computes a **CandidateSet** with an **admissible (possibly partial) order** (no illegal cross‑scale scoring) and constrained by an *AssuranceGate*:
+#### G.5:4.2 - Dispatcher & Registry kit (pattern‑owned; notation‑independent)
 
-1. **Eligibility filter:** `MethodFamily` passes iff all **Eligibility Standard** predicates hold **and** all **CG‑Spec.MinimalEvidence** gates for referenced characteristics are met; **if CG‑Frame uses NQD, enforce `ConstraintFit=pass` before front selection**; otherwise **abstain**. Where a “sandbox/probe‑only” route is intended, express it via a dedicated **SoS‑LOG** branch (C.23) with a branch‑id; Acceptance remains tri‑state {pass|degrade|abstain}.
-2. **CG‑Spec gate:** require all **CHR characteristics** referenced by Acceptance/Flows to meet the **CG‑Spec.minimal\_evidence** in the current Context; otherwise **abstain** under E/E‑LOG. If a probe‑only path is needed, route via a dedicated **SoS‑LOG** branch (C.23).
-3. **Admissible preference:** apply **lexicographic** precedence over lawful traits (e.g., *assumption fit* ≻ *evidence alignment* ≻ *resource/cost*). **Weighted sums across mixed scale types (ordinal vs interval/ratio) are forbidden**; prefer lexicographic/medoid/median where lawful; **any unit/scale conversions MUST be proven legal via CSLC (A.18) before aggregation**.
-4. **F–G–R aware gating:** compute **R_eff** with **Γ‑fold** (default = weakest‑link; **override only if CAL/EvidenceProfile supplies an alternative with proofs of monotonicity & boundary behavior**) and apply **CL** penalties (R_eff only; F and G invariant); block candidates failing *minimum R*; **record Γ‑fold contributors explicitly in SCR**. **F** is read from method formalisation level; **G** from **USM** slice; penalties **never alter F**. 
-5. **Partial‑order handling:** if after gating the order is not total, **return a Pareto (non‑dominated) set** and explain tie‑criteria in DRR/SCR; do not force a total order via illegal scalarization.
-6. **Explore↔Exploit policy:** under **E/E‑LOG**, admit a quota of **NQD‑emitted** alternatives (guarded by risk budgets) to avoid local optima; log probes and outcomes for **refresh**. In **Illumination** mode, selection produces/updates an **Archive** (cells/niches) and computes **Q/D/QD‑score** per edition; ordering within a niche remains lawful (lexicographic/median), never cross‑scale weighted sums.
+G.5 owns the **kit surfaces** below. Their purpose is to make dispatch **possible and auditable** without embedding any method‑family semantics in the selector kernel.
 
-**S4 - Composition & Fallbacks (design‑time templates)**
-Provide templates for **composed strategies**: (i) *pre‑conditioners* (e.g., rescale/denoise), (ii) *meta‑selectors* (e.g., *small‑n* vs *large‑n* switch), (iii) *cascade fallbacks* on **Assurance failure** (e.g., degrade objective from cardinal to ordinal when CHR forbids interval arithmetic). Guard with **CSLC (A.18)** for **unit/scale legality**; **disallow illegal ordinal arithmetic**.
-Add a **Verifier stage**: on run‑time preconditions failing or **evidence freshness** expiring, trigger the next lawful fallback; emit DRR/SCR deltas.
+**S1 — `MethodFamily Registry` (design‑time; per CG‑Frame).**
+A registry row represents *a family*, not a single implementation. Minimal fields (conceptual, notationally independent):
 
-**S5 - Publication & Telemetry**
-Each selection produces a **Decision Rationale Record (DRR)** + **SCR**, citing chosen family, **why**, **CG‑Spec ids and characteristics consulted with MinimalEvidence verdicts (per characteristic & lane)**, **Γ‑fold contributors**, **ReferencePlane & CL^plane usage**, **CL penalties**, expected **R_eff**, and any **explore** probes. Register the family and selection policy to **UTS** **with twin labels and loss notes where bridged**; provide **RSCR** parity/regression tests as conformance artefacts. **Record on‑policy outcomes and off‑policy regret signals via telemetry (G.11)** to support registry refresh.  
+* `Identity`: `MethodFamilyId`, `ContextId`, lineage/Tradition notes, `UTSRowId` (twin labels where applicable).
+* `EligibilityStandardRef`: a typed predicate surface (tri‑state per `G.Core`), expressed in CHR/CAL terms and pinned to the relevant editions.
+* `AssuranceProfileRef`: evidence‑lane expectations and assurance surface pins (SCR‑addressable).
+* `LegalityBindings`: explicit references to the **single** contract surfaces (`CNSpecRef`, `CGSpecRef`) and to any required legality constraints (e.g., scale/unit legality via CSLC).
+* `EvidencePins`: citations to `G.6` (`PathId/PathSliceId`) for claims/guarantees where such claims are asserted.
+* `CrossingAllowance`: explicit Bridge/CL allowance pins **only** if cross‑Context operation is claimed.
+* `PolicyHooksRef?`: optional pointers to policy owners (not defined here; wired via Extensions).
 
-**If Illumination is active,** also publish **IlluminationSummary** (Q/D/QD‑score, Archive snapshot, coverage/regret) and `DescriptorMapRef.edition` with `DistanceDefRef.edition`/`DHCMethodRef.edition`; in **Open‑Ended** mode publish `{Environment, MethodFamily}` portfolios with their coverage **and record `TransferRulesRef.edition`**. **Exports also include:** a **Dispatcher Report** (candidates and reasons in/out), a **Portfolio Pack** (_Pareto set_ + tie‑break notes), and a **Run‑safe Plan** (flows + legality proofs).
+**S1′ — `GeneratorFamily Registry` (design‑time; optional; per CG‑Frame).**
+A registry row for families that generate tasks/environments and/or co‑evolve solver families. G.5 owns the *surface*, not the generator semantics:
 
-For any **Illumination increase**, telemetry **MUST** record the **`PathSliceId`**, the **active policy‑id**, and the active **editions** of `DescriptorMapRef` and `DistanceDefRef`; **in Open‑Ended (GeneratorFamily) mode it MUST also record `TransferRulesRef.edition`**. These **MUST** be visible to **RSCR** triggers.
+* `Identity`: `GeneratorFamilyId`, `ContextId`, `UTSRowId`.
+* `GeneratorSignatureRef`: conceptual I/O and budget semantics.
+* `EnvironmentValidityRegionRef?`: pinned constraints for generated environments/tasks.
+* `TransferRulesRef.edition?`: required when the Open‑Ended mode is enabled (semantics owned elsewhere; see Extensions).
+* `CouplerRefs?`: which `MethodFamilyId[]` can be coupled with this generator family.
 
-**S6 - Governance & Evolution**
+**S2 — `TaskSignature` façade (design‑time + run‑time).**
+A minimal typed record the dispatcher consumes. Its role is **pinning and auditability**, not over‑specification. It must be CHR/CAL‑typed and provenance‑aware.
+G.5 treats `TaskSignatureRef` as an input surface; it does not define CHR/CAL semantics.
 
-* **Unidirectional dependency:** Registry and selector are Core patterns; implementations are Tooling; tutorials are Pedagogy.
-* **Change control:** versioned entries; deprecations flow through **Lexical Continuity** and **Worked‑Examples** refresh.
+**S3 — `Selection kernel façade` (run‑time; policy‑governed).**
+A notation‑independent selector that:
 
-> **Julia‑style specialisation (design idiom).** Use **trait‑like dispatch** and **parametric specialisation** *at the level of typed Standards*, not code, to keep selection semantics **portable** across languages and stacks. The Core remains **notation‑independent**.
+* consumes `TaskSignatureRef` + registry entries + pinned contract surfaces,
+* applies eligibility/assurance gating (tri‑state),
+* computes a lawful (possibly partial) order,
+* returns a **set/portfolio** result (per `DefaultId.PortfolioMode` and explicit overrides),
+* emits audit artefacts (DRR/SCR‑addressable pins).
 
-### G.5:6 - Interfaces — minimal I/O Standard
+**S4 — `Composition & fallbacks` templates (design‑time).**
+A library of composition shapes (preconditioner → solver → verifier; cascades; meta‑selectors) **as templates**, legality‑checked and pinned. Concrete semantics of a particular strategy live in upstream method owners; G.5 only owns the composition surface.
 
-| Interface                | Consumes                                                | Produces                                                                      |
-| ------------------------ | ------------------------------------------------------- | ----------------------------------------------------------------------------- |
-| **G.5‑1 RegisterFamily** | SoTA row(s) from **G.2**, CHR/CAL stubs (G.3/G.4), Context | `MethodFamily` record (eligibility Standard, assurance profile, UTS entry id) |
-| **G.5‑2 RegisterGeneratorFamily** | SoTA row(s) from **G.2**, Context | `GeneratorFamily` record (GeneratorSignature, EnvironmentValidityRegion, TransferRules **(+ TransferRulesRef.edition in OEE)**, CoEvoCouplers, Acceptance hooks) |
-| **G.5‑3 Select**         | `TaskSignature`, policy (E/E‑LOG), **SoS‑LOG rules (C.23)**, acceptance clauses   | `CandidateSet` with admissible (possibly partial) order; **return a set per `PortfolioMode`** (Pareto or Archive) when the order is non‑total; chosen `MethodFamily`; **DRR + SCR** (F–G–R/CL, **ReferencePlane & Φ ids**); **Portfolio Pack** (return mode + tie‑break notes); **Run‑safe Plan** (flows + legality proofs); **if no candidate is admissible**, emit `ActionHint=strategize` (with responsible **C.23 branch‑id**) and **MAY** include a minimal `GeneratorFamily` stub (EVR + `TransferRulesRef.edition`) for lawful exploration under **E/E‑LOG**. |
-| **G.5‑4 Compose**        | `CandidateSet`, composition template                    | Composite strategy spec (with legality checks)                                |
-| **G.5‑5 Telemetry**      | Outcomes, probes                                        | Registry refresh cues; RSCR deltas; (if Illumination) Q/D/QD‑score + Archive deltas + `DescriptorMapRef.edition`/`DistanceDefRef.edition`/**`CharacteristicSpaceRef.edition` when a domain‑family coordinate is declared per C18‑1b**, **`PathSliceId`**, **policy‑id**; (if Open‑Ended) coverage/regret per `{Environment, MethodFamily}` |
+**S5 — `Publication & telemetry` surface (run‑time).**
+A standard surface to publish:
+
+* `DRR` (decision rationale) + `SCR` (support/confidence routing) with explicit pins,
+* portfolio/return‑set artefacts,
+* telemetry pins to refresh orchestration (`G.11`), without owning orchestration.
+
+**S6 — `Governance & evolution` surface (design‑time).**
+Versioning, deprecation, and registry evolution discipline (UTS publication; continuity), without minting new Part‑G‑wide types.
+
+#### G.5:4.3 - Selector specialization ladder (Phase‑2 alignment; head vs refinements)
+
+Selection/dispatch is treated as a **mechanism family** whose specialization ladder must obey the **A.6.1:4.2.1** discipline (SlotKind invariance; specialization only via `⊑/⊑⁺`; no new mandatory inputs introduced by inherited ops).
+
+**Normative alignment (cite, don’t duplicate):**
+
+* `SelectorMechanism` is the *head* intension (generic selector façade).
+* `SelectorMethodMechanism` and other method‑bound selectors are refinements (`⊑/⊑⁺`) that:
+
+  * do not redefine universal invariants (those are routed via `G.Core`),
+  * do not introduce new mandatory inputs to the selector façade beyond pinned policy/edition refs,
+  * keep SlotKinds stable (refinements may narrow by specialization, not mutate kinds).
+
+**Phase‑2 placement rule.** Method/generator specifics (QD archives, open‑ended portfolios, explore/exploit lenses, preference‑learning comparators, etc.) are **not** part of the selector head; they are connected via **`Extensions`** (`G.5:4.5`) through `Uses` and explicit pins.
+
+#### G.5:4.4 - Interfaces (minimal I/O surface)
+
+| Interface                         | Consumes                                                                                                                                                     | Produces                                                                                                                                                                                                                                                   |
+| --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **G.5‑1 RegisterFamily**          | `SoTA` family cards (from `G.2`), CHR/CAL pins (from `G.3/G.4`), `CNSpecRef.edition`, `CGSpecRef.edition`, `ContextId`                                       | A `MethodFamily` registry row (`MethodFamilyId`, `EligibilityStandardRef`, `AssuranceProfileRef`, `UTSRowId`, pinned refs)                                                                                                                                 |
+| **G.5‑2 RegisterGeneratorFamily** | `SoTA` generator family cards (from `G.2`), `ContextId`, pinned refs (including `TransferRulesRef.edition` when applicable)                                  | A `GeneratorFamily` registry row (`GeneratorFamilyId`, `GeneratorSignatureRef`, `UTSRowId`, pinned refs)                                                                                                                                                   |
+| **G.5‑3 Select**                  | `TaskSignatureRef`, `MethodFamilyId[]` (in scope), pinned `CNSpecRef/CGSpecRef` (editions), policy refs (if any), audit citation pins (`PathId/PathSliceId`) | `CandidateSet` (set‑returning), portfolio artefact (per `PortfolioMode`), `DRR + SCR` pins; if no admissible candidate exists: return `CandidateSet=∅` plus an escalation hint (`ActionHint`) and the pins required to plan next steps (P2W split applies) |
+| **G.5‑4 Compose**                 | `CandidateSet`, composition template refs, pinned legality constraints                                                                                       | Composite strategy surface (template‑level; legality‑checked; pinned)                                                                                                                                                                                      |
+| **G.5‑5 Telemetry**               | run outcomes + citations + policy/edition pins                                                                                                               | refresh cues (typed RSCR causes + payload pins), parity deltas (if parity harness is in use), telemetry pins (selector‑side; orchestration owner is `G.11`)                                                                                                |
+
+#### G.5:4.5 - Extensions (pattern‑scoped; non‑core)
+
+All blocks below are **wiring‑only**: they declare `Uses` and required pins, but do not redefine semantics owned by the referenced patterns.
+
+**GPatternExtension block: `G.5:Ext.EELog`**
+
+* `PatternScopeId`: `G.5:Ext.EELog`
+* `GPatternExtensionId`: `EELog`
+* `GPatternExtensionKind`: `MethodSpecific`
+* `SemanticOwnerPatternId`: `C.19`
+* `Uses`: `{C.19}`
+* `⊑/⊑⁺`: `∅`
+* `RequiredPins/EditionPins/PolicyPins (minimum):`
+
+  * `EELensPolicyRef` *(or equivalent lens/policy id owned by `C.19`)*
+  * `RiskBudgetRef?`
+  * `ProbeAccountingRef?`
+  * `FailureBehaviorPolicyId?` *(if degrade behavior is routed through policy)*
+* `RSCRTriggerKindIds`: `{RSCRTriggerKindId.PolicyPinChange, RSCRTriggerKindId.TelemetryDelta, RSCRTriggerKindId.FreshnessOrDecayEvent}`
+* `Notes (wiring‑only; semantics routed):`
+
+  * This block activates exploration/exploitation‑governed dispatch.
+  * Post‑2015 examples that typically land here (as *wiring targets*, not core rules): modern bandit‑style or Bayesian selection under explicit risk budgets; adaptive evaluation/probing regimes; safe‑exploration variants where “abstain/degrade” is policy‑bound.
+
+**GPatternExtension block: `G.5:Ext.SoSLOG`**
+
+* `PatternScopeId`: `G.5:Ext.SoSLOG`
+* `GPatternExtensionId`: `SoSLOG`
+* `GPatternExtensionKind`: `MethodSpecific`
+* `SemanticOwnerPatternId`: `C.23`
+* `Uses`: `{C.23}`
+* `⊑/⊑⁺`: `∅`
+* `RequiredPins/EditionPins/PolicyPins (minimum):`
+
+  * `SoSLogRuleId[]`
+  * `SoSLogBranchId[]` *(including escalation branches, if used)*
+  * `FailureBehaviorPolicyId` *(if degrade behavior is made explicit)*
+  * `MaturityRungId[]?` *(when maturity ladders are used as gates; semantics owned by `C.23`)*
+  * `AdmissibilityLedgerRef?` *(when selector consumes admissibility rows rather than recomputing thresholds)*
+* `RSCRTriggerKindIds`: `{RSCRTriggerKindId.PolicyPinChange, RSCRTriggerKindId.MaturityRungChange, RSCRTriggerKindId.EvidenceSurfaceEdit}`
+* `Notes (wiring‑only; semantics routed):`
+
+  * This block pins dispatch decisions to explicit rule/branch ids, enabling auditable “why” without inventing a fourth acceptance status.
+
+**GPatternExtension block: `G.5:Ext.NQD`**
+
+* `PatternScopeId`: `G.5:Ext.NQD`
+* `GPatternExtensionId`: `NQD`
+* `GPatternExtensionKind`: `MethodSpecific`
+* `SemanticOwnerPatternId`: `C.18`
+* `Uses`: `{C.18, C.19}`
+* `⊑/⊑⁺`: `∅`
+* `RequiredPins/EditionPins/PolicyPins (minimum):`
+
+  * `DescriptorMapRef.edition`
+  * `DistanceDefRef.edition`
+  * `InsertionPolicyRef`
+  * `TaskSignatureRef` *(when QD is enabled via TaskSignature flags/traits)*
+  * `DHCMethodRef.edition?` *(when diversity/coverage telemetry is pinned to a DHC method)*
+* `RSCRTriggerKindIds`: `{RSCRTriggerKindId.EditionPinChange, RSCRTriggerKindId.PolicyPinChange, RSCRTriggerKindId.TelemetryDelta, RSCRTriggerKindId.FreshnessOrDecayEvent}`
+* `Notes (wiring‑only; semantics routed):`
+
+  * G.5 core remains QD‑agnostic; QD semantics are routed to `C.18`.
+  * Post‑2015 families that typically dock here: MAP‑Elites‑class QD (incl. later archive‑centric refinements), CMA‑ME‑class hybrids, modern illumination/coverage telemetry regimes where legality and edition pinning matter.
+
+**GPatternExtension block: `G.5:Ext.OpenEndedFamilyWiring`**
+
+* `PatternScopeId`: `G.5:Ext.OpenEndedFamilyWiring`
+* `GPatternExtensionId`: `OpenEndedFamilyWiring`
+* `GPatternExtensionKind`: `GeneratorSpecific`
+* `SemanticOwnerPatternId`: `G.2` *(family semantics live in SoTA cards; G.5 only wires pins)*
+* `Uses`: `{G.2, C.19, C.23}`
+* `⊑/⊑⁺`: `∅`
+* `RequiredPins/EditionPins/PolicyPins (minimum):`
+
+  * `GeneratorFamilyId[]`
+  * `TransferRulesRef.edition` *(mandatory when Open‑Ended is enabled)*
+  * `EnvironmentValidityRegionRef?`
+  * `CoEvoCouplerRef[]?`
+  * `SoSLogBranchId[]?` *(when validity of generated tasks is gated by explicit branches)*
+* `RSCRTriggerKindIds`: `{RSCRTriggerKindId.EditionPinChange, RSCRTriggerKindId.PolicyPinChange, RSCRTriggerKindId.TelemetryDelta, RSCRTriggerKindId.FreshnessOrDecayEvent}`
+* `Notes (wiring‑only; semantics routed):`
+
+  * This block enables portfolios of `{Environment, MethodFamily}` pairs without redefining generator semantics in G.5.
+  * Post‑2015 examples typically referenced via `G.2` family cards: POET‑class and later open‑ended/co‑evolutionary regimes, including enhanced variants where transfer policies and validity gates must be edition‑pinned.
+
+**GPatternExtension block: `G.5:Ext.PreferenceComparators`** *(Phase‑3 seed; owner TBD)*
+
+* `PatternScopeId`: `G.5:Ext.PreferenceComparators`
+* `GPatternExtensionId`: `PreferenceComparators`
+* `GPatternExtensionKind`: `Phase3Seed`
+* `SemanticOwnerPatternId`: `owner TBD`
+* `Uses`: `∅`
+* `⊑/⊑⁺`: `∅`
+* `RequiredPins/EditionPins/PolicyPins (minimum):`
+
+  * `PreferenceModelRef.edition?`
+  * `ComparatorSpecRef.edition?`
+  * `QueryPolicyRef?` *(e.g., when preference elicitation is interactive)*
+* `RSCRTriggerKindIds`: `{RSCRTriggerKindId.EditionPinChange, RSCRTriggerKindId.PolicyPinChange, RSCRTriggerKindId.TelemetryDelta}`
+* `Notes (seed only; no Phase‑2 norming):`
+
+  * Reserved for preference‑learning and human‑in‑the‑loop comparator families (post‑2015), where “legality of comparison” and audit pins must be explicit. Formal owner pattern to be introduced in Phase‑3 if needed.
+
+### G.5:5 - Archetypal Grounding
+
+**Tell (archetype).**
+**System** must choose among rival families without lying about measurement legality, crossings, or evidence. **Episteme** insists that what is chosen must remain comparable, auditable, and stable under refresh.
+
+**Show 1 (multi‑Tradition dispatch; partial‑order outcome).**
+A CG‑Frame includes multiple decision‑theoretic families with different admissibility assumptions. Evidence for some CHR traits is incomplete.
+System registers families (S1), then runs `Select` (S3) on a pinned `TaskSignatureRef`. Eligibility is tri‑state; some families **abstain** due to missing minimal evidence pins. Among remaining candidates, only a partial order is lawful, so the selector returns a **set** (portfolio) and emits DRR/SCR pins that cite `PathSliceId` evidence. No shadow acceptance logic appears in the selector; it consumes pinned acceptance/legality surfaces.
+
+**Show 2 (QD and Open‑Ended modes as Extensions).**
+A frame enables illumination (archive semantics) and an optional generator family that proposes task variations.
+System keeps the selector head unchanged, but activates `G.5:Ext.NQD` (pins `DescriptorMapRef.edition`, `DistanceDefRef.edition`, insertion policy) and `G.5:Ext.OpenEndedFamilyWiring` (pins `TransferRulesRef.edition`). Portfolio results become `{Environment, MethodFamily}` sets under explicit pins and telemetry. Refresh triggers are emitted as canonical `RSCRTriggerKindId.*` with payload pins, without redefining trigger meaning locally.
+
+### G.5:6 - Bias-Annotation
+
+Potential biases and failure modes this pattern explicitly guards against:
+
+* **Monoculture bias (single Tradition dominance by default).** Mitigation: registry requires explicit eligibility/assurance surfaces; selection is set‑returning under partial orders; method‑specific policies are explicit pins, not hard‑coded defaults.
+* **Hidden scalarisation bias.** Mitigation: set‑return semantics is core‑routed; dominance regimes are explicit and default ownership is single‑owner.
+* **“Tool equals method” bias.** Mitigation: notation independence + prohibition of tool keywords in core registry/eligibility fields; tool choices are outside the core.
+* **Cross‑Context leakage bias.** Mitigation: explicit crossing pins only; Bridges + CL are required when crossings occur; no implicit crossings.
+* **Survivorship bias in refresh.** Mitigation: RSCR triggers are typed/id‑based; freshness/decay and telemetry deltas are first‑class causes with canonical ids.
 
 ### G.5:7 - Conformance Checklist (normative)
 
-**CC‑G5.0** Core Standards **SHALL** remain notation‑independent; vendor/tool keywords are forbidden in eligibility or assurance fields (E.5.1–E.5.3).
-**CC‑G5.1** Every `MethodFamily` **SHALL** declare an **Eligibility Standard** using CHR terms; Standards **SHALL NOT** rely on tool‑specific keywords.
-**CC‑G5.2** Selection **SHALL** be a **pure function** of `TaskSignature` + policy; side effects limited to DRR/SCR emission.
-**CC‑G5.3** Cross‑Context use **MUST** cite a **Bridge** with **CL**; penalties **MUST** flow to **R_eff**; **F** and **G** remain invariant; **attach a loss note**. 
-**CC‑G5.4** The selector **MUST** **default** to the **weakest‑link** rule for **R_eff** and record contributors in **SCR**; it **MAY** use an alternative Γ‑fold **only** when provided by CAL with proof obligations satisfied (monotonicity, boundary behavior).
-**CC‑G5.5** Ordinal scales **MUST NOT** be averaged/subtracted; unit/scale legality **MUST** be enforced by CHR guards.
-**CC‑G5.6** Chosen families **SHALL** be published to **UTS** with twin labels and scope notes; deprecations follow F.13.
-**CC‑G5.7** Exploration **MUST** be budgeted under **E/E‑LOG**; probe outcomes **MUST** feed refresh.
-**CC‑G5.8** **CG‑Frame gate enforced.** Selection rejects candidates that do not meet **CG‑Spec.minimal_evidence** for the characteristics they use; **Maturity floors** (if present) are enforced via **AcceptanceClauses**.
-**CC‑G5.9** **Admissible ordering.** Candidate ordering **MUST** be lexicographic or otherwise lawful over CHR‑typed traits; **weighted sums across ordinal/interval/ratio mixes are forbidden**. If only a partial order is available, **return a Pareto set**.
-**CC‑G5.10** **SCR completeness.** SCR **MUST** enumerate Γ‑fold contributors, **CG‑Spec characteristics** used, and **MinimalEvidence gating verdicts** (by lane & carrier).
-**CC‑G5.11** **Tri‑state eligibility.** Eligibility predicates **MUST** define behavior for `unknown` (**degrade/abstain**); **unknowns propagate into Acceptance decisions**; silent coercion to `false` is forbidden. Any “sandbox/probe‑only” handling MUST be modeled as a dedicated **SoS‑LOG** branch (C.23) with a branch‑id, not as a fourth Acceptance status.
-**CC‑G5.12** **No “universal” cross‑Tradition scoring.** Cross‑Tradition selection **MUST NOT** rely on a single numeric formula not justified by CHR/CAL and CG‑Spec.  Enforce heterogeneity gate: FamilyCoverage ≥ 3 and MinInterFamilyDistance ≥ δ_family for triads/portfolios that claim universality; cite **Context Card id (F.1)** in DRR/SCR.
-**CC‑G5.13** The selector **MUST NOT** recompute Acceptance thresholds or Maturity floors; it **consumes** `AdmissibilityLedger@Context` rows (C.23) and **cites** the referenced clause/rung ids in SCR.
-**CC‑G5.14** **Φ(CL) and (where applicable) Φ_plane MUST be monotone and bounded, and published in CG‑Spec;** SCR **MUST** record the policy‑id in use.
-**CC‑G5.15** **Units/scale legality MUST be proven via CSLC (A.18) before any aggregation or Γ‑fold;** unit/scale mismatches fail fast. *(Complements CC‑G5.5 on ordinal arithmetic.)*
-**CC‑G5.16** **Hidden thresholds are forbidden.** All thresholds live in **AcceptanceClauses** (not in CHR, LOG, or code).
-**CC‑G5.17** **ReferencePlane MUST be declared for any claim and noted in SCR,** including **CL^plane** usage for plane crossings.
-**CC‑G5.18** **Numeric comparisons/aggregations MUST cite a lawful CG‑Spec SCP with declared Γ‑fold;** cross‑Context reuse **requires Bridge + CL**, with penalties routed to **R_eff** only (never **F**).
-**CC‑G5.19** **Illumination triad.** When Illumination is active, **Q, D, and QD‑score MUST be computed and published** with Archive state; **Illumination is excluded from dominance unless explicitly enabled by policy.**
-**CC‑G5.20** **Telemetry semantics.** **IlluminationSummary SHALL be treated as a telemetry summary over `Diversity_P`**; inclusion in dominance requires an explicit **CAL** policy with a recorded **policy‑id** in SCR.
-**CC‑G5.21** **Archive reproducibility.** Any use of archives **MUST** declare **`InsertionPolicyRef`** (replacement, **K‑capacity**, dedup/tie rules) and record **`DistanceDefRef.edition`** and **`DHCMethodRef.edition`**; **`DescriptorMapRef.edition` MUST** be logged in telemetry; **all QD metrics SHALL be pinned to `DescriptorMapRef.edition`**.
-**CC‑G5.22** **Twin‑naming (E.10).** Use **Tech** `U.DescriptorMapRef` (d≥2) with **Plain twin** `CharacteristicSpaceRef`; **aliases are forbidden** (they are distinct objects).
-**CC‑G5.23** **Portfolio mode.** The selector **MUST** expose **`PortfolioMode ∈ {Pareto | Archive}`** (**default = Archive**) and echo it in DRR/SCR and the Portfolio Pack; ε‑fronts are allowed as *local* decision aids under CG‑Spec.
-**CC‑G5.24** **Open‑Ended portfolios.** In Open‑Ended mode, the selector **MUST** return portfolios of `{Environment, MethodFamily}` pairs; **EnvironmentValidityRegion** and **TransferRules** **MUST** be declared; SoS‑LOG/Acceptance branches govern validity of generated tasks.
-**CC‑G5.25** **Transfer rules edition (OEE).** In OEE mode, **`TransferRulesRef.edition` is mandatory** and **MUST** be visible to Telemetry and **RSCR** triggers.
-**CC‑G5.26** **Lawful ordering in niches.** Within any archive niche/cell, ordering **MUST** be lawful (lexicographic/medoid/median over compatible scales); **weighted sums across mixed scale types are forbidden**.
-**CC‑G5.27** **GateCrossing visibility (CrossingSurface).** Any **GateCrossing** (E.18) referenced by the selector **MUST** publish **CrossingSurface** (**E.18:CrossingSurface**); missing or non‑conformant CrossingSurface is a **fail‑fast** defect of publication and blocks downstream consumption.
-**CC‑G5.28** **Dominance policy default.** `DominanceRegime` **SHALL** default to `ParetoOnly`; inclusion of illumination in dominance **MUST** be explicitly authorised by **CAL.Acceptance** (`ParetoPlusIllumination`) with the policy‑id recorded in SCR; **parity‑run publication (CC‑G5.23a) remains mandatory** irrespective of dominance policy.
-**CC‑G5.29** **Illumination increase logging.** Any **increase in Illumination** **MUST** log `PathSliceId`, **policy‑id**, and the active **`DescriptorMapRef.edition`/`DistanceDefRef.edition`** in telemetry and expose them to **RSCR** triggers; **in Open‑Ended (GeneratorFamily) mode, `TransferRulesRef.edition` MUST also be logged.**
-**CC‑G5.30** **No Strategy minting (centralised).** “Strategy/policy” are **compositions** governed by **E/E‑LOG** and published via **G.5.Compose**; **no new `U.Type` “Strategy”** may be minted by other Part G patterns.
-**CC‑G5.31 (Strategy hint on non‑admissible sets).** If selection yields **∅** under the active SoS‑LOG and Acceptance, the selector **SHALL** emit `ActionHint=strategize` with the responsible **C.23 branch‑id** and **MAY** include a `GeneratorFamily` stub (EVR + `TransferRulesRef.edition`) to guide exploration under **E/E‑LOG**.
-**CC‑G5.32** **Parity‑run publication.** A selector/generator **MUST** publish an **Illumination Map** (archive topology + coverage per niche with `DescriptorMapRef`/`DistanceDefRef.edition`). **Single‑score leaderboards are forbidden**; any roll‑up **MUST** be lawful under **CG‑Spec** (no mixed‑scale sums).
+| ConformanceId   | Statement |
+| --------------- | ----------| 
+| `CC‑G5‑CoreRef` | **Core conformance bridge.** `G.5` is conformant only if the **effective** `G.Core` obligations referenced by `G.5:4.1 (GCoreLinkageManifest)` are satisfied (after profile/set expansion and explicit deltas). |
+| `CC‑G5.0`       | Core standards **SHALL** remain notation‑independent; vendor/tool keywords are forbidden in registry, eligibility, assurance, or selector‑kernel obligations (E.5.*). |
+| `CC‑G5.1`       | Every `MethodFamily` **SHALL** declare an `EligibilityStandardRef` using CHR/CAL terms (typed; edition‑pinned where applicable). Standards **SHALL NOT** rely on tool‑specific keywords.  |
+| `CC‑G5.2`       | Selection **SHALL** be a pure function of `TaskSignatureRef` + pinned policy/edition refs; side effects are limited to emitting DRR/SCR pins and telemetry/RSCR triggers (no hidden mutation of contract surfaces). |
+| `CC‑G5.3`       | **Delegated (ID‑continuity).** Cross‑Context use **MUST** follow `G.Core` crossing visibility and penalty routing. **Delegation targets:** `CC‑GCORE‑CROSS‑1`, `CC‑GCORE‑PEN‑1`.  |
+| `CC‑G5.4`       | **Default owner for** `DefaultId.GammaFoldForR_eff`. The selector **MUST** default to the weakest‑link rule for `R_eff` and record contributors in SCR; it **MAY** use an alternative Γ‑fold only when provided by an explicitly pinned policy/profile with proof obligations satisfied (monotonicity; boundary behavior). |
+| `CC‑G5.5`       | Ordinal scales **MUST NOT** be averaged/subtracted; any aggregation/comparison must respect CHR scale typing and legality constraints (incl. CSLC where applicable). |
+| `CC‑G5.6`       | Method and generator family identities **SHALL** be published to UTS with the required naming discipline (twin labels where applicable; deprecations follow lexical continuity rules). *(Core routing applies; G.5 adds the registry‑specific publication obligation.)* |
+| `CC‑G5.7`       | **Conditional.** If `G.5:Ext.EELog` is present, exploration **MUST** be budgeted under the pinned E/E‑LOG policy; probe outcomes **MUST** feed refresh via canonical RSCR trigger kinds. |
+| `CC‑G5.8`       | **CG‑Frame gate enforced.** Selection rejects or abstains from candidates that do not meet the pinned `CG‑Spec.MinimalEvidence` requirements for the characteristics they cite. |
+| `CC‑G5.9`       | **Delegated (ID‑continuity).** Set‑return semantics are routed via `G.Core`. **Delegation target:** `CC‑GCORE‑SET‑1`. Candidate ordering **MUST** be lawful over typed traits and legality constraints. If only a partial order is available, selection **MUST** return a set/portfolio result (no forced totalisation via illegal scalarisation). |
+| `CC‑G5.10`      | **SCR completeness.** SCR **MUST** enumerate Γ‑fold contributors (when used), referenced contract surface editions, the evidence citations (`PathId/PathSliceId`) used in gating/rationale, and `MinimalEvidence` gating verdicts *(by lane & carrier, when such gating is relied upon).* |                                                      
+| `CC‑G5.11`      | **Delegated (ID‑continuity).** Tri‑state eligibility/acceptance semantics and unknown handling are routed via `G.Core`. **Delegation target:** `CC‑GCORE‑GUARD‑1`. *(Includes the rule that `degrade(...)` is expressed via a pinned FailureBehavior/SoS‑LOG branch id — not as a fourth status.)* |
+| `CC‑G5.12`      | **No “universal” cross‑Tradition scoring.** Cross‑Tradition selection **MUST NOT** rely on a single numeric formula not justified by pinned CHR/CAL constraints and the contract surfaces. If a triad/portfolio **claims universality**, it **MUST** satisfy **explicit, pinned** heterogeneity gates (ids/pins), e.g., `FamilyCoverage ≥ k` and `MinInterFamilyDistance ≥ δ_family`, where `k` and `δ_family` are declared by the pinned policy/TaskSignature/SoTA pack, and cite the relevant **Context Card id (F.1)** in DRR/SCR; otherwise treat the outcome as Context‑local.  |
+| `CC‑G5.13`      | **Conditional.** If the selector consumes admissibility/maturity artefacts (e.g., via `G.5:Ext.SoSLOG`), it **MUST NOT** recompute thresholds; it consumes pinned admissibility ledger rows and cites clause/rung ids in audit pins. |
+| `CC‑G5.14`      | **Φ(CL) / Φ_plane discipline.** If crossing or plane penalties are applied, the active penalty policy ids (e.g., `Φ(CL)`, `Φ_plane`) **MUST** be explicit in audit pins, and the pinned policies **MUST** satisfy the monotone & bounded requirements asserted by their owners and be published via the owner surface (e.g., `CG‑Spec`). SCR **MUST** record the policy‑id in use; penalty routing semantics remain routed via `G.Core`. |
+| `CC‑G5.15`      | Units/scale legality **MUST** be established via CSLC (A.18) before any aggregation or Γ‑fold; unit/scale mismatches are a fail‑fast defect. |
+| `CC‑G5.16`      | Hidden thresholds are forbidden. Thresholds live in explicitly pinned acceptance/eligibility policy artefacts, not in selector prose, LOG shells, or code.  |
+| `CC‑G5.17`      | ReferencePlane **MUST** be declared (pinned) for any claim that is used in dispatch, and the selector’s audit artefacts must cite it (including plane‑crossing pins when applicable). |
+| `CC‑G5.18`      | Numeric comparisons/aggregations used by dispatch **MUST** cite a lawful, edition‑pinned comparator/spec surface (as provided by the contract surfaces); illegal mixes of scale types are forbidden. |
+| `CC‑G5.19`      | **Conditional (QD).** If `G.5:Ext.NQD` is present, the required QD telemetry triple (quality/diversity/QD summary) **MUST** be computable and publishable under the pinned descriptor/distance definitions and archive policy, without redefining their semantics in G.5. |
+| `CC‑G5.20`      | **Conditional (QD).** QD/illumination summaries are treated as telemetry unless explicitly promoted by a pinned acceptance/policy artefact; the selector must record the promoting policy id in audit pins. |
+| `CC‑G5.21`      | **Conditional (Archive/QD).** Any use of archives **MUST** declare `InsertionPolicyRef` and pin the required editions for reproducibility (e.g., descriptor/distance definitions and any method editions they depend on).  |
+| `CC‑G5.22`      | **Conditional (QD).** Twin‑naming discipline for descriptor vs plain space (if used) must be respected (distinct objects; no aliasing).  |
+| `CC‑G5.23`      | **Default owner for** `DefaultId.PortfolioMode`. The selector **MUST** expose `PortfolioMode ∈ {Pareto, Archive}` with **default = `Archive`**, and echo it in DRR/SCR and portfolio artefacts when not explicitly overridden by pinned policy/TaskSignature. `ε`‑fronts are allowed as *local* decision aids under `CG‑Spec` when explicitly pinned.  |
+| `CC‑G5.23a`     | **Parity‑run publication.** If parity harness is in use, a selector/generator **MUST** publish a parity run and `ParityCard` to **UTS** (see `G.9`). This obligation remains mandatory irrespective of dominance/portfolio policy. |
+| `CC‑G5.24`      | **Conditional (Open‑Ended).** If `G.5:Ext.OpenEndedFamilyWiring` is present, the selector **MUST** support portfolios of `{Environment, MethodFamily}` pairs as set‑valued outcomes under explicit pins. |
+| `CC‑G5.25`      | **Conditional (Open‑Ended).** In Open‑Ended mode, `TransferRulesRef.edition` is mandatory and **MUST** be visible to telemetry and RSCR triggers.  |
+| `CC‑G5.26`      | **Conditional (Archive/QD).** Within any archive niche/cell, ordering and tie‑breaks **MUST** remain lawful over compatible scales; illegal mixed‑scale weighted sums are forbidden. |
+| `CC‑G5.27`      | If the selector cites any `GateCrossing`, the corresponding `CrossingSurface` publication **MUST** be present and conformant; missing/non‑conformant `CrossingSurface` blocks downstream consumption. | 
+| `CC‑G5.28`      | **Default owner for** `DefaultId.DominanceRegime`. `DominanceRegime` **SHALL** default to `ParetoOnly`. Any inclusion of additional telemetry dimensions into dominance (e.g., illumination) requires an explicitly pinned acceptance/policy artefact and must be recorded in audit pins. **Parity‑run publication (CC‑G5.23a) remains mandatory** irrespective of dominance policy. |
+| `CC‑G5.29`      | **Conditional (QD/Open‑Ended).** Any telemetry event that materially changes an archive/portfolio state **MUST** log `PathSliceId`, the active policy id, and the active editions of the relevant definition pins (`DescriptorMapRef.edition`, `DistanceDefRef.edition`, and `TransferRulesRef.edition` when applicable) and expose them to RSCR triggers. |
+| `CC‑G5.30`      | **No Strategy minting.** Within `G.5`, “strategy” is a policy‑bound composition surface; the pattern **SHALL NOT** mint a new universal `U.Type` named `Strategy` (E.10 discipline). If a stable reference is needed, publish composition/policy ids (e.g., UTS entries) rather than minting a universal type. |
+| `CC‑G5.31`      | **Strategy hint on non‑admissible sets.** If selection yields `CandidateSet = ∅`, the selector **SHALL** emit an explicit escalation hint (`ActionHint`) that is **DRR/SCR‑compatible** and auditable: include (at minimum) the top‑3 blocking constraints as cited ids/pins, and (where applicable) the relevant edition pins (e.g., `TransferRulesRef.edition` in Open‑Ended mode) to guide exploration under explicitly pinned lenses (e.g., E/E‑LOG). |
+| `CC‑G5.32`      | **Parity‑run publication + lawful roll‑ups.** If parity harness is in use, parity publication is required per `CC‑G5.23a` (ID‑continuity). Any scalar roll‑up or summary view **MUST** be lawful under **CG‑Spec** (no mixed‑scale sums), and published views must preserve set‑return semantics (no single‑score leaderboards as authoritative outputs without an explicit, lawful comparator surface). |
 
-### G.5:8 - Consequences
+### G.5:8 - Common Anti-Patterns and How to Avoid Them
 
-* **Auditable plurality.** Rivals co‑exist, selected with **explainable** trust and scope handling.
-* **Safety by construction.** Illegal measurements and cross‑Context leaks are blocked by Standard and CL penalties. 
-* **Evolvability.** Families can be **added/retired** without rewriting the selector; UTS provides a stable publication surface.
+* **Anti‑pattern: “Selector as a shadow spec.”**
+  *Symptom:* local acceptance/legality rules appear in selector prose/code, diverging from CN/CG/CAL.
+  *Avoid:* route all contract semantics via `CNSpecRef/CGSpecRef` and pinned CAL artefacts; keep G.5 core as a façade.
 
-### G.5:9 - Worked micro‑examples (indicative)
+* **Anti‑pattern: “Implicit crossings.”**
+  *Symptom:* cross‑Context reuse is claimed without Bridge/CL pins, or without cited `CrossingSurface`.
+  *Avoid:* require explicit crossing pins; block consumption without publication.
 
-**9.1 Decision Theory (multi‑Tradition)**
-`TaskSignature:` *one‑shot, high‑stakes, observational dataset; causal graph partially known; counterfactuals needed; ordinal preference ordering only in some panels; strict risk constraint.*
+* **Anti‑pattern: “Hidden scalarisation.”**
+  *Symptom:* partial orders are flattened into single winners “for convenience”.
+  *Avoid:* return sets/portfolios; make dominance regimes explicit; keep telemetry report‑only unless promoted by explicit policy.
 
-* Eligibility filters admit **CDT** (needs counterfactuals), **EDT** (if evidential suffices), **Active‑Inference** (if a generative model with variational free energy is in scope), and **reject cardinal EU** where CHR shows *ordinal‑only* preferences.
-* CL appears if a *psychological Context* Bridge is used for utility elicitation; selector applies **CL penalty** to **R_eff** only; **F** remains the method’s declared formalism level. **DRR** explains the choice (CDT) and logs an **NQD** probe of *Active‑Inference* under small budget. 
+* **Anti‑pattern: “Method specifics in the selector head.”**
+  *Symptom:* QD/OEE/preference models become mandatory for basic dispatch.
+  *Avoid:* keep them in `G.5:Ext.*` blocks with explicit pins and `Uses`.
 
-**9.2 Creativity (portfolio search)**
-`TaskSignature:` *wide design space; resource cap; novelty emphasis; diversity quota.*
+* **Anti‑pattern: “Churn by meaning.”**
+  *Symptom:* registry entries are “renamed” to reflect updated interpretation, breaking continuity.
+  *Avoid:* version/deprecate; keep stable ids; use explicit edition pins and deprecation notices.
 
-* Registry offers **Pareto‑front NQD** and **IPO‑style recombiners**; **E/E‑LOG** sets an explore‑heavy policy initially, then shifts to exploit on observed Use‑Value. **SCR** reports that Use‑Value evidence is **LA** lane while novelty scoring rests on **VA** heuristics. 
+### G.5:9 - Consequences
 
-**9.3 Quality‑Diversity & Open‑Ended (GeneratorFamily portfolios)**  
-`TaskSignature:` *co‑evolving task family; descriptor map d≥2; risk‑budgeted exploration; environment shifts allowed; strict ConstraintFit gate; freshness windows active.*
+* **Auditable plurality.** Multiple Traditions can co‑exist without forced semantic flattening; dispatch remains explainable and evidence‑pinned.
+* **Core stability.** Universal invariants are routed via `G.Core`; method/generator innovation does not churn the selector head.
+* **Evolvability.** Registries support growth, retirement, and refresh with typed RSCR causes and explicit payload pins.
+* **Composability.** Strategy templates and fallbacks remain legality‑checked and portable across implementations.
 
-* **Registry (design‑time).** Register a **GeneratorFamily** of the **POET/Enhanced‑POET (and compatible DGM‑class)** with  
-  `EnvironmentValidityRegion := {grid mazes with dynamic doors; hazard_intensity ≤ L2; size ≤ 50×50}`,  
- `TransferRules (+ TransferRulesRef.edition) := {transfer policy when ConstraintFit=pass; else abstain; reset if MinInterFamilyDistance < δ}`,  
-  `CoEvoCouplers := {RL‑policy‑search, CMA‑ME planner}`; attach **SoS‑LOG/Acceptance** branches for validity of generated tasks (no lethal hazards; budget ≤ envelope). *CL penalties route to R_eff only; F/G stay invariant; ReferencePlane is recorded on every claim.*
+### G.5:10 - Rationale
 
-* **Selection (run‑time).** The dispatcher reads the SoTA palette and CAL gates, applies **ConstraintFit=pass** as a hard eligibility filter, then produces a **portfolio of pairs** `{Environment, MethodFamily}`:  
- – a **Pareto/Archive** (per `PortfolioMode`) over niches (quality/diversity lawful order; no forced scalarization),  
-  – ε‑Pareto thinning when applicable,  
-  – ties broken by lawful lenses only. *Illumination does **not** enter dominance unless policy explicitly promotes it.*
+* **Why registries?** Dispatch requires stable, auditable “family objects” with explicit eligibility and assurance surfaces; otherwise selection collapses into ad‑hoc tooling.
+* **Why separation via Extensions?** QD/OEE/preference‑learning and similar families are fast‑moving and method‑specific; making them part of the selector head would force a universal semantics and violate strict distinction.
+* **Why set‑return?** Partial orders are common and often the only lawful representation under heterogeneous scales; set‑return preserves semantics and makes tie criteria explicit.
+* **Why explicit defaults with single owners?** Defaults are unavoidable; single‑owner indexing prevents competing defaults from silently diverging across patterns.
 
-* **Policy (E/E‑LOG).** Use a named **lens** `Barbell` with `explore_share ≈ 0.4`, `wild_bet_quota = 2`, `backstop_confidence = L1`; cite `EmitterPolicyRef` (UCB‑class, moderate τ). Record the **lens id** and **policy‑id Φ** in provenance.
+### G.5:11 - SoTA-Echoing
 
-* **Telemetry & publication.** Emit **DRR+SCR** with: CG‑Spec characteristics consulted and MinimalEvidence verdicts (by lane), Γ‑fold contributors, ReferencePlane/CL^plane usage, CL penalties→R_eff, selected `{Environment, MethodFamily}` portfolio, and probe logs. Publish **IlluminationSummary** with `Q/D/QD‑score`, Archive snapshot, and **DescriptorMap edition** (`{DHCMethodRef.edition, DistanceDef}`); for open‑ended mode also publish **coverage/regret per {Environment, MethodFamily}**. Register families and policies to **UTS** (twin labels; loss notes where bridged).
+This pattern is designed to **host** (not redefine) post‑2015 SoTA families via `Uses` + edition/policy pins:
 
+* **Quality‑Diversity / illumination (post‑2015 refinements).** Archive‑centric QD families (e.g., MAP‑Elites‑line evolutions, CMA‑ME‑line hybrids) fit naturally as `G.5:Ext.NQD` wiring with explicit descriptor/distance/insertion pins.
+* **Open‑Endedness (post‑2015 wave).** POET‑class and later open‑ended/co‑evolutionary families dock via generator registries + `TransferRulesRef.edition` pins (`G.5:Ext.OpenEndedFamilyWiring`).
+* **Algorithm selection & meta‑selection.** Modern selection under uncertainty, robust evaluation, and policy‑driven probing regimes dock via explicit policy owners (`C.19`‑style lenses) and typed telemetry pins, rather than as hard‑coded scoring rules.
+* **Preference‑learning comparators.** Interactive and learned‑preference regimes (post‑2015) are treated as comparator/policy artefacts with explicit editions (Phase‑3 seed stub provided).
 
-### G.5:10 - Relations
+SoTA here is treated as **best‑known practice for a declared goal and constraint regime**, not “what is currently popular”.
 
-**Builds on:** G.1–G.4; **F–G–R / KD‑CAL**; **Formality F**; **USM**; **Bridges & CL**; **Guard‑Rails E.5.\***.    
-**Publishes to:** **UTS**, Worked‑Examples, RSCR.
-**Constrains:** any run‑time *selector implementations* (Tooling) via the Core Standards.
+### G.5:12 - Relations
 
-### G.5:11 - Editorial notes (authoring guidance)
+**Builds on (normative):** `G.Core` (core invariants + linkage discipline).
 
-* Keep **Standards minimal** and **typed**; resist adding tool‑level flags to the Core (route to Tooling Glossaries).
-* Treat **composition patterns** as first‑class (preconditioner → solver → verifier); publish each as a **UTS row** with clear Contexts.
-* When a selection *raises F* (e.g., recasting acceptance as predicates), record **ΔF** separately from **ΔG/ΔR**.
+**Uses (conceptual dependencies; cited via pins/ids):**
 
-### G.5:12 - Quick author checklist
+* Contract surfaces: `A.19 (CN‑Spec)`, `G.0 (CG‑Spec)`.
+* Upstream kits: `G.1 (CG‑Frame Card)`, `G.2 (SoTA Pack)`, `G.3 (CHR Pack)`, `G.4 (CAL Pack)`.
+* Evidence & crossings: `G.6 (EvidenceGraph; PathId/PathSliceId)`, `G.7 (Bridge/CL calibration)`, `E.18/A.21 (CrossingSurface/GateChecks)`.
+* Planning/enactment boundary: `A.15.3 (SlotFillingsPlanItem)` as the planned baseline anchor (cited, not redefined).
+* Optional method/generator owners via `G.5:Ext.*`: `C.18`, `C.19`, `C.23`, plus any future owner patterns (Phase‑3).
 
-1. Register ≥ 3 **MethodFamilies** per competing Tradition with typed **Eligibility** and **Assurance**.
-2. Define the **TaskSignature** schema for the CG-Frame; prove it is **minimal** but **sufficient** for dispatch.
-3. Implement **Selection Kernel** as a pure Core algorithm; ensure **CL penalties** and **weakest‑link R** are computed and logged in **SCR**.
-4. Publish families and selection policy to **UTS**; add one **Worked‑Example** per policy branch.
-5. Provide **RSCR** parity/regression tests as conformance obligations; ensure telemetry hooks (G.11) are connected.
+**Publishes to:** `UTS` (family ids, selector policy surfaces), `G.6` (audit citations), RSCR emission surfaces (typed triggers + payload pins), and downstream packs via the canonical shipping owner (`G.10`).
 
 ### G.5:End
+

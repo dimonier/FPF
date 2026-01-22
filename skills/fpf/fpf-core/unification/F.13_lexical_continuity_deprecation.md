@@ -1,7 +1,7 @@
 ## F.13 - Lexical Continuity & Deprecation
 
 **“Change names without changing history.”**
-**Status.** Architectural pattern, architheory‑agnostic.
+**Status.** Architectural pattern.
 **Builds on:** F.1 **context of meaning**; F.2 **Term Harvesting**; F.3 **Intra‑Context Clustering (SenseCell)**; F.5 **Naming Discipline**; F.7 **Concept‑Set (row) construction**; F.8 **Mint‑or‑Reuse decision**; F.9 **Bridges**; F.10 **Status windows**.
 **Coordinates with.** Part C CALs when canon editions change (Sys/KD/Type/Method/LCA).
 **Non‑goals.** No registries, workflows, editors, or storage formats. No by‑name Cross‑context equivalence. No silent rewrites of old texts.
@@ -161,7 +161,7 @@ Temptation: “Let’s rename *process* to *activity*.”
 | **A12** | **Over‑canonicalisation**  | Forcing a single “perfect” label across all rows/Contexts.               | Centralises language; breaks heterogeneity guard.              | Let each Context/row keep its **own preferred label**; put unification pressure only into **rows** and **Bridges**.                 |
 
 
-### F.13:11 - Extended examples (multi‑architheory)
+### F.13:11 - Extended examples
 
 #### F.13:11.1 - KD‑CAL × Services — *metric target* labels over time
 
@@ -271,7 +271,7 @@ F.1 **context of meaning** (keeps locality), F.2 **Harvesting** (provides attest
 * **F.9 (Bridges):** Cross‑context changes must **not** be expressed as renames/aliases.
 
 **Used by.**
-All Part C architheories when editions shift; all examples and tutorials when teaching with legacy terminology.
+All Part C patterns when editions shift; all examples and tutorials when teaching with legacy terminology.
 
 
 ### F.13:14 - Migration notes (conceptual playbook)

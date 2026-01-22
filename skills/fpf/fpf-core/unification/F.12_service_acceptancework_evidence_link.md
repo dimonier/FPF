@@ -1,7 +1,7 @@
 ## F.12 — Service Acceptance–Work Evidence Link
 
 **“Judge promises on what happened, not on what was planned.”**
-**Status.** Architectural pattern, architheory‑agnostic.
+**Status.** Architectural pattern.
 **Builds on:** F.1 **context of meaning (U.BoundedContext)**; F.2 **Term Harvesting**; F.3 **Intra‑Context Sense Clustering**; F.5 **Naming Discipline**; F.7/F.9 **Bridges & CL**; F.10 **Status Families & Windows**; F.11 **Method Quartet Harmonisation**; A.2.3 **U.ServiceClause**.
 **Coordinates with.** KD‑CAL (Observation/Characteristic/Scale); Sys‑CAL (Work/Actuation contexts).
 **Non‑goals.** No team workflows, no tooling, no editorial procedures. This pattern specifies **how to think** about acceptance, not how to store or operate systems.
@@ -186,7 +186,7 @@ Every verdict is **time‑bounded**. Changing the Window can change the result; 
 | **A12** | **Bridge‑by‑name**              | Equating *Activity* ≡ *Process* because both say “process”.                                  | Assumes global meaning.                         | Use **F.9 Bridge** with **kind/CL/Loss**; or keep them distinct.                                                                                         |
 
 
-### F.12:11 - Extended worked examples (multi‑architheory)
+### F.12:11 - Extended worked examples
 
 > Each example identifies **Contexts**, the **quadruple** ⟨ClauseCell, WorkCell, MeasureCell, Window⟩, any **Bridge(s)**, and the **Predicate**. The verdict attaches to *ClauseCell\@Window about WorkCell*.
 
@@ -288,7 +288,7 @@ Every verdict is **time‑bounded**. Changing the Window can change the result; 
   **F.10**: defines **Status** families and **Window** constructs.
   **F.11**: protects **Method / MethodDescription / Work / Actuation** distinctions.
 
-* **Uses (Part C architheories).**
+* **Uses (Part C patterns).**
   **KD‑CAL** (Observation/Characteristic/Scale/Unit).
   **Sys‑CAL** (Work/Actuation Contexts).
   **Kind-CAL** (type labels for populations or cohort selection).

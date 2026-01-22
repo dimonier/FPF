@@ -1,13 +1,33 @@
 # Ethics
 
-Multi-scale ethics, conflict resolution, and axiological patterns.
+Multi-scale ethics, conflict resolution, bias-audit, and axiological patterns.
 
-**Load when**: ethical considerations, conflict resolution, values
+## When to Load This Domain
+
+**Load ethics when you need to:**
+- Perform bias-audit
+- Ethical assurance of decisions
+- Conflict resolution with values
+- Multi-scale ethical considerations
+
+## Starter Patterns (Read First)
+
+- **D.5** - Bias-Audit & Ethical Assurance
+
+## Core Pattern Clusters
+
+**Ethics (D.5):**
+- Bias-audit, Ethical assurance
+
+## Related Domains
+
+**Use together with:**
+- **trust-evidence** - for evidence (B.3)
+- **reasoning** - for resolution (B.5)
+- **foundations** - for values (A.1)
 
 ## Patterns
 
-| Pattern | Title | Size |
-|---------|-------|------|
-| [D.5](D.5_bias-audit_ethical_assurance.md) | Bias-Audit & Ethical Assurance | 12.6 KB |
-
-Total: 1 patterns
+| Pattern | Title | Status | Keywords & Search Queries | Dependencies | Size |
+|---------|-------|--------|---------------------------|--------------|------|
+| [D.5](D.5_bias-audit_ethical_assurance.md) | Bias-Audit & Ethical Assurance | Stable | *Keywords:* bias, audit, ethics, assurance, fairness, review cycle, taxonomy, AI ethics, responsible AI. *Queries:* "How does FPF handle bias?", "What is the Bias-Audit Cycle?", "How to ensure a model is fair?", "Ethical review process in FPF." | **Builds on:** E.5.4 (Cross-Disciplinary Bias Audit). **Complements:** B.3.3 (Assurance Levels). | 12.6 KB |

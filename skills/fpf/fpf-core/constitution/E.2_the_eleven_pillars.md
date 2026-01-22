@@ -23,14 +23,14 @@ FPF rests on **eleven non‑negotiable pillars**. Each pillar is a binding const
 | **P‑1**  | **Cognitive Elegance**         | Highlight decisive structure, eliminate ornamental formalism; separate data governance from thinking.                     |
 | **P‑2**  | **Didactic Primacy**           | Human comprehension outranks theoretical or tooling purity.                                                               |
 | **P‑3**  | **Scalable Formality**         | A single artefact can mature step‑by‑step from informal guess to formally assured state without forks or rewrites.        |
-| **P‑4**  | **Open‑Ended Kernel**          | The micro‑kernel contains only meta‑concepts; all domain knowledge lives in external architheories.                       |
-| **P‑5**  | **Plug‑in Layering**           | Architheories are modular, declarative extensions that can be added, replaced, or removed without destabilising the core. |
+| **P‑4**  | **Open‑Ended Kernel**          | The Kernel contains only meta‑concepts; all domain knowledge lives in external patterns.                       |
+| **P‑5**  | **FPF Layering**           | Patterns are modular, declarative extensions that can be added, replaced, or removed without destabilising the core. |
 | **P‑6**  | **Lexical Stratification**     | Every core concept is expressible in four registers: plain name, technical term, formal U.Type, and mathematical symbol.  |
 | **P‑7**  | **Pragmatic Utility**          | Proofs, metrics, and models exist to achieve real‑world objectives; falsification is rewarded over confirmation.          |
 | **P‑8**  | **Cross‑Scale Consistency**    | Composition algebras (aggregation, boundary, emergence) are invariant across material systems, knowledge, and methods.    |
 | **P‑9**  | **State Explicitness**         | Every artefact declares its state (`design‑time`, `run‑time`, etc.); transitions are cheap, traceable, auditable.         |
 | **P‑10** | **Open‑Ended Evolution**       | Every entity is expected to evolve indefinitely; cycles must remain cheap, safe, and cognitively rewarding.               |
-| **P‑11** | **State‑of‑the‑Art Alignment** | The kernel and architheories track reliable contemporary knowledge and update when the SoTA advances.                     |
+| **P‑11** | **State‑of‑the‑Art Alignment** | The kernel and extension domain-specific patterns track reliable contemporary knowledge and update when the SoTA advances.                     |
 
 > Any DRR that contradicts a pillar must first amend this constitutional pattern.
 
@@ -41,7 +41,7 @@ FPF rests on **eleven non‑negotiable pillars**. Each pillar is a binding const
 | **CC‑P‑1** | Every architectural pattern **must** list which pillar(s) it instantiates or refines.                                             | Guarantees constitutional grounding.  |
 | **CC‑P‑2** | Every DRR proposing a normative change **must** include a “Pillar Impact Analysis.”                                               | Makes constitutional review explicit. |
 | **CC‑P‑3** | Tooling and pedagogical artefacts **should** document which pillar(s) shape their design.                                         | Upholds P‑2 (Didactic Primacy).       |
-| **CC‑P‑4** | An architheory is conformant only if its invariants reference **≥ 3** pillars, demonstrating cross‑scale and pragmatic alignment. | Prevents narrow, siloed extensions.   |
+| **CC‑P‑4** | An pattern is conformant only if its invariants reference **≥ 3** pillars, demonstrating cross‑scale and pragmatic alignment. | Prevents narrow, siloed extensions.   |
 | **CC‑P‑5** | When two lawful approaches exist, authors **SHOULD** prefer methods whose **empirical capability slope** is **non‑negative** over the **audited scale window** (data, compute, **freedom‑of‑action**) and **MUST** justify any exception **via** a **BLP Scale‑Audit** (**BLP‑1**) with **declared tolerances** *(α = budget; δ = assurance; units specified)*. | Embeds Bitter‑Lesson preference; curbs heuristic debt. |
  
 ### E.2:6 - Policy — Bitter‑Lesson Preference (BLP)
@@ -102,7 +102,7 @@ FPF rests on **eleven non‑negotiable pillars**. Each pillar is a binding const
 
 ### E.2:11 - Rationale
 
-The pillars are distilled from systems engineering, philosophy of science, software architecture, and ontology design. They interlock: *Cognitive Elegance* (P‑1) enables *Didactic Primacy* (P‑2); *Open‑Ended Kernel* (P‑4) and *Plug‑in Layering* (P‑5) make *Open‑Ended Evolution* (P‑10) and *SoTA alignment* (P‑11) feasible; *Cross‑Scale Consistency* (P‑8) provides the algebraic backbone for *Scalable Formality* (P‑3). This minimal yet sufficient set balances stability with change, rigor with accessibility, and abstraction with measurable impact.
+The pillars are distilled from systems engineering, philosophy of science, software architecture, and ontology design. They interlock: *Cognitive Elegance* (P‑1) enables *Didactic Primacy* (P‑2); *Open‑Ended Kernel* (P‑4) and *FPF Layering* (P‑5) make *Open‑Ended Evolution* (P‑10) and *SoTA alignment* (P‑11) feasible; *Cross‑Scale Consistency* (P‑8) provides the algebraic backbone for *Scalable Formality* (P‑3). This minimal yet sufficient set balances stability with change, rigor with accessibility, and abstraction with measurable impact.
 
 ### E.2:12 - Relations
 * **Depends on:** `pat:constitutional/vision` – pillars operationalise the mission.

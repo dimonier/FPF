@@ -2,7 +2,7 @@
 
 **“Name less, express more.”**
 
-**Status.** Architectural pattern, architheory‑agnostic.
+**Status.** Architectural pattern.
 **Depends on.** F.1 **context of meaning**; F.2 **Harvesting**; F.3 **Local Sense Clustering**; F.4 **Role Description**; F.5 **Naming Discipline**; F.7 **Concept‑Set Table**; F.8 **Mint‑or‑Reuse**.
 **Coordinates with.** F.10 **Status Windows & Mapping**; F.11 **Method Quartet Harmonisation**; F.12 **Service Acceptance Binding**; F.13 **Lexical Continuity**.
 **Aliases (informative).** *Role/Status economy*; *Explosion guard*.
@@ -199,7 +199,7 @@ Let **`rowOf(τ)`** be the Concept‑Set row of template **τ**, **`senseOf(τ)`
 | **A14** | **Profile‑driven clones**                | *API‑Approver*, *Data‑Approver*, *Model‑Approver* as different Roles.                        | Scales by surface area; loses the shared essence.                 | One **Approver** Role with a **scope facet** (`objectType=API/Data/Model`).                                                       |
 
 
-### F.14:11 - Worked examples (multi‑architheory)
+### F.14:11 - Worked examples
 
 #### F.14:11.1 - Enactment + Services + KD‑CAL — “SLO compliance without label sprawl”
 
@@ -248,7 +248,7 @@ Let **`rowOf(τ)`** be the Concept‑Set row of template **τ**, **`senseOf(τ)`
   * **F.10 (Status Windows & Mapping):** encode temporal/scale variation as **windows**, not new Status types.
   * **F.12 (Service Acceptance Binding):** bind acceptance to the **Compliance** Status family; avoid ad‑hoc status labels.
   * **F.13 (Lexical Continuity):** prior names become **aliases**; do not carry forward inflated vocabularies as new types.
-* **Used by.** Architheory examples across Part C to keep Role/Status vocabularies tight.
+* **Used by.** FPF patterns to keep Role/Status vocabularies tight.
 
 
 ### F.14:13 - Migration notes (conceptual playbook)

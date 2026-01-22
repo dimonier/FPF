@@ -1,7 +1,7 @@
 ## F.15 - SCR/RSCR Harness for Unification
 
 **“Prove locality and parsimony first; only then prove composition.”**
-**Status.** Architectural pattern, architheory‑agnostic.
+**Status.** Architectural pattern.
 **Builds on:** E.10.D1 **Lexical Discipline for “Context” (D.CTX)**; F.0.1 **Foundational Principles**; F.1–F.14.
 **Coordinates with.** B.3 **Trust & Assurance Calculus** (for CL use on Bridges).
 
@@ -40,6 +40,8 @@ The harness is a **two‑tier net of assertions**:
 
 * **SCR — Static Conformance Rules.** context‑local and cross‑artefact checks that must hold **now**.
 * **RSCR — Regression & Stability Rules.** Checks that must hold **across changes** (editions, rows, names).
+
+**Registry-reference note (normative).** When an SCR/RSCR mentions `BridgeId`, policy identifiers, or edition identifiers, these are treated as **registry references**. They MUST be validated by registry presence/version checks, but MUST NOT be treated as symbols that have to appear in any `provides` list (e.g., `SignatureManifest.provides`) or be satisfied via `imports` closure, because they are not part of a signature’s exported vocabulary; they are external registry keys.
 
 All checks are expressed as **judgement schemas** (premises ⊢ conclusion). They **never** prescribe artefact formats, roles, or workflows.
 

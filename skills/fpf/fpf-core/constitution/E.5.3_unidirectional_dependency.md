@@ -11,7 +11,7 @@ cycles or introduce domain‑specific bias.
 *Architectural gravity*: a tutorial or helper script adds a new feature,
 Core patterns import it “temporarily,” and within months the supposedly
 timeless layer depends on transient assets—breaking Pillar **P‑5
-Plug‑in Layering**.
+FPF Layering**.
 
 ### E.5.3:3 - Forces
 
@@ -23,6 +23,8 @@ Plug‑in Layering**.
 
 ### E.5.3:4 - Solution — One‑Way, Acyclic Imports
 Define a strict **partial order** over artefact families **and guard meaning flow** (see **E.10 V‑1**): imports point only **upward** in stability, and **no Core semantics** may derive from Tooling/Pedagogy. No linters or machine checking in Conceptual Core.
+
+**`imports` is a dependency DAG, not a specialisation relation (normative).** Whenever an artefact exposes an explicit `imports : [...]` list (e.g., `SignatureManifest.imports` in A.6.0), treat `imports` as **dependency edges** governed by this section: the induced `imports` graph MUST be **acyclic** (a DAG) and MUST respect the declared direction. `imports` MUST NOT be used to encode *specialisation* (e.g., `⊑` / `⊑⁺` between mechanisms); specialisation relations are declared separately via the relevant morphism/ladder rules (e.g., A.6.1 `U.MechMorph`).
 
 Pedagogical Companion  ⟶  Tooling Reference  ⟶  Conceptual Core
 
@@ -65,7 +67,7 @@ Pedagogical Companion  ⟶  Tooling Reference  ⟶  Conceptual Core
 ### E.5.3:8 - Rationale
 One‑way import graphs are a proven safeguard in operating systems
 (kernel vs user land) and layered protocols. Here the rule operationalises
-Pillars **P‑4 Open‑Ended Kernel** and **P‑5 Plug‑in Layering**, ensuring
+Pillars **P‑4 Open‑Ended Kernel** and **P‑5 FPF Layering**, ensuring
 that innovation happens “below” without contaminating the timeless Core.
 
 ### E.5.3:9 - Relations

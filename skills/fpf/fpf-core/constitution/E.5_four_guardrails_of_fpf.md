@@ -11,7 +11,7 @@ entropic pulls:
 4. **Disciplinary monoculture** – implicit bias colours “universal” rules.
 
 Left unchecked, these forces erode Pillars **P‑1 Cognitive Elegance**,
-**P‑4 Open‑Ended Kernel** and **P‑5 Plug‑in Layering**.
+**P‑4 Open‑Ended Kernel** and **P‑5 FPF Layering**.
 
 ### E.5:2 - Problem
 Without explicit, non‑negotiable protectors the Conceptual Core would

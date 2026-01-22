@@ -66,7 +66,7 @@ The Canonical Evolution Loop is universal. It applies identically to the evoluti
         1.  **Operate:** The theory exists and is applied by researchers.
         2.  **Observe:** A research lab (`Transformer`) discovers a new class of proteins whose structure the theory fails to predict (an anomaly). They publish this finding.
         3.  **Refine:** Another research team (`Transformer`) revises the original theory, adding a new term to its equations (`design-time` model) that accounts for the new protein class.
-        4.  **Deploy:** The team (`Transformer`) publishes the revised theory in a journal. The scientific community begins to use the new version. **Note.** The *chart* and any CG‑frame readings derived from this episteme MUST cite the updated `MethodDescription` (per A.19.D1 CC‑A19.D1‑3) to keep comparability auditable.
+        4.  **Deploy:** The team (`Transformer`) publishes the revised theory in a journal. The scientific community begins to use the new version. **Note.** The *chart* and any CG‑frame readings derived from this episteme MUST cite the updated `MethodDescription` (per A.19.CN CC‑A19.D1‑3) to keep comparability auditable.
 
 *   **B.4-3 Method Instantiation (Adaptive Workflow Loop):**
     *   **Context:** A software development team uses a specific agile workflow (`U.Method`).

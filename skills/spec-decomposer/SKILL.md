@@ -20,12 +20,17 @@ Transform large unified specifications into agent skills with multi-level progre
 1. **Analyze** source spec structure and size
 2. **Identify** semantic domains (not structural divisions)
 3. **Map** atomic units to domains
-4. **Generate** 4-level hierarchy:
+4. **Design navigation architecture**:
+   - SKILL.md as AI decision hub
+   - Domain indexes with manual navigation + auto-generated tables
+   - Pattern preservation strategy for updates
+5. **Generate** 4-level hierarchy:
    - Level 1: SKILL.md frontmatter (always loaded)
    - Level 2: SKILL.md body (on skill trigger)
    - Level 3: Domain index files (on domain access)
    - Level 4: Individual unit files (on specific need)
-5. **Validate** file sizes (<50KB each)
+6. **Implement generation script** with navigation preservation
+7. **Validate** file sizes (<50KB each)
 
 ## Key Principles
 
@@ -82,6 +87,7 @@ See [references/operational-prompts.md](references/operational-prompts.md) for d
 ## References
 
 - **4-level architecture details**: See [references/4-level-architecture.md](references/4-level-architecture.md)
+- **Navigation architecture**: See [references/navigation-architecture.md](references/navigation-architecture.md) - SKILL.md and index.md structure patterns
 - **Domain identification**: See [references/domain-grouping.md](references/domain-grouping.md)
 - **Size enforcement**: See [references/size-constraints.md](references/size-constraints.md)
 - **Operational prompts**: See [references/operational-prompts.md](references/operational-prompts.md)

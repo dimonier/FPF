@@ -400,7 +400,7 @@ Guard_RegXContextUse(P, k_reg@R_auth, S_local@R_local):
 * **Widening G to compensate for type gaps.** If kinds don’t line up, introduce a **subkind**, add a **mask/adapter**, or **narrow**; don’t “make the scope bigger”.
 
 
-##### C.3.A:A.6.A Migration checklist  \[I]
+##### C.3.A:A.6 Migration checklist  \[I]
 
 1. **Inventory** regulatory references in policies/specs.
 2. **Create Kind cards** for referenced legal categories (intent summary, `KindSignature` + **F**, known subkinds, AT tag if helpful).

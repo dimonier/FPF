@@ -2,7 +2,7 @@
 
 > **One‑sentence summary.** Make the word **Context** unambiguous: in FPF it **only** denotes the formal primitive **`U.BoundedContext`**; remove the term **anchor**; reserve **Problem Frame** for situational narrative; treat **Domain** as an **informative family label**, not a type.
 
-**Status.** Discipline definitional pattern, architheory‑agnostic.
+**Status.** Discipline definitional pattern.
 **Depends on.** C‑6 *Strict Distinction*; C‑7 *Temporal Duality*; G‑1 *Minimal Generality*; G‑2 *Contextual Specification*.
 **Coordinates with.** E.10.U1 *Domain‑Family Landscape Survey*; E.10.U2 *Term Harvesting & Normalisation*; E.10.U7 *Concept‑Set Table*; E.10.U9 *Alignment/Bridge*; `RoleAssigning` patterns (e.g., E.10.U4).
 **Aliases (informative).** Context Discipline; No‑Anchor Rule.
@@ -12,7 +12,7 @@
 
 **Intent.** Eliminate ambiguity around “context” by (a) fixing **one** formal meaning—`U.BoundedContext`; (b) removing “anchor” from the vocabulary; (c) reserving **Problem Frame** for prose about situations; and (d) clarifying **Domain** as an **informative family** (workflow, provenance, services, …) that groups several `U.BoundedContext`s.
 
-**Applicability.** Mandatory across **all architheories** (Role Assignment & Enactment, Sys-CAL, KD-CAL, Kind-CAL, planned LCA-CAL). Apply at the start of any unification effort and whenever documentation introduces or refactors “context”, “domain”, “anchor”.
+**Applicability.** Mandatory across **all FPF patterns** (Role Assignment & Enactment, Sys-CAL, KD-CAL, Kind-CAL, planned LCA-CAL). Apply at the start of any unification effort and whenever documentation introduces or refactors “context”, “domain”, “anchor”.
 
 **Non‑goals.** No governance, workflow, or tool mandates; no storage formats; no team roles.
 
@@ -105,7 +105,7 @@
 | **A6 Cross‑lingual blending** | Mixing language labels as one context despite divergent semantics | Hidden drift                         | Split Contexts per **D‑CTX‑7** or document shared semantics if truly bound.  |
 
 
-### E.10.D1:9 - Worked Examples (multi‑architheory)
+### E.10.D1:9 - Worked Examples
 
 #### E.10.D1:9.1 Enactment — process vs activity (two context of meaning).
 
@@ -153,7 +153,7 @@
 **Builds on:** C‑6, C‑7, G‑1, G‑2.
 **Constrains:**
 
-* **E.10.U1** — lists only `U.BoundedContext`s; no “domain contexts”; context records never encode architheory semantics.
+* **E.10.U1** — lists only `U.BoundedContext`s; no “domain contexts”; context records never encode pattern semantics.
 * **E.10.U2** — Seeds and Occurrences are **always** Context‑anchored; references use forms from Sec. 5.
 * **E.10.U7** — Columns are **SenseCell**s; row notes never call them “anchors”.
 * **E.10.U9** — All cross‑context relations live here; no implicit equivalences elsewhere.

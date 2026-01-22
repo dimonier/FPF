@@ -1,10 +1,10 @@
 ## F.9 - Alignment & Bridge across Contexts
 
 **“Translate across Contexts; never collapse them.”**
-**Status.** Architectural pattern, architheory‑agnostic.
+**Status.** Architectural pattern.
 **Builds on:** E.10.D1 (Context discipline: Context ≡ U.BoundedContext); **F.0.1 (senseFamily & StatusModality guard; Bridge‑only crossing)**; F.1 (Contexts fixed); F.2/F.3 (Cells exist); F.7 (rows depend on Bridges); F.8 (thresholds τ).
 
-**Coordinates with.** B.3 **Trust & Assurance Calculus** (uses CL penalties); **A.6.1 U.Mechanism** (Transport clause for cross‑context use; penalties route to **R/R_eff** only; **F/G** invariant); Part C architheories (apply Bridges in formal claims).
+**Coordinates with.** B.3 **Trust & Assurance Calculus** (uses CL penalties); **A.6.1 U.Mechanism** (Transport clause for cross‑context use; penalties route to **R/R_eff** only; **F/G** invariant); Part C patterns (apply Bridges in formal claims); A.6.9 (RPR‑XCTX for repairing umbrella “same/equivalent/align/map” prose into explicit Bridge Cards).
 **Aliases (informative).** *Context‑to‑Context translator*; *Sense bridge*.
 
 ### F.9:1 - Intent & applicability
@@ -14,7 +14,6 @@
 **Applicability.** Use **whenever** an author needs to **read across Contexts**—to reuse a familiar label, to connect design‑time and run‑time notions, to compare two standards’ terms, or to justify a row in the Concept‑Set table. This pattern is **not** storage, workflow, or governance; it codifies **thinking moves**.
 
 **Non‑goals.** No global meaning; no tool/API; no editor roles. Bridges are **semantic relations between local senses**, not pipelines, not processes.
-
 
 ### F.9:2 - Problem frame
 
@@ -139,6 +138,8 @@ CL expresses how safely meaning carries over.
 
 *If your Bridge Card doesn’t fit on a screen, you’re describing the Contexts, not the Bridge.*
 
+**Registry-reference note (normative).** `BridgeId` and any policy/edition identifiers cited by a Bridge Card are **registry references** (keys into registries), not semantic symbols exported by signatures. Therefore they MUST NOT be demanded via `SignatureManifest.provides` (or “satisfied” via `imports` closure); conformance is checked by validating that the referenced registry entries exist and, where required, are edition‑pinned (see F.15).
+
 
 ### F.9:9 - Invariants (normative)
 
@@ -187,7 +188,7 @@ CL expresses how safely meaning carries over.
 | **AP‑10** | **Silent unit/scale mismatch**   | Mapping measurements without unit/scale notes.                                    | Hidden dimensional error.                           | Record units/scales in **Loss Notes**; if units can’t be related, the kind is **⊥** or **⋂ (Naming‑only)**. |
 
 
-### F.9:12 - Worked cross‑architheory examples (didactic)
+### F.9:12 - Worked examples (didactic)
 
 #### F.9:12.1 - Service acceptance (design) vs executions & observations (run)
 
@@ -365,7 +366,7 @@ CL penalties route to assurance (R) per **B.3**; safety‑critical policies may 
 
 * **F.7 Concept‑Set Table:** each Cross‑context row must name supporting **Bridges**; row scope ≤ weakest Bridge.
 * **F.8 Mint or Reuse?:** reuse choices reference **CL** and **kind**; no reuse without a Bridge.
-* **Part C architheories:** formal claims that span Contexts cite Bridges and respect senseFamily/StatusModality & CL constraints.
+* **Part C patterns:** formal claims that span Contexts cite Bridges and respect senseFamily/StatusModality & CL constraints.
 * **B.3 Trust & Assurance Calculus:** may interpret **CL** as a penalty factor in Cross‑context reasoning.
 
 

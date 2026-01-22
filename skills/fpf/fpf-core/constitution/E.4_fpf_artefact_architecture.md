@@ -60,7 +60,7 @@ This pattern establishes the macro-architecture of the entire FPF ecosystem. By 
 
 ### E.4:9 - Relations
 
-*   **Instantiates:** **P-5 (Plugin Layering)** at a macro-level.
+*   **Instantiates:** **P-5 (FPF Layering)** at a macro-level.
 *   **Is Constrained by:** **E.5.3 (Unidirectional Dependency)**.
 *   **Is Foundation For:** The entire authoring and governance model, as it defines the "territories" where different rules apply.
 

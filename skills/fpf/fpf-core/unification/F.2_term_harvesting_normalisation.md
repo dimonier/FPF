@@ -1,7 +1,7 @@
 ## F.2 — Term Harvesting & Normalisation
 
 **“Harvest words *inside Contexts*, name them in the Context’s own idiom, and stop there.”**
-**Status.** Architectural pattern, architheory‑agnostic.
+**Status.** Architectural pattern.
 **Depends on.** E.10.D1 **Lexical Discipline for “Context” (D.CTX)**; **F.0.1 Contextual Lexicon Principles** (Source - Local Meaning - Bridge‑Only Crossing); A.7 **Strict Distinction**; A.11 **Ontological Parsimony**.
 **Coordinates with.** F.1 **Context Map via Context Cards**; F.3 **Intra‑Context Sense Clustering**; F.4 **Role Description**; F.9 **Alignment & Bridge Across Contexts**.
 **Aliases (informative).** *context‑local harvesting*; *Local normalisation*.
@@ -11,7 +11,7 @@
 
 **Intent.** Provide a **conceptual** (notation‑free) discipline for turning *Context‑internal usage* into **context‑local lexical units** ready for later reasoning—without Cross‑context merging and without slipping into governance or tooling. The result is a **small, auditable set of context‑local names and glosses** that faithfully reflect how the canon speaks.
 
-**Applicability.** Use whenever a unification line (from F.1) needs **actual words** to be referenced by patterns in Part C (architheories) or by Role Descriptions (F.4). Re‑enter F.2 when a canon/edition changes or when a new Context is admitted in F.1.
+**Applicability.** Use whenever a unification line (from F.1) needs **actual words** to be referenced by patterns in Part C (Extention patterns) or by Role Descriptions (F.4). Re‑enter F.2 when a canon/edition changes or when a new Context is admitted in F.1.
 
 **Non‑goals.** No global labels; no Cross‑context equivalence; no workflow or role descriptions; no storage/API talk. F.2 specifies **how to think**, not how to “run a pipeline”.
 
@@ -93,7 +93,7 @@ For every Context (a **U.BoundedContext** from F.1), you gather **attested phras
 2. **Context‑idiom normalisation.** LNF **MUST** respect the Context’s idiom (spelling/hyphenation/casing) and use **minimal edits**.
 3. **Two registers.** Each unit **SHOULD** carry both **Tech** and **Plain** labels for didactics; if one is missing, justify.
 4. **Minimal generality (G‑1).** The gloss **MUST** be as specific as the Context’s canon requires—no broader.
-5. **I/D/S layer hygiene (A.7).** **MUST NOT** include behaviour equations, deontic rules, measurement math, or type axioms; those belong to architheories.
+5. **I/D/S layer hygiene (A.7).** **MUST NOT** include behaviour equations, deontic rules, measurement math, or type axioms; those belong to patterns.
 6. **No Cross‑context claims.** **MUST NOT** assert equivalence, subsumption, or similarity with terms in other Contexts (F.9 only).
 7. **Edition honesty.** If the Context’s canon has multiple editions with shifting usage, treat them as distinct Contexts in F.1 before harvesting.
 8. **Parsimony.** Prefer **few, telling** lexical units over long tails; keep head terms that will power F.3/F.4/F.9.
@@ -143,7 +143,7 @@ For every Context (a **U.BoundedContext** from F.1), you gather **attested phras
 | **A2**  | **String = meaning**         | Assuming identical strings denote one concept across Contexts.          | Homonym collision (*process*, *role*, *service*).            | Always prefix mentally with the **Context**; treat same string in different Contexts as **different units**.  |
 | **A3**  | **Over‑normalisation**       | Folding hyphens/case/morphology “for consistency”.                   | Loses the canon’s idiom; breaks citations.                   | **Minimal edits** toward the Context’s idiom; never toward a global house‑style.                           |
 | **A4**  | **Headless multiword**       | Truncating to a head (“objective” for “service‑level objective”).    | Ambiguity; collapses scope.                                  | Preserve canonical **head‑modifier** as LNF when meaningful.                                            |
-| **A5**  | **Premature structure**      | Embedding behaviour, deontics, units, or type axioms into the gloss. | I/D/S layer mixing (violates A.7); biases later patterns.          | Gloss **usage**, not calculus; structural content belongs to architheories in Part C.                   |
+| **A5**  | **Premature structure**      | Embedding behaviour, deontics, units, or type axioms into the gloss. | I/D/S layer mixing (violates A.7); biases later patterns.          | Gloss **usage**, not calculus; structural content belongs to Extention Patterns in Part C.                   |
 | **A6**  | **Cross‑context folding**       | “BPMN workflow ≈ PROV activity” written inside F.2.                   | Hidden bridge; unpriced losses.                              | No Cross‑context claims in F.2; write the **itch to bridge** for **F.9**.                                  |
 | **A7**  | **Edition blur**             | “BPMN” without year/profile; mixing excerpts across editions.        | Silent sense shift; unrepeatable reasoning.                  | Treat distinct editions as **distinct Contexts** in F.1, then harvest.                                     |
 | **A8**  | **Vendor‑dialect elevation** | Treating a DSL/keyword list as “the domain”.                         | Projectionism; narrow idiom dominates.                       | If needed, model the DSL as **one context among others**; keep heterogeneity from F.1.                     |
@@ -155,7 +155,7 @@ For every Context (a **U.BoundedContext** from F.1), you gather **attested phras
 | **A14** | **Role/status conflation**   | RBAC “role” glossed as behavioural role.                             | Cross‑family bleed; wrong assignment later.                         | Call out the Context in the label: **access‑role (RBAC)** vs **participant (BPMN)**; keep senses disjoint. |
 
 
-### F.2:11 - Worked examples (multi‑architheory, context‑local only)
+### F.2:11 - Worked examples (context‑local only)
 
 > Each line is a **local lexical unit** *(Context, LNF, Tech, Plain, Gloss)*.
 > No Cross‑context relation is implied. Later clustering (F.3) and bridges (F.9) may connect them.
@@ -274,7 +274,7 @@ For every Context (a **U.BoundedContext** from F.1), you gather **attested phras
 **F.9** (Alignment & Bridge): consumes **homonymy signals**; declares explicit Cross‑context mappings with loss policies.
 
 **Used by.**
-Architheories in Part C when referencing domain idioms (labels stay **context‑local**).
+Extention patterns in Part C when referencing domain idioms (labels stay **context‑local**).
 
 
 ### F.2:14 - Migration notes (conceptual)

@@ -3,13 +3,13 @@
 
  **Policy (normative).**
 1. **Purpose.** A conceptual prefix exists **to aid reasoning**, not to name files, serialisations, or APIs. It labels a **role in thought** (e.g., meta‑type, calculus operator, relation family).
- 2. **Anchoring.** Every prefix **MUST** be anchored to a **Core architheory**  (CAL/LOG/CHR) or Kernel construct and documented in its *Relations*.
+ 2. **Anchoring.** Every prefix **MUST** be anchored to a **Core extension patterns**  (CAL/LOG/CHR) or Kernel construct and documented in its *Relations*.
  3. **No tool lock‑in.** A prefix **MUST NOT** imply a particular notation or machine binding (see E.5.1–E.5.2).
  4. **Minting rule.** New prefixes are introduced by a **DRR** (E.9) that demonstrates
-    (a) cross‑architheory need, 
+    (a) cross‑pattern need, 
     (b) non‑overlap with existing prefixes,
     (c) alignment with Pillars **P‑1/P‑5**.
- 5. **Scope.** Prefixes are **globally reserved** within the Core; domain plugins  **MAY** mint local shorthands only inside their Contexts and **MUST NOT** collide with this registry.
+ 5. **Scope.** Prefixes are **globally reserved** within the Core; domain patterns  **MAY** mint local shorthands only inside their Contexts and **MUST NOT** collide with this registry.
 
  **Registered conceptual prefixes (Core).**
 * `U.` — **U.Types meta‑namespace** (holons & primitives). *Anchor:* Kernel Part A.

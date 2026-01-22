@@ -1,7 +1,7 @@
 ## F.4 - Role Description (RCS + RoleStateGraph + Checklists)
 
 **“Name the mask or the badge — and say what it commits to — but only inside a Context.”**
-**Status.** Architectural pattern, architheory‑agnostic.
+**Status.** Architectural pattern.
 **Depends on.** E.10.D1 **Lexical Discipline for “Context” (D.CTX)**; **E.10.D2 Intension–Description–Specification Discipline**; F.1 **Domain‑Family Landscape Survey**; F.2 **Term Harvesting**; F.3 **Intra‑Context Sense Clustering**; A.2.1 **`U.RoleAssignment`**; A.7 **Strict Distinction**; A.11 **Ontological Parsimony**.
 **Coordinates with.** F.5 **Naming Discipline for U.Types & Roles**; F.7 **Concept‑Set Table**; F.9 **Alignment & Bridge Across Contexts**; B.3 **Trust & Assurance Calculus** (for later status evaluation).
 **Aliases (informative).** *Mask/Badge card*; *role card* (plain only).
@@ -135,7 +135,7 @@ It is **not** a definition by prose alone; it is a **pledge of invariants** — 
    `T cites ⟨C,σ⟩ ∧ C≠C′ ⊢ no‑equivalence(T@C, −) inside F.4`
    *Reading:* No Cross‑context equivalence is asserted here; use **F.9** later.
 
-### F.4:9 - Worked examples (multi‑architheory, Context‑true)
+### F.4:9 - Worked examples (Context‑true)
 
 > Illustrative cards only; names are **tech/plain labels**, not final U.Type IDs (F.5 will govern naming).
 

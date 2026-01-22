@@ -1,209 +1,376 @@
 ## G.6 - Evidence Graph & Provenance Ledger
 
-**Tag:** Architectural pattern
-**Stage:** design‑time (assembly) + run‑time (telemetry ingestion)
-**Builds on:** A.10 (Evidence Graph Referring), B.3 (Assurance), G.4 (CAL.ProofLedger & EvidenceProfiles), F.9 (Bridges/CL), **C.18 (NQD‑CAL)**, **C.19 (E/E‑LOG & policies)**, **E.18/A.21/A.27** (GateCrossing/CrossingSurface checks), E.8 (template), E.10 (LEX), C.23 (**Science‑of‑Science LOG**, SoS‑LOG hooks)
-**Publishes to:** **Unified Term Sheet (UTS)** (twin‑label **Name Card**s), RSCR, G.5 selector (by PathId citation), **G.11 Telemetry/Refresh**
-**Guards respected:** Notational independence (E.5.2), lexical discipline (E.10), lane separation (TA/VA/LA), CL→R routing only, Γ‑fold = WLNK unless proven otherwise
+**Tag.** Architectural pattern
+**Stage.** design‑time (assembly) + run‑time (telemetry ingestion)
+**Primary output.** A notation‑independent `EvidenceGraph` + a stable `PathId` / `PathSliceId` citation surface + an SCR projection (“Assurance SCR”) suitable for audit, selection explainability, and refresh/RSCR wiring.
+**Primary hooks.** A.10 (evidence anchors/carriers; SCR/RSCR anchoring), B.3 (assurance lanes and `F/G/R` skeleton), F.9 (BridgeCard/CL), G.4 (CAL `EvidenceProfiles` + `ProofLedger` linkage), `G.Core` (Part‑G invariants, RSCR trigger catalogue, default‑ownership index), E.18/A.21 (GateCrossing + CrossingSurface checks), F.17 (UTS publication), F.15 (RSCR), E.10 (LEX), E.5.* (notation‑independence discipline).
+**Non‑duplication note.** Universal Part‑G invariants (no shadow specs; Bridge‑only crossings; tri‑state discipline; penalties→`R_eff` only; P2W split; typed/id‑based RSCR causes; single‑owner defaults; Δ‑discipline) are owned by `G.Core` and are *cited* via `CC‑GCORE‑*`. This pattern defines only the *EvidenceGraph kit* and its path‑addressable provenance surfaces.
 
 ### G.6:1 - Problem frame
 
-SoTA claims and operators are admitted (or rejected) by **assurance** signals derived from diverse artefacts. FPF already mandates **Evidence Graph Referring** (A.10) and lane discipline (TA/VA/LA) and defines how **F–G–R** is computed (B.3). What is missing as a **first‑class object** is the **typed, citable path** from a claim to its anchors, with declared scope/plane and penalties, so selectors, audits, and **maturity transitions** can cite *exactly what* justified a decision, *when*, and *under which plane/bridge penalties*. This pattern introduces that missing object and its surface.
-**Why here (not in G.4)?** G.4 defines **CAL artefacts** (EvidenceProfiles, ProofLedger) and legality/aggregation rules; **G.6** packages the **cross‑artefact provenance** as a graph and **mints path identities** that downstream LOG and UTS can cite without copying evidence tables.
+SoTA claims, operators, and method families are admitted (or gated) using assurance signals derived from diverse artefacts and anchors. FPF already mandates **Evidence Graph Referring** (A.10), lane discipline, and the assurance skeleton (B.3). What is often still missing in practice is a *first‑class, citable* object that makes the provenance of an admission/decision **addressable**:
+
+* *exactly which* anchors and bindings were used,
+* *under which* `ReferencePlane` and `BoundedContext`,
+* *with which* explicit crossings and penalty policies,
+* *for which* time window (freshness/decay),
+* in a way that selectors, audits, and maturity transitions can cite without copying tables or re‑telling a story.
+
+This pattern introduces the missing kit: a typed, lane‑aware `EvidenceGraph` plus stable `PathId` / `PathSliceId` addresses that downstream LOG, UTS, parity, and refresh can cite.
+
+**Why here (not in G.4)?** G.4 owns CAL artefacts (EvidenceProfiles, ProofLedger, acceptance policies). G.6 packages *cross‑artefact provenance* as a graph and mints *path identities* that downstream surfaces can cite without duplicating CAL tables or re‑inventing legality rules.
 
 ### G.6:2 - Problem
 
-1. Readers cannot **audit CL penalties and decay** on SoTA claims without chasing many tables. 2) Cross‑Context reuse must prove penalties hit **R only** (not F/G) and expose the **lowest‑link** path; today this is implicit. 3) **Maturity** decisions (C.23) need a stable **PathId** to re‑check later or in other Contexts.
+1. Readers cannot reliably **audit crossing/penalty and decay impacts** on claims without chasing many tables and informal narratives.
+2. Cross‑Context/plane reuse must remain **Bridge‑only and explicit**, but provenance often hides crossings (or treats them as “obvious”).
+3. Selection and maturity decisions need a stable **path address** to re‑check later, including after edition/policy/freshness changes.
 
 ### G.6:3 - Forces
 
-| Force                        | Tension                                                                                                                                                                                     |
-| ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Provenance vs agility**    | Fine‑grained audit trails ↔ friction for authors.                                                                                                                                           |
-| **Lane purity vs synthesis** | Keep TA/VA/LA separable ↔ Publish a single *why* for admission.                                                                                                                             |
-| **Notation independence**    | Define semantics in prose/math ↔ teams want diagrams/tables (kept informative only).                                                                                                        |
-| **Design vs run**            | Evidence at design‑time vs telemetry at run‑time must not be conflated.                         |
-| **Plane mixing**             | World↔Concept↔Episteme crossings must be penalised only in **R** and be table‑backed Φ‑policies. |
+| Force                        | Tension                                                                             |
+| ---------------------------- | ----------------------------------------------------------------------------------- |
+| **Provenance vs agility**    | Fine‑grained audit trails ↔ friction for authors.                                   |
+| **Lane purity vs synthesis** | Keep TA/VA/LA separable ↔ publish a unified justification surface.                  |
+| **Notation independence**    | Semantics in prose/math ↔ teams want diagrams/tables (informative only).            |
+| **Design vs run**            | Design‑time evidence assembly ↔ run‑time telemetry ingestion must not be conflated. |
+| **Crossings and planes**     | Crossings must be explicit and penalised correctly ↔ authors want “just reuse it”.  |
 
-### G.6:4 - Solution — **EvidenceGraph** (notation‑independent; lane‑aware; path‑addressable)
+### G.6:4 - Solution — EvidenceGraph (notation‑independent; lane‑aware; path‑addressable)
 
-**4.1 Definition (object).**
-An **EvidenceGraph** is a **typed DAG** whose nodes are the **A.10 anchors/carriers and evidencing roles** and whose edges are minimal, normative provenance relations. Each node/edge carries attributes sufficient for the B.3 trust calculus and E.10 lexical discipline; edges never build mereology (A.10 firewall).
+#### G.6:4.1 - G.Core linkage (normative)
 
-* **Nodes (informative types)**: `U.EvidenceRole` (holder = `U.Episteme`), `SymbolCarrier`, `TransformerRole` (external), `MethodDescription` (design), `Observation` (dated result); all resolvable to **SCR/RSCR** rows. **When QD/illumination or portfolio selection is involved (C.18/C.19), nodes MAY carry:** `U.DescriptorMapRef` **(with** `edition` **and** `DistanceDef` **ids)**, `ArchiveCellRef`, `EmitterPolicyRef`, and `InsertionPolicyRef` (K‑capacity & replacement semantics) **as attributes**.
-* **Edges (normative vocabulary, minimal):** `verifiedBy` (formal line), `validatedBy` (empirical line), `fromWorkSet` (run‑time provenance), `happenedBefore` (temporal), `derivedFrom`.  
-* **Informative only:** `usedCarrier`, `interpretedBy` MAY appear in SCR narratives but are not part of the normative edge set. **No mereology** here; structural relations publish via CT2R‑LOG.
-* **Lane tags:** every binding is typed with **assuranceUse ∈ {TA, VA, LA}** and kept separable through to the assurance tuple and SCR display.
-* **Context & Plane:** nodes and claims declare `U.BoundedContext` and **ReferencePlane**; any crossing uses a **Bridge** with **CL / CL^k / CL^plane** and **loss notes**, and **penalises only R** via published, table‑backed **Φ/Ψ** policies.
-* **Freshness/decay:** empirical bindings declare **time windows**; on expiry they incur **Epistemic Debt** that must be resolved via refresh/deprecate/waive; proofs may fence to a **TheoryVersion** (no decay). **Editioned telemetry** MUST cite `PathSliceId` and any `U.DescriptorMapRef.edition` used to compute Illumination/QD metrics.
-* **No self‑evidence:** evidencing `TransformerRole` is **external** to the evaluated holon.
+**Builds on:** `G.Core` (Part‑G core invariants; routing/delegation hub)
 
-**4.2 PathId (address for justifications)**.
-A **PathId** is a **stable identifier** minted for a **claim‑local, lane‑typed path** in an EvidenceGraph under a declared **TargetSlice** (Scope G with Γ\_time selector) and **ReferencePlane**. PathIds are **editioned**; they denote a **proof spine** from the claim to carriers and include: the **lane split**, the **lowest CL on the path**, the **Γ‑fold in effect** (default = WLNK), **policy‑ids** **Φ(CL)** **and, if applicable,** **Φ\_plane**, and **valid‑until** (freshness) for empirical legs. PathIds are **citable from SoS‑LOG** and **UTS**; missing or stale PathIds **forbid maturity rung advance**.
+**GCoreLinkageManifest (normative; size‑controlled).**
 
-**4.3 PathSliceId (time‑ & plane‑lifted slice).**
-A **PathSliceId := PathId × Γ_time window × ReferencePlane**. It keys **release‑quality snapshots** and enables **path‑granular refresh** (G.11) when freshness or bridges change. **If QD/illumination is present, the PathSliceId MUST also pin** `U.DescriptorMapRef.edition` **and** `DistanceDefRef.edition` **to make front/coverage snapshots reproducible.** A PathSliceId MUST declare its Γ_time selector and plane; crossings require Bridge + CL^plane and route penalties to R only.
+`GCoreLinkageManifest := ⟨
+  CoreConformanceProfileIds := {
+    GCoreConformanceProfileId.PartG.AuthoringBase,
+    GCoreConformanceProfileId.PartG.UTSWhenPublicIdsMinted
+  },
+  RSCRTriggerSetIds := { GCoreTriggerSetId.EvidenceGraphKit },
+  CorePinSetIds := {
+    GCorePinSetId.PartG.AuthoringMinimal,
+    GCorePinSetId.PartG.CrossingVisibilityPins
+  },
+  CorePinsRequired := {
+    EvidenceGraphId,
+    EvidenceGraphRef.edition?,   // iff editioned as a published artefact
+    PathId[]/PathSliceId[],      // strengthened (unconditional for G.6)
+    UTSRowId[],                  // strengthened (UTS Name Cards + PathCards are required outputs)
+    Γ_timePolicy?,               // iff empirical legs exist (or equivalently: window id carried by PathSliceId)
+    ΓFoldRef.edition?,           // iff an explicit Γ-fold artefact is pinned
+    CAL.ProofLedgerId[]?         // iff Γ-fold is overridden (cite CAL ProofLedger ids; owner: G.4)
+  },
+  DefaultsConsumed := { DefaultId.GammaFoldForR_eff },
+  TriggerAliasMapRef? := G.Core.TriggerAliasMap.G6
+⟩`
 
-**4.4 Computation hooks (reusing B.3 & G.4, not redefining).**
+**Conditional add‑on (tri‑state guard).** If `G.6` is used to publish or consume guard outcomes (e.g., via `G.6:Ext.SoSLOGPathCitationWiring`), additionally require:
+`CoreConformanceProfileIds += { GCoreConformanceProfileId.PartG.TriStateGuard }`.
 
-* **Γ‑fold & penalties.** Unless justified otherwise in **CAL.ProofLedger**, **R** aggregates by **weakest‑link**, then applies **Φ(CL_min)**, any applicable **Ψ(`CL^k`)** (where a **KindBridge** is traversed), and **Φ_plane** (all **bounded, monotone**), and is **clipped**: `R_eff := max(0, …)`. **F = min**. **G** composes as **intersection along a path**; **SpanUnion** across **independent** lines only (see CC‑G6‑10/12). Penalties **never** modify F/G. **All numeric operations MUST be lawful per CG‑Spec (declared characteristic, unit/scale, Γ‑fold); illegal mixes trigger fail‑fast and RSCR.**
-* **Lane separation.** Evidence lanes remain **separable** through to the assurance surface and SCR; no averaging across lanes.
-* **Exposure to SCR.** Every path resolves to **SCR/RSCR** entries; the **Assurance SCR** displays node/edge values, describedEntity and plane, **TA/VA/LA table**, **valid‑until/decay**, and **Epistemic‑Debt**. **Mandatory fields:** lane‑split, **Γ‑fold contributors** (with ids), **Φ(CL)**/**Φ\_plane policy‑ids**, **PathId/PathSliceId**, and, when QD/illumination is involved, `U.DescriptorMapRef.edition` and `DistanceDefRef.edition` ids.
-* **Reuse across Contexts.** Any cross‑Context/plane reuse must cite **Bridge ids + loss notes**; penalties route to **R\_eff only**; **policy‑ids** for Φ/Ψ are published in the SCR and CG‑Spec.
+*(Nil‑elision + expansion rule are per `G.Core:4.2`.)*
 
-**4.5 Conceptual API (notation‑independent surface).**
+#### G.6:4.2 - EvidenceGraph (object; kit‑owned surface)
 
-* `Explain(pathId)` → returns lane‑split, **min R\_i**, **CL\_min**, applied **Φ/Ψ** policy‑ids, **valid‑until**, and the **contributing EvidenceProfile ids**.
-* `PathsFor(claim, TargetSlice, plane)` → enumerates admissible paths, ordered by WLNK cutset; returns **PathId\[]**.
-* `Snapshot(pathId | pathSliceId)` → emits an **RSCR‑grade** snapshot (for release, UTS) with **twin labels**; when a **PathSliceId** is provided, the snapshot is **time‑local** (no reweave).
-  (These are **conceptual shapes**, not APIs; per E.5 they stay tool‑neutral.)
+**Definition (object).** An `EvidenceGraph` is a **typed DAG** whose nodes are resolvable to A.10 anchors/carriers and evidencing roles, and whose edges represent minimal, normative provenance relations suitable for audit and path citation.
 
-**4.6 RSCR triggers (conceptual).**
-Edits that change **computed values (Score or telemetry signals) or acceptance**, **Φ/Ψ policies**, **Bridge CL**, or **Γ‑fold** for a path **trigger RSCR**; **QD/OEE‑related edits** (e.g., `U.DescriptorMapRef.edition`/`DistanceDef`, `EmitterPolicyRef`, `InsertionPolicyRef`) **also trigger RSCR**. Selectors in G.5 must **re‑cite** PathIds on re‑run, or degrade/abstain per LOG duties.
+* **Nodes.** Each node is an A.10‑anchored evidence carrier or evidence role (e.g., a proof carrier, a measurement record carrier, a tool‑qualification carrier). Nodes MUST remain grounded in A.10 anchors and MUST NOT introduce mereological structure (A.10 firewall).
+  * **Node kinds (explicit; stable).** Nodes MUST have an explicit kind tag `nodeKind ∈ {U.EvidenceRole, SymbolCarrier, TransformerRole, MethodDescription, Observation}` (as used in the existing Part‑G vocabulary), so downstream projections can remain notation‑independent and audit‑checkable.
+  * **Extension pins.** Method‑family‑specific pins (e.g., QD/OEE) MUST NOT be introduced as new “core node kinds”; they are carried as additional pins only when the relevant `GPatternExtension` is in use and are recorded on UTS PathCards / SCR projections as required by that extension.
+* **Edges (minimal normative vocabulary).** The pattern admits a small set of provenance edges sufficient for audit:
 
-> **Aphorism.** *“If you can’t point to a path, you don’t have provenance—only a story.”*
+  * `verifiedBy` (formal line),
+  * `validatedBy` (empirical line),
+  * `fromWorkSet` (run‑time trace provenance),
+  * `happenedBefore` (temporal ordering),
+  * `derivedFrom` (controlled derivation).
+  * *(Informative only)* `usedCarrier`, `interpretedBy` MAY appear as authoring aids, but MUST NOT be relied on for conformance checks (their semantics remain non‑normative in G.6).
+    Additional narrative edges MAY exist as informative annotations but MUST NOT be relied on for conformance checks.
+* **Lane tags.** Every binding on a path is lane‑typed with `assuranceUse ∈ {TA, VA, LA}` (lane separation remains explicit through to SCR projections; no silent cross‑lane averaging).
+* **Externality (no self‑evidence).** Any evidencing `TransformerRole` that would certify the evaluated holon MUST be modelled as external (or model a meta‑holon explicitly); G.6 does not permit reflexive “self‑evidence” shortcuts.
+* **Context and plane attachment.** Nodes and claims carry `BoundedContext` and `ReferencePlane`. Any movement across context/kind/plane/design↔run/edition boundaries is represented via explicit GateCrossing/CrossingSurface artefacts (with crossing pins routed per `G.Core`).
+
+#### G.6:4.3 - PathId and PathSliceId (citable justification addresses)
+
+**PathId (address for justifications).** A `PathId` is a stable identifier minted for a **claim‑local, lane‑typed** path in an `EvidenceGraph` under a declared scope slice (including a time selector where applicable) and a declared `ReferencePlane`. A `PathId` is meant to be citable from downstream artefacts (LOG, UTS, parity, shipping) without duplicating evidence tables.
+
+A `PathId` citation surface SHALL include, at minimum:
+
+* the lane split (TA/VA/LA) for the path,
+* the explicit crossing pins (when crossings are traversed),
+* the freshness/time attachment status for empirical legs (when present), including any explicit `validUntil`/expiry marker when one is declared (or a decay/freshness policy pin that implies expiry),
+* the pinned policy identifiers relevant to the path’s penalty/trust wiring (policy ids are cited; policies remain owned elsewhere),
+* the effective crossing‑trust “bottleneck” information when crossings exist (e.g., lowest `CL`/`CL^k`/`CL^plane` encountered on the cited slice),
+* the effective `Γ‑fold` in force for any published/relied‑upon `R_eff` projection (default or explicit override), and (when overridden) the cited CAL `ProofLedger` ids that justify the override,
+* the `EvidenceGraphId` and enough addressability to resolve the path to SCR/RSCR anchors.
+
+**PathSliceId (time‑ & plane‑lifted snapshot).** A `PathSliceId` denotes a **release‑quality snapshot key** for a path under explicit time/plane binding (e.g., window policy + `ReferencePlane`) and is intended as the address used when refresh/RSCR wants *path‑granular* recomputation.
+
+*The universal definition of “what kinds of changes force refresh” is owned by `G.Core` (typed trigger kinds). G.6 only makes the slice addressable and pin‑complete.*
+
+When downstream methods require additional edition/policy pins for reproducibility (e.g., archive/illumination/QD surfaces), such pins are specified by the relevant `GPatternExtension` module(s) and are treated as *required pins when that extension is used*.
+
+#### G.6:4.4 - Assurance and legality binding (delegation‑first; no shadow specs)
+
+G.6 does not redefine B.3 or legality rules; it binds evidence paths to existing owners:
+
+* **Assurance skeleton.** Lane separation and the `F/G/R` skeleton are as per B.3. Any statement about penalty routing or default Γ‑fold is delegated to `G.Core` and the default‑ownership index (do not restate).
+* **CAL linkage.** When a path claims a proof obligation or an override (e.g., an explicit Γ‑fold override), it MUST cite the relevant CAL `ProofLedger` / `EvidenceProfiles` artefacts (G.4) rather than inventing local semantics.
+* **Legality binding.** If a path includes numeric comparisons/aggregations, the legality surface MUST be *cited* via `CG‑Spec` (G.0) rather than re‑implemented in G.6 prose.
+
+#### G.6:4.5 - Conceptual interface (notation‑independent surface; informative shapes)
+
+These are conceptual shapes, not tool APIs (E.5 discipline).
+
+* `Explain(pathId | pathSliceId)` → returns a citation‑ready explanation bundle: lane split, relevant pins (crossings/policies/editions), freshness binding, and links to contributing anchors (A.10) and any CAL evidence/profile refs.
+* `PathsFor(claim, scopeSlice, referencePlane)` → enumerates admissible paths, returning `PathId[]` with enough metadata to support selection/audit queries.
+* `Snapshot(pathId | pathSliceId)` → emits a release‑grade snapshot record (SCR/RSCR‑grade) whose keys are citable and whose pins are explicit.
+
+#### G.6:4.6 - Extensions (pattern‑scoped; non‑core)
+
+All blocks below are `GPatternExtension` modules (PatternScopeId‑scoped, **not** new PatternIds). They store wiring only and cite semantic owners.
+
+**GPatternExtension: LegacyTriggerAliases**
+
+* **PatternScopeId:** `G.6:Ext.LegacyTriggerAliases`
+* **GPatternExtensionId:** `LegacyTriggerAliases`
+* **GPatternExtensionKind:** `InteropSpecific`
+* **SemanticOwnerPatternId:** `G.Core`
+* **Uses:** `{G.Core}` *(cites `G.Core.TriggerAliasMap.G6`; does not redefine meanings)*
+* **⊑/⊑⁺:** `∅`
+* **RequiredPins/EditionPins/PolicyPins (minimum):**
+
+  * `RSCRTriggerKindId` (canonical id recorded)
+  * `RSCRTriggerAliasId?` *(e.g., legacy human labels such as `G.6:H3:...` recorded as labels only)*
+  * `scope: PathSliceId[] | PathId[] | PatternScopeId`
+  * `TriggerAliasMapRef := G.Core.TriggerAliasMap.G6` *(docking reference)*
+* **RSCRTriggerKindIds:** `{RSCRTriggerKindId.EvidenceSurfaceEdit, RSCRTriggerKindId.CrossingSurfaceEdit, RSCRTriggerKindId.PenaltyPolicyEdit, RSCRTriggerKindId.ReferencePlaneEdit, RSCRTriggerKindId.EditionPinChange, RSCRTriggerKindId.PolicyPinChange}`
+* **Notes (wiring‑only):** This module preserves ergonomics/back‑compat by allowing `G.6:H3:*` labels, while requiring that recorded causes use canonical `RSCRTriggerKindId` (per `CC‑GCORE‑TRIG‑3`).
+
+**GPatternExtension: SoSLOGPathCitationWiring**
+
+* **PatternScopeId:** `G.6:Ext.SoSLOGPathCitationWiring`
+* **GPatternExtensionId:** `SoSLOGPathCitationWiring`
+* **GPatternExtensionKind:** `InteropSpecific`
+* **SemanticOwnerPatternId:** `C.23`
+* **Uses:** `{C.23, C.19, G.5, G.11}` *(SoS‑LOG decisions cite paths; optional lens/attribution wiring is owned by C.19; refresh consumes triggers)*
+* **⊑/⊑⁺:** `∅`
+* **RequiredPins/EditionPins/PolicyPins (minimum):**
+
+  * `SoSLogRuleId[]` / `BranchId[]` *(as cited labels; semantics owned by C.23)*
+  * `FailureBehaviorPolicyId` *(when `degrade(mode=...)` is used)*
+  * `PathId[] | PathSliceId[]` (the cited justification addresses)
+  * `LensId?` *(when a C.19 lens is used for attribution/explainability; id only; semantics owned by C.19)*
+* **RSCRTriggerKindIds:** `{RSCRTriggerKindId.EvidenceSurfaceEdit, RSCRTriggerKindId.MaturityRungChange, RSCRTriggerKindId.TelemetryDelta, RSCRTriggerKindId.PolicyPinChange}`
+* **Notes (wiring‑only):** G.6 does not define LOG semantics; it defines the *path‑citation surface* that LOG must cite.
+
+**GPatternExtension: BridgeSentinelWiring**
+
+* **PatternScopeId:** `G.6:Ext.BridgeSentinelWiring`
+* **GPatternExtensionId:** `BridgeSentinelWiring`
+* **GPatternExtensionKind:** `InteropSpecific`
+* **SemanticOwnerPatternId:** `G.7`
+* **Uses:** `{G.7, G.11}` *(bridge/sentinel semantics & calibration artefacts are owned by G.7; refresh orchestration is owned by G.11)*
+* **⊑/⊑⁺:** `∅`
+* **RequiredPins/EditionPins/PolicyPins (minimum; conditional on use):**
+
+  * `BridgeId/BridgeCardId`
+  * `RegressionSetId?` / `SentinelId[]?` *(as published by G.7, when sentinel wiring is used)*
+  * `PathId[] | PathSliceId[]` *(paths that cite the bridge and must be re‑audited on bridge/sentinel changes)*
+* **RSCRTriggerKindIds:** `{RSCRTriggerKindId.CrossingSurfaceEdit, RSCRTriggerKindId.PenaltyPolicyEdit, RSCRTriggerKindId.FreshnessOrDecayEvent, RSCRTriggerKindId.EditionPinChange, RSCRTriggerKindId.PolicyPinChange}`
+* **Notes (wiring‑only):** This module requires that bridge/sentinel changes re‑trigger RSCR **path‑locally** for affected `PathId/PathSliceId` scopes, without redefining sentinel semantics (owned by G.7) and without inventing new trigger kinds (owned by `G.Core`).
+
+**GPatternExtension: QD_OEE_TelemetryPins**
+
+* **PatternScopeId:** `G.6:Ext.QD_OEE_TelemetryPins`
+* **GPatternExtensionId:** `QD_OEE_TelemetryPins`
+* **GPatternExtensionKind:** `MethodSpecific`
+* **SemanticOwnerPatternId:** `C.18` *(QD artefact semantics); uses `C.19` for exploration/logging/lens wiring as needed*
+* **Uses:** `{C.18, C.19}`
+* **⊑/⊑⁺:** `∅`
+* **RequiredPins/EditionPins/PolicyPins (minimum; conditional on use):**
+
+  * `DescriptorMapRef.edition`
+  * `DistanceDefRef.edition`
+  * `InsertionPolicyRef` *(policy id or pinned policy ref, per owner semantics)*
+  * `EmitterPolicyRef?`
+  * `LensId?` *(when a C.19 lens is used in selection/telemetry attribution)*
+  * `TransferRulesRef.edition?` / `EnvironmentValidityRegionRef?` *(when open‑ended / transfer events are in scope)*
+* **RSCRTriggerKindIds:** `{RSCRTriggerKindId.TelemetryDelta, RSCRTriggerKindId.EditionPinChange, RSCRTriggerKindId.PolicyPinChange, RSCRTriggerKindId.FreshnessOrDecayEvent}`
+* **Notes (wiring‑only):** This module enforces reproducibility of archive/illumination and open‑ended telemetry *when those surfaces are used*, without pulling QD/OEE semantics into the EvidenceGraph core.
+
+---
 
 ### G.6:5 - Archetypal Grounding (System / Episteme)
 
-**System (Γ\_sys):** *Autonomous brake envelope claim*.
-Claim: “Stop within 50 m from 100 km/h.” EvidenceGraph nodes: `verifiedBy` static‑analysis proof; `validatedBy` instrumented track tests; calibration carriers; external test lab as `TransformerRole`. **PathId** combines VA+LA legs; **R\_eff** = min(R\_i) − Φ(CL\_min); **G** is the **operational envelope** covered by tests; **F** limited by least‑formal leg. Freshness windows and decay are shown in SCR; any cross‑plant reuse applies **Scope Bridge** penalties to **R only**.
+**System (Γ_sys):** *Autonomous brake envelope claim.*
+Claim: “Stop within 50 m from 100 km/h.” EvidenceGraph nodes include proof carriers (TA/VA), instrumented track tests (LA/VA), calibration carriers, and an external test lab as an external evidencing role (no self‑evidence). A `PathId` provides a stable justification address; empirical legs are bound to explicit windows; crossings (if any) are explicit and pinned.
 
-**Episteme (Γ\_epist):** *Vision benchmark SoTA (2015→) replication path*.
-Claim: “Method family M attains parity on ImageNet‑style tasks.” EvidenceGraph nodes: replicated studies (LA), proof obligations for metric legality (VA), tool‑qualification declarations (TA). RSCR adapts vocabularies/units per Context; **Bridge** entries across sub‑traditions carry **loss notes** and **CL**. The **PathId** cited by SoS‑LOG at admission includes **ReferencePlane**, **Φ(CL)** policy ids, and **valid‑until** on rolling 24 mo windows.
+**Episteme (Γ_epist):** *Benchmark parity/replication lineage (post‑2015 practice).*
+Claim: “Method family M attains parity on ImageNet‑style tasks under a declared evaluation protocol.” EvidenceGraph nodes include replication carriers (LA), legality/metric‑soundness carriers (VA), and tool‑qualification carriers (TA). The cited `PathId` binds the `ReferencePlane`, the scope slice, and the pinned evaluation/legal surfaces (by edition/policy ids rather than prose). When refresh triggers occur (edition pin change, evidence surface edit, decay events), downstream artefacts can re‑cite or re‑compute using the same `PathSliceId` addressing discipline.
 
 ### G.6:6 - Bias‑Annotation
 
 Lenses tested: **Gov**, **Arch**, **Onto/Epist**, **Prag**, **Did**.
-Scope: **Universal** within the Conceptual Core; numerical policies (Φ/Ψ tables) remain **Context‑local** and are **cited by id**, not embedded, preserving independence and avoiding tool lock‑in.
+Scope: Universal for the EvidenceGraph kit; any method‑specific telemetry/portfolio wiring is modularized as Extensions and cited to its semantic owners.
 
-### G.6:7 - Conformance Checklist (CC‑G6)
+### G.6:7 - Conformance Checklist (normative) — **CC‑G6**
 
-| ID                                     | Requirement                                                                                                                                              | Purpose                                                                                                                                                                                                                                 |
-| -------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **CC‑G6‑1 (Anchor & lanes)**           | Every path **MUST** resolve to A.10 anchors (SCR/RSCR) and declare **lane tags TA/VA/LA** on bindings.                                                   | Enforces evidential reality and lane separation. |
-| **CC‑G6‑2 (No self‑evidence)**         | The evidencing `TransformerRole` is **external**; reflexive cases model a meta‑holon.                                                                    | Prevents circular proof.                                                                                                                     |
-| **CC‑G6‑3 (Plane & Context declared)** | Each path **SHALL** declare `U.BoundedContext`, **ReferencePlane**, and (if crossing) the **Bridge id + loss notes**.                                    | Makes penalties auditable.                                                                                                                   |
-| **CC‑G6‑4 (CL routing)**               | **Φ(CL)**, **Ψ(`CL^k`)** (when a **KindBridge** is used), and, if applicable, **Φ\_plane** penalties **reduce R\_eff only**; **F/G invariant**.          | Preserves scale/plane safety.                                                                                                                |
-| **CC‑G6‑5 (Γ‑fold discipline)**        | **Declare Γ‑fold**; default is **weakest‑link**. Overrides **MUST** cite CAL.ProofLedger ids for monotonicity/boundary behaviour.                        | Legal aggregation without redefining B.3.                                                                                                   |
-| **CC‑G6‑6 (Time & decay)**             | Empirical legs **MUST** expose **freshness windows** and **valid‑until**; expiry incurs **Epistemic Debt** with managed resolution.                      | Stops “latest” drift.                                                                                                                        |
-| **CC‑G6‑7 (Design/run split)**         | EvidenceGraph **SHALL NOT** mix design‑time MethodDescription with run‑time Work traces in one node; use explicit instantiation bridges.                 | Avoids stance chimeras.                                                                                                                     |
-| **CC‑G6‑8 (SCR surface)**              | For any **PathId**, the **Assurance SCR** **SHALL** list node/edge F,G,R, CL, describedEntity, plane, TA/VA/LA table, decay, and Epistemic‑Debt.               | Complete audit surface.                                                                                                                     |
-| **CC‑G6‑9 (Citable PathIds)**          | **SoS‑LOG** decisions (admit/degrade/abstain) and **Maturity rung transitions** **MUST** cite **EvidenceGraph PathId(s)**. Absence forbids rung advance. | Stable justifications per C.23.                                                                                                              |
-| **CC‑G6‑10 (Independence note)**       | If a **SpanUnion** of evidence lines is claimed, publish the **independence justification**.                                                             | Lawful enlargement of G.                                                                                                                     |
-| **CC‑G6‑11 (UTS hooks)**               | Evidence artefacts and PathIds **MUST** be **UTS‑citable** with twin labels (Tech/Plain).                                                                | Publication discipline.                                                                                                                     |
-| **CC‑G6‑12 (IndependenceCertificate)** | Independence for any **SpanUnion** MUST be carried by a **USM (`A.2.6 §7.3`) IndependenceCertificate** (partition of essential components; reference id in SCR). | Makes SpanUnion auditable and machine‑checkable. |
-| **CC‑G6‑13 (Mandatory SCR/DRR fields)** | SCR/DRR for any cited path **MUST** expose: lane‑split, **Γ‑fold contributors (ids)**, **Φ(CL)**/**Φ\_plane** policy‑ids, **PathId/PathSliceId**; with QD/illumination also expose `U.DescriptorMapRef.edition` and `DistanceDefRef.**edition**` ids. | Ensures lawful, reproducible audits and refresh. |
-| **CC‑G6‑14 (Legality of numeric ops)** | Any numeric comparison/aggregation in paths **MUST** cite **CG‑Spec** (characteristic id, unit/scale, Γ‑fold). **Fail‑fast** on CSLC violations; no ordinal→cardinal promotion. | Prevents illegal arithmetic and hidden assumptions. |
-| **CC‑G6‑15 (Editioned QD/OEE telemetry)** | Ingested QD/illumination or OEE events **SHALL** record `U.DescriptorMapRef.edition`, `EmitterPolicyRef`, `InsertionPolicyRef`, and (for OEE) `EnvironmentValidityRegion`/`TransferRules` refs. | Reproducible fronts/coverage and environment lineage. |
+| ConformanceId                                     | Requirement                                                                                                                                                                                                                                                                                                                                                                  | Purpose |
+| ------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
+| **CC‑G6‑CoreRef**                                 | `G.6` is conformant only if it satisfies the **effective** `CC‑GCORE‑*` set expanded from the `GCoreLinkageManifest` in **§4.1** (explicit crossings & pins, penalties→`R_eff` only, P2W split, typed RSCR trigger kinds, single‑owner defaults, UTS discipline, Δ‑discipline).                                                                                                 | Route core invariants |
+| **CC‑G6‑1 (Anchor & lanes)**                      | Every citable path MUST resolve to A.10 anchors (SCR/RSCR addressable) and MUST declare lane tags (`TA/VA/LA`) on bindings.                                                                                                                                                                                                                                                | Ground auditability |
+| **CC‑G6‑2 (No self‑evidence)**                    | Any evidencing `TransformerRole` that certifies the evaluated holon is external; reflexive cases MUST be modelled as a meta‑holon.                                                                                                                                                                                                                                         | Avoid reflexive evidence |
+| **CC‑G6‑3 (Context/Plane & crossings)**           | Paths MUST declare `BoundedContext` and `ReferencePlane`, and MUST expose explicit crossing pins when crossings are present. *(Delegation target: `CC‑GCORE‑CROSS‑1`.)*                                                                                                                                                                                                    | Make crossings explicit |
+| **CC‑G6‑4 (Penalty routing)**                     | Any crossing/plane penalty wiring visible in G.6 artefacts MUST route penalties to `R_eff` only and MUST preserve `F/G` invariance under penalties. *(Delegation target: `CC‑GCORE‑PEN‑1`.)*                                                                                                                                                                             | Preserve lane purity |
+| **CC‑G6‑5 (Γ‑fold discipline + default ownership)** | If a `Γ‑fold` is not explicitly overridden by pinned CAL artefacts, G.6 MUST cite the single owner of `DefaultId.GammaFoldForR_eff` rather than asserting a local default. If a `Γ‑fold` is explicitly overridden, the path/SCR surface MUST cite the relevant CAL `ProofLedger` ids and publish the override as an auditable pin (not as prose). *(Delegation: `CC‑GCORE‑DEF‑1`; override semantics owned by `G.4`.)* | Keep folding auditable |
+| **CC‑G6‑6 (Time/decay/validity binding)**         | Empirical legs MUST expose freshness/time binding (window selector or policy pin) and MUST support an explicit `validUntil`/expiry marker when one is declared (or an equivalent decay/freshness policy pin that implies expiry). Expiry/decay MUST be representable as refresh/RSCR‑relevant change using typed canonical causes. *(Delegation intent: typed causes are core‑owned; see `CC‑GCORE‑TRIG‑*`.)*                                  | Enable refresh readiness |
+| **CC‑G6‑7 (Design/run split)**                    | Design‑time method descriptions and run‑time work traces MUST NOT be fused into one undifferentiated node; the graph MUST preserve the design↔run boundary via explicit carriers/bridges. *(Delegation intent: P2W split is core‑owned; see `CC‑GCORE‑P2W‑1`.)*                                                                                                            | Preserve P2W boundary |
+| **CC‑G6‑8 (SCR projection completeness)**         | For any cited `PathId/PathSliceId`, the Assurance SCR view MUST expose at least: lane split, scope/plane pins, freshness/validity binding, explicit crossing pins (and the effective bottleneck `CL`/`CL^k`/`CL^plane` when crossings exist), the effective `Γ‑fold` in force for any `R_eff` folding (default or override, plus CAL `ProofLedger` ids when overridden), and links to contributing A.10 anchors and any CAL evidence/profile refs. | Make decisions auditable |
+| **CC‑G6‑9 (Citable PathIds)**                     | Any SoS‑LOG admit/degrade/abstain decision or maturity rung transition that relies on provenance MUST cite `PathId`(s) (or `PathSliceId`(s) when snapshot‑binding is required).                                                                                                                                                                                            | Decision traceability |
+| **CC‑G6‑10 (SpanUnion justification note)**       | If a SpanUnion/non‑interaction claim is made across evidence lines, an explicit independence justification MUST be published (as an addressable artefact linked to the path).                                                                                                                                                                                                | Non‑interaction audit |
+| **CC‑G6‑11 (UTS hooks)**                          | Evidence artefacts and paths minted for citation MUST be UTS‑citable with twin labels and edition pins. *(Delegation target: `CC‑GCORE‑UTS‑1`.)*                                                                                                                                                                                                                           | Stable citations |
+| **CC‑G6‑12 (IndependenceCertificate)**            | Independence for SpanUnion claims MUST be carried by an `IndependenceCertificate` (per the relevant certificate pattern) and referenced from SCR/paths.                                                                                                                                                                                                                    | Certificate surface |
+| **CC‑G6‑13 (Mandatory provenance pins)**          | Any published/cited path surface MUST expose: `EvidenceGraphId`, `PathId/PathSliceId`, lane split, scope/plane pins, freshness/validity pins when applicable, crossing pins when applicable, and the minimal pin set required by §4.1. When `R_eff` folding is published/relied upon, the effective `Γ‑fold` in force MUST be exposed (default or override, plus CAL `ProofLedger` ids when overridden). When QD/OEE telemetry pins are in use, the extension‑required edition/policy pins MUST also be exposed. | Pin completeness |
+| **CC‑G6‑14 (Legality binding; no shadow specs)**  | If numeric operations are cited/used in a path, legality MUST be pinned/cited via `CG‑Spec` rather than asserted locally, and the path/SCR surface MUST fail fast on illegal arithmetic/typing (e.g., CSLC/scale violations); do not “promote” ordinal to cardinal by convention inside G.6. *(Delegation target for “no shadow specs”: `CC‑GCORE‑CN‑CG‑1`.)*                                                                                     | Prevent illicit arithmetic |
+| **CC‑G6‑15 (Conditional: QD/OEE telemetry pins)** | *(Conditional)* If `G.6:Ext.QD_OEE_TelemetryPins` is used, the required edition/policy pins from that extension (at minimum `DescriptorMapRef.edition`, `DistanceDefRef.edition`, and the relevant insertion/emitter/transfer policy pins when applicable) MUST be recorded for reproducibility and must participate in RSCR triggering using canonical trigger kind ids.                                                                 | Reproducible archive/OEE |
 
-### G.6:8 - Interfaces & Hooks (normative)
+### G.6:7.5 - Interfaces & Hooks (normative)
 
 Each hook below defines: **Trigger → Obligation → Publishes/Consumes → Invariants**.
+Where universal invariants apply (crossings, penalties, trigger typing), this section *cites* `G.Core` rather than redefining semantics.
 
-#### G.6:8.1 - **H1 — UTS Name Card for Evidence Artefacts**
+#### G.6:7.5.1 - H1 — UTS Name Card for Evidence Artefacts
 
-* **Trigger.** A new **EvidenceGraph node** is minted (an **A.10 anchor/carrier** classifying evidence for a claim).
-* **Obligation.** Mint a **UTS Name Card** with **twin labels** for the artefact (Tech/Plain), citing the **home `U.BoundedContext`** (per D.CTX) and edition; do **not** borrow a Context‑local Tech label as a “global” name. 
-* **Publishes/Consumes.** **Publishes:** UTS row; **Consumes:** A.10 anchor metadata.
-* **Invariants.** Cross‑Context sameness is **Bridge‑only**; the UTS row lists Bridges with **CL** and a short **loss note**.
+* **Trigger.** A new EvidenceGraph node is minted (an A.10‑anchored evidence artefact or role).
+* **Obligation.** Mint a UTS Name Card with twin labels (Tech/Plain), citing the home context anchor and any required edition pins.
+* **Publishes/Consumes.** Publishes: UTS row. Consumes: A.10 anchor metadata.
+* **Invariants.** UTS publication and any deprecation/aliasing follow `G.Core` routing to F.17 (UTS discipline).
 
-#### G.6:8.2 - **H2 — UTS PathCard (PathId/PathSliceId)**
+#### G.6:7.5.2 - H2 — UTS PathCard (PathId/PathSliceId)
 
-**Trigger.** A new **PathId** (or **PathSliceId**) is minted for a claim.  
-**Obligation.** Publish a **UTS Name Card** with twin labels for the Path (or PathSlice), listing **Context, ReferencePlane, Γ_time**, and cited **Bridge ids + CL/CL^plane** (with loss notes). **If present, include** `U.DescriptorMapRef.edition` **and** `DistanceDefRef.edition` **ids.**  
-* **Invariants.** **F/G invariants never mutate** due to CL penalties; penalties reduce **R only**. **Illumination/QD signals do not alter dominance unless a selection policy (C.19) explicitly declares it; such policy ids MUST be cited.**
+* **Trigger.** A new `PathId` (or `PathSliceId`) is minted.
+* **Obligation.** Publish a UTS PathCard with twin labels, listing the explicit pins required by §4.1 (context/plane/time binding, crossing pins if any). If an extension requires additional pins for reproducibility (e.g., `G.6:Ext.QD_OEE_TelemetryPins`), those pins MUST be present when the extension is in use.
+* **Publishes/Consumes.** Publishes: UTS row(s). Consumes: EvidenceGraph path metadata + any extension‑required pins.
+* **Invariants.** Crossing visibility and penalty routing are delegated to `G.Core` (`CC‑GCORE‑CROSS‑1`, `CC‑GCORE‑PEN‑1`).
 
-#### G.6:8.3 - **H3 — RSCR Trigger on Evidence‑Impacting Edit (with Bridge Sentinels)**
+#### G.6:7.5.3 - H3 — RSCR Trigger on Evidence‑Impacting Edit (typed; alias‑dockable)
 
-* **Trigger.** Any edit in G.6 that can change **computed values (Score or telemetry signals), acceptance verdicts, Γ‑fold contributors, or `R_eff`**; examples: freshness/decay change; Bridge **CL/CL^k** or loss update; **Φ/Ψ** policy change; lane tag correction; ReferencePlane correction; **QD/OEE artefact updates** (`U.DescriptorMapRef.edition`/`DistanceDef`, `EmitterPolicyRef`, `InsertionPolicyRef`, archive K‑capacity).
-* **Obligation.** Emit a **typed RSCR trigger**; the corresponding regression test must verify: (i) legality of CHR ops in affected flows, (ii) unit/scale checks, (iii) **CL→`R_eff` routing only**, (iv) presence of Φ policy‑ids in the SCR. 
-* **Publishes/Consumes.** **Publishes:** RSCR test id(s); **Consumes:** CAL.EvidenceProfiles, CAL.Acceptance, Φ‑policies.
-* **Invariants.** **F/G invariants never mutate** due to CL penalties; penalties reduce **R only**.
+* **Trigger.** Any edit in G.6 that can change a path’s audit‑relevant surface (evidence structure, crossing pins, penalty policy pins, plane binding, freshness binding, edition/policy pins, or telemetry‑bound fields).
+* **Obligation.** Emit RSCR triggers **using canonical `RSCRTriggerKindId`** (from `G.Core`) and record affected scope (`PathId/PathSliceId`) plus payload pins required for downstream refresh. If a legacy `G.6:H3:*` label is recorded, it is recorded as an alias label and docked via `G.Core.TriggerAliasMap.G6`. When `G.6:Ext.BridgeSentinelWiring` is used, include the bridge/sentinel payload pins required by that extension.
+* **Publishes/Consumes.** Publishes: RSCR triggers and any associated RSCR test ids. Consumes: relevant pins/refs and CAL artefact references where applicable.
+* **Invariants.** Trigger typing and alias docking are delegated to `G.Core` (`CC‑GCORE‑TRIG‑*`). Penalty routing invariants are delegated (`CC‑GCORE‑PEN‑1`).
 
-#### G.6:8.4 - **H4 — SoS‑LOG Path Citation (Selector Explainability)**
+#### G.6:7.5.4 - H4 — SoS‑LOG Path Citation (selector explainability)
 
-* **Trigger.** A **C.23 SoS‑LOG** rule returns {**Admit | Degrade(mode) | Abstain**} for a `(TaskSignature, MethodFamily)` pair.
-* **Bridge Sentinels.** All **Bridge ids** referenced by live **PathIds/PathSliceIds** are **watch‑listed**; any change to **CL/CL^plane** or **Φ policy id** triggers **path‑local RSCR** on the affected set of Paths/Slices only.
-* **Obligation.** The LOG branch **MUST** cite **EvidenceGraph `PathId`(s)** that justify the decision, together with **lane tags (TA/VA/LA)**, freshness windows, **Bridge ids + loss notes** (if any), and Φ policy‑ids. **When the decision relies on QD/illumination or portfolio telemetry, the citation MUST include** `U.DescriptorMapRef.edition`, the relevant `EmitterPolicyRef`/`InsertionPolicyRef` **ids, and the** **lens id** *(per C.19)* **if a lens was used.**
-* **Publishes/Consumes.** **Publishes:** SCR‑visible branch record with `PathId`; **Consumes:** EvidenceGraph API path query.
-* **Invariants.** **No self‑evidence**; cross‑plane penalties **MUST** be monotone, bounded, and table‑backed.
+* **Trigger.** A SoS‑LOG rule yields a tri‑state decision for a selection‑relevant pair (e.g., `(TaskSignature, MethodFamily)`), and the decision is justified by evidence.
+* **Obligation.** The branch record MUST cite the relevant `PathId/PathSliceId`(s) and the minimal pins required to re‑audit the justification. Any method‑specific attribution fields are handled via Extensions (e.g., `G.6:Ext.SoSLOGPathCitationWiring` for `LensId`/FailureBehavior wiring, `G.6:Ext.BridgeSentinelWiring` for bridge‑monitoring payload pins when cross‑context reuse is invoked, `G.6:Ext.QD_OEE_TelemetryPins` for QD/OEE pins).
+* **Publishes/Consumes.** Publishes: an SCR‑visible branch record with cited paths. Consumes: EvidenceGraph path queries.
+* **Invariants.** Tri‑state semantics are core‑owned (`CC‑GCORE‑GUARD‑1`); G.6 does not add a new decision value.
 
-#### G.6:8.5 - **H5 — Maturity Rung Transition Justification**
+#### G.6:7.5.5 - H5 — Maturity Rung Transition Justification
 
-* **Trigger.** A `MethodFamily.MaturityCard@Context` rung change is proposed.
-* **Obligation.** The transition **MUST** be justified by one or more **EvidenceGraph paths** and then **published on UTS**; **missing anchors ⇒ no advance**.
-* **Publishes/Consumes.** **Publishes:** updated UTS entry for the MaturityCard; **Consumes:** EvidenceGraph paths and A.10 anchors.
-* **Invariants.** Maturity is an **ordinal poset**, not a global scalar; any gating thresholds live **only** in **AcceptanceClauses** and are cited by id from LOG (no thresholds inside LOG). 
+* **Trigger.** A maturity rung transition is proposed and justified by evidence.
+* **Obligation.** The transition MUST cite one or more `PathId/PathSliceId`(s) and MUST publish an updated maturity entry with those citations. Missing path citations forbid rung advance.
+* **Publishes/Consumes.** Publishes: updated UTS entry for maturity artefacts. Consumes: cited paths and A.10 anchors.
+* **Invariants.** Any thresholding policy remains owned by CAL/LOG owners; G.6 provides citation, not policy.
 
-#### G.6:8.6 - **H6 — Bridge/CL Edge Annotation (GateCrossings)**
+#### G.6:7.5.6 - H6 — Bridge/CL Edge Annotation (GateCrossings)
 
-* **Trigger.** An EvidenceGraph edge crosses a **GateCrossing boundary** (Context/kind/plane/design↔run/edition).
-* **Obligation.** Record a **`BridgeCard`** (when a Bridge is involved) and publish a **UTS crossing row** with: `fromCtxState→toCtxState` (E.18 `CtxState = ⟨L,P,E⃗,D⟩`), Context ids (D.CTX), **Bridge id** (if any), **bridgeChannel**, **CL** (and **CL^k** if KindBridge), **ReferencePlane**(s), and **CL^plane** (if planes differ). **No implicit crossings**.
-* **Publishes/Consumes.** **Publishes:** UTS crossing row; **Consumes:** GateCrossing metadata.
-* **Invariants.** CL/CL^plane penalties **route to R only**; lanes are **explicit**.
+* **Trigger.** An EvidenceGraph edge traverses a declared GateCrossing boundary (context/kind/plane/design↔run/edition).
+* **Obligation.** Publish a CrossingSurface‑checkable crossing record with explicit crossing pins (UTS row id, Bridge id/card id if applicable, CL regime pins if applicable, and plane pins if applicable).
+* **Publishes/Consumes.** Publishes: crossing row/pins. Consumes: GateCrossing metadata and Bridge artefacts (when present).
+* **Invariants.** Crossing visibility is core‑owned (`CC‑GCORE‑CROSS‑1`); penalties routing is core‑owned (`CC‑GCORE‑PEN‑1`).
 
-#### G.6:8.7 - **H7 — ReferencePlane Penalty Publication**
+#### G.6:7.5.7 - H7 — ReferencePlane penalty policy publication (ids only)
 
-* **Trigger.** A claim/evidence path spans different **ReferencePlanes** `{world|concept|episteme}`.
-* **Obligation.** Compute and publish **Φ\_plane** (policy id + loss note) alongside **Φ(CL)**; both policies are **monotone, bounded, table‑backed**; report in SCR for any affected verdict. **Publish ids, not tables; values live in CAL.Acceptance/Φ‑policy registries.** 
-* **Publishes/Consumes.** **Publishes:** SCR fields with Φ policy‑ids; **Consumes:** CAL.EvidenceProfiles row(s).
-* **Invariants.** Penalties affect **`R_eff`** only; **F/G** remain invariant.
+* **Trigger.** A path binds across different reference planes.
+* **Obligation.** Publish the relevant policy identifiers (ids only; not tables) required to audit plane effects, alongside the path’s pins.
+* **Publishes/Consumes.** Publishes: SCR/UTS fields containing policy ids. Consumes: the owner’s policy registries as cited artefacts (do not duplicate tables).
+* **Invariants.** Penalty routing is delegated (`CC‑GCORE‑PEN‑1`); no shadow specs (`CC‑GCORE‑CN‑CG‑1`).
 
-#### G.6:8.8 - **H8 — CrossingSurface Exposure (E.18)**
+#### G.6:7.5.8 - H8 — CrossingSurface exposure (E.18)
 
-* **Trigger.** G.6 exports are bundled for release or consumed by selectors.
-* **Obligation.** Provide inputs so that GateCrossing checks can run against **EvidenceGraph paths and published CrossingSurfaces** (**E.18:CrossingSurface**):
-  * FAIL if any required **CrossingSurface** is missing (`CrossingRef` + matching UTS row + required pins).
-  * FAIL if lane purity is violated (**CL/CL^k/CL^plane → R only**; F/G invariant).
-  * EXPOSE penalty policy ids (`Φ(CL)`, `Φ_plane`, `Ψ(CL^k)` where used) as **`PolicyIdRef`** bundles (policy-id + `PolicySpecRef` + `MintDecisionRef?`; F.8:8.1) so checks can verify monotonicity/bounds and mint/reuse provenance without implying any tool format.
-* **Publishes/Consumes.** **Publishes:** harness-readable identifiers (no formats mandated); **Consumes:** GateCrossing + lane tags.
-* **Invariants.** LEX hygiene (head-anchoring, I/D/S) holds for all exported tokens.
+* **Trigger.** G.6 artefacts are exported for release or consumed by downstream patterns that require GateCrossing checks.
+* **Obligation.** Provide harness‑readable ids/pins so GateCrossing checks can verify: required crossing records exist, lexical constraints hold, and crossing pins are explicit.
+* **Publishes/Consumes.** Publishes: checkable ids/pins. Consumes: GateCrossing + lexical rules.
+* **Invariants.** Crossing discipline and ID continuity are core‑owned (`CC‑GCORE‑CROSS‑1`, `CC‑GCORE‑ID‑*`).
 
-#### G.6:8.9 - **H9 — SCR Surface for Assurance**
+#### G.6:7.5.9 - H9 — SCR surface for assurance provenance
 
-* **Trigger.** Selector reports or acceptance checks reference evidence.
-* **Obligation.** Expose **lane‑split**, freshness windows, **Γ‑fold** contributors, **Φ(CL/plane)** policy‑ids, **IndependenceCertificate ids** (if SpanUnion), and (where present) **ProofLedger** references **as SCR‑visible fields**. 
-* **Publishes/Consumes.** **Publishes:** SCR views; **Consumes:** CAL.Acceptance, CAL.ProofLedger, EvidenceGraph paths.
-* **Invariants.** **WLNK default = weakest‑link** unless proved otherwise; any override cites monotonicity/boundary proofs.
+* **Trigger.** A downstream artefact cites a path for audit/selection/maturity.
+* **Obligation.** Expose the required provenance fields in SCR views: lane split, context/plane pins, freshness binding, crossing pins (when present), and links to A.10 anchors and CAL refs.
+* **Publishes/Consumes.** Publishes: SCR view(s). Consumes: EvidenceGraph paths and cited owner artefacts.
+* **Invariants.** Default ownership is routed (`CC‑GCORE‑DEF‑1`) when defaults are cited.
 
-#### G.6:8.10 - **H10 — ProofLedger Linkage (CAL ↔ G.6)**
+#### G.6:7.5.10 - H10 — ProofLedger linkage (CAL ↔ G.6)
 
-* **Trigger.** A formal proof obligation or evidence role is attached to a claim.
-* **Obligation.** Link the EvidenceGraph node/edge to **CAL.ProofLedger** entries and **A.10 carriers** via `verifiedBy/validatedBy` relations; **SCR/RSCR anchors are mandatory** for all carriers. **No self‑evidence**. 
-* **Publishes/Consumes.** **Publishes:** ProofRef ids in the path; **Consumes:** CAL.ProofLedger entries.
-* **Invariants.** **TA/VA/LA** distinctions remain explicit; tool qualification belongs to **TA**.
+* **Trigger.** A proof obligation or evidence role is attached to a claim and is represented in G.4 artefacts.
+* **Obligation.** Link EvidenceGraph nodes/edges to CAL ProofLedger/EvidenceProfiles entries and to A.10 carriers via the minimal provenance edge vocabulary.
+* **Publishes/Consumes.** Publishes: CAL proof refs as pins in the path explanation surface. Consumes: CAL artefacts.
+* **Invariants.** G.6 does not redefine CAL proof semantics; it only cites them.
 
-#### G.6:8.11 - **H11 — Telemetry Ingest (Selector & Probe Outcomes)**
+#### G.6:7.5.11 - H11 — Telemetry ingest (selector & probe outcomes)
 
-* **Trigger.** Run‑time **selector** or **probe** outcomes (E/E‑LOG) return observations that bear on previously asserted claims; **this includes QD/illumination updates and OEE `GeneratorFamily` events** (environment edits/transfers).
-* **Obligation.** Ingest as **external evidence lines** into the EvidenceGraph with proper **lane typing** (LA/VA/TA), **Context slice** and **Γ\_time**; record **edition‑aware fields** when applicable: `U.DescriptorMapRef.edition`, `DistanceDef`, `ArchiveCellRef`, `EmitterPolicyRef`, `InsertionPolicyRef`, the **policy‑id**, and the **lens id** *(per C.19)* used by the selector. For OEE events, capture `EnvironmentValidityRegion` and `TransferRules` references. Opening/closing of refresh windows produces **DRR/RSCR hooks** outside the Core text. *This hook wires G.6 to G.11 Telemetry/Refresh while keeping Core prose tool‑agnostic as required by E.5.*
-* **Publishes/Consumes.** **Publishes:** new EvidenceGraph nodes/edges + UTS rows; **Consumes:** selector/probe attestation (as conceptual carriers) **and (when present) GeneratorFamily attestations**.
-* **Invariants.** Separate **ΔR / ΔF** from **ΔG** in rationale (Assurance calculus discipline). **Illumination increments are logged as editioned deltas; they do not change dominance unless declared by policy (C.19).**
+* **Trigger.** Run‑time outcomes (selection, probes, parity runs, measurement updates) produce observations that bear on previously asserted claims.
+* **Obligation.** Ingest the observation as a run‑time evidence line (anchored in A.10), with explicit lane typing and explicit scope/time binding. If method‑specific telemetry pins are required, they are governed by Extensions (e.g., `G.6:Ext.QD_OEE_TelemetryPins`).
+* **Publishes/Consumes.** Publishes: new EvidenceGraph nodes/edges + any required UTS rows + typed RSCR triggers when impacts occur. Consumes: run‑time carriers/attestations as conceptual anchors.
+* **Invariants.** P2W split is respected (`CC‑GCORE‑P2W‑1`); typed trigger discipline is respected (`CC‑GCORE‑TRIG‑*`).
 
-#### G.6:8.12 - Minimal conformance (hooks)
+#### G.6:7.5.12 - Minimal conformance (hooks)
 
-1. **UTS publication (H1)** for every minted evidence artefact; Bridges carry **CL + loss note**.
-2. **RSCR triggers (H3)** on any edit impacting computed values (Score/telemetry signals), acceptance, Γ‑fold, or Φ penalties.
-3. **LOG path citation (H4)** is mandatory for **all** Admit/Degrade/Abstain decisions; **no self‑evidence**. 
-4. **Maturity rung transitions (H5)** **forbid** advancement without EvidenceGraph paths and UTS publication.
-5. **Gate‑crossings (H6/H7)** publish **Bridge + CL/CL^plane** and route penalties to **R only**; **no implicit crossings**.
-6. **GateCrossing visibility harness (H8).** Crossings pass **CrossingSurface** attestation (**E.18/A.27/F.9**), **LanePurity**, and **Lexical SD** (**E.10**) under GateChecks/GateProfile (**A.21**).
-7. **SCR surface (H9)** exposes lane split, Γ‑fold, Φ‑policies, ProofRefs; default **WLNK** unless proved otherwise.
-8. **ProofLedger linkage (H10)** ties formal/empirical roles to **A.10 carriers**; **SCR/RSCR anchors** present.
+1. UTS publication for minted evidence artefacts and paths (H1–H2), per routed UTS discipline.
+2. Typed RSCR triggers on evidence‑impacting edits (H3) using canonical trigger kind ids.
+3. LOG and maturity artefacts cite paths when evidence is used (H4–H5).
+4. GateCrossing/crossing records are explicit and checkable when crossings occur (H6–H8).
+5. SCR views expose the minimal provenance pins for cited paths (H9–H10).
+6. Run‑time telemetry is ingested without collapsing design↔run boundaries (H11).
 
+### G.6:8 - Common Anti-Patterns and How to Avoid Them
+
+* **Narrative‑only provenance (“because story”).**
+  **Avoid:** mint `PathId/PathSliceId` and require citation for any decision that claims evidence‑based justification (CC‑G6‑9).
+* **Implicit crossings (“same thing, different context”).**
+  **Avoid:** represent crossings only via explicit crossing artefacts/pins; treat edition/plane/context changes as explicit crossing‑relevant edits and trigger RSCR (core‑owned crossing discipline).
+* **Smuggling legality rules into EvidenceGraph prose.**
+  **Avoid:** cite/pin legality surfaces (`CG‑Spec` and CAL artefacts); do not introduce local “mini‑CG” rules in G.6 (route via `CC‑GCORE‑CN‑CG‑1`).
+* **Unpinned editions/policies (“it’s obvious which version”).**
+  **Avoid:** require explicit edition/policy pins on citable paths; treat changes as typed triggers.
+* **Alias‑only RSCR causes (“H3: something changed”).**
+  **Avoid:** record canonical `RSCRTriggerKindId` as the cause; aliases are labels only and must dock via `G.Core.TriggerAliasMap.G6`.
 
 ### G.6:9 - Consequences
 
-**Benefits.** Path‑addressable provenance; transparent **CL** and decay; clean **DesignRunTag**; selectors and auditors share the *same* object; **R** penalties become explainable deltas rather than folklore.
-**Trade‑offs.** Authors must declare freshness and planes; mitigated by reusing G.4 **EvidenceProfiles** instead of duplicating fields.
+**Benefits.** Path‑addressable provenance; crossing/plane effects are auditable by pins rather than folklore; selectors and auditors share the same object; refresh becomes localized (path‑scoped) rather than global “rerun everything”.
+**Trade‑offs.** Authors must declare (or pin) time/plane/scope and keep pins explicit; mitigated by reusing CAL EvidenceProfiles and by modularizing method‑specific telemetry as Extensions.
 
 ### G.6:10 - Rationale
 
-G.6 concretises the “**because‑graph**” already implicit in A.10 as a **typed, lane‑aware DAG** with **stable path addresses**. It relies on B.3’s **assurance skeleton**—WLNK for R, penalties by **Φ(CL\_min)**, **SpanUnion constrained by support** for G, and **F = min**—rather than inventing a new calculus. The **SCR/RSCR** obligations keep the graph grounded in carriers and external Transformers, matching post‑2015 provenance practice for reproducible knowledge and auditability.
+G.6 concretizes the “because‑graph” implicit in A.10 into a typed, lane‑aware DAG with stable path addresses. It relies on canonical owners for semantics:
 
-### G.6:11 - Relations
-**Builds on:** A.10 (anchors, SCR/RSCR, externality), B.3 (assurance lanes & Γ‑fold skeleton), G.4 (EvidenceProfiles & ProofLedger), F.9 (Bridges/CL), **C.18 (NQD‑CAL)**, **C.19 (E/E‑LOG & policies)**, **E.18/A.21/A.27** (GateCrossing/CrossingSurface checks), E.8/E.10 (template & lexical rules).
-**Publishes to:** **UTS** (Name Cards for evidence artefacts and PathIds) and **RSCR**; **G.5** selectors cite **PathId** in their **SoS‑LOG** branches (admit/degrade/abstain); **G.11** consumes editioned telemetry for refresh/decay.
-**Constrains:** **G.5** (eligibility/selector must point to PathIds; **portfolio results MUST cite policy‑ids and, when QD present, DescriptorMap editions**), **G.9** (parity checks cite concrete paths), **G.11** (telemetry drives Path refresh & deprecation via evidence windows and edition changes).
+* A.10 for anchoring discipline and carrier reality,
+* B.3 for the assurance skeleton,
+* G.4 for proof/evidence profile semantics,
+* `G.Core` for universal crossing, penalty, default ownership, and typed RSCR cause discipline.
+
+This preserves conceptual modularity: G.6 standardizes *addressable provenance*, not a competing legality or selection mechanism.
+
+### G.6:11 - SoTA‑Echoing
+
+This pattern aligns with post‑2015 best practice in reproducibility and evaluation governance by:
+
+* treating **provenance and versioning/pinning** as first‑class audit surfaces (rather than informal “methods” prose),
+* enabling **selective re‑evaluation** (path‑scoped refresh) rather than global reruns whenever one policy/edition changes,
+* separating **design‑time specifications** from **run‑time traces/telemetry**, matching modern reproducibility and “lineage” practice in complex ML/scientific pipelines,
+* keeping **method‑family specifics** (e.g., archive/illumination/QD pins or open‑ended telemetry pins) modular via extension wiring instead of embedding them into the universal provenance core.
+
+### G.6:12 - Relations
+
+**Builds on:** `G.Core`, `A.10` (evidence anchors/carriers; SCR/RSCR), `B.3` (assurance skeleton), `F.9` (BridgeCard/CL), `G.4` (CAL EvidenceProfiles/ProofLedger), `E.18/A.21` (GateCrossing/CrossingSurface checks), `E.10` (lexical rules), `E.5.*` (notation independence), `F.17` (UTS), `F.15` (RSCR).
+**Publishes to:** UTS (Name Cards + PathCards), SCR/RSCR surfaces, downstream selectors/LOG by `PathId` citation, refresh/orchestration as typed triggers (consumed by `G.11` when used).
+**Used by:** `G.5` (selector explainability and admissibility justifications), `G.8` (SoS‑LOG bundles), `G.9` (parity harness traces), `G.10` (shipping pins and audit payload), `G.11` (refresh orchestration).
+**Constrains:** downstream patterns MUST cite paths when evidence is claimed; they MUST treat edits to pinned evidence/crossing/policy/edition/time bindings as refresh‑relevant causes with canonical trigger ids (routing via `G.Core`).
 
 ### G.6:End

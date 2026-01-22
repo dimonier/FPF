@@ -4,7 +4,7 @@
 
 **Status.** Normative pattern in **KD‑CAL / Part C.2**. It **replaces** the legacy “modes/tiers” language and any parallel “formality ladders.” The letter **F** hereafter denotes the **Formality** characteristic in the **F–G–R** triple.
 
-**Scope.** Conceptual only. The pattern **does not** prescribe workflows, toolchains, or team procedures. It specifies *what Formality is and how to measure/declare it*, so that any team, discipline, or architheory can think and communicate rigor with the same yardstick.
+**Scope.** Conceptual only. The pattern **does not** prescribe workflows, toolchains, or team procedures. It specifies *what Formality is and how to measure/declare it*, so that any team can think and communicate rigor with the same yardstick.
 
 **Non‑goals.**
 – Not a publication process, not a governance gate.

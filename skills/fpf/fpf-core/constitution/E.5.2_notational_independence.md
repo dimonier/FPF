@@ -67,7 +67,7 @@ Cards, tables and other "forms" exist in FPF core only as conceptual model, not 
 ### E.5.2:8 - Rationale
 Language and diagrams are tools, not truths. By elevating semantics over
 syntax, FPF maintains **P‑1 Cognitive Elegance** and **P‑2 Didactic
-Primacy** while safeguarding **P‑5 Plug‑in Layering**: tooling layers can
+Primacy** while safeguarding **P‑5 FPF Layering**: tooling layers can
 add new renderers without Core edits.
 
 ### E.5.2:9 - Relations

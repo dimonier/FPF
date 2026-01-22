@@ -62,7 +62,7 @@ Establish a **Lexical Firewall** around the **Conceptual Core** *(conceptual con
 ### E.5.1:8 - Rationale
 Language shapes thought.  By firewalling transient jargon, we uphold
 **P‑1 Cognitive Elegance** (clarity), **P‑2 Didactic Primacy** (domain‑neutral
-exposition) and **P‑5 Plug‑in Layering** (clean separation between Core
+exposition) and **P‑5 FPF Layering** (clean separation between Core
 and Tooling).  The rule is content‑agnostic and thus itself immune to the
 very decay it prevents.
 

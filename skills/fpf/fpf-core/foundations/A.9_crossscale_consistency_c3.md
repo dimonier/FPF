@@ -115,7 +115,7 @@ Packaging these insights as one memorisable quintet → **Cognitive Elegance** w
 
 ### A.9:11 - Open Questions for expert panel
 
-1. **Order‑sensitive physics** – Should quantum‑circuit folds live in a plug‑in with a relaxed invariant set?
+1. **Order‑sensitive physics** – Should quantum‑circuit folds live in a Extention Patterns with a relaxed invariant set?
 2. **Synergistic redundancy** – Can WLNK be reframed using an “effective minimum” when true redundancy lifts the floor?
 3. **Didactic tooling** – Which visual cues best alert non‑formal audiences to an approaching Meta‑Holon Transition?
 4. **Layer depth** — In an LCA (layered control architectures, https://arxiv.org/abs/2401.15185) stack every Planner is external to its Regulator; should FPF limit the number of nested layers, or is indefinite chaining acceptable?

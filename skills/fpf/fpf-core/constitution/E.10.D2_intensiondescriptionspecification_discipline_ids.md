@@ -2,9 +2,9 @@
 
 *Definitional pattern — normative, notation‑agnostic*
 
-> **One‑sentence summary.** For every intensional FPF object (e.g., `U.Role`, `U.Method`, `U.System`, `U.Work`, `U.ServiceClause`), clearly distinguish the **thing itself** (*Intension*), its **context‑bound Description** (KU), and its **formal Specification** (KU). Use **–Spec** only when strict, testable invariants and an acceptance harness exist; otherwise use **–Description**. This keeps semantics clean, didactic, and testable across all architheories.
+> **One‑sentence summary.** For every intensional FPF object (e.g., `U.Role`, `U.Method`, `U.System`, `U.Work`, `U.ServiceClause`), clearly distinguish the **thing itself** (*Intension*), its **context‑bound Description** (KU), and its **formal Specification** (KU). Use **–Spec** only when strict, testable invariants and an acceptance harness exist; otherwise use **–Description**. This keeps semantics clean, didactic, and testable across all FPF patterns.
 
-**Status.** Definitional pattern, architheory‑agnostic.
+**Status.** Definitional pattern.
 **Builds on:** A.7 **Strict Distinction (Clarity Lattice)**; E.10.D1 **D.CTX (Context ≡ U.BoundedContext)**; C.2.1 **U.EpistemeSlotGraph (DescriptionContext, IDS‑13)**; C.2.3 **Unified Formality Characteristic (F)**.
 **Coordinates with.** F.4 **Role Description**; F.5 **Naming Discipline**; F.10 **Evaluation**; F.15 **SCR/RSCR Harness**.
 **Non‑goals.** No editors, workflows, registries, or storage formats. No tooling commitments.
@@ -23,7 +23,7 @@
 
 1. **Plane/layer mixing.** Intensions are routinely conflated with their documents and with runtime facts.
 2. **Name drift.** “Spec” gets used for any write‑up; “status” drifts between states of a role and epistemic/deontic statuses over knowledge units.
-3. **Didactic friction.** Inconsistent naming raises cognitive load and impedes reuse across architheories.
+3. **Didactic friction.** Inconsistent naming raises cognitive load and impedes reuse across FPF patterns.
 4. **Unverifiable claims.** Without a clear gate to **–Spec**, normative wording appears without testability.
 
 ### E.10.D2:3 - Forces
@@ -245,7 +245,7 @@ A RoleDescription **SHOULD** fit on one screen per state graph plus one screen o
 | A‑9  | **Spec without harness**    | “Shall” statements with no linked acceptance matrices.               | Unverifiable normativity.                 | Bind to **SCR/RSCR harness** (F.15) or downgrade to Description (IDS‑3).                       |
 | A‑10 | **Global language leakage** | Description reads as universal definition rather than Context‑local. | Breaks locality; fuels conflicts.         | Prefix mentally with the Context; rewrite locally (IDS‑2).                                        |
 
-### E.10.D2:9 - Worked examples (multi‑architheory, didactic)
+### E.10.D2:9 - Worked examples (didactic)
 
 > Each vignette shows **intension ↔ Description/Spec ↔ Evaluation** with **context‑local** wording. No workflows; only thinking moves.
 
@@ -355,7 +355,7 @@ No “workflow” required in the Description.
 
 **Is used by.**
 
-* **Part C architheories.** Sys‑CAL, KD‑CAL, Kind-CAL, Method‑CAL cite `…Description/…Spec` epistemes explicitly and consume **state attestations** from `U.Evaluation`.
+* **Part C Extention Patterns.** Sys‑CAL, KD‑CAL, Kind-CAL, Method‑CAL cite `…Description/…Spec` epistemes explicitly and consume **state attestations** from `U.Evaluation`.
 * **Part B trust calculus.** Uses the presence/absence of harnessed Specs and the windowed nature of attestations in confidence roll‑ups.
 
 ### E.10.D2:11 - Migration notes (conceptual refactor playbook)

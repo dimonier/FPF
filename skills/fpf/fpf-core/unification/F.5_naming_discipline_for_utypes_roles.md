@@ -1,6 +1,6 @@
 ## F.5 - Naming Discipline for U.Types & Roles
 
-**Status.** Definitional pattern, architheory‑agnostic.
+**Status.** Definitional pattern.
 **Depends on.** E.10.D1 **Lexical Discipline for “Context” (D.CTX)**; **E.10.D2 Intension–Description–Specification (I/D/S)**; F.1 **Domain‑Family Landscape Survey**; F.2 **Term Harvesting & Normalisation**; F.3 **Intra‑Context Sense Clustering**; F.4 **Role Description Definition**; A.7 **Strict Distinction**; A.11 **Ontological Parsimony**; F.0.1 **context‑local Lexicon Principle (RLP)**.
 **Coordinates with.** F.7 **Concept‑Set Table**; F.8 **Mint or Reuse?**; F.9 **Alignment & Bridge**; F.13 **Term Registry & Deprecation**.
 **Aliases (informative).** *Context‑true naming*; *Two‑register labels*.
@@ -193,7 +193,7 @@ Tech: **Type Node** - Plain: *a node in a type hierarchy or lattice*
 | **A15** | **Decorative adjectives**   | `Robust Process`, `Best‑practice Method`                           | Marketing words displace semantics                                 | Drop rhetoric; name the **kind**, not its quality. (R‑RD‑8)                                                        |
 
 
-### F.5:12 - Worked examples (multi‑architheory)
+### F.5:12 - Worked examples
 
 > Each example shows the **reasoning move** that leads to the label; no procedures, no tooling.
 

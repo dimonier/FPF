@@ -1,6 +1,6 @@
 ## C.23 - MethodFamily Evidence & Maturity (Method‑SoS‑LOG)
 
-*Architheory: LOG (deductive shells for admissibility)*
+*LOG (logic) for deductive shells for admissibility*
 *First use expansion:* **SoS‑LOG = Science‑of‑Science LOG** (LEX short‑form discipline applied).
 
 **HomeContext.** For this pattern, *HomeContext* means the `U.BoundedContext` where a `MethodFamily` is registered (LEX D.CTX).

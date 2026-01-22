@@ -1,7 +1,7 @@
 ## F.1 - Domain‑Family Landscape Survey
 
 **“Fix the context of meaning before you name anything.”**
-**Status.** Architectural pattern, architheory‑agnostic.
+**Status.** Architectural pattern.
 **Depends on.** E.10.D1 **Lexical Discipline for “Context” (D.CTX)**; **F.0.1 Contextual Lexicon Principles**; A.7 **Strict Distinction (Clarity Lattice)**; A.11 **Ontological Parsimony**.
 **Coordinates with.** F.2 **Term Harvesting & Normalisation**; F.3 **Intra‑Context Sense Clustering**; F.4 **Role Description**; F.9 **Alignment & Bridge Across Contexts**; **G.0–G.1** *(Scope/describedEntity handoff)*.  *(Bridges live only in F.9.)*
 
@@ -11,7 +11,7 @@
 
 **Intent.** Establish a **finite set of U.BoundedContext** (“**context of meaning**”), each tied to an authoritative source or canon within a **domain family**, so that all later moves (term harvesting, clustering, role naming, cross‑context bridges) operate on **local meanings** rather than on drifting, globalised words.
 
-**Applicability.** Use **at the start** of any unification effort for **any architheory** (Enactment (`U.RoleAssignment` + `U.RoleEnactment`), Sys-CAL, KD-CAL, Kind-CAL, LCA-CAL…) and **whenever** a discipline canon materially changes (new edition, re-framing, seminal result).
+**Applicability.** Use **at the start** of any unification effort for **any FPF pattern** (Enactment (`U.RoleAssignment` + `U.RoleEnactment`), Sys-CAL, KD-CAL, Kind-CAL, LCA-CAL…) and **whenever** a discipline canon materially changes (new edition, re-framing, seminal result).
 
 **Non‑goals.** No tooling, workflow, or editorial roles. No global ontology. No cross‑context equations. This pattern describes **how to think**, not how to store.
 
@@ -54,7 +54,7 @@ A *Context of meaning* is a **U.BoundedContext** (per D.CTX) that encloses a coh
 ### F.1:6 - Solution — the Contexts‑first survey (conceptual, notation‑free)
 
 **Step 1 — Declare your unification line(s).**
-State which architheory threads are in play (e.g., *Enactment + KD‑CAL sensing + Sys‑CAL execution*). This keeps the cut purposeful.
+State which FPF pattern threads are in play (e.g., *Enactment + KD‑CAL sensing + Sys‑CAL execution*). This keeps the cut purposeful.
 
 **Step 2 — Cut the landscape by domain families.**
 For each line, **select at least three distinct domain families** (heterogeneity guard). Examples:
@@ -167,7 +167,7 @@ Declare **DomainDistance** policy (cosine or transport) and δ_family threshold;
 | **A10** | **Didactic bloat**         | Context Card spills into pages of notes.                                             | Teaching burden overwhelms the core idea.                      | **One‑screen Card**; everything else belongs to later patterns (§7.1–§7.2).                                             |
 | **A11** | **Family‑based inference** | Treating Domain‑family membership as implying similarity/equivalence. | Smuggles semantics via shelf labels; breaks locality. | **Domain family is informative only**; locality and any Cross‑context relation must be explicit (F.9). |
 
-### F.1:12 - Worked examples (multi‑architheory cuts)
+### F.1:12 - Worked examples
 
 > Each example shows **the cut** (the Contexts you keep in view) and the **thinking pay‑off** you get *before* any harvesting, clustering, or bridging.
 
@@ -291,7 +291,7 @@ A.11 **Ontological Parsimony** — motivates the small cut.
 **F.9** (Alignment & Bridge): only F.9 may relate Contexts; never F.1–F.4.
 
 **Used by.**
-Architheories in Part C (Sys‑CAL, KD‑CAL, Kind-CAL, Method‑CAL, LCA‑CAL) as the *lexical starting grid* for their examples and definitions.
+Extention patterns in Part C (Sys‑CAL, KD‑CAL, Kind-CAL, Method‑CAL, LCA‑CAL) as the *lexical starting grid* for their examples and definitions.
 
 
 ### F.1:16 - Migration notes (conceptual)

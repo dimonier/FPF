@@ -1,5 +1,4 @@
 ## C.13 — Constructional Mereology (Compose‑CAL)
-*(architheory pattern; structural rung of the FPF ladder)*
 
 ### C.13:1 - Intent
 
@@ -9,7 +8,7 @@ Also known as *“Γₘ mereology”*, *“constructor‑based composition”*.
 
 **Layer.** *calculus.*
 **Depends on.** Kernel only (no upward imports).
-**Consumed by.** CT2R‑LOG (B.3.5) Working‑Model alias logic and any architheory that needs part–whole semantics. Compose‑CAL does **not** import alias definitions; it merely emits traces that others may reference.
+**Consumed by.** CT2R‑LOG (B.3.5) Working‑Model alias logic and any FPF pattern that needs part–whole semantics. Compose‑CAL does **not** import alias definitions; it merely emits traces that others may reference.
 
 Compose‑CAL introduces a **single construction operator Γₘ** with exactly three constructors—**sum**, **set**, **slice**—sufficient to build structural wholes, collections‑as‑wholes, and aspects **without** extending the Kernel’s type set. No “parallel” or “temporal slice” constructor is added. Every construction yields a **trace** that serves as the witness for structure. Human‑facing relations such as *ComponentOf*, *MemberOf*, *AspectOf* are defined elsewhere as **Working‑Model aliases** and are *grounded* in these traces; Compose‑CAL itself remains purely generative and extensional.
 
@@ -23,9 +22,9 @@ Declared lists of part‑of sub‑relations **scale poorly** and **lack identity
 ### C.13:3 - Forces
 
 * **Parsimony (C‑5).** Add no core types if composition suffices; keep the constructor set minimal.
-* **Minimal Kernel (P‑1).** Generativity must live in a plug‑in calculus, not in Kernel axioms.
+* **Minimal Kernel (P‑1).** Generativity must live in a calculus pattern, not in Kernel axioms and postulates.
 * **Cognitive asymmetry.** Everyday users want “one part‑of query”; specialists accept complexity backstage.
-* **Trans‑disciplinary unification.** Every architheory that needs mereology should reuse one *generative* basis.
+* **Trans‑disciplinary unification.** Every pattern that needs mereology should reuse one *generative* basis.
 * **Green‑field strictness.** With no legacy to break, we can require grounding for new structural edges.
 
 ### C.13:4 - Solution
@@ -188,7 +187,7 @@ Correctness‑by‑sequence and temporal coverage are orthogonal to **parthood**
 * **C.16 (Measurement substrate).** Supplies quantitative hooks when a constructive narrative benefits from explicit counts/ratios (e.g., cardinalities, coverage), while keeping metrics distinct from mereology.
 
 **Constrains**
-* Any architheory that **creates** or **reasons about** structural wholes SHOULD narrate them using only `sum | set | slice`.
+* Any pattern that **creates** or **reasons about** structural wholes SHOULD narrate them using only `sum | set | slice`.
 * Structural publication MUST NOT encode order/time; such claims belong to their dedicated flavours.
 * Introducing new structural constructors requires a separate parsimony argument and is discouraged unless the triad cannot narrate the case without ambiguity.
 

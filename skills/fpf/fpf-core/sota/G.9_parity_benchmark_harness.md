@@ -1,135 +1,394 @@
-## G.9 - Parity / Benchmark Harness
+## G.9 — Parity / Benchmark Harness
 
 **Tag:** Architectural pattern
 **Stage:** design‑time planning **+** run‑time execution (selector‑adjacent)
-**Primary hooks:** **G.5** (selector & portfolios), **G.6** (EvidenceGraph, PathId/PathSlice), **G.4** (Acceptance & CAL predicates), **C.23** (SoS‑LOG branches & maturity), **C.22** (TaskSignature S2), **C.18/C.19** (QD & E/E‑LOG policies), **G.7** (Bridge Matrix & CL calibration, BCT/Sentinels), **F.15** (RSCR parity/regression), **F.9** (Bridges & CL), **E.18/A.21/A.27** (GateCrossing & CrossingSurface), **E.5.2** (Notation‑independence).
-**Why this exists.** Rival **MethodFamilies/Traditions** are often “benchmarked” under different freshness windows, editions, or via illegal scalarisations; results cannot be lawfully compared or reproduced. **G.9** provides a *method of obtaining outputs*: a **parity plan + execution harness** that produces a **ParityReport@Context** consumable by **G.5**, with apples‑to‑apples baselines, lawful orders (often partial), and **PathId‑cited** provenance. IlluminationSummary (telemetry summary) and coverage/regret (telemetry metrics) are exposed as **report‑only telemetry** and **excluded from dominance by default**; any promotion into dominance must be explicit in CAL policy and the **policy‑id** must be recorded in SCR. Parity pins are **edition‑aware** and **bridge/plane‑aware** by construction.
-**Modularity note.** G.9 does **not** redefine SoS‑LOG or Acceptance; it **binds** them into a parity plan, calls the **G.5** selector in set‑returning mode, and **publishes** evidence per **G.6** with **GateCrossing visibility** (CrossingSurface, E.18/A.27). Thresholds remain in **G.4**; LOG semantics remain in **C.23**.
+**Primary hooks:** **G.Core** (core invariants & linkage catalogues), **G.5** (selector & portfolio semantics), **G.6** (EvidenceGraph, `PathId`/`PathSliceId`), **G.4** (Acceptance & CAL predicates), **G.0** (CG‑Spec legality surface), **A.19** (CN‑Spec contract surface), **C.22** (TaskSignature S2), **C.23** (SoS‑LOG branches & maturity; guard narration), **C.18/C.19** (QD & E/E‑LOG pins, when used), **G.7** (Bridge calibration / CL regimes; BCT/Sentinels), **F.15** (RSCR parity/regression harness), **F.9** (Bridges & CL), **G.11** (refresh orchestration), **G.10** (shipping), **E.18/A.21/A.27** (GateCrossing & CrossingSurface), **E.5.2** (notation‑independence), **E.10** (LEX discipline).
 
-### G.9:1 - Intent
+**Why this exists.** “Benchmarking” rival MethodFamilies/Traditions routinely fails for reasons that are *not* about compute: window mismatch, silent edition drift, unpinned comparator semantics, covert cross‑Context reuse, or “making a scalar winner” out of a partial order. **G.9** provides a **ParityPlan@Context** (WorkPlanning) and a **ParityReport@Context** (Work/Audit) that make parity runs **reproducible and audit‑addressable**, so that downstream selection (via **G.5**) can consume parity outcomes *without inventing new legality gates or “shadow” contract surfaces*.
+Illumination/coverage/regret signals are treated as **telemetry (report‑only by default)**; any promotion of telemetry into dominance is an **explicit CAL policy** and MUST be recorded via a pinned **policy‑id** in audit pins (the harness does not “smuggle” objectives).
 
-Provide a **notation‑independent** harness that designs and executes **lawful, edition‑aware** parity runs **across families/traditions**—with equal **freshness windows**, **editions**, **budgets**, and **Bridge/CL/CL^plane routing**—so that **G.5** can select **sets** (Pareto/Archive) without illicit scalarisation. Parity outputs are published as **`ParityReport@Context`** with **EvidenceGraph PathIds** and **CAL policy‑ids** for any non‑default dominance behaviour.
+**Modularity note.** G.9 does **not** redefine CN‑Spec, CG‑Spec, CHR, Acceptance, or SoS‑LOG semantics. It only **pins and wires** the relevant refs/editions/policy‑ids, executes parity as a **selector‑adjacent** harness, and publishes an auditable trace (EvidenceGraph paths + pins).
 
-When Characteristics live on different scales/units or spaces, parity **MUST** use **SCP‑based comparability** (“normalize, then compare”) before any numeric comparison, per the CG‑Spec/MM‑CHR legality.
+### G.9:1 — Intent
 
-### G.9:2 - Problem frame
+Provide a **notation‑independent** harness that:
 
-Benchmarks routinely compare unlike with unlike: different dataset editions, metric definitions, or QD grids; ordinal measures get averaged; illumination is mixed into dominance. Cross‑Context reuse skips **Bridges** and **CL penalties**. G.9 cures this by fixing a **BaselineSet**, **FreshnessWindows**, and a **ComparatorSet** bound to **CG‑Spec** characteristics and editions, then **driving** the selector to return **sets** under admissible orders and **publishing** legally interpretable results.  
+* plans parity runs with explicit scope (`describedEntity`, `ReferencePlane`, window), explicit contract surfaces (`CNSpecRef`, `CGSpecRef`, `ComparatorSpecRef`) and explicit reproducibility pins (editions + policy‑ids);
+* executes parity in a way that is consumable by **G.5** (portfolio/set outcomes, DRR/SCR evidence trace);
+* publishes **ParityReport@Context** suitable for downstream consumption, shipping, and refresh/RSCR wiring.
 
-### G.9:3 - Forces
+### G.9:2 — Problem frame
 
-* **Pluralism vs comparability.** Rival traditions must be comparable **without** semantic collapse; comparisons cross **Bridges**, incur **CL→R** penalties only. 
-* **Partial orders vs totals.** Many targets remain **partially ordered**; the harness must not force totals; **return sets**. 
-* **Edition‑awareness.** QD/OEE outcomes depend on **`DescriptorMapRef.edition`**, **`DistanceDefRef.edition`**, **Emitter/Insertion** policies; parity must *pin* them. 
-* **Telemetry vs objectives.** **IlluminationSummary** (telemetry summary) and **coverage/regret** (telemetry metrics) inform health but are **report‑only by default**; dominance may only change via CAL policy‑id (recorded in SCR). 
-* **GateCrossing visibility.** Crossings/gates must be visible via **CrossingSurface** (**E.18**; **A.27**; **F.9**) and must pass **LanePurity** + **Lexical SD** GateChecks (A.21/E.10); failures block publication.
+Parity claims become non‑reproducible or non‑comparable when any of the following are implicit:
 
-### G.9:4 - Solution — *Plan parity; execute once; publish sets with path‑cited evidence*
+* evidence window / freshness regime,
+* comparator semantics (including any normalization / comparability mapping),
+* method‑family “measurement” edition pins (incl. DHC method/spec),
+* cross‑Context reuse (bridges / plane routing / CL penalties),
+* dominance/portfolio interpretation rules,
+* gate outcomes (why a run abstained or degraded).
 
-#### G.9:4.1 - Objects (LEX heads; twin‑register discipline)
+G.9’s role is to force these to be **pinned and publishable** as a *method of obtaining outputs* (MOO) without introducing new contract surfaces.
 
-* **`ParityPlan@Context`** — design‑time object that fixes comparison terms:
-  `⟨PlanId(UTS), CG‑FrameId, HomeContext, BaselineSet, FreshnessWindows, ComparatorSet(id), Budgeting, ε, BridgeIds[], ΦPolicyIds[], EvidenceGraphRef(A.10), EditionPins, PortfolioMode, DominanceRegime, Notes⟩`.
+### G.9:3 — Forces
 
-* **`EditionPins`** (when QD/OEE):
-  `⟨DescriptorMapRef.edition, DistanceDefRef.edition, DHCMethodRef.edition, DHCMethodSpecRef.edition, CharacteristicSpaceRef.edition?, EmitterPolicyRef, InsertionPolicyRef, (OEE) TransferRulesRef.edition⟩`.
+* **Pluralism vs comparability.** Multiple Traditions must be comparable *without semantic collapse*.
+* **Partial orders.** Many targets are only partially ordered; parity reporting must preserve lawful outcome shape (often portfolios/archives rather than a single scalar).
+* **Edition sensitivity.** Parity must be robust to silent drift in measurement/comparator definitions. When DHC/QD/OEE modes are used, the required definition pins are introduced only via the corresponding `Extensions` blocks (nil‑elision when unused).
+* **Telemetry vs objectives.** IlluminationSummary and coverage/regret are telemetry: **report‑only by default**; dominance changes require explicit CAL policy ids (recorded in audit pins).
+* **GateCrossing visibility.** Any crossings/gates used by parity must be visible and auditable via CrossingSurface + GateCrossing checks; failures block parity publication/consumption.
+* **Cross‑Context reuse.** Any reuse across contexts/planes must be explicit, auditable, and penalty‑routed.
+* **Refreshability.** Parity must emit RSCR‑relevant causes as canonical ids, with enough pins to re‑run.
 
-* **`ComparatorSet`** — a set of **CG‑Spec‑bound** characteristics with declared **Scale kind, units, polarity**, lawful order (≤, ≽, lexicographic, Pareto), **ReferencePlane**, and the **editions used by any measures** (`DHCMethodRef.edition`/**`DHCMethodSpecRef.edition`**, `DistanceDefRef.edition`). **Ordinal averages are forbidden.** Where spaces/scales differ, parity **MUST** declare the **UNM/NormalizationMethod‑based mapping** used to lawfully embed one coordinate space into the other prior to comparison. Any numeric comparison/aggregation **must** be CSLC‑lawful and cite the corresponding CG‑Spec entry.
+### G.9:4 — Solution
 
-* **`ParityReport@Context`** — run‑time publication object (below §5).
+#### G.9:4.0 — G.Core linkage (normative)
 
-**Naming discipline.** Heads reuse existing U‑types and LEX rules; **no new “Strategy” U.Type** is minted (policies live in **E/E‑LOG**). Tech/Plain twins follow **E.10**. 
+This pattern is **core‑invariant‑bearing** and therefore binds to **G.Core** by declaration (not by restating invariants here).
 
-#### G.9:4.2 - Parity planning (design‑time; notation‑independent)
+**GCoreLinkageManifest (G.9)** *(normative; expands per `G.Core:4.2`)*  
+Effective obligations/pins/triggers are computed as **union(expand(sets), explicit deltas)** under `Nil‑elision`.
 
-1. **Fix the BaselineSet.** Choose **MethodFamilies** (and, if present, **GeneratorFamilies**) to compare; cite **SoS‑LOG bundle ids** and **MaturityCard** rungs for context; thresholds stay in **Acceptance**. Where cross‑Tradition reuse occurs, ensure corresponding **G.7 BridgeCards** and **Calibration Ledger/BCT** entries exist and are referenced by id.
-2. **Equalise FreshnessWindows.** Declare **identical** evidence windows for all baselines; record **lanes** (TA/VA/LA) and carriers in **A.10**. 
-3. **Pin editions.** Freeze **`DHCMethodRef.edition`/`DHCMethodSpecRef.edition`/`DistanceDefRef.edition`**, `DescriptorMapRef.edition`, and (if applicable) **`CharacteristicSpaceRef.edition`**; pin `EmitterPolicyRef` and `InsertionPolicyRef`; in OEE also **`TransferRulesRef.edition`**. 
-4. **Bind ComparatorSet to CG‑Spec.** For every numeric operation, cite **CG‑Spec.Characteristics** and prove **CSLC** legality; attach **ReferencePlane**. Where scales/units/spaces differ, declare the **UNM**/**NormalizationMethod(s)** used (“normalize, then compare”) and its lawful scope.
-5. **Declare order & portfolio semantics.** **Default** `DominanceRegime = ParetoOnly`; **IlluminationSummary** is a **telemetry summary** (report‑only) unless CAL declares `ParetoPlusIllumination` by id (policy‑id recorded in SCR); choose `PortfolioMode ∈ {Pareto|Archive}`. If ε‑front thinning is used, declare **`EpsilonDominance (ε≥0)`** explicitly and cite policy/edition where relevant.
-6. **Route crossings.** Where Traditions/planes or Kinds differ, require **Bridge ids** and publish **Φ(CL)**/**Φ_plane** (and, where used, **Ψ(CL^k)**) policy‑ids; penalties **reduce R_eff only**; **F/G invariant**. 
+* `CoreConformanceProfileIds` := {
+  `GCoreConformanceProfileId.PartG.AuthoringBase`,
+  `GCoreConformanceProfileId.PartG.TriStateGuard`,
+  `GCoreConformanceProfileId.PartG.ShippingBoundary`,
+  `GCoreConformanceProfileId.PartG.UTSWhenPublicIdsMinted`
+  }
 
-#### G.9:4.3 - Execution protocol (run‑time; selector‑adjacent)
+* `RSCRTriggerSetIds` := {
+  `GCoreTriggerSetId.CGSpecGate`
+  }
+* `RSCRTriggerKindIds` := {
+  `RSCRTriggerKindId.EvidenceSurfaceEdit`,
+  `RSCRTriggerKindId.PenaltyPolicyEdit`,
+  `RSCRTriggerKindId.BaselineBindingEdit`,
+  `RSCRTriggerKindId.TelemetryDelta`
+  }
+  *(Pattern‑local deltas; cross‑tradition / bridge‑calibration causes are wired via `G.9:Ext.CrossTraditionParity` and MUST NOT over‑trigger baseline (within‑context) parity runs.)*
 
-* **E1 - Gate on legality.** Run **Eligibility → Acceptance** on the shared **S2 TaskSignature**; refuse illegal CHR ops (e.g., ordinal means). 
-* **E2 - Call G.5 with parity pins.** Execute **G.5.Select** under the parity **ComparatorSet**/**EditionPins**; **return a set** (Pareto/Archive) when order is non‑total; record **Bridge/Φ/Φ_plane** (and **Ψ**, if kind‑bridges apply) policy‑ids and compute **R_eff** with penalties *to R only*. If **UNM**/**NormalizationMethod(s)** were declared, record their ids/notes in SCR and cite the applicable PathIds.
-* **E3 - Report telemetry.** Publish **IlluminationSummary** (Q/D/QD‑score) as a **telemetry summary** and **coverage/regret** as **telemetry metrics**; keep them **excluded from dominance by default** unless a CAL policy explicitly promotes them (policy‑id recorded in SCR). 
-* **E4 - Cite paths.** Every inclusion/exclusion decision **cites EvidenceGraph PathId(s)**; path‑local **PathSliceId** is emitted for editioned QD/OEE events. 
-* **E5 - Telemetry for refresh.** On illumination increase or archive change, log **policy‑id** and **editions** (`DescriptorMapRef`/`DistanceDefRef`/`CharacteristicSpaceRef`/`DHCMethodSpecRef`/`TransferRulesRef`), enabling **G.11** refresh and **F.15 RSCR** triggers. 
+* `DefaultsConsumed` := {
+  `DefaultId.DominanceRegime`,
+  `DefaultId.PortfolioMode`,
+  `DefaultId.GammaFoldForR_eff`
+  }
+  *(Owners are routed via `G.Core.DefaultOwnershipIndex` (not restated here); expected owners include `CC‑G5.28`, `CC‑G5.23`, `CC‑G5.4` respectively.)*
 
-#### G.9:4.4 - QD & OEE parity (specialisations)
+* `CorePinSetIds` := {
+  `GCorePinSetId.PartG.AuthoringMinimal`,
+  `GCorePinSetId.PartG.CrossingVisibilityPins`
+  }
 
-* **QD parity.** Require identical **CharacteristicSpace** resolution/topology and **`CharacteristicSpaceRef.edition`**, plus **`DescriptorMapRef.edition`**, **`DistanceDefRef.edition`**, **InsertionPolicyRef**, **EmitterPolicyRef** across families during comparison; **IlluminationSummary** remains a **telemetry summary** (report‑only) unless CAL promotes it into dominance (policy‑id recorded in SCR). 
-* **OEE parity (POET/Enhanced‑POET/DGM‑class).** Declare a shared **`EnvironmentValidityRegion`** and **`TransferRulesRef.edition`**; outputs are **{environment, method}** portfolios; **coverage/regret** are **telemetry metrics** (report‑only). 
+* `CorePinsRequired` *(pattern delta; pin names only; all are id‑valued unless noted)* := {
+  `ComparatorSpecRef.edition`,
+  `FreshnessWindows`,
+  `BaselineSet`, `BaselineBindingRef`,
+  `ParityPinSet`,
+  `PlanItemRefs[]?`,
+  `EvidenceGraphId`,
+  `Budgeting?`,
+  `EpsilonDominance?`,
+  `UNM_id?`, `NormalizationMethodId[]?`, `NormalizationMethodInstanceId[]?`,
+  `SCPRef.edition?`, `MinimalEvidenceRef.edition?`
+  }
+*(Nil‑elision applies; mode‑specific definition pins are introduced only by the corresponding `GPatternExtension` blocks.)*
 
-### G.9:5 - Interfaces — minimal I/O (conceptual; Core‑only)
+* `TriggerAliasMapRef` := `∅`
 
-| Interface                          | Consumes                                                                                                  | Produces                                                                                                                                                                                                                    |
-| ---------------------------------- | --------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **G.9‑1 `Plan_Parity`**            | BaselineSet; FreshnessWindows; **CG‑Spec** ids; **SoS‑LOG bundles**; Bridges/Φ; EditionPins; Budgeting; ε | **`ParityPlan@Context`** (UTS row; editioned)                                                                                                                                                                               |
-| **G.9‑2 `Run_Parity`**             | `ParityPlan@Context`; `TaskSignature (S2)`; **G.5.Select**                                                | Selector outputs (**set** per `PortfolioMode`), DRR+SCR with **PathIds/PathSliceId**, Portfolio Pack                                                                                                                        |
-| **G.9‑3 `Publish_ParityReport`**   | Run artefacts; Telemetry                                                                                  | **`ParityReport@Context`**: `⟨BaselineSet, FreshnessWindows, ComparatorSet(id), EpsilonDominance ε?, PathIds[], AbstainReasons[], Portfolio, Telemetry{IlluminationSummary, coverage, regret}, DHCMethodRef.edition/DHCMethodSpecRef.edition/DistanceDefRef.edition/CharacteristicSpaceRef.edition?, EditionPins, CalibrationLedgerId?/BCT.id?, RSCRRefs[]⟩` |
-| **G.9‑4 `Expose_ParityTelemetry`** | Archive/regret signals; illumination deltas                                                               | Telemetry events (`PathSliceId`, **policy‑id**, editions) for **G.11** refresh/**F.15** RSCR                                                                                                                                |
+#### G.9:4.1 — Objects and surfaces
 
-Surfaces are **conceptual**; serialisations belong to **G.10 Annex/Interop** (no tool lock‑in). 
+All objects below are **notation‑independent**; serialisations (if any) live under shipping/interop ownership, not here.
 
-### G.9:6 - Conformance Checklist (CC‑G9)
+**(1) `ParityPlan@Context`** *(WorkPlanning surface)*
+A plan that fixes *what is being compared* and *under what pinned conditions*.
 
-1. **Equal windows & editions.** All baselines **SHALL** use **identical FreshnessWindows** and **pinned editions** for **`DHCMethodRef`** and **`DistanceDefRef`**; QD pins include `DescriptorMapRef.edition`, `CharacteristicSpaceRef.edition` (if applicable), `DistanceDefRef.edition`, and `Emitter/Insertion` policies. 
-2.  **Spec‑level pin.** Where DHC methods are used, parity **SHALL** also pin **`DHCMethodSpecRef.edition`** to forbid silent spec drift and to enable RSCR triggers.
-3. **Lawful orders; no scalarisation.** The harness **MUST NOT** force a total order where only partial orders are lawful; return **Pareto/Archive** and tie‑notes; **no ordinal averages**. 
-4. **Normalization discipline.** If Characteristics differ by unit/scale/space, parity **MUST** declare lawful **UNM**/**NormalizationMethod(s)** and compare only after normalizing to **NCVs** (“normalize, then compare”).
-5. **Default dominance.** `DominanceRegime` **SHALL** default to **`ParetoOnly`**; any inclusion of illumination into dominance **MUST** be a CAL policy with **policy‑id** cited in SCR. 
-6. **Bridge routing.** Cross‑Context/plane/Kind use **MUST** cite **Bridge ids** and **Φ(CL)**/**Φ_plane** (and **Ψ(CL^k)** where used); penalties **→ R_eff only**; **F/G invariant**. 
-7. **Path citation.** Every parity decision **MUST** cite **EvidenceGraph PathId(s)** (and **A.10** anchors); refusal paths included. 
-8. **Telemetry for illumination/OEE.** Any illumination increase or OEE transfer **MUST** log `PathSliceId`, **policy‑id**, and active editions (incl. **`CharacteristicSpaceRef.edition`** and **`TransferRulesRef.edition`**). 
-9. **RSCR parity tests.** Publish RSCR tests covering **negative/refusal paths** (illegal CHR, missing Bridges/Φ tables, edition drift). 
-10. **GateCrossing visibility (CrossingSurface).** Any cited crossing **MUST** publish **CrossingSurface** (**E.18:CrossingSurface**) and satisfy **LanePurity** and **Lexical SD** (E.10); failures block publication. 
-11. **Tech‑register discipline.** Do not use the noun *metric* as a Tech primitive; cite **`DHCMethodRef`**/**`U.Measure`** and **`DistanceDefRef`** editions.
-12. **MOO surfaced (parity).** Method-of-obtaining-output: `Run_Parity` **MUST** record the **ParityHarnessId** and any active **EmitterPolicyRef/InsertionPolicyRef** (where QD applies), together with the **CAL policy‑id** for any non‑default dominance. These ids **SHALL** appear in **SCR** and parity telemetry (PathSlice‑keyed). (No scalarisation is introduced by this reporting.)
+Minimal fields (conceptual; ids/pins only):
 
-### G.9:7 - Anti‑patterns & remedies
+`ParityPlan@Context := ⟨  
+  ParityPlanId(UTS),  
+  CGFrameId?,                              // or CG-FrameContext id/scope anchor used by the owner surfaces
+  describedEntity := ⟨GroundingHolon, ReferencePlane⟩,
+  UNM_id?, NormalizationMethodId[]?, NormalizationMethodInstanceId[]?, // when “normalize, then compare” is required (ids only; semantics owned by CN‑Spec / UNM)
+  EpsilonDominance?,                       // optional ε-front thinning (ε≥0; id/param; pinned when used)
+  PortfolioMode?, DominanceRegime?,         // may be explicit or routed via DefaultOwnership (semantics owned by G.5)
+  HomeContextId,  
+  BaselineSet,                            // method-family / generator-family baseline scope (ids; notation-independent)  
+  BaselineBindingRef,                      // e.g., EvidenceGraph/PathSlice binding to “what counts as baseline”  
+  FreshnessWindows,  
+  CNSpecRef.edition, CGSpecRef.edition, ComparatorSpecRef.edition, // edition-pinned refs
+  SCPRef.edition?,                         // optional (when a specific SCP profile must be pinned/cited)
+  MinimalEvidenceRef.edition?,             // optional (when CG-Spec exposes minima profiles by ref)
+  Budgeting?,  
+  ParityPinSet,  
+  PlanItemRefs[]?                          // references to A.15.3 SlotFillingsPlanItem (planned baseline), when parity depends on planned slot fillings  
+⟩`
 
-* **AP‑1 Hidden edition drift.** *Remedy:* Pin editions in `EditionPins`; re‑run RSCR on any change. 
-* **AP‑2 Averaging ordinals.** *Remedy:* CG‑Spec guards + CSLC proofs; report as **ordinal compare‑only**. 
-* **AP‑3 Illumination in dominance by default.** *Remedy:* Keep **IlluminationSummary** as a **report‑only telemetry summary** (and coverage/regret as **telemetry metrics**); promote only via CAL policy‑id (recorded in SCR). 
-* **AP‑4 Bridge‑free crossings.** *Remedy:* Require **Bridge** with **CL** and **loss note**; penalties to **R**. 
-* **AP‑5 “Metric” as a primitive in Tech.** *Remedy:* Use **`DHCMethodRef`**/**`U.Measure`** and **`DistanceDefRef`** with editions; in Plain register *metric* may appear only as a didactic synonym with an explicit pointer to canonical terms.
-* **AP‑6 Hidden spec drift.** *Remedy:* Pin **`DHCMethodSpecRef.edition`** and register RSCR tests for spec changes; refuse parity reuse on unpinned spec editions.
+**(2) `ParityPinSet`** *(surface)*
+A declared set of pins required for reproducibility and audit (editions + policy‑ids + UTS/Path pins).
+The concrete contents are *pattern‑local* (G.9 owns the surface), but must satisfy the *core pin discipline* via G.Core.
 
-### G.9:8 - Archetypal grounding (informative, SoTA‑oriented)
+**(3) `ParityReport@Context`** *(Work / Audit surface)*
+A publication object produced by executing a ParityPlan.
 
-**Show‑A - Decision‑making multi‑Tradition parity (EU/MCDA vs Causal vs Offline‑RL/DT vs BO).**
-*Plan.* Equal **freshness** (e.g., rolling 24 mo); ComparatorSet uses **ordinal** preference and **ratio** risk (CVaR). *Execution:* selector returns a **Pareto set**; **no cross‑ordinal weighting**; **regret** reported as a **telemetry metric** (report‑only).  
+`ParityReport@Context := ⟨  
+  ParityReportId(UTS),  
+  ParityPlanId,  
+  BaselineSet, FreshnessWindows,  
+  CNSpecRef.edition, CGSpecRef.edition, ComparatorSpecRef.edition,  
+  SCPRef.edition?, MinimalEvidenceRef.edition?,             // echoed iff used/pinned in the plan
+  UNM_id?, NormalizationMethodId[]?, NormalizationMethodInstanceId[]?, // echoed iff used in the plan
+  OutcomeRefs,                              // portfolio / archive / set outcomes (as refs to selector outputs)  
+  EpsilonDominance?,                        // echoed when used
+  AbstainReasons[]?,                        // ids/labels (policy-bound) for abstain/degrade; refusal paths included
+  TelemetrySummary? := ⟨IlluminationSummary?, coverage?, regret?⟩,  // report-only by default; promotion requires CAL policy-id pins
+  GuardOutcomeTraceRef?,                    // pass/degrade/abstain trace + cited reasons (policy-bound)  
+  EvidenceTrace := ⟨EvidenceGraphId, PathId[], PathSliceId?⟩,  
+  CrossingPins?,                            // Bridge/CL/Φ/Ψ/Φ_plane pins, when crossings are invoked  
+  EditionPinsDelta?,                        // explicit list of edition pins actually active during the run  
+  PolicyPinsDelta?,                         // explicit list of policy-ids actually active during the run  
+  RSCRRefs[]                                // parity RSCR test ids / trigger emissions  
+⟩`
 
-**Show‑B - QD parity (MAP‑Elites / CMA‑ME / DQD / QDax‑class).**
-*Plan.* `PortfolioMode=Archive`, fixed grid (or CVT), **CharacteristicSpaceRef.edition=v1**, **DescriptorMapRef.edition=v2**, **DistanceDefRef.edition=v2**, `EmitterPolicyRef=v3`, `InsertionPolicyRef=elite‑replace`. *Execution:* **Archive** is the returned set; **IlluminationSummary (Q/D/QD‑score)** reported; **dominance = ParetoOnly** unless CAL says otherwise.  
+**Naming discipline.**
 
-**Show‑C - OEE parity (POET/Enhanced‑POET/DGM‑class).**
-*Plan.* Shared **`EnvironmentValidityRegion`** and **`TransferRulesRef.edition`**; ComparatorSet ties coverage to **telemetry‑metric** semantics; selector returns **{environment, method}** portfolios. *Execution:* **coverage/regret** recorded as **telemetry metrics**; edition & **policy‑id** bumps logged with **PathSliceId**; where QD is active, also log **`CharacteristicSpaceRef.edition`**.
+* Heads reuse existing U‑types and LEX discipline; no new “strategy” primitive is minted here.
+* Tech/Plain twins follow E.10 rules (no drift‑inducing synonyms in Tech).
 
-> *Didactic note.* These examples follow **“single call, many solvers”** and **portfolio‑first** selection idioms (akin to **DifferentialEquations.jl**/**JuMP**) that **G.5** expects; G.9 supplies the *parity scaffolding* around those calls. 
+#### G.9:4.2 — Parity planning (design‑time / WorkPlanning)
 
-### G.9:9 - Payload — what this pattern *exports*
+Planning is the act of making the parity run *reproducible by construction*:
 
-**`ParityReport@Context`** (UTS row; editioned):
-`⟨BaselineSet, FreshnessWindows, ComparatorSet(id), EpsilonDominance ε?, Portfolio(Set | Archive), Telemetry{IlluminationSummary, coverage, regret}, PathIds[], PathSliceId?, BridgeIds[], ΦPolicyIds[]/Φ_plane?/Ψ(CL^k)?, DHCMethodRef.edition/DHCMethodSpecRef.edition/DistanceDefRef.edition/CharacteristicSpaceRef.edition?, EditionPins, CalibrationLedgerId?/BCT.id?, AbstainReasons[], RSCRRefs[]⟩`.
+1. **Fix the baseline set.** Choose the `BaselineSet` (MethodFamilies, and optionally GeneratorFamilies) to compare; where parity context matters, cite `SoS‑LOGBundleId?` / maturity‑rung ids by reference (thresholds remain in `G.4` Acceptance).
+2. **Bind scope.** Fix `describedEntity := ⟨GroundingHolon, ReferencePlane⟩` and record it in the plan (no silent widening/narrowing).
+3. **Define baseline binding.** Declare what counts as “baseline set” and how it is cited (e.g., `BaselineBindingRef` pointing to an EvidenceGraph slice or an upstream shipped artefact id).
+4. **Equalise window (and budget, if pinned).** Declare a single `FreshnessWindows` and apply it across all baselines; if `Budgeting` is used/pinned, it MUST be shared/pinned across baselines as well.
+5. **Pin contract surfaces.** `CNSpecRef`, `CGSpecRef`, and `ComparatorSpecRef` are referenced with explicit edition pins.
+6. **Pin measurement/comparator definitions (conditional).** Where parity depends on mode‑specific artefacts (e.g., DHC/QD/OEE), pin the relevant definition ids/editions/policies. The minimum required pins are declared by the applicable `Extensions` blocks (e.g., `G.9:Ext.DHCParityPins`, `G.9:Ext.QDArchiveParity`, `G.9:Ext.OEEParity`) and the owner surfaces they cite.
+7. **Bind comparator choice to CG‑Spec (legality).** Any numeric comparison/aggregation MUST be CSLC‑lawful and cite the corresponding CG‑Spec entry (via `ComparatorSpecRef`). If Characteristics differ by unit/scale/space, the plan MUST declare the ids used for “normalize, then compare” (`UNM_id?`, `NormalizationMethodId[]?`, `NormalizationMethodInstanceId[]?`) — ids only; semantics is owned elsewhere.
+8. **Declare order & portfolio semantics.** Parity MUST preserve set‑return semantics; `PortfolioMode`/`DominanceRegime` are either explicitly pinned or routed via `G.Core.DefaultOwnershipIndex`. IlluminationSummary/coverage/regret remain telemetry unless a CAL policy explicitly promotes them (policy‑id pinned & recorded).
+9. **Attach planned baselines (when applicable).** If parity depends on planned slot fillings, the plan cites the relevant `SlotFillingsPlanItem` refs (A.15.3) via `PlanItemRefs[]` rather than embedding a competing baseline object (nil‑elision when unused).
+10. **Route crossings (when invoked).** Cross‑Context/plane/Kind reuse requires explicit Bridge/CL/Φ pins; penalties route to `R_eff` only (invariants routed via `G.Core`).
 
-**Plus:** DRR+SCR bundle; **Portfolio Pack**; **Run‑safe Plan**; Telemetry events for **G.11** refresh. 
+#### G.9:4.3 — Execution protocol (run‑time / selector‑adjacent)
 
-### G.9:10 - Relations
+Execution is **one run** under the pinned plan:
 
-**Builds on:** **G.5** (set‑returning selector), **G.6** (PathIds, PathSlice), **G.4** (Acceptance thresholds), **C.23** (SoS‑LOG duties), **C.22** (S2 typing), **C.18/C.19** (QD/E‑E), **F.15** (RSCR harness), **F.9** (Bridges/CL).  
-**Publishes to:** **UTS** (plans/reports; twin labels), **G.11** (refresh signals), **G.10** (shipping surface, Annex mappings). 
-**Constrains:** **G.5** callers to cite **policy‑ids & editions** in portfolios; **G.12** dashboards to treat parity telemetry lawfully. 
+1. **Gate on legality & pins.** Validate pins and legality‑gate availability; run eligibility/acceptance checks under the plan’s `TaskSignature (S2)` and refuse/abstain on illegal ops (record trace; no “fourth status”).
+2. **Invoke selection/dispatch.** Call **G.5** under the plan’s pinned refs and emit selector outputs in a form consistent with G.5’s portfolio semantics.
+3. **Record comparability mapping (when used).** If `UNM_id?` / `NormalizationMethodId[]?` / `NormalizationMethodInstanceId[]?` were declared, **echo them** in `ParityReport@Context` (or in its explicit pins deltas) and record their ids (and any scoped notes required by the owner surface) in audit pins/SCR; cite the applicable `PathId`s.
+4. **Publish trace.** Emit `ParityReport@Context` with EvidenceGraph citations and all active pins (editions/policy‑ids), so the run can be re‑checked and re‑run.
+5. **Emit telemetry hooks (optional, report‑only).** When telemetry is produced, it is emitted as telemetry pins/events for refresh wiring (not as a silent change in dominance interpretation).
 
-### G.9:11 - Author’s quick checklist
+#### G.9:4.9 — Extensions (pattern‑scoped; non‑core)
 
-1. **Plan**: fix BaselineSet (≥2 traditions), equal FreshnessWindows, **ComparatorSet** bound to **CG‑Spec** (CSLC proofs attached; **UNM**/**NormalizationMethod(s)** declared where needed). 
-2. **Pin** editions (`DescriptorMapRef`/`DistanceDefRef`/`DHCMethodRef`/**`DHCMethodSpecRef`**/`Emitter`/`Insertion`/`TransferRulesRef` if OEE). 
-3. **Declare** `PortfolioMode` and **default** `DominanceRegime=ParetoOnly`; if changing, cite CAL **policy‑id**. 
-4. **Route** crossings via Bridges; publish **Φ(CL)**/**Φ_plane**; penalties → **R_eff only**. Reference **G.7** **Calibration Ledger/BCT** ids for the crossings used.
-5. **Execute** G.5; **return a set**; record DRR+SCR with **PathIds**/**PathSliceId**.  
-6. **Publish** `ParityReport@Context`; attach RSCR parity tests (refusal paths; edition drift). 
+The following blocks store **wiring only** (pins/refs/policy‑ids, relevant triggers, and `Uses`), while semantics is owned by the referenced patterns.
+
+**GPatternExtension block: `G.9:Ext.CrossTraditionParity`**
+**GPatternExtension: CrossTraditionParity**
+* **PatternScopeId:** `G.9:Ext.CrossTraditionParity`
+* **GPatternExtensionId:** `CrossTraditionParity`
+* **GPatternExtensionKind:** `DisciplineSpecific`
+* **SemanticOwnerPatternId:** `G.7`
+* **Uses:** `{G.7, F.9, E.18, A.21}`
+* **⊑/⊑⁺:** `∅`
+* **RequiredPins/EditionPins/PolicyPins (minimum; conditional on use):**
+  * `BridgeId/BridgeCardId[]`
+  * `BridgeMatrixId?`
+  * `CalibrationLedgerId?` / `BCT.id?`
+  * `RegressionSetId?` / `SentinelId[]?` *(when sentinel wiring is used)*
+  * `CL/CL^k/CL^plane`
+  * `Φ(CL) policy-id`, `Φ_plane policy-id`, `Ψ(CL^k) policy-id?`
+  * `CrossingSurfaceId?`
+* **RSCRTriggerSetIds:** `{GCoreTriggerSetId.BridgeCalibrationKit}` *(preferred; expands in `G.Core`)*  
+* **RSCRTriggerKindIds (delta, if any):** `∅`
+* **Notes (wiring-only):** This block does not define CL/Φ/Ψ semantics; it only requires the pins needed to cite calibration artefacts and crossing visibility surfaces.
+
+**GPatternExtension block: `G.9:Ext.SoSLogGuardNarration`**
+**GPatternExtension: SoSLogGuardNarration**
+* **PatternScopeId:** `G.9:Ext.SoSLogGuardNarration`
+* **GPatternExtensionId:** `SoSLogGuardNarration`
+* **GPatternExtensionKind:** `MethodSpecific`
+* **SemanticOwnerPatternId:** `C.23`
+* **Uses:** `{C.23, G.6, G.4}`
+* **⊑/⊑⁺:** `∅`
+* **RequiredPins/EditionPins/PolicyPins (minimum; conditional on use):**
+  * `SoSLogRuleId[]` / `BranchId[]` *(ids as cited labels; semantics owned by C.23)*
+  * `FailureBehaviorPolicyId/SoSLogBranchId`
+  * `EvidenceTrace.PathId[]` / `PathSliceId?`
+  * `AcceptanceClauseId[]` *(when referenced)*
+* **RSCRTriggerKindIds:** `{RSCRTriggerKindId.PolicyPinChange, RSCRTriggerKindId.EvidenceSurfaceEdit, RSCRTriggerKindId.MaturityRungChange, RSCRTriggerKindId.TelemetryDelta}`
+* **Notes (wiring-only):** Explains **why** a parity run degraded/abstained by citing SoS‑LOG ids and evidence paths; does not redefine guard semantics.
+
+**GPatternExtension block: `G.9:Ext.DHCParityPins`**
+**GPatternExtension: DHCParityPins**
+* **PatternScopeId:** `G.9:Ext.DHCParityPins`
+* **GPatternExtensionId:** `DHCParityPins`
+* **GPatternExtensionKind:** `MethodSpecific`
+* **SemanticOwnerPatternId:** `C.21`
+* **Uses:** `{C.21}`
+* **⊑/⊑⁺:** `∅`
+* **RequiredPins/EditionPins/PolicyPins (minimum; conditional on use):**
+  * `DHCMethodRef.edition`
+  * `DHCMethodSpecRef.edition?` *(when the owner distinguishes method vs method‑spec editions)*
+* **RSCRTriggerKindIds:** `{RSCRTriggerKindId.EditionPinChange, RSCRTriggerKindId.PolicyPinChange, RSCRTriggerKindId.EvidenceSurfaceEdit}`
+* **Notes (wiring-only):** Declares the pins required to make DHC‑based parity reproducible and RSCR‑refreshable; semantics of DHC lives in `C.21`.
+
+**GPatternExtension block: `G.9:Ext.QDArchiveParity`**
+**GPatternExtension: QDArchiveParity**
+* **PatternScopeId:** `G.9:Ext.QDArchiveParity`
+* **GPatternExtensionId:** `QDArchiveParity`
+* **GPatternExtensionKind:** `MethodSpecific`
+* **SemanticOwnerPatternId:** `C.18`
+* **Uses:** `{C.18, C.19, G.5}`
+* **⊑/⊑⁺:** `∅`
+* **RequiredPins/EditionPins/PolicyPins (minimum; conditional on use):**
+  * `DescriptorMapRef.edition`
+  * `DistanceDefRef.edition`
+  * `CharacteristicSpaceRef.edition?` *(when discretisation/topology is referenced)*
+  * `EmitterPolicyRef`
+  * `InsertionPolicyRef`
+* **RSCRTriggerKindIds:** `{RSCRTriggerKindId.EditionPinChange, RSCRTriggerKindId.PolicyPinChange, RSCRTriggerKindId.TelemetryDelta}`
+* **Notes (wiring-only):** Post‑2015 QD families are referenced here only as wiring + edition/policy pin obligations (semantics owned by `C.18`/`C.19`/`G.5`).
+
+**GPatternExtension block: `G.9:Ext.OEEParity`**
+**GPatternExtension: OEEParity**
+* **PatternScopeId:** `G.9:Ext.OEEParity`
+* **GPatternExtensionId:** `OEEParity`
+* **GPatternExtensionKind:** `MethodSpecific`
+* **SemanticOwnerPatternId:** `C.19`
+* **Uses:** `{C.19, G.5}`
+* **⊑/⊑⁺:** `∅`
+* **RequiredPins/EditionPins/PolicyPins (minimum; conditional on use):**
+  * `TransferRulesRef.edition`
+  * `EnvironmentValidityRegionId`
+  * `ExplorationBudgetPolicyId?`
+  * `EvidenceTrace.PathSliceId?` *(for transfer‑keyed events)*
+* **RSCRTriggerKindIds:** `{RSCRTriggerKindId.EditionPinChange, RSCRTriggerKindId.PolicyPinChange, RSCRTriggerKindId.TelemetryDelta}`
+* **Notes (wiring-only):** Open‑ended parity is expressed as policy/edition pins + telemetry wiring, not as new core norms.
+
+**GPatternExtension block: `G.9:Ext.RobustEvaluationProtocols`** *(Phase‑3 seed)*
+**PatternScopeId:** `G.9:Ext.RobustEvaluationProtocols`
+**GPatternExtensionId:** `RobustEvaluationProtocols`
+**GPatternExtensionKind:** `Phase3Seed`
+**SemanticOwnerPatternId:** `owner TBD`
+**Uses:** `{G.0, A.19}`
+**⊑/⊑⁺:** `∅`
+**RequiredPins/EditionPins/PolicyPins (minimum):**
+
+* `ComparatorSpecRef.edition`
+* `CNSpecRef.edition`
+* `UncertaintyPolicyId?` / `CalibrationPolicyId?` *(ids only; semantics owner TBD)*
+**RSCRTriggerKindIds:** `{RSCRTriggerKindId.PolicyPinChange, RSCRTriggerKindId.EditionPinChange}`
+**Notes (seed; wiring-only):**
+Intended docking point for post‑2015 robust evaluation idioms (e.g., set‑valued / conformal‑style reporting, distribution‑shift aware benchmarking) once an owner pattern is established.
+
+### G.9:5 — Interfaces (minimal I/O; conceptual)
+
+| Interface                          | Consumes                                                                                                                                         | Produces                                                                                        |
+| ---------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------- |
+| **G.9‑1 `Plan_Parity`**            | `BaselineSet`, `BaselineBindingRef`, `FreshnessWindows`, `Budgeting?`, `EpsilonDominance?`, `CNSpecRef.edition`, `CGSpecRef.edition`, `ComparatorSpecRef.edition`, `SCPRef.edition?`, `MinimalEvidenceRef.edition?`, `UNM_id?`, `NormalizationMethodId[]?`, `NormalizationMethodInstanceId[]?`, `ParityPinSet`, `PlanItemRefs[]?` | `ParityPlan@Context` (UTS entry; edition‑pinned)                                                |
+| **G.9‑2 `Run_Parity`**             | `ParityPlan@Context`, `TaskSignatureRef` (S2), **G.5.Select**                                                                                    | Selector outputs (portfolio/archives/sets as refs), DRR+SCR pins with `PathId[]`/`PathSliceId?` |
+| **G.9‑3 `Publish_ParityReport`**   | Run artefacts + trace + active pins                                                                                                              | `ParityReport@Context` (UTS entry; audit‑addressable; emits canonical RSCR ids)                 |
+| **G.9‑4 `Expose_ParityTelemetry`** | Telemetry deltas (archive changes, coverage/regret signals, etc.)                                                                                | Telemetry events carrying `PathSliceId?`, policy‑ids, and edition pins for refresh wiring       |
+
+*Surfaces are conceptual; serialisations belong to shipping/interop ownership (see G.10 / interop annexes), not to G.9.*
+
+### G.9:6 — Conformance Checklist (CC‑G9)
+
+**CC‑G9‑CoreRef (normative; mandatory).**
+G.9 conforms only if it satisfies the **effective** set of `CC‑GCORE‑*` declared in **G.9:4.0 GCoreLinkageManifest** (including trigger typing, default ownership routing, and P2W split).
+
+1. **CC‑G9.1 — Equal windows (and budgets) & pinned contract editions (local).**
+   A ParityPlan **SHALL** declare a single `FreshnessWindows` shared across baselines. If `Budgeting` is used/pinned, it **SHALL** be shared across baselines as well. `ParityPinSet` **SHALL** include the edition pins required by the referenced contract/comparator surfaces (at minimum `CNSpecRef.edition`, `CGSpecRef.edition`, `ComparatorSpecRef.edition`).
+   If the parity run depends on planned slot fillings (WorkPlanning baseline), the plan **SHALL** cite the relevant `SlotFillingsPlanItem` refs via `PlanItemRefs[]` (nil‑elision when not applicable).
+
+2. **CC‑G9.2 — Mode‑specific definition pins are declared via Extensions (local; conditional).**
+   When parity depends on mode‑specific artefacts beyond the pinned contract surfaces (e.g., DHC/QD/OEE), the ParityPlan/Report **SHALL** include the corresponding `GPatternExtension` blocks and satisfy their `RequiredPins/EditionPins/PolicyPins` (typically carried inside `ParityPinSet`, and echoed via pins deltas in audit):
+   * DHC parity → `G.9:Ext.DHCParityPins`
+   * QD archive parity → `G.9:Ext.QDArchiveParity`
+   * OEE parity → `G.9:Ext.OEEParity`
+
+3. **CC‑G9.3 — Lawful orders & lawful arithmetic (delegation point + local constraint).**
+   Delegated to `CC‑GCORE‑SET‑1` (and the relevant G.5 portfolio semantics). Additionally: any numeric comparison/aggregation invoked by parity **SHALL** be CSLC‑lawful and cite the corresponding CG‑Spec entry; illegal operations (e.g., ordinal means / mixed‑scale weighted sums) **SHALL** be refused or abstained with path‑cited trace (routing only; semantics owned by CG‑Spec/MM‑CHR).
+
+4. **CC‑G9.4 — Normalization discipline (local, routing only).**
+   If Characteristics differ by unit/scale/space, the ParityPlan **SHALL** cite the lawful comparability mapping by id (`UNM_id?`, `NormalizationMethodId[]?`, `NormalizationMethodInstanceId[]?`) and compare only after that mapping is applied (“normalize, then compare”).  
+   If such mapping ids are used, the ParityReport **SHALL** echo the same ids (directly or via explicit pins deltas) so the run is reproducible/auditable without out‑of‑band context.  
+   The harness **SHALL NOT** define a local mapping.
+
+5. **CC‑G9.5 — Dominance/portfolio interpretation & telemetry separation (local).**
+   ParityPlan/ParityReport **SHALL** either (i) explicitly pin the applicable regime/mode via refs/policy‑ids, or (ii) cite the owners of `DefaultId.DominanceRegime` and `DefaultId.PortfolioMode` via `G.Core.DefaultOwnershipIndex`. Any non‑default “promotion” behaviour must be policy‑bound and recorded via policy‑id pins.
+   IlluminationSummary/coverage/regret **SHALL** be treated as telemetry (report‑only by default); any promotion into dominance is an explicitly pinned CAL policy and MUST be recorded in audit pins/SCR.
+
+6. **CC‑G9.6 — Epsilon‑front thinning (local; conditional).**
+   If ε‑front thinning is used, `EpsilonDominance (ε≥0)` **SHALL** be explicit in the plan/report and pinned (param/id) such that the same ε is reproducible.
+
+7. **CC‑G9.7 — Crossing routing (delegation point).**
+   Delegated to `CC‑GCORE‑CROSS‑1` and `CC‑GCORE‑PEN‑1`. This item remains as a stable delegation point for Bridge/plane routing visibility and penalty routing discipline.
+
+8. **CC‑G9.8 — Evidence trace completeness (local).**
+   A ParityReport **SHALL** include an EvidenceTrace with `EvidenceGraphId` and the relevant `PathId[]` (and `PathSliceId?` when needed), covering both inclusions and refusals/abstains/degrades.
+
+9. **CC‑G9.9 — Telemetry hooks are emitted with pins (local).**
+   When parity emits telemetry for refresh, emitted telemetry **SHALL** carry the active edition pins and policy‑ids needed to re‑run parity (including the active subset of `ParityPinSet` relevant to the emitted event).
+   In particular, telemetry items SHOULD cite `PathSliceId` when available, and **SHALL** include the policy id governing the telemetry interpretation.
+   Mode‑specific definition pins **SHALL** be included as declared by the active `Extensions` blocks (e.g., `G.9:Ext.QDArchiveParity`, `G.9:Ext.OEEParity`, including `EnvironmentValidityRegionId` when OEE parity is in scope).
+
+10. **CC‑G9.10 — RSCR parity tests are published (local).**
+   Parity publication **SHALL** include RSCR parity tests (via `F.15` harness refs) that cover negative/refusal paths relevant to this plan (missing pins, edition drift, missing bridge calibration refs, etc.).
+
+11. **CC‑G9.11 — GateCrossing visibility (delegation point).**
+    Delegated to `CC‑GCORE‑CROSS‑1` and the applicable GateCrossing/CrossingSurface harness checks (E.18/A.21/A.27). This remains a stable delegation point.
+
+12. **CC‑G9.12 — Tech‑register lexical discipline (local).**
+    Tech prose and heads **SHALL** follow E.10: do not introduce drift‑prone primitives (e.g., “metric” as a Tech primitive); reference the owner’s canonical terms and pinned refs.
+
+13. **CC‑G9.13 — MOO disclosure for parity (local).**
+    `Run_Parity` / `Publish_ParityReport` **SHALL** record the ParityHarness identity (UTS ids) and the active pins required to interpret the outcome (editions + policy‑ids), so parity remains auditable without relying on “decision logs”.
+
+### G.9:7 — Anti‑patterns and remedies
+
+* **AP‑1 Hidden edition drift.** Remedy: require edition pins in `ParityPinSet`; treat changes as RSCR‑relevant via canonical trigger kinds.
+* **AP‑2 Baseline set is informal prose.** Remedy: require `BaselineBindingRef` and EvidenceTrace pins.
+* **AP‑3 Comparator semantics are “whatever the code did”.** Remedy: `ComparatorSpecRef.edition` (and any normalization/comparability refs) must be cited and pinned.
+* **AP‑4 Cross‑Context reuse without visible routing.** Remedy: cite bridge/plane routing artefacts and crossing visibility surfaces (delegated to G.Core).
+* **AP‑5 Parity report becomes a hidden scoring sheet.** Remedy: preserve lawful outcome shape and keep telemetry as telemetry unless explicitly policy‑promoted by owner patterns.
+* **AP‑6 “Metric” as a primitive in Tech.** Remedy: use `DHCMethodRef`/`U.Measure`/`DistanceDefRef` with editions; “metric” may appear only in Plain with an explicit pointer to canonical terms.
+* **AP‑7 Hidden spec drift (spec‑level pins missing).** Remedy: pin `DHCMethodSpecRef.edition` and register RSCR tests that fail on spec edition changes; refuse parity reuse on unpinned spec editions.
+
+### G.9:8 — Archetypal grounding (informative; SoTA‑oriented)
+
+**Show‑A — Multi‑tradition parity for decision systems (post‑2015 practice).**
+ParityPlan pins a rolling evidence window and comparator refs; ParityReport publishes a set/portfolio outcome plus the evidence trace. Typical “rival families” include modern preference‑learning comparators, causal decision pipelines, offline‑RL evaluation pipelines, and robust BO‑style selectors—compared without collapsing everything into a single scalar.
+
+**Show‑B — QD parity (MAP‑Elites lineage → CMA‑ME / DQD / QDax‑class).**
+ParityPlan pins descriptor/distance definitions and archive insertion policy editions. ParityReport includes archive outcomes and telemetry deltas needed for refresh, without silently converting illumination summaries into dominance.
+
+**Show‑C — Open‑ended parity (POET lineage and modern open‑ended generator families).**
+ParityPlan pins transfer rule editions and exploration policy refs. ParityReport publishes portfolio outcomes plus transfer‑keyed traces (PathSlice), enabling refresh reruns when any pinned policy changes.
+
+### G.9:9 — Payload (what this pattern exports)
+
+**Exports (UTS‑publishable, edition‑pinned):**
+
+* `ParityPlan@Context` (WorkPlanning artefact)
+* `ParityReport@Context` (Work/Audit artefact)
+* DRR+SCR refs (by id) and (when applicable) `PortfolioPackRef?`/selector output refs (by id), for downstream consumption.
+* Telemetry pins/events (by id), for refresh wiring (`G.11`) and RSCR harnesses (`F.15`).
+
+### G.9:10 — Relations
+
+**Builds on:** `G.Core`, `G.5`, `G.6`, `G.4`, `F.15`, `E.18`, `A.21`, `A.27`, `E.5.2`, `E.10`.
+**Publishes to:** **UTS** (plan/report ids), **G.11** (refresh wiring), **G.10** (shipping surface; parity artefacts are cited payloads).
+**Uses:** **G.0**, **A.19**, **F.9**.
+**Uses (optional, via Extensions):** **G.7**, **C.18/C.19** (QD/OEE wiring), **C.23** (SoS‑LOG narration and failure‑policy pins).
+
+### G.9:11 — Author’s quick checklist (non‑normative)
+
+1. Bind `describedEntity` + `ReferencePlane`; define a baseline binding ref (don’t leave it as prose).
+2. Pin `CNSpecRef.edition`, `CGSpecRef.edition`, `ComparatorSpecRef.edition`.
+3. Declare `FreshnessWindows` and enforce it across baselines (and budgets, if pinned).
+4. Declare `ParityPinSet` (editions + policy‑ids + evidence pins) and attach `PlanItemRefs[]` when planned baseline matters.
+5. Run once; publish `ParityReport@Context` with EvidenceTrace and active pins; emit telemetry pins for refresh as needed.
 
 ### G.9:End

@@ -40,7 +40,7 @@ A proposal to add a `U.Type` or core relation **MUST** clear **all four gates** 
 | **G‑4 Sharp Boundary**    | *Is there a one‑sentence litmus test that unambiguously includes or excludes any candidate instance?* | Ensures crisp taxonomy edges.                         |
 
 **Lifecycle — Sunset Timer**
-A cleared type enters the kernel **provisionally** with a timer (default = 4 quarters). If usage count remains zero at expiry, the type faces *Sunset Review*: delete, demote to plug‑in, or renew with fresh evidence.
+A cleared type enters the kernel **provisionally** with a timer (default = 4 quarters). If usage count remains zero at expiry, the type faces *Sunset Review*: delete, demote to Extention Pattern, or renew with fresh evidence.
 
 > *Manager’s mnemonic:* **“Compose, Unique, Functional, Crisp — or sunset.”**
 
@@ -63,7 +63,7 @@ A cleared type enters the kernel **provisionally** with a timer (default = 4 qua
 | **CC‑OP 2** | Kernel inventory tooling **SHALL** stamp each admitted type with `sunset_due: <date>` (default = +4 quarters).                                            | Schedules later pruning; no forgotten zombies.               |
 | **CC‑OP 3** | A quarterly *Usage Scan* **MUST** flag any core type with reference‑count = 0; flagged items enter Sunset Review automatically.                           | Turns parsimony into a living maintenance loop.              |
 | **CC‑OP 4** | Renaming, aliasing, or splitting an existing type **REQUIRES** re‑passing all four gates and documenting a migration note.                                | Prevents redundancy re‑entering via back door.               |
-| **CC‑OP 5** | Architheories **SHOULD** favour `Role` + attributes over proposing new domain types; proposals rejected when Gate G‑1 answer is “yes.”          | Extends parsimony culture beyond the kernel.                 |
+| **CC‑OP 5** | Patterns **SHOULD** favour `Role` + attributes over proposing new domain types; proposals rejected when Gate G‑1 answer is “yes.”          | Extends parsimony culture beyond the kernel.                 |
 
 
 ### A.11:7 - Consequences
@@ -71,7 +71,7 @@ A cleared type enters the kernel **provisionally** with a timer (default = 4 qua
 | Benefit                            | Impact for engineer‑managers                                                   | Trade‑off / Mitigation                                                                   |
 | ---------------------------------- | ------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------- |
 | **Lean kernel**                    | Fewer primitives → faster onboarding & clearer mental map.                     | Initial author effort to fill Minimal‑Sufficiency Form; template wizard auto‑fills 70 %. |
-| **Reduced tool churn**             | Stable set of nouns keeps dashboards, linters, reasoners in sync for years.    | Occasionally slows acceptance of niche concepts; plug‑in layer absorbs urgency.          |
+| **Reduced tool churn**             | Stable set of nouns keeps dashboards, linters, reasoners in sync for years.    | Occasionally slows acceptance of niche concepts; Extention Patterns layer absorbs urgency.          |
 | **Automatic house‑cleaning**       | Sunset cycle prevents accrual of deadwood.                                     | Rare risk of deleting a sleeper hit; renewal path allows appeal.                         |
 | **Encultured composition mindset** | Teams default to roles & attributes, boosting reuse and cross‑domain dialogue. | Requires role libraries and attribute taxonomies; provided in Part C.                    |
 
@@ -93,14 +93,14 @@ A cleared type enters the kernel **provisionally** with a timer (default = 4 qua
 ### A.11:10 - Illustrative Uses (2022 – 2025)
 
 * **Robotics CAL 2023** – `U.LiDARSensor` rejected (Gate G‑1 passed via role composition), saving three schema migrations.
-* **Green‑Finance CAL 2024** – `U.CarbonCredit` admitted provisionally, but Sunset Review (usage = 0) demoted it to sector plug‑in, avoiding kernel noise.
-* **Neuro‑informatics 2025** – `U.ProvenanceChain` accepted; by Q3 its heavy reuse in three architheories lifted timer and marked it *established*.
+* **Green‑Finance CAL 2024** – `U.CarbonCredit` admitted provisionally, but Sunset Review (usage = 0) demoted it to sector pattern, avoiding kernel noise.
+* **Neuro‑informatics 2025** – `U.ProvenanceChain` accepted; by Q3 its heavy reuse in three patterns lifted timer and marked it *established*.
 
 
 ### A.11:11 - Open Questions
 
 1. **Hard size cap** — should the kernel enforce an absolute limit (e.g., 64 live types) beyond which any new entry forces retirement of an old one?
 2. **Semantic similarity tooling** — can embedding models automate Gate G‑2 overlap detection reliably across domains?
-3. **Gate calibration** — is default Sunset Timer (4 quarters) optimal for research‑oriented architheories with slower uptake?
+3. **Gate calibration** — is default Sunset Timer (4 quarters) optimal for research‑oriented patterns with slower uptake?
 
 ### A.11:End

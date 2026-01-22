@@ -22,7 +22,7 @@ This is the **alias‑plus‑grounding** split: **Compose‑CAL** builds the tra
 
 * **Two audiences, one dial.** Project managers want **one relation family** and stable views; ontologists want **generative completeness** and extensional identity.
 * **Parsimony constraint.** The Kernel stays minimal; construction is **outside** the Kernel.
-* **Unification inside FPF.** We already unify external vocabularies; the same discipline is applied **internally** so *every* architheory that needs mereology rides on **one generative basis** and **one alias façade**.
+* **Unification inside FPF.** We already unify external vocabularies; the same discipline is applied **internally** so *every* pattern that needs mereology rides on **one generative basis** and **one alias façade**.
 
 
 ### B.3.5:3 - Problem
@@ -172,7 +172,7 @@ For every relation instance the author **MUST** set `validationMode` and follow 
 Authors **SHALL NOT** encode execution order, parallelism, or temporal slicing as part‑whole. Such concerns belong to `Γ_method` and `Γ_time` families and **SHOULD** appear as method/time statements adjacent to, not inside, Working‑Model structure. (This prevents conceptual leakage between planes.)
 
 **S‑6 (Unidirectional dependence).**
-CT2R‑LOG may *consume* Compose‑CAL and KD‑CAL conceptually; it **SHALL NOT** redefine them. Meaning flows **downward only** (Kernel → Architheory → Context → Instance).
+CT2R‑LOG may *consume* Compose‑CAL and KD‑CAL conceptually; it **SHALL NOT** redefine them. Meaning flows **downward only** (Kernel → Extention → Context → Instance).
 
 **S‑7 (Register discipline).**
 When naming principles in `tv:AliasOf`, authors **SHOULD** use Tech/Plain *twin labels* where available and obey minimal‑generality and rewrite rules (LEX‑BUNDLE), so that aliases are recognisable across context of meaning.

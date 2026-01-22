@@ -1,5 +1,5 @@
 ## E.10 - Unified Lexical Rules for FPF (LEX‑BUNDLE)
-*Definitional pattern; normative for all Core/Architheory text and for any Context that claims FPF conformance.*
+*Definitional pattern; normative for all FPF pattern text and for any Context that claims FPF conformance.*
 
 **Status & placement.** Part E.10 (“Lexical Discipline & Stratification”); complements **E.10.D1 (D.CTX)**, **E.10.D2 (I/D/S)**, and the **DesignRunTag / CtxState boundary discipline** (**A.15**; **E.18**), and is referenced by F‑cluster naming practices (F.4–F.8). This bundle consolidates all lexical constraints in one place so authors can cite **“LEX‑BUNDLE”** instead of listing rules scattered across documents.
 
@@ -11,7 +11,7 @@
 
 **Intent.** Provide one **normative** rule‑set that makes FPF language **unambiguous, composable across contexts, and teachable** by design. Authors, reviewers, and tooling can point to **LEX‑BUNDLE** as the single source of truth for:
 
-* **Vertical stratification** (Kernel ↔ Architheory ↔ Context ↔ Instance);
+* **Vertical stratification** (Kernel ↔ Extensions ↔ Context ↔ Instance);
 * **Twin registers** (Tech/Plain) with safe synonyms;
 * **Naming morphology** (allowed suffixes & style) for the kernel’s core objects;
 * **Minimal Generality** tests (names are neither parochial nor vacuous);
@@ -19,7 +19,7 @@
 * **Conformance checks** (lintable) and minimal examples.
 
 **Scope.** Applies to:
-(a) **Core** (Parts A–G), (b) **Architheory specs** (CAL/LOG/CHR), (c) **Context glossaries** that claim FPF conformity, and (d) **Diagrams/prose** in normative text. It **does not** constrain Tooling or Pedagogy wording other than where they quote Core semantics.
+(a) **Core** (Parts A–G), (b) **Extensions patterns specs** (CAL/LOG/CHR), (c) **Context glossaries** that claim FPF conformity, and (d) **Diagrams/prose** in normative text. It **does not** constrain Tooling or Pedagogy wording other than where they quote Core semantics.
 
 
 ### E.10.2 - Problem
@@ -59,11 +59,11 @@ Below are the **normative clauses**
 > **Rule V‑0 (Strata).** Every lexical item in a conformant text belongs to exactly one **stratum**:
 
 1. **Kernel** — `U.*` types, kernel relations, invariants (e.g., `U.Holon`, `U.Role`, `U.Method`, `U.Work`, `U.ServiceClause`).
-2. **Architheory** — CAL/LOG/CHR exports (e.g., **Sys‑CAL**, **KD‑CAL**, **Agency‑CHR**) that **extend** but do not override Kernel.
+2. **Extension patterns** — CAL/LOG/CHR exports (e.g., **Sys‑CAL**, **KD‑CAL**, **Agency‑CHR**) that **extend** but do not override Kernel.
 3. **Context** — a **`U.BoundedContext`** with its **Glossary, Invariants, Roles**, and **Bridges** (local Context of meaning).
 4. **Instance** — concrete identifiers (holders, role assignments, works, carriers).
 
-**V‑1 (Unidirectional meaning).** Meaning **flows downward** only: Kernel → Architheory → Context → Instance. No stratum may redefine a higher stratum’s term; it may only **specialise** or **bridge** it.
+**V‑1 (Unidirectional meaning).** Meaning **flows downward** only: Kernel → Extention patterns → Context → Instance. No stratum may redefine a higher stratum’s term; it may only **specialise** or **bridge** it.
 
 **V‑2 (Strata vs authoring stances).** The four lexical strata above constrain **tokens**. They are independent of an artefact’s **stance** (its `CtxState` pins such as `DesignRunTag`, `ReferencePlane`, and `Locus`). Strata answer “what words mean here”; stance answers “where this claim lives in the flow” and which evidence‑lane expectations apply.
 
@@ -164,7 +164,7 @@ If an intensional object is currently named `… Standard`, rename it to a prope
 **Plain twin (LEX).** A registry entry pairing the **authoritative Tech label** with a **display‑only Plain label** for one `U.Type` **in one `U.BoundedContext`**; governed by **PTG (Plain Twin Governance; in the LEX registry)** and referenced by `Twin‑Map ID (LEX)`. *“Plain twin” ≠ the **Plain register** (the register is where twins may be used; the twin is the 1:1 mapping).*
 **Convention.** In this spec, **Plain** (capitalized) names the register; **plain twin** (lowercase) names the 1:1 mapping entry.
 
-> **Rule R‑0 (Registers).** Every Kernel and Architheory concept has a **Tech label** (the testable semantic token) and an optional **Plain label** (didactic synonym). The **Tech label is authoritative**; the Plain label is permitted *only* in expository text and must map 1:1 to the Tech meaning inside the current **Context**.
+> **Rule R‑0 (Registers).** Every Kernel and Extenstion patterns concept has a **Tech label** (the testable semantic token) and an optional **Plain label** (didactic synonym). The **Tech label is authoritative**; the Plain label is permitted *only* in expository text and must map 1:1 to the Tech meaning inside the current **Context**.
 
 #### E.10:6.2.1 - Allowed pairs (normative table; examples)
 
@@ -299,6 +299,7 @@ Do **not** mint *ETLService* at kernel level—model ETL as `MethodDescription`;
 **SCR‑LEX‑S04 (CharacteristicSpace).** Enumerations declare their value set and space (DA‑D2/3).
 **SCR‑LEX‑S05 (USM compatibility).** For each LexicalAct, `USM.Scope ∈ AllowedScopes(LEX.TokenClass)`.
 **SCR‑LEX‑S06 (Slot/Ref suffix discipline).** Any token with suffix **`…Slot`** or **`…Ref`** is either (a) a **SlotKind**/**RefKind** declared under A.6.5, or (b) a episteme field whose type is a RefKind; no ValueKind or other type class may end with these suffixes.
+**SCR‑LEX‑S07 (Manifest `provides` covers SlotKinds/RefKinds).** If a `SignatureManifest` is present (A.6.0), its `provides` list MUST include any public **SlotKinds** (`…Slot`) and **RefKinds** (`…Ref`) introduced by that signature/mechanism (in addition to types/relations/operators), so SD/lexical linters can treat them as exported API surface.
 **RSCR‑LEX‑E01 (Banned generics).** Reject tokens matching the banned combinators list (DA‑D7).
 **RSCR‑LEX‑E02 (Metaphor hygiene).** If a metaphor is used, show the pattern that defines it; otherwise rename.
 **RSCR‑LEX‑E03 (Strategy token minting).** Reject new Kernel tokens named **Strategy**/**Policy** as kinds; model them as **lenses/flows/compositions** inside **G.5** or as **…Description/…Spec** in Contexts. (Prevents kernel overloading; aligns with C.22 “no minted Strategy head”.)
@@ -391,7 +392,7 @@ IDs/instances: **flat with delimiters** (context‑defined) but never collide wi
 
 #### E.10:8.3 - Prefix discipline
 
-**M‑P1 (Reserved prefixes).** `U.` reserved for **Kernel types**; `Γ_` for algebraic operators; `CAL/LOG/CHR` for **architheory packages**. Never mint `U.*` inside a Context.
+**M‑P1 (Reserved prefixes).** `U.` reserved for **Kernel types**; `Γ_` for algebraic operators; `CAL/LOG/CHR` for **pattern packages**. Never mint `U.*` inside a Context.
 
 **M‑P2 (Edition markers).** Apply explicit edition/version markers to **Contexts** and to `MethodDescription` / `Service`—**not** to `Method` (e.g., `BPMN_2.0_BoundedContext`, `JS_Schedule_v4_MethodDescription`, `PassportIssuanceService_v2025`).  Authors MAY annotate Context or Service names for didactics.
 **Norms (edition vs release vs version).**
@@ -501,7 +502,7 @@ Example: using a `KernelToken` in a Context constraint may require a Bridge/alia
 | **L‑DYN**    | *process of diffusion / growth / learning*        | `U.Dynamics` (law/model of change)                                                                                                                                                              | I                                                                                    | Kernel/Context                              | Reserve for uncaused change models.                                                                  |
 | **L‑EVID**   | “paper/dataset proves/ensures”                    | `…#EvidenceRole:Context` on an **Episteme**; claims/scopes/polarity/timespan; provenance from `Work`                                                                                            | D/S                                                                                  | Context/Discriminator                       | Evidence is a **role binding**, not an actor.                                                        |
 | **L‑CTX**    | *context* (fuzzy trope)                           | `U.BoundedContext` (named card)                                                                                                                                                                 | —                                                                                    | Context                                     | Never use “depends on context” in Core; **name** the Context.                                        |
-| **L‑BRIDGE** | cross‑context equivalence “by same label”         | `U.Alignment` **Bridge** with relation kind, CL, loss notes                                                                                                                                     | —                                                                                    | —                                           | Same label ≠ same concept without a Bridge.                                                          |
+| **L‑BRIDGE** | cross‑context equivalence “by same label” | Explicit **Bridge Card** (F.9): state `kind/dir/CL/Loss/scope` (apply **A.6.9 (RPR‑XCTX)** for disambiguation + licence‑revealing name/verb choice). | — | — | Same label ≠ same concept; umbrella “same/equivalent/align/map/…” must be repaired into a Bridge before it can justify reuse, rows, or substitution. |
 
 > **Red/Green pattern (example).** ✗ “The **process** ensures quality.” → ✓ “The **MethodDescription** defines steps; **Work** is **evaluated** against **RequirementRole**.”
 
@@ -531,7 +532,7 @@ A text **passes** LEX if all answers are **Green**:
 3. **Promise vs ability vs performance.** `Service` (promise), `Capability` (ability), `Work` (performance) are not conflated.
 4. **No anthropomorphism.** Documents/datasets/models do not “do”; **Systems** do.
 5. **Scheduling hygiene.** No actuals on `WorkPlan`; all actuals live on `Work`.
-6. **Cross‑context reuse.** Any reuse across Contexts cites a **Bridge id** with CL & loss notes.
+6. **Cross‑context reuse.** Any reuse across Contexts cites a **Bridge id** with `kind/dir/CL/Loss/scope` (apply **A.6.9 (RPR‑XCTX)** when the surface prose uses “same/equivalent/align/map/…”).
 7. **MG-DA ok.** New or refactored tokens pass **§ 7 MG-DA** (anchored head noun; collision check; CharacteristicSpace for enums).
 8. **Morphology ok.** Suffix/prefix/casing respect **§ 8 LEX.Morph** (e.g., `…Role`, `MethodDescription`, `Work`, reserved prefixes).
 9. **Banned tokens absent.** No *process/function/task/activity* in Kernel senses; no tooling/file suffixes in Kernel tokens.
@@ -625,7 +626,7 @@ This section **inherits** § 7 **MG-DA** (anchored head nouns; Characteristic/Ch
 #### E.10:10.4 - Pass 3 — *Stitch & publish*
 
 3.1 Add **safe rewrites** for any anti‑patterns you found (use § 9.2 quick table).
-3.2 If sameness is needed across Contexts, create a **Bridge** (F.9) with relation kind, **CL**, and loss notes.
+3.2 If sameness is needed across Contexts, create a **Bridge** (F.9) with explicit `kind/dir/CL/Loss/scope` (apply **A.6.9 (RPR‑XCTX)** when the source text uses umbrella “same/equivalent/align/map/…” language).
 3.3 Publish a one‑page **UTS** (F.17) for the Context (columns: Context, Tech label, Plain label, Kernel anchor, Warnings).
 3.4 Log a short **DRR** when renames/aliases occur (F.13), linking to grep results that motivated the change.
 
