@@ -23,8 +23,10 @@ logger = logging.getLogger(__name__)
 # Paths
 SCRIPT_DIR = Path(__file__).parent
 FPF_SKILL_DIR = SCRIPT_DIR.parent
-FPF_CORE_DIR = FPF_SKILL_DIR / "fpf-core"
-FPF_SPEC_PATH = Path("D:/Python/FPF/FPF-Spec.md")
+FPF_PATTERNS_DIR = FPF_SKILL_DIR / "references" / "fpf-patterns"
+FPF_ROOT_DIR = FPF_SKILL_DIR.parent.parent
+
+FPF_SPEC_PATH = FPF_ROOT_DIR / "FPF-Spec.md"
 
 # Domain definitions with descriptions and "Load when..." guidance
 DOMAINS = {
@@ -297,7 +299,7 @@ def split_spec() -> dict[str, list[dict]]:
     # Clean and create domain directories
     logger.info("Cleaning old pattern files...")
     for domain in DOMAINS.keys():
-        domain_dir = FPF_CORE_DIR / domain
+        domain_dir = FPF_PATTERNS_DIR / domain
         if domain_dir.exists():
             # Remove all .md files except index.md
             for old_file in domain_dir.glob("*.md"):
@@ -319,7 +321,7 @@ def split_spec() -> dict[str, list[dict]]:
         if current_pattern_id and current_content_lines:
             domain = get_domain_for_pattern(current_pattern_id)
             filename = f"{current_pattern_id}_{sanitize_filename(current_pattern_title or 'pattern')}.md"
-            filepath = FPF_CORE_DIR / domain / filename
+            filepath = FPF_PATTERNS_DIR / domain / filename
             
             content_text = "\n".join(current_content_lines)
             filepath.write_text(content_text, encoding="utf-8")
@@ -404,7 +406,7 @@ def generate_domain_indexes(domain_patterns: dict[str, list[dict]]):
             continue
         
         domain_info = DOMAINS[domain]
-        index_path = FPF_CORE_DIR / domain / "index.md"
+        index_path = FPF_PATTERNS_DIR / domain / "index.md"
         
         # Sort patterns by ID
         patterns.sort(key=lambda p: p["id"])
@@ -490,7 +492,7 @@ def generate_master_index(domain_patterns: dict[str, list[dict]]):
     lines.append("")
     lines.append(f"**Total: {total} patterns across {domain_count} domains**")
     
-    index_path = FPF_CORE_DIR / "index.md"
+    index_path = FPF_PATTERNS_DIR / "index.md"
     
     # Only write if it doesn't exist or user wants to regenerate
     # (to avoid overwriting manually enhanced version)

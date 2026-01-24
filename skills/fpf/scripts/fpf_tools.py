@@ -5,9 +5,9 @@ These tools provide access to the FPF specification without context overflow:
 - fpf_read_pattern: Load specific pattern content on demand
 
 Index structure (4-level progressive disclosure):
-- fpf-core/index.md (master index listing domains)
-- fpf-core/{domain}/index.md (domain index with pattern TOC)
-- fpf-core/{domain}/{pattern_id}_{title}.md (individual patterns)
+- references/fpf-patterns/index.md (master index listing domains)
+- references/fpf-patterns/{domain}/index.md (domain index with pattern TOC)
+- references/fpf-patterns/{domain}/{pattern_id}_{title}.md (individual patterns)
 """
 
 import logging
@@ -18,8 +18,8 @@ from pydantic_ai import RunContext
 
 logger = logging.getLogger(__name__)
 
-# Path to fpf-core directory (relative to this script)
-FPF_CORE_PATH = Path(__file__).parent.parent / "fpf-core"
+# Path to fpf-patterns directory (relative to this script)
+FPF_PATTERNS_PATH = Path(__file__).parent.parent / "references" / "fpf-patterns"
 
 # Domain definitions for search routing
 DOMAINS = [
@@ -48,7 +48,7 @@ def _parse_domain_index(domain: str) -> list[dict]:
     if domain in _domain_patterns_cache:
         return _domain_patterns_cache[domain]
     
-    index_path = FPF_CORE_PATH / domain / "index.md"
+    index_path = FPF_PATTERNS_PATH / domain / "index.md"
     if not index_path.exists():
         return []
     
@@ -109,11 +109,11 @@ def _find_pattern_file(pattern_id: str) -> Path | None:
         patterns = _parse_domain_index(domain)
         for p in patterns:
             if p["id"].upper() == pattern_id:
-                return FPF_CORE_PATH / domain / p["filename"]
+                return FPF_PATTERNS_PATH / domain / p["filename"]
     
     # Fallback: search files directly
     for domain in DOMAINS:
-        domain_path = FPF_CORE_PATH / domain
+        domain_path = FPF_PATTERNS_PATH / domain
         if not domain_path.exists():
             continue
         for file in domain_path.glob(f"{pattern_id}_*.md"):

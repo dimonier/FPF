@@ -6,6 +6,8 @@ Automation scripts for maintaining the FPF skill structure.
 
 **Purpose:** Parse `FPF-Spec.md` and generate organized domain files with enriched metadata.
 
+**⚠️ Version Specificity:** This script is tightly coupled to the structure and format of a specific FPF specification version. When working with different versions of `FPF-Spec.md`, you may need to adjust parsing logic, metadata extraction patterns, or domain mappings to match the specification's current format.
+
 ### Usage
 
 ```bash
@@ -21,7 +23,7 @@ uv run skills/fpf/scripts/split_fpf_spec.py --analyze
 1. **Pattern Extraction:**
    - Parses `FPF-Spec.md` into individual pattern files
    - Organizes patterns by domain (foundations, aggregation, etc.)
-   - Generates Markdown files in `fpf-core/{domain}/{pattern_id}.md`
+   - Generates Markdown files in `references/fpf-patterns/{domain}/{pattern_id}.md`
 
 2. **Metadata Enrichment:**
    - Extracts pattern metadata from Table of Contents:
@@ -40,7 +42,7 @@ uv run skills/fpf/scripts/split_fpf_spec.py --analyze
    - **Regenerates** only the "## Patterns" table with updated metadata
 
 4. **Master Index:**
-   - Generates `fpf-core/index.md` only if it doesn't exist
+   - Generates `references/fpf-patterns/index.md` only if it doesn't exist
    - Once created, it's manually maintained (won't be overwritten)
 
 ### Workflow
@@ -61,7 +63,7 @@ uv run skills/fpf/scripts/split_fpf_spec.py --analyze
 
 ### Domain Index Structure
 
-Each `fpf-core/{domain}/index.md` has:
+Each `references/fpf-patterns/{domain}/index.md` has:
 
 ```markdown
 # Domain Name
@@ -109,3 +111,4 @@ Edit `split_fpf_spec.py` to modify:
 3. **Run with --analyze** before major updates to check for unmapped patterns
 4. **Test generation** on a branch before committing
 5. **Keep navigation AI-centric** - focus on when/why to load, not what it contains
+6. **Verify script compatibility** - when upgrading FPF specification version, review and adjust the script's parsing logic to match the new format

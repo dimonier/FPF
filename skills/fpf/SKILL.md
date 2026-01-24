@@ -68,20 +68,32 @@ For every task:
 
 ## Navigation Hub
 
-**Master index:** [fpf-core/index.md](fpf-core/index.md) - domain overview with expanded guidance
+**Master index:** [references/fpf-patterns/index.md](references/fpf-patterns/index.md) - domain overview with expanded guidance
 
 **Domain indexes:**
-- [foundations](fpf-core/foundations/index.md) - entities, roles, distinctions, characteristics
-- [transformation](fpf-core/transformation/index.md) - methods, work, execution, evolution
-- [reasoning](fpf-core/reasoning/index.md) - problem-solving, abduction, exploration
-- [trust-evidence](fpf-core/trust-evidence/index.md) - F-G-R calculus, evidence graphs, reliability
-- [aggregation](fpf-core/aggregation/index.md) - Gamma operator, meta-holon transitions, composition
-- [signature](fpf-core/signature/index.md) - boundaries, interfaces, slot discipline, morphisms
-- [architheories](fpf-core/architheories/index.md) - domain calculi (KD-CAL, Kind-CAL, etc.)
-- [constitution](fpf-core/constitution/index.md) - FPF authoring rules, lexical discipline
-- [unification](fpf-core/unification/index.md) - bridges, concept-sets, context mapping
-- [ethics](fpf-core/ethics/index.md) - bias-audit, ethical assurance
-- [sota](fpf-core/sota/index.md) - benchmarks, discipline packs, telemetry
+- [foundations](references/fpf-patterns/foundations/index.md) - entities, roles, distinctions, characteristics
+- [transformation](references/fpf-patterns/transformation/index.md) - methods, work, execution, evolution
+- [reasoning](references/fpf-patterns/reasoning/index.md) - problem-solving, abduction, exploration
+- [trust-evidence](references/fpf-patterns/trust-evidence/index.md) - F-G-R calculus, evidence graphs, reliability
+- [aggregation](references/fpf-patterns/aggregation/index.md) - Gamma operator, meta-holon transitions, composition
+- [signature](references/fpf-patterns/signature/index.md) - boundaries, interfaces, slot discipline, morphisms
+- [architheories](references/fpf-patterns/architheories/index.md) - domain calculi (KD-CAL, Kind-CAL, etc.)
+- [constitution](references/fpf-patterns/constitution/index.md) - FPF authoring rules, lexical discipline
+- [unification](references/fpf-patterns/unification/index.md) - bridges, concept-sets, context mapping
+- [ethics](references/fpf-patterns/ethics/index.md) - bias-audit, ethical assurance
+- [sota](references/fpf-patterns/sota/index.md) - benchmarks, discipline packs, telemetry
+
+## Available Prompt Templates
+
+Ready-to-use prompt templates for common FPF tasks → **[references/prompts/index.md](references/prompts/index.md)**
+
+**Quick selection:**
+- **Workflow:** [workflow.md](references/prompts/workflow.md), [principles.md](references/prompts/principles.md), [keywords.md](references/prompts/keywords.md), [initial-plan.md](references/prompts/initial-plan.md)
+- **Project:** [characterisation.md](references/prompts/characterisation.md), [p2w.md](references/prompts/p2w.md)
+- **Terminology:** [uts.md](references/prompts/uts.md), [naming.md](references/prompts/naming.md)
+- **Advanced:** [sota.md](references/prompts/sota.md)
+
+*See [full index](references/prompts/index.md) for detailed descriptions and usage guidance.*
 
 ## Starter Patterns
 
@@ -105,3 +117,57 @@ For every task:
 - **Evidence chains (A.10)**: Every claim needs evidence reference
 - **Scope discipline (A.2.6)**: Explicit context boundaries
 - **Role-Method-Work alignment (A.15)**: Clear separation of intent, plan, execution
+
+## Core Terminology
+
+Essential FPF terms for decomposition and reasoning.
+
+### Ontological Core (Part A)
+
+| Term | Pattern | Definition |
+|------|---------|------------|
+| **Holon** | A.1 | Entity that is simultaneously a whole AND a part. Everything in FPF is a holon. |
+| **BoundedContext** | A.1.1 | Semantic frame where terms have meaning. Meaning is LOCAL to context. |
+| **System** | A.1 | Physical/digital entity that can bear roles and execute work. |
+| **Role** | A.2 | A mask/identity that a System wears. Role != behavior. |
+| **RoleAssignment** | A.2.1 | Links a System to a Role within a BoundedContext. |
+| **MethodDescription** | A.3.2 | Design-time recipe (plan/algorithm/SOP). Lives in T^D (design-time). NOT execution. |
+| **Method** | A.3.1 | Instantiated MethodDescription ready for execution. |
+| **Work** | A.15.1 | Run-time occurrence. Actual execution that happened. Dated, consumes resources. IMMUTABLE. |
+| **Transformer** | A.12 | Agent that takes input and produces output. External = tool. Reflexive = self-modification. |
+| **Episteme** | A.0 | Knowledge artifact with carriers (files, models, beliefs). |
+
+### Core Principles (Part A)
+
+| Principle | Pattern | Definition |
+|-----------|---------|------------|
+| **Strict Distinction** | A.7 | Map != Territory. Never confuse plan with execution. MethodDescription != Work. |
+| **Evidence Graph** | A.10 | All claims need auditable evidence chains. Cite sources. |
+| **Ontological Parsimony** | A.11 | Do not multiply entities beyond necessity. |
+| **Cross-Scale Consistency** | A.9 | Rules apply at all scales (micro to macro). |
+
+### Reasoning (Part B)
+
+| Term | Pattern | Definition |
+|------|---------|------------|
+| **Aggregation (Gamma)** | B.1 | How parts combine into wholes. Multiple types: Gamma_sys, Gamma_epist, Gamma_work. |
+| **Trust Calculus (F-G-R)** | B.3 | Formality (how rigorous), Granularity/Scope (how broad), Reliability (how trustworthy). |
+| **Evidence Decay** | B.3.4 | Evidence loses reliability over time. Epistemic debt accumulates. |
+| **Canonical Evolution Loop** | B.4 | OBSERVE -> REFINE -> DEPLOY -> AUDIT cycle. |
+| **Canonical Reasoning Cycle** | B.5 | Abduction (hypothesis) -> Deduction (predict) -> Induction (test). |
+| **Abduction** | B.5.2 | Generate hypotheses from observations. Creative inference. |
+| **Deduction** | B.5 | Derive conclusions from premises. Logical necessity. |
+| **Induction** | B.5 | Generalize from specific cases. Probabilistic. |
+
+### Search Keywords
+
+Use ONLY these keywords with `fpf_search_index()`:
+
+```
+holon, system, episteme, role, method, work, trust, evidence,
+transformer, reliability, aggregation, assurance, reasoning,
+budget, context, deduction, induction, abduction, formality,
+evolution, agent
+```
+
+**Important:** DO NOT search for task-topic words (e.g., "AI agents", "web search"). FPF is a methodology, not a knowledge base about your task topic.

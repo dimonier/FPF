@@ -30,11 +30,11 @@ Use FPF methodology to structure your approach:
 ### 2a. Navigate to Relevant Domain
 
 Select domain based on task focus:
-- Understanding entities/roles → `fpf-core/foundations/index.md`
-- Planning/executing tasks → `fpf-core/transformation/index.md`
-- Problem-solving/hypothesis → `fpf-core/reasoning/index.md`
-- Evaluating reliability → `fpf-core/trust-evidence/index.md`
-- Composing parts → `fpf-core/aggregation/index.md`
+- Understanding entities/roles → `references/fpf-patterns/foundations/index.md`
+- Planning/executing tasks → `references/fpf-patterns/transformation/index.md`
+- Problem-solving/hypothesis → `references/fpf-patterns/reasoning/index.md`
+- Evaluating reliability → `references/fpf-patterns/trust-evidence/index.md`
+- Composing parts → `references/fpf-patterns/aggregation/index.md`
 
 ### 2b. Load Specific Patterns
 
@@ -66,3 +66,20 @@ Use FPF terms in output ONLY when:
 - Ontological collision detected (terms mean different things in different contexts)
 - Red flag / critical distinction needed (e.g., confusing plan with execution)
 - User explicitly asks about methodology
+
+## See Also: Prompt Templates
+
+For common FPF tasks, see ready-to-use prompt templates:
+
+**Project Setup:**
+- [characterisation.md](characterisation.md) - Define characteristics, indicators, and scoring
+- [p2w.md](p2w.md) - Map principles to work using E.TGA
+
+**Terminology & Naming:**
+- [uts.md](uts.md) - Build unified term sheets for domains
+- [naming.md](naming.md) - Design better names using F.18 Name Cards
+
+**Advanced:**
+- [sota.md](sota.md) - Harvest state-of-the-art for disciplines
+- [principles.md](principles.md) - Quick reference to core FPF patterns
+- [keywords.md](keywords.md) - Domain navigation guide
