@@ -2,6 +2,8 @@
 
 Progressive disclosure navigation for 169 FPF patterns across 11 domains.
 
+Back to the references hub: **[../index.md](../index.md)**.
+
 ## Quick Domain Selection
 
 **Choose domain based on your task:**
