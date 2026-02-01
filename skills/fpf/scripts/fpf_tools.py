@@ -40,10 +40,17 @@ DOMAINS = [
 _domain_patterns_cache: dict[str, list[dict]] = {}
 
 
+def _normalize_search_text(text: str) -> str:
+    """Normalize text for keyword search."""
+    normalized = text.lower().replace("*", " ").replace("`", " ")
+    return re.sub(r"\s+", " ", normalized).strip()
+
+
 def _parse_domain_index(domain: str) -> list[dict]:
     """Parse domain index.md and extract pattern info.
     
-    Returns list of dicts: [{"id": "A.1", "title": "...", "filename": "..."}, ...]
+    Returns list of dicts:
+    [{"id": "A.1", "title": "...", "filename": "...", "keywords": "..."}, ...]
     """
     if domain in _domain_patterns_cache:
         return _domain_patterns_cache[domain]
@@ -54,21 +61,25 @@ def _parse_domain_index(domain: str) -> list[dict]:
     
     content = index_path.read_text(encoding="utf-8")
     patterns = []
-    
-    # Parse markdown table: | [A.1](filename.md) | Title | Size |
-    # Pattern: | [ID](filename) | Title | ... |
-    table_row_regex = re.compile(
-        r"\|\s*\[([A-G]\.[^\]]+)\]\(([^)]+)\)\s*\|\s*([^|]+)\s*\|"
-    )
-    
-    for match in table_row_regex.finditer(content):
+
+    for line in content.splitlines():
+        if not line.startswith("|"):
+            continue
+        cells = [c.strip() for c in line.split("|")[1:-1]]
+        if len(cells) < 2:
+            continue
+        match = re.match(r"\[([A-G]\.[^\]]+)\]\(([^)]+)\)", cells[0])
+        if not match:
+            continue
         pattern_id = match.group(1).strip()
         filename = match.group(2).strip()
-        title = match.group(3).strip()
+        title = cells[1].strip()
+        keywords = cells[3].strip() if len(cells) > 3 else ""
         patterns.append({
             "id": pattern_id,
             "title": title,
             "filename": filename,
+            "keywords": keywords,
             "domain": domain,
         })
     
@@ -85,14 +96,18 @@ def _get_all_patterns() -> list[dict]:
 
 
 def _search_patterns(keyword: str) -> list[dict]:
-    """Search for patterns matching keyword in ID or title."""
-    keyword_lower = keyword.lower()
+    """Search for patterns matching keyword in ID, title, or keywords."""
+    keyword_lower = _normalize_search_text(keyword)
     results = []
     
     for pattern in _get_all_patterns():
-        # Search in pattern ID and title
-        if (keyword_lower in pattern["id"].lower() or 
-            keyword_lower in pattern["title"].lower()):
+        searchable = " ".join([
+            pattern.get("id", ""),
+            pattern.get("title", ""),
+            pattern.get("keywords", ""),
+        ])
+        searchable = _normalize_search_text(searchable)
+        if keyword_lower and keyword_lower in searchable:
             results.append(pattern)
     
     return results
@@ -128,7 +143,7 @@ def _find_pattern_file(pattern_id: str) -> Path | None:
 
 async def fpf_search_index(ctx: RunContext[None], keyword: str) -> str:
     """
-    Search FPF index for patterns matching keyword.
+    Search FPF index for patterns matching keyword (ID, title, or keywords/queries).
     
     This is the first tool to use when starting any task.
     Returns a list of pattern IDs with their titles and domains.
