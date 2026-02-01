@@ -68,4 +68,4 @@ Decision support for method choice:
 
 - [characterisation.md](characterisation.md) - For defining discipline characteristics
 - [uts.md](uts.md) - For standardizing discipline terminology
-- [workflow.md](workflow.md) - For systematic SoTA analysis
+- [workflow.md](../guides/workflow.md) - For systematic SoTA analysis

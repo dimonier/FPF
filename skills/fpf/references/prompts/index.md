@@ -1,16 +1,15 @@
 # FPF Prompt Templates
 
-Ready-to-use prompt templates for common FPF tasks. Load these templates when you need structured guidance for specific use cases.
+Ready-to-use **prompt templates** for common FPF tasks (copy/paste templates).
+
+Back to the references hub: **[../index.md](../index.md)**.
+
+For **mandatory agent guides / runbooks** (workflow, planning template, navigation aids), see:
+- **[../guides/index.md](../guides/index.md)**
 
 ## Quick Template Selection
 
 **Choose template based on your need:**
-
-**Core Workflow:**
-- **Need guidance on FPF process?** → [workflow.md](workflow.md) (mandatory workflow)
-- **Need pattern references?** → [principles.md](principles.md) (essential patterns)
-- **Need navigation help?** → [keywords.md](keywords.md) (domain/keyword guide)
-- **Need task template?** → [initial-plan.md](initial-plan.md) (execution plan)
 
 **Project Work:**
 - **Starting new project?** → [characterisation.md](characterisation.md) (define metrics)
@@ -22,32 +21,11 @@ Ready-to-use prompt templates for common FPF tasks. Load these templates when yo
 
 **Advanced:**
 - **Surveying discipline?** → [sota.md](sota.md) (state-of-the-art harvesting)
+- **Article → pattern with semantic precision?** → [article-to-pattern.md](article-to-pattern.md) (E.8 template + RPR discipline)
 
 ---
 
 ## Prompts by Category
-
-### Workflow & Navigation (4 prompts)
-
-**[workflow.md](workflow.md)** - Mandatory FPF Reasoning Workflow
-- **Use for:** Every FPF task (step-by-step reasoning process)
-- **Contains:** 4-step workflow (language detection, FPF decomposition, reasoning, translation)
-- **Related patterns:** B.5 (Reasoning Cycle), A.7 (Strict Distinction), A.10 (Evidence Graph)
-
-**[principles.md](principles.md)** - Core Pattern Quick Reference
-- **Use for:** Looking up essential FPF patterns without loading full domains
-- **Contains:** A.7, A.10, B.3, B.5 + additional key patterns (F.17, F.18, E.18, G.2)
-- **Related domains:** foundations, trust-evidence, reasoning, unification, sota
-
-**[keywords.md](keywords.md)** - Domain Navigation & Keyword Guide
-- **Use for:** Finding domains by task type, keyword search reference
-- **Contains:** Domain navigation table, core/prompt-specific keywords, task-specific shortcuts
-- **Related:** All domain indexes
-
-**[initial-plan.md](initial-plan.md)** - Standard Task Execution Template
-- **Use for:** Structuring task decomposition and execution planning
-- **Contains:** 4-step plan template (language, FPF analysis, template check, execution)
-- **Related:** workflow.md, all task-specific prompts
 
 ### Project & Design (2 prompts)
 
@@ -73,23 +51,29 @@ Ready-to-use prompt templates for common FPF tasks. Load these templates when yo
 - **Contains:** Naming prompt, Name Card components, anti-patterns to avoid
 - **Related patterns:** F.18 (Naming Protocol), F.17 (UTS), F.5 (Naming Discipline)
 
-### Advanced (1 prompt)
+### Advanced (2 prompts)
 
 **[sota.md](sota.md)** - SoTA Harvesting & Discipline Packs
 - **Use for:** Surveying state-of-the-art, comparing methodologies, building knowledge packs
 - **Contains:** SoTA prompt template, TraditionCards, OperatorCards, selector portfolio
 - **Related patterns:** G.2 (SoTA Harvester), G.4 (CAL Authoring), G.0 (Frame Standard)
 
+**[article-to-pattern.md](article-to-pattern.md)** - Article → Pattern — Semantic Precision Rewrite
+- **Use for:** Turning a single article into a teachable pattern
+- **Contains:** E.8 section structure + semantic precision constraints + RPR-style red-flag avoidance
+- **Related patterns:** E.8 (Authoring conventions), A.6.P (Relational Precision Restoration)
+
 ---
 
 ## Usage Pattern
 
 **Typical progression:**
-1. Start with [workflow.md](workflow.md) for overall process
-2. Check [keywords.md](keywords.md) or [principles.md](principles.md) for navigation
-3. Select task-specific template (characterisation, uts, naming, p2w, sota)
-4. Adapt template to your context
-5. Follow [workflow.md](workflow.md) execution steps
+1. Start with **[../guides/workflow.md](../guides/workflow.md)** for overall process (mandatory)
+2. Use **[../guides/initial-plan.md](../guides/initial-plan.md)** to structure the work (mandatory)
+3. Check **[../guides/keywords.md](../guides/keywords.md)** or **[../guides/principles.md](../guides/principles.md)** for navigation
+4. Select task-specific template (characterisation, uts, naming, p2w, sota)
+5. Adapt template to your context
+6. Follow the workflow execution steps
 
 **Cross-references:**
 - All prompts reference each other in "See Also" sections

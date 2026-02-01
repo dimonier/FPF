@@ -39,11 +39,11 @@ FPF is a METHODOLOGY for thinking, not a knowledge base about your task topic.
 
 ## Task-Specific Navigation
 
-**Need to:** Define project metrics → See [characterisation.md](characterisation.md)  
-**Need to:** Standardize terminology → See [uts.md](uts.md)  
-**Need to:** Rename entities → See [naming.md](naming.md)  
-**Need to:** Map principles to work → See [p2w.md](p2w.md)  
-**Need to:** Survey discipline → See [sota.md](sota.md)
+**Need to:** Define project metrics → See [characterisation.md](../prompts/characterisation.md)  
+**Need to:** Standardize terminology → See [uts.md](../prompts/uts.md)  
+**Need to:** Rename entities → See [naming.md](../prompts/naming.md)  
+**Need to:** Map principles to work → See [p2w.md](../prompts/p2w.md)  
+**Need to:** Survey discipline → See [sota.md](../prompts/sota.md)
 
 ## See Also
 

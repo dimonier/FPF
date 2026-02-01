@@ -44,5 +44,5 @@ A UTS typically includes:
 ## See Also
 
 - [naming.md](naming.md) - For designing individual term names
-- [workflow.md](workflow.md) - For terminology analysis in reasoning cycle
+- [workflow.md](../guides/workflow.md) - For terminology analysis in reasoning cycle
 - Core FPF terminology available in main SKILL.md

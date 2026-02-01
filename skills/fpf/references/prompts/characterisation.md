@@ -42,4 +42,4 @@ Show how this chain maps to P2W in E.TGA for this project.
 ## See Also
 
 - [p2w.md](p2w.md) - For mapping characteristics to work flows
-- [workflow.md](workflow.md) - For integrating into FPF reasoning cycle
+- [workflow.md](../guides/workflow.md) - For integrating into FPF reasoning cycle

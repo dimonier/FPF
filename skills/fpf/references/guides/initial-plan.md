@@ -22,11 +22,11 @@ The plan is loaded at task start and evolves during execution.
 
 3. **Check available prompt templates** (phase: DECOMPOSE)
    - Does task match a standard FPF prompt?
-     - Defining metrics? → [characterisation.md](characterisation.md)
-     - Standardizing terms? → [uts.md](uts.md)
-     - Naming issues? → [naming.md](naming.md)
-     - Architecture mapping? → [p2w.md](p2w.md)
-     - Discipline survey? → [sota.md](sota.md)
+     - Defining metrics? → [characterisation.md](../prompts/characterisation.md)
+     - Standardizing terms? → [uts.md](../prompts/uts.md)
+     - Naming issues? → [naming.md](../prompts/naming.md)
+     - Architecture mapping? → [p2w.md](../prompts/p2w.md)
+     - Discipline survey? → [sota.md](../prompts/sota.md)
    - If yes, load and adapt template
    - Expected: Prompt template or custom approach
 

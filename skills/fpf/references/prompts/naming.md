@@ -46,4 +46,4 @@ A complete Name Card includes:
 ## See Also
 
 - [uts.md](uts.md) - For creating domain-wide terminology standards
-- [workflow.md](workflow.md) - For systematic naming analysis
+- [workflow.md](../guides/workflow.md) - For systematic naming analysis

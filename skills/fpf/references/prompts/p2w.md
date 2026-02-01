@@ -50,5 +50,5 @@ Common node kinds in P2W graphs:
 ## See Also
 
 - [characterisation.md](characterisation.md) - For defining characteristics that feed into P2W
-- [workflow.md](workflow.md) - For integrating P2W analysis into reasoning
-- [principles.md](principles.md) - For core FPF patterns used in P2W
+- [workflow.md](../guides/workflow.md) - For integrating P2W analysis into reasoning
+- [principles.md](../guides/principles.md) - For core FPF patterns used in P2W

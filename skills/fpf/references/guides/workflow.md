@@ -72,14 +72,14 @@ Use FPF terms in output ONLY when:
 For common FPF tasks, see ready-to-use prompt templates:
 
 **Project Setup:**
-- [characterisation.md](characterisation.md) - Define characteristics, indicators, and scoring
-- [p2w.md](p2w.md) - Map principles to work using E.TGA
+- [characterisation.md](../prompts/characterisation.md) - Define characteristics, indicators, and scoring
+- [p2w.md](../prompts/p2w.md) - Map principles to work using E.TGA
 
 **Terminology & Naming:**
-- [uts.md](uts.md) - Build unified term sheets for domains
-- [naming.md](naming.md) - Design better names using F.18 Name Cards
+- [uts.md](../prompts/uts.md) - Build unified term sheets for domains
+- [naming.md](../prompts/naming.md) - Design better names using F.18 Name Cards
 
 **Advanced:**
-- [sota.md](sota.md) - Harvest state-of-the-art for disciplines
+- [sota.md](../prompts/sota.md) - Harvest state-of-the-art for disciplines
 - [principles.md](principles.md) - Quick reference to core FPF patterns
 - [keywords.md](keywords.md) - Domain navigation guide

@@ -32,16 +32,16 @@ Assess reliability of sources and claims:
 ## Additional Key Patterns
 
 **For Terminology & Naming:**
-- **F.17** - Unified Term Sheet (UTS) | See: [uts.md](uts.md)
-- **F.18** - Naming Protocol (Name Cards) | See: [naming.md](naming.md)
+- **F.17** - Unified Term Sheet (UTS) | See: [uts.md](../prompts/uts.md)
+- **F.18** - Naming Protocol (Name Cards) | See: [naming.md](../prompts/naming.md)
 
 **For Architecture & Flow:**
-- **E.18** - Transduction Graph Architecture (E.TGA) | See: [p2w.md](p2w.md)
-- **C.16** - Measurement & Indicators | See: [characterisation.md](characterisation.md)
+- **E.18** - Transduction Graph Architecture (E.TGA) | See: [p2w.md](../prompts/p2w.md)
+- **C.16** - Measurement & Indicators | See: [characterisation.md](../prompts/characterisation.md)
 
 **For SoTA & Disciplines:**
-- **G.2** - SoTA Harvester | See: [sota.md](sota.md)
-- **G.4** - CAL Authoring | See: [sota.md](sota.md)
+- **G.2** - SoTA Harvester | See: [sota.md](../prompts/sota.md)
+- **G.4** - CAL Authoring | See: [sota.md](../prompts/sota.md)
 
 ## Loading Full Patterns
 
@@ -54,4 +54,4 @@ For detailed pattern content:
 
 - [workflow.md](workflow.md) - Complete FPF reasoning workflow
 - [keywords.md](keywords.md) - Domain navigation guide
-- [characterisation.md](characterisation.md), [uts.md](uts.md), [naming.md](naming.md), [p2w.md](p2w.md), [sota.md](sota.md) - Ready-to-use prompt templates
+- [characterisation.md](../prompts/characterisation.md), [uts.md](../prompts/uts.md), [naming.md](../prompts/naming.md), [p2w.md](../prompts/p2w.md), [sota.md](../prompts/sota.md) - Ready-to-use prompt templates

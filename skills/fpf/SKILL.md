@@ -9,6 +9,12 @@ auto_load: true
 
 FPF is an "Operating System for Thought" - a rigorous architecture for thinking that ensures auditable reasoning, evidence-based decisions, and clear distinction between plans and execution.
 
+## Start Here (Agent Entry)
+
+- **Start here (references hub):** [references/index.md](references/index.md)
+- **MUST**: follow the workflow → [references/guides/workflow.md](references/guides/workflow.md)
+- **MUST**: structure work with the standard plan → [references/guides/initial-plan.md](references/guides/initial-plan.md)
+
 ## Pattern Selection Logic
 
 **Start here to find the right patterns for your task:**
@@ -68,7 +74,7 @@ For every task:
 
 ## Navigation Hub
 
-**Master index:** [references/fpf-patterns/index.md](references/fpf-patterns/index.md) - domain overview with expanded guidance
+**Master patterns index:** [references/fpf-patterns/index.md](references/fpf-patterns/index.md) - domain overview with expanded guidance
 
 **Domain indexes:**
 - [foundations](references/fpf-patterns/foundations/index.md) - entities, roles, distinctions, characteristics
@@ -85,15 +91,19 @@ For every task:
 
 ## Available Prompt Templates
 
-Ready-to-use prompt templates for common FPF tasks → **[references/prompts/index.md](references/prompts/index.md)**
+Ready-to-use prompt templates for common tasks → **[references/prompts/index.md](references/prompts/index.md)**
 
-**Quick selection:**
-- **Workflow:** [workflow.md](references/prompts/workflow.md), [principles.md](references/prompts/principles.md), [keywords.md](references/prompts/keywords.md), [initial-plan.md](references/prompts/initial-plan.md)
-- **Project:** [characterisation.md](references/prompts/characterisation.md), [p2w.md](references/prompts/p2w.md)
-- **Terminology:** [uts.md](references/prompts/uts.md), [naming.md](references/prompts/naming.md)
-- **Advanced:** [sota.md](references/prompts/sota.md)
+## Agent Navigation (MUST/SHOULD)
 
-*See [full index](references/prompts/index.md) for detailed descriptions and usage guidance.*
+To avoid ontological drift and ensure you always start correctly, use the agent guides:
+
+- **MUST**: [references/guides/workflow.md](references/guides/workflow.md) (execute for EVERY request)
+- **MUST**: [references/guides/initial-plan.md](references/guides/initial-plan.md) (standard task execution plan)
+- **SHOULD**: [references/guides/keywords.md](references/guides/keywords.md) (domain navigation & keywords)
+- **SHOULD**: [references/guides/principles.md](references/guides/principles.md) (core pattern quick reference)
+
+For the full structured navigation (guides vs prompts vs patterns vs scripts), go to:
+- [references/index.md](references/index.md)
 
 ## Starter Patterns
 
