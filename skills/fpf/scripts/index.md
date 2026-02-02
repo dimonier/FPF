@@ -91,7 +91,7 @@ Brief description.
 ```markdown
 | Pattern | Title | Status | Keywords & Search Queries | Dependencies | Size |
 |---------|-------|--------|---------------------------|--------------|------|
-| [A.1](A.1_file.md) | Pattern Title | Stable | *Keywords:* ... *Queries:* ... | **Builds on:** ... | 25.3 KB |
+| A.1 | Pattern Title | Stable | *Keywords:* ... *Queries:* ... | **Builds on:** ... | 25.3 KB |
 ```
 
 All metadata extracted from `FPF-Spec.md` Table of Contents.

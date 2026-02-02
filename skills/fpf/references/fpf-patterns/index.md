@@ -1,6 +1,6 @@
 # FPF Core Reference
 
-Progressive disclosure navigation for 203 FPF patterns across 11 domains.
+Progressive disclosure navigation for 189 FPF patterns across 11 domains (excluding `Stub` patterns).
 
 Back to the references hub: **[../index.md](../index.md)**.
 
@@ -21,12 +21,13 @@ Back to the references hub: **[../index.md](../index.md)**.
 - **Domain calculi** → [architheories](#architheories) (Kind-CAL, KD-CAL, etc.)
 - **FPF authoring** → [constitution](#constitution) (lexical rules, patterns)
 - **Benchmarking** → [sota](#sota) (discipline packs, telemetry)
+- **Ethical assurance** → [ethics](#ethics) (bias-audit)
 
 ## Domains
 
 ### foundations
 
-**33 patterns** | [index](foundations/index.md)
+**32 patterns** | [index](foundations/index.md)
 
 Core ontological concepts: holons, entities, roles, characteristics, and fundamental distinctions.
 
@@ -96,7 +97,7 @@ Composition and emergence: Gamma operator, meta-holon transitions, mereology, de
 
 ### signature
 
-**15 patterns** | [index](signature/index.md)
+**16 patterns** | [index](signature/index.md)
 
 Interface and boundary patterns: signature stack, boundary norms, slot discipline, epistemic morphisms.
 
@@ -152,11 +153,11 @@ Cross-domain integration: bridges, concept-sets, context mapping, lexicon princi
 
 ### ethics
 
-**15 patterns** | [index](ethics/index.md)
+**1 pattern** | [index](ethics/index.md)
 
-Multi-scale ethics, conflict resolution, bias-audit, and axiological patterns.
+Bias-audit and ethical assurance patterns.
 
-**Load when:** ethical assurance, bias-audit, conflict resolution, values assessment
+**Load when:** ethical assurance, bias-audit
 
 **Starters:** D.5 (Bias-Audit)
 
@@ -178,4 +179,4 @@ State-of-the-art patterns: discipline packs, benchmarks, telemetry, CG-frames.
 
 ---
 
-**Total: 203 patterns across 11 domains**
+**Total: 189 patterns across 11 domains**

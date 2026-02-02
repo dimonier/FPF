@@ -76,6 +76,8 @@ For every task:
 
 **Master patterns index:** [references/fpf-patterns/index.md](references/fpf-patterns/index.md) - domain overview with expanded guidance
 
+**Maintenance rule:** Patterns whose TOC **Status** is exactly `Stub` are intentionally **excluded** from this skill (not decomposed, not indexed, not audited as missing).
+
 **Domain indexes:**
 - [foundations](references/fpf-patterns/foundations/index.md) - entities, roles, distinctions, characteristics
 - [transformation](references/fpf-patterns/transformation/index.md) - methods, work, execution, evolution

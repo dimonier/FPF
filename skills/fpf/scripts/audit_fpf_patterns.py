@@ -2,9 +2,10 @@
 Audit FPF pattern coverage between the spec TOC and decomposed files.
 
 This script is intentionally conservative:
-- It treats pattern IDs as A–G only (core spec patterns), e.g. A.1, E.17.0, A.19.ULSAM, G.Core.
+- It treats pattern IDs as A–K (including annex/index stubs), e.g. A.1, E.17.0, A.19.ULSAM, G.Core, H.1.
 - It extracts expected IDs from the TOC section of FPF-Spec.md (streaming; does not load the whole file).
 - It extracts present IDs from decomposed filenames under skills/fpf/references/fpf-patterns/**.
+- It excludes patterns whose TOC Status is exactly "Stub" (case-insensitive). "Transitional stub" is NOT excluded.
 
 Usage examples:
     python skills/fpf/scripts/audit_fpf_patterns.py
@@ -20,7 +21,7 @@ from pathlib import Path
 from typing import Iterable
 
 
-# Pattern IDs we care about: A–G only.
+# Pattern IDs we care about: A–K.
 # Examples matched:
 #   A.1
 #   A.6.B
@@ -30,10 +31,10 @@ from typing import Iterable
 #   G.Core
 #   C.3.A
 #   E.10.D2
-PATTERN_ID_RE = re.compile(r"\b[A-G](?:\.(?:\d+|[A-Za-z][A-Za-z0-9_]*))+\b")
+PATTERN_ID_RE = re.compile(r"\b[A-K](?:\.(?:\d+|[A-Za-z][A-Za-z0-9_]*))+\b")
 
 # First real pattern header in the spec body (after TOC).
-FIRST_PATTERN_HEADER_RE = re.compile(r"^##\s+[A-G]\.(?:\d+|[A-Z])")
+FIRST_PATTERN_HEADER_RE = re.compile(r"^##\s+[A-K]\.(?:\d+|[A-Z])")
 
 
 def extract_ids_from_text(text: str) -> set[str]:
@@ -71,8 +72,17 @@ def extract_ids_from_spec_toc(spec_path: Path) -> set[str]:
         if not cells:
             continue
 
+        # In pattern tables, the TOC schema is typically:
+        #   | § | ID & Title | Status | Keywords & Search Queries | Dependencies |
+        # So "Status" is usually the 3rd cell (index 2).
+        status_cell = cells[2] if len(cells) >= 3 else ""
+        status_norm = status_cell.strip().strip("*").strip().lower()
+
         pattern_id = cells[0].strip().strip("*").strip()
         if PATTERN_ID_RE.fullmatch(pattern_id):
+            # Global rule: exact "stub" patterns are excluded from the skill.
+            if status_norm == "stub":
+                continue
             ids.add(pattern_id)
 
     return ids
@@ -81,7 +91,7 @@ def extract_ids_from_spec_toc(spec_path: Path) -> set[str]:
 def extract_ids_from_spec_headers(spec_path: Path) -> set[str]:
     ids: set[str] = set()
     for line in iter_lines(spec_path):
-        m = re.match(r"^##\s+([A-G](?:\.(?:\d+|[A-Z][A-Z0-9_]*))+)\b", line.strip())
+        m = re.match(r"^##\s+([A-K](?:\.(?:\d+|[A-Z][A-Z0-9_]*))+)\b", line.strip())
         if m:
             ids.add(m.group(1))
     return ids
@@ -147,7 +157,7 @@ def main() -> int:
     missing = sorted(expected - present)
     extra = sorted(present - expected)
 
-    print(f"Spec expected IDs ({args.source}, A–G): {len(expected)}")
+    print(f"Spec expected IDs ({args.source}, A-K, excluding Stub): {len(expected)}")
     print(f"Decomposed present IDs: {len(present)}")
     print(f"Missing after decomposition: {len(missing)}")
     print(f"Extra (present but not expected): {len(extra)}")
