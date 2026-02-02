@@ -191,8 +191,14 @@ def sanitize_filename(title: str) -> str:
     return safe.lower()[:80]  # Increased from 50 to 80 to avoid truncation
 
 
-# Pattern regex: matches ## A.1, ## A.1.1, ## B.3.4, ## A.6.B, ## G.Core, etc.
-PATTERN_REGEX = re.compile(r"^## ([A-G])\.((?:\d+(?:\.\d+)?(?:\.[A-Z0-9]+)?)|(?:[A-Z][a-zA-Z]*))\s*[-–—]?\s*(.*)$")
+# Pattern regex: matches IDs like:
+# - A.1, A.1.1, B.3.4
+# - A.6.B, A.6.P, C.3.A
+# - G.Core
+# - A.19.SelectorMechanism (mixed-case tokens)
+#
+# IMPORTANT: the ID group must capture the full token(s), not truncate at the first lowercase.
+PATTERN_REGEX = re.compile(r"^## ([A-G])\.([A-Za-z0-9]+(?:\.[A-Za-z0-9]+)*)\s*[-–—]?\s*(.*)$")
 
 
 def parse_toc_metadata(content: str) -> dict[str, dict]:
@@ -206,7 +212,7 @@ def parse_toc_metadata(content: str) -> dict[str, dict]:
     cells[4]: Dependencies
     
     Returns:
-        Dict mapping pattern_id to metadata (status, keywords, queries, dependencies)
+        Dict mapping pattern_id to metadata (title, status, keywords, queries, dependencies)
     """
     lines = content.split("\n")
     metadata = {}
@@ -253,6 +259,14 @@ def parse_toc_metadata(content: str) -> dict[str, dict]:
             if status not in valid_statuses:
                 status = ""
             
+            # Extract title (column 1) - remove basic markdown markers
+            raw_title = cells[1].strip() if len(cells) > 1 else ""
+            title = (
+                raw_title.replace("**", "")
+                .replace("`", "")
+                .strip()
+            )
+
             # Extract keywords & queries (column 3)
             kw_queries = cells[3].strip() if len(cells) > 3 else ""
             keywords = ""
@@ -267,6 +281,7 @@ def parse_toc_metadata(content: str) -> dict[str, dict]:
             dependencies = cells[4].strip() if len(cells) > 4 else ""
             
             metadata[pattern_id] = {
+                "title": title,
                 "status": status,
                 "keywords": keywords,
                 "queries": queries,
@@ -314,6 +329,7 @@ def split_spec() -> dict[str, list[dict]]:
     current_pattern_title = None
     current_content_lines = []
     patterns_found = 0
+    body_pattern_ids: set[str] = set()
     
     def save_current_pattern():
         """Save accumulated content to file in appropriate domain."""
@@ -332,7 +348,7 @@ def split_spec() -> dict[str, list[dict]]:
             # Track pattern info for index generation
             domain_patterns[domain].append({
                 "id": current_pattern_id,
-                "title": current_pattern_title or current_pattern_id,
+                "title": current_pattern_title or pattern_meta.get("title") or current_pattern_id,
                 "filename": filename,
                 "size_kb": len(content_text.encode("utf-8")) / 1024,
                 "status": pattern_meta.get("status", ""),
@@ -342,6 +358,7 @@ def split_spec() -> dict[str, list[dict]]:
             })
             
             patterns_found += 1
+            body_pattern_ids.add(current_pattern_id)
     
     for line in lines:
         match = PATTERN_REGEX.match(line)
@@ -362,6 +379,48 @@ def split_spec() -> dict[str, list[dict]]:
     save_current_pattern()
     
     logger.info(f"Split into {patterns_found} pattern files")
+
+    # Ensure that every pattern listed in TOC exists as a file.
+    # If a pattern is in TOC but has no full body section (no '## <ID> ...' header),
+    # we emit a stub file so the skill doesn't silently lose pattern IDs.
+    toc_ids = set(toc_metadata.keys())
+    missing_from_body = sorted(toc_ids - body_pattern_ids)
+    if missing_from_body:
+        logger.info(f"TOC patterns missing from body: {len(missing_from_body)} -> generating stubs")
+    for pattern_id in missing_from_body:
+        domain = get_domain_for_pattern(pattern_id)
+        pattern_meta = toc_metadata.get(pattern_id, {})
+        title = pattern_meta.get("title") or pattern_id
+        filename = f"{pattern_id}_{sanitize_filename(title)}.md"
+        filepath = FPF_PATTERNS_DIR / domain / filename
+
+        stub_lines = [
+            f"## {pattern_id} - {title}",
+            "",
+            "**Stub notice.** This pattern ID exists in the specification TOC, but no full pattern body",
+            "section (`## ...`) was found in `FPF-Spec.md` at the time of extraction.",
+            "",
+            "### TOC metadata",
+            f"- Status: {pattern_meta.get('status', '')}",
+            f"- Keywords: {pattern_meta.get('keywords', '')}",
+            f"- Queries: {pattern_meta.get('queries', '')}",
+            f"- Dependencies: {pattern_meta.get('dependencies', '')}",
+            "",
+        ]
+
+        content_text = "\n".join(stub_lines)
+        filepath.write_text(content_text, encoding="utf-8")
+
+        domain_patterns[domain].append({
+            "id": pattern_id,
+            "title": title,
+            "filename": filename,
+            "size_kb": len(content_text.encode("utf-8")) / 1024,
+            "status": pattern_meta.get("status", ""),
+            "keywords": pattern_meta.get("keywords", ""),
+            "queries": pattern_meta.get("queries", ""),
+            "dependencies": pattern_meta.get("dependencies", ""),
+        })
     
     return domain_patterns
 

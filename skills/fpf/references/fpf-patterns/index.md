@@ -1,6 +1,6 @@
 # FPF Core Reference
 
-Progressive disclosure navigation for 169 FPF patterns across 11 domains.
+Progressive disclosure navigation for 203 FPF patterns across 11 domains.
 
 Back to the references hub: **[../index.md](../index.md)**.
 
@@ -26,7 +26,7 @@ Back to the references hub: **[../index.md](../index.md)**.
 
 ### foundations
 
-**32 patterns** | [index](foundations/index.md)
+**33 patterns** | [index](foundations/index.md)
 
 Core ontological concepts: holons, entities, roles, characteristics, and fundamental distinctions.
 
@@ -40,7 +40,7 @@ Core ontological concepts: holons, entities, roles, characteristics, and fundame
 
 ### transformation
 
-**10 patterns** | [index](transformation/index.md)
+**13 patterns** | [index](transformation/index.md)
 
 Action and change patterns: methods, work records, execution cycles, and evolution.
 
@@ -54,7 +54,7 @@ Action and change patterns: methods, work records, execution cycles, and evoluti
 
 ### reasoning
 
-**5 patterns** | [index](reasoning/index.md)
+**7 patterns** | [index](reasoning/index.md)
 
 Problem-solving and thinking patterns: reasoning cycles, abduction, creative exploration.
 
@@ -68,7 +68,7 @@ Problem-solving and thinking patterns: reasoning cycles, abduction, creative exp
 
 ### trust-evidence
 
-**9 patterns** | [index](trust-evidence/index.md)
+**11 patterns** | [index](trust-evidence/index.md)
 
 Trust, reliability, and evidence patterns: F-G-R calculus, assurance levels, provenance.
 
@@ -82,7 +82,7 @@ Trust, reliability, and evidence patterns: F-G-R calculus, assurance levels, pro
 
 ### aggregation
 
-**13 patterns** | [index](aggregation/index.md)
+**14 patterns** | [index](aggregation/index.md)
 
 Composition and emergence: Gamma operator, meta-holon transitions, mereology, dependency graphs.
 
@@ -110,7 +110,7 @@ Interface and boundary patterns: signature stack, boundary norms, slot disciplin
 
 ### architheories
 
-**20 patterns** | [index](architheories/index.md)
+**31 patterns** | [index](architheories/index.md)
 
 Domain-specific calculi and characterizations: Kind-CAL, KD-CAL, Creativity-CHR, Problem-CHR, etc.
 
@@ -152,7 +152,7 @@ Cross-domain integration: bridges, concept-sets, context mapping, lexicon princi
 
 ### ethics
 
-**1 pattern** | [index](ethics/index.md)
+**15 patterns** | [index](ethics/index.md)
 
 Multi-scale ethics, conflict resolution, bias-audit, and axiological patterns.
 
@@ -178,4 +178,4 @@ State-of-the-art patterns: discipline packs, benchmarks, telemetry, CG-frames.
 
 ---
 
-**Total: 169 patterns across 11 domains**
+**Total: 203 patterns across 11 domains**
