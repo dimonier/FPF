@@ -4,7 +4,7 @@ Use this file for fast pattern discovery by keyword. Dependencies and full queri
 
 ## How to use
 
-1. Match your task vocabulary to keywords below (case-insensitive).
+1. Match your task vocabulary to keywords below (case-insensitive). You can combine multiple keywords and intersect their pattern ID lists to narrow the choice.
 2. Take the listed pattern IDs; load `reference/fpf-patterns/<ID>.md` for each (batch when multiple).
 3. For dependencies, consult [agent_index_patterns.md](agent_index_patterns.md).
 

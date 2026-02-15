@@ -5,8 +5,13 @@ Canonical list of FPF pattern IDs, titles, and load-order dependencies. Pattern 
 ## How to use
 
 1. **Find pattern** by ID or title.
-2. **Load order:** Column **Builds on** lists pattern IDs to load before this one. To use pattern X: load every ID in "Builds on" (and their dependencies recursively if needed), then load X. Body path: `reference/fpf-patterns/<ID>.md`; batch multiple files when loading several.
-3. **Builds on:** "—" = no pattern dependencies (kernel or pillar-only). Entries like "Part C (CHR)" or "Kind-CAL (C.3)" are not file IDs; treat as already covered or see this index. Ranges (e.g. C.17–C.19) are expanded as comma-separated IDs.
+2. **Load order:** Column **Builds on** lists pattern IDs to load before this one. To use pattern X: load every ID in "Builds on" (and their dependencies recursively if needed), then load X. Body path: `reference/fpf-patterns/<ID>.md`; batch multiple files when loading several. If the dependency set is large (e.g. >10), load kernel patterns and the target pattern first; load others only if the answer requires them.
+3. **Builds on:** "—" = no pattern dependencies (kernel or pillar-only). See **Range expansion** and **Pseudo-IDs** below for special cases.
+4. **Kernel patterns (Builds on = —):** A.1, A.4, A.5, A.6.0, A.8, A.11, A.17, E.1. Use these when applying the "kernel + target first" strategy.
+
+**Range expansion:** In "Builds on", ranges use en-dash (–). Expand to all IDs in between: C.17–C.19 → C.17, C.18, C.19; A.6.2–A.6.4 → A.6.2, A.6.3, A.6.4; F.1–F.14 → F.1, F.2, … F.14. Then resolve dependencies for each expanded ID as usual.
+
+**Pseudo-IDs (not file names):** Entries like "Part C (CHR)", "Kind-CAL (C.3)", "Part F", "LOG-CAL (C.6)" are conceptual groups, not pattern file IDs. Do not try to load `Part C (CHR).md`. Use this index to find the concrete pattern IDs for that group (e.g. Kind-CAL → C.3 and its sub-patterns C.3.1, C.3.2, …); load those files if needed.
 
 ## ID | Title | Builds on
 

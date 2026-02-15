@@ -4,7 +4,7 @@ Use this file for fast pattern lookup by natural-language question. Dependencies
 
 ## How to use
 
-1. Match the user's question or your internal question to a query below (by similarity).
+1. Match the user's question or your internal question to a query below by semantic overlap (same topic or intent), not literal substring; one close match is enough to get the pattern ID.
 2. Use the pattern ID to load `reference/fpf-patterns/<ID>.md`; load multiple IDs in one batch when relevant.
 3. For dependencies and related patterns, check [agent_index_patterns.md](agent_index_patterns.md).
 
