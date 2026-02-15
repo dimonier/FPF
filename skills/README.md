@@ -33,63 +33,17 @@ The agent should confirm use of FPF and apply FPF terminology and patterns (e.g.
 ```
 skills/fpf/
 ├── SKILL.md                          # Skill manifest (AI navigation hub)
-├── references/                       # Reference materials
-│   ├── index.md                      # Links to intro docs and Table of Content
-│   ├── intro_table_of_content.md     # Main navigation index (Keywords & Search Queries, pattern IDs)
-│   ├── intro_preface_non-normative.md
-│   ├── intro_first_principles_framework_fpf_core_conceptual_specification.md
-│   ├── fpf-patterns/                 # Pattern bodies (flat folder)
-│   │   ├── A.1.md, A.2.md, …         # One file per pattern ID (e.g. A.1.md, B.5.md)
-│   │   └── index.md                  # Optional table; primary navigation is intro_table_of_content.md
-└── scripts/                          # Optional automation (e.g. split_fpf_spec.py)
-    ├── fpf_tools.py                  # Optional: search/read helpers (e.g. for pydantic-ai)
-    └── …
+└── reference/                        # Reference materials
+    ├── agent_index_patterns.md
+    ├── agent_index_queries.md
+    ├── agent_index_keywords.md
+    ├── intro_preface_non-normative.md
+    └── fpf-patterns/                 # Pattern bodies (flat folder)
+        └── A.1.md, A.2.md, …         # One file per pattern ID (e.g. A.1.md, B.5.md)
 ```
 
-- **Navigation**: Use [references/intro_table_of_content.md](skills/fpf/references/intro_table_of_content.md) to find pattern IDs (Keywords & Search Queries, titles, dependencies). Then read the pattern body from `references/fpf-patterns/<ID>.md`.
-- **Paths**: All paths are relative to the skill root. When the skill is used as a project skill, use paths from the repo root (e.g. `skills/fpf/references/...`).
-
-## Agent Workflow
-
-Agents using this skill follow the canonical reasoning cycle:
-
-1. **OBSERVE** → Understand the user's request
-2. **NAVIGATE** → Use SKILL.md to identify task type and likely domains
-3. **SEARCH** → Read `references/intro_table_of_content.md`; use Keywords & Search Queries or section titles to pick pattern IDs
-4. **LOAD** → Read `references/fpf-patterns/<ID>.md` for each ID (batch multiple reads in one step when loading several patterns)
-5. **PLAN** → Build a MethodDescription from the loaded patterns
-6. **EXECUTE** → Do the work, keeping strict Object≠Description distinction (A.7)
-7. **AUDIT** → Record Work with evidence and cite source patterns
-
-See [SKILL.md](skills/fpf/SKILL.md) for full navigation and discipline rules.
-
-## Maintenance Workflow
-
-For maintaining and updating the FPF skill structure:
-
-1. **Edit source**: Update the spec source (e.g. FPF-Spec or decomposed files).
-2. **Regenerate if needed**: Run any scripts that regenerate pattern files or index (e.g. `split_fpf_spec.py` if present).
-3. **Commit**: Version control the changes.
-
-See [scripts/index.md](skills/fpf/scripts/index.md) if present for automation details.
-
-## Quick Domain Reference
-
-Domains in the Table of Content (intro_table_of_content.md) group patterns by semantic area:
-
-| Domain         | Use when...                                      |
-| -------------- | ------------------------------------------------- |
-| foundations    | understanding entities, roles, distinctions       |
-| transformation | planning tasks, executing work                   |
-| reasoning      | problem-solving, hypothesis generation            |
-| trust-evidence | evaluating claims, checking reliability          |
-| aggregation    | combining parts, understanding emergence         |
-| signature      | designing interfaces, defining boundaries         |
-| architheories  | domain-specific modeling, specialized calculi     |
-| constitution   | understanding FPF rules, authoring patterns      |
-| unification    | integrating across domains, building bridges      |
-| ethics         | ethical considerations, conflict resolution      |
-| sota           | benchmarking, discipline-specific best practices |
+- **Navigation**: Use `reference/agent_index_queries.md`, `reference/agent_index_keywords.md`, or `reference/agent_index_patterns.md` to find pattern IDs; then read `reference/fpf-patterns/<ID>.md`.
+- **Paths**: All paths are relative to the skill root. When the skill is used as a project skill, use paths from the repo root (e.g. `skills/fpf/reference/...`).
 
 ## Difference from Original FPF
 
