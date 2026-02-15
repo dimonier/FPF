@@ -1,134 +1,47 @@
 ---
 name: fpf
-description: First Principles Framework - structured reasoning skill for any task requiring auditable thinking, evidence chains, systematic problem-solving, or holonic composition. Use FPF patterns to guide reasoning on engineering, research, and management tasks.
+description: First Principles Framework - structured reasoning for auditable thinking, evidence chains, audit trail, systematic problem-solving, or holonic composition. Use when the task requires reasoning, first-principles decomposition, or FPF terms (holon, role, episteme, Bounded Context, signature, assurance). Skip when the user asks for quick code-only fixes, single-file syntax/typo/import only, or work in domains unrelated to systems/knowledge/organisation.
 priority: high
 auto_load: true
 ---
 
-# FPF Thinking Skill
+# FPF Skill
 
-FPF is an "Operating System for Thought" - a rigorous architecture for thinking that ensures auditable reasoning, evidence-based decisions, and clear distinction between plans and execution.
+FPF is a first-principles pattern language for systems, epistemes, and collective thinking: generative patterns with assurance (evidence, formality, audit trail) and open-ended evolution (creativity, abductive loop, explore–exploit).
 
-## Start Here (Agent Entry)
+## When to use / When to skip
 
-- **Start here (references hub):** [references/index.md](references/index.md)
-- **MUST**: follow the workflow → [references/guides/workflow.md](references/guides/workflow.md)
-- **MUST**: structure work with the standard plan → [references/guides/initial-plan.md](references/guides/initial-plan.md)
+- **Use when:** The task requires first-principles decomposition, evidence chains, audit trail, or uses FPF terms (holon, role, episteme, Bounded Context, signature, assurance). The user asks "how does FPF…", "what is [FPF concept]…", or for systematic reasoning on engineering, research, or management.
+- **Skip when:** The user asks for quick code-only fixes, single-file syntax/typo/import only, or work in domains unrelated to systems/knowledge/organisation. No need to load indexes for one-off questions that do not reference FPF.
 
-## Pattern Selection Logic
 
-**Start here to find the right patterns for your task:**
+## How to use this skill
 
-### By Task Type
+**Path base:** Always use paths relative to the skill root. Skill root = directory containing this SKILL.md (e.g. from repo root, pattern path is `skills/fpf/reference/fpf-patterns/A.1.md`). Example: `reference/agent_index_queries.md`, `reference/fpf-patterns/A.1.md`.
 
-**Modeling & Design:**
-- System modeling → **foundations** (A.1 Entity/Holon, A.2 Roles) → **transformation** (A.15 Role-Method-Work)
-- Interface design → **signature** (A.6 Signature Stack, A.6.5 Slot Discipline)
-- Boundary definition → **signature** (A.6.B Boundary Norms, A.6.C Contract Unpacking)
+**Entry point (pick exactly one):**
+- User gave a pattern ID (e.g. A.1, B.3.4) → agent_index_patterns.md
+- User asked "how…", "what is…", "how do I…" (natural language) → agent_index_queries.md
+- User used a domain term (holon, evidence, role, aggregation, …) → agent_index_keywords.md
 
-**Analysis & Evaluation:**
-- Reliability/trust evaluation → **trust-evidence** (B.3 F-G-R Calculus, C.2.2 Reliability)
-- Evidence validation → **trust-evidence** (A.10 Evidence Graph, B.3.4 Evidence Decay)
-- Metric design → **architheories** (C.16 Measurement, A.18 CSLC)
+Do not open a second index until you have ID(s) and need to resolve Builds on.
 
-**Problem-Solving:**
-- Creative ideation → **reasoning** (B.5.2 Abductive Loop, C.17 Creativity-CHR)
-- Systematic reasoning → **reasoning** (B.5 Canonical Reasoning Cycle)
-- Conflict resolution → **ethics** (D.5 Bias-Audit)
+**Quick flow:** Identify task → pick one index (queries / keywords / patterns) → get pattern ID(s) → resolve Builds on → load `reference/fpf-patterns/<ID>.md` in batches of 5–8 → answer.
 
-**Composition & Integration:**
-- Combining parts → **aggregation** (B.1 Gamma Operator, B.2 Meta-Holon Transition)
-- Cross-domain mapping → **unification** (F.9 Bridges, F.7 Concept-Set Table)
-- Method composition → **aggregation** (B.1.5 Γ_method)
+1. **Identify** the user’s task or question (concept, keyword, or natural-language query).
+2. **Choose one index first** (load only one; use other indexes only to resolve dependencies or related IDs). When using agent_index_patterns, search for the target ID(s) and their Builds on rows; you do not need to load the entire index if the file is large.
+   - **Known pattern ID** → [reference/agent_index_patterns.md](reference/agent_index_patterns.md) (find ID, read Builds on), then load pattern bodies.
+   - **Natural-language question / "How do I…"** → [reference/agent_index_queries.md](reference/agent_index_queries.md), match by topic, get ID(s); if needed, check agent_index_patterns for Builds on.
+   - **Domain term / keyword** (e.g. holon, evidence, role, aggregation) → [reference/agent_index_keywords.md](reference/agent_index_keywords.md), get ID(s); if needed, check agent_index_patterns for Builds on.
+3. **Resolve dependencies:** In agent_index_patterns, column **Builds on** lists pattern IDs that must be loaded before this one. In Builds on: expand ranges (e.g. C.17–C.19 → C.17, C.18, C.19). Entries like "Part C (CHR)" or "Kind-CAL (C.3)" are not file names — resolve them to concrete IDs in agent_index_patterns and load those files. Algorithm: (1) Collect target ID(s) and all IDs from Builds on; (2) Expand ranges; (3) Recursively add Builds on for each ID; (4) Order topologically (dependents after dependencies); (5) Load in batches of 5–8 files. If the dependency set is large (e.g. >10), load kernel patterns (Builds on = —) and the target pattern first; load others only if the answer requires them. 
+4. **Load pattern bodies** from `reference/fpf-patterns/<ID>.md` (e.g. `reference/fpf-patterns/A.1.md`). Load in batches of 5–8 files (prefer 5 when context is limited, 8 when the answer needs the full dependency chain). If a pattern file is missing, state which ID is missing, and answer from the index (title, Builds on) and Core Terminology only; do not invent pattern content.
+5. **Optional:** For high-level context (roles Engineer/Researcher/Manager, creativity vs assurance, OWA/CWA), load [reference/intro_preface_non-normative.md](reference/intro_preface_non-normative.md) only when the task involves framing, epistemology, or explaining FPF to someone; skip for narrow pattern lookups.
 
-**Process & Execution:**
-- Task planning → **transformation** (A.15.2 WorkPlan, A.3.2 MethodDescription)
-- Work execution → **transformation** (A.15.1 Work, A.3 Transformer Quartet)
-- State modeling → **foundations** (A.2.5 RoleStateGraph, A.19 CharacteristicSpace)
+**Example:** User asks "How does FPF model creative thinking?" → Open agent_index_queries.md → match "How does FPF model creative thinking? Abductive loop?" → ID **B.5.2**. In agent_index_patterns, B.5.2 builds on B.5. Load `reference/fpf-patterns/B.5.md`, `reference/fpf-patterns/B.5.2.md` (add B.5.2.1, C.17, C.18, C.19 only if the answer needs them). Answer from the loaded patterns and Core Terminology.
 
-### By Domain (Load Order)
+Do not load all 204 patterns at once; load on demand via the indexes and dependency order.
 
-**Most common progression:**
-1. **foundations** → understand entities, roles, distinctions
-2. **transformation** → plan and execute work
-3. **trust-evidence** → validate with evidence
-4. **reasoning** OR **aggregation** → problem-solve or compose
-
-**Specialized needs:**
-- **signature** → when defining interfaces/boundaries (often with foundations)
-- **architheories** → when domain-specific calculi needed (C.2-C.25)
-- **constitution** → when authoring FPF content (E.8, E.10)
-- **unification** → when bridging contexts (F.9, F.18)
-- **sota** → when benchmarking or discipline-specific work (G.0-G.13)
-
-## Core Workflow (B.5 Canonical Reasoning Cycle)
-
-For every task:
-
-1. **OBSERVE**: Understand request → identify task type above
-2. **SEARCH**: Use domain selection logic → load relevant domain index
-3. **LOAD**: Read specific patterns identified in domain index
-4. **PLAN**: Reference pattern IDs in reasoning (MethodDescription)
-5. **EXECUTE**: Deploy plan (Work), maintain strict Object≠Description distinction (A.7)
-6. **AUDIT**: Log evidence chains (A.10), reference source patterns
-
-## Navigation Hub
-
-**Master patterns index:** [references/fpf-patterns/index.md](references/fpf-patterns/index.md) - domain overview with expanded guidance
-
-**Maintenance rule:** Patterns whose TOC **Status** is exactly `Stub` are intentionally **excluded** from this skill (not decomposed, not indexed, not audited as missing).
-
-**Domain indexes:**
-- [foundations](references/fpf-patterns/foundations/index.md) - entities, roles, distinctions, characteristics
-- [transformation](references/fpf-patterns/transformation/index.md) - methods, work, execution, evolution
-- [reasoning](references/fpf-patterns/reasoning/index.md) - problem-solving, abduction, exploration
-- [trust-evidence](references/fpf-patterns/trust-evidence/index.md) - F-G-R calculus, evidence graphs, reliability
-- [aggregation](references/fpf-patterns/aggregation/index.md) - Gamma operator, meta-holon transitions, composition
-- [signature](references/fpf-patterns/signature/index.md) - boundaries, interfaces, slot discipline, morphisms
-- [architheories](references/fpf-patterns/architheories/index.md) - domain calculi (KD-CAL, Kind-CAL, etc.)
-- [constitution](references/fpf-patterns/constitution/index.md) - FPF authoring rules, lexical discipline
-- [unification](references/fpf-patterns/unification/index.md) - bridges, concept-sets, context mapping
-- [ethics](references/fpf-patterns/ethics/index.md) - bias-audit, ethical assurance
-- [sota](references/fpf-patterns/sota/index.md) - benchmarks, discipline packs, telemetry
-
-## Available Prompt Templates
-
-Ready-to-use prompt templates for common tasks → **[references/prompts/index.md](references/prompts/index.md)**
-
-## Agent Navigation (MUST/SHOULD)
-
-To avoid ontological drift and ensure you always start correctly, use the agent guides:
-
-- **MUST**: [references/guides/workflow.md](references/guides/workflow.md) (execute for EVERY request)
-- **MUST**: [references/guides/initial-plan.md](references/guides/initial-plan.md) (standard task execution plan)
-- **SHOULD**: [references/guides/keywords.md](references/guides/keywords.md) (domain navigation & keywords)
-- **SHOULD**: [references/guides/principles.md](references/guides/principles.md) (core pattern quick reference)
-
-For the full structured navigation (guides vs prompts vs patterns vs scripts), go to:
-- [references/index.md](references/index.md)
-
-## Starter Patterns
-
-**Must-read for any FPF usage:**
-- **A.1** - Holonic Foundation (entity composition)
-- **A.7** - Strict Distinction (avoid category errors: Object≠Description, Role≠Work)
-- **A.10** - Evidence Graph (traceability)
-
-**Most common by domain:**
-- foundations: A.1, A.2, A.7
-- transformation: A.3, A.15, A.15.1 (Work)
-- reasoning: B.5, B.5.2 (Abduction)
-- trust-evidence: B.3, A.10
-- aggregation: B.1, B.2
-- signature: A.6, A.6.5
-
-## Critical Disciplines
-
-**Always apply:**
-- **Strict Distinction (A.7)**: Object ≠ Description ≠ Carrier; Role ≠ Work; Method ≠ MethodDescription
-- **Evidence chains (A.10)**: Every claim needs evidence reference
-- **Scope discipline (A.2.6)**: Explicit context boundaries
-- **Role-Method-Work alignment (A.15)**: Clear separation of intent, plan, execution
+If the user asks only for a definition of a term that appears in the Core Terminology tables below (e.g. "What is a holon?", "What is Bounded Context?"), answer from the table only; do not load index or pattern files. For reasoning steps, examples, cross-references, or dependency-aware answers, load the pattern(s) via the indexes.
 
 ## Core Terminology
 
@@ -171,15 +84,9 @@ Essential FPF terms for decomposition and reasoning.
 | **Deduction** | B.5 | Derive conclusions from premises. Logical necessity. |
 | **Induction** | B.5 | Generalize from specific cases. Probabilistic. |
 
-### Search Keywords
+## Checklist (before answering, verify)
 
-Use ONLY these keywords with `fpf_search_index()`:
-
-```
-holon, system, episteme, role, method, work, trust, evidence,
-transformer, reliability, aggregation, assurance, reasoning,
-budget, context, deduction, induction, abduction, formality,
-evolution, agent
-```
-
-**Important:** DO NOT search for task-topic words (e.g., "AI agents", "web search"). FPF is a methodology, not a knowledge base about your task topic.
+- Input type is determined (question / keyword / pattern ID).
+- One starting index was chosen; extra indexes were not loaded.
+- Dependencies were resolved; if the set was large, only needed patterns or kernel + target were loaded.
+- All file paths are relative to the skill root (e.g. `reference/fpf-patterns/A.1.md`).
