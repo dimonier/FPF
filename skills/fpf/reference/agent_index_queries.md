@@ -1,12 +1,12 @@
 # Agent index: Query → Pattern ID
 
-Use this file for fast pattern lookup by natural-language question. Canonical metadata and dependencies: [intro_table_of_content.md](intro_table_of_content.md). Pattern bodies: `fpf-patterns/<ID>.md`.
+Use this file for fast pattern lookup by natural-language question. Dependencies: [agent_index_patterns.md](agent_index_patterns.md). Pattern bodies: `reference/fpf-patterns/<ID>.md`.
 
 ## How to use
 
 1. Match the user's question or your internal question to a query below (by similarity).
-2. Use the pattern ID to load `fpf-patterns/<ID>.md`; load multiple IDs in one batch when relevant.
-3. For dependencies and related patterns, check the Table of Content.
+2. Use the pattern ID to load `reference/fpf-patterns/<ID>.md`; load multiple IDs in one batch when relevant.
+3. For dependencies and related patterns, check [agent_index_patterns.md](agent_index_patterns.md).
 
 ## Query → Pattern ID
 

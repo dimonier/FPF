@@ -1,12 +1,12 @@
 # Agent index: Keyword → Pattern IDs
 
-Use this file for fast pattern discovery by keyword. Canonical metadata (dependencies, full queries) remains in [intro_table_of_content.md](intro_table_of_content.md). Pattern bodies: `fpf-patterns/<ID>.md`.
+Use this file for fast pattern discovery by keyword. Dependencies and full queries: [agent_index_patterns.md](agent_index_patterns.md), [agent_index_queries.md](agent_index_queries.md). Pattern bodies: `reference/fpf-patterns/<ID>.md`.
 
 ## How to use
 
 1. Match your task vocabulary to keywords below (case-insensitive).
-2. Take the listed pattern IDs; load `fpf-patterns/<ID>.md` for each (batch when multiple).
-3. For dependencies and full Keywords & Search Queries, consult the Table of Content.
+2. Take the listed pattern IDs; load `reference/fpf-patterns/<ID>.md` for each (batch when multiple).
+3. For dependencies, consult [agent_index_patterns.md](agent_index_patterns.md).
 
 ## Keyword → Pattern IDs
 

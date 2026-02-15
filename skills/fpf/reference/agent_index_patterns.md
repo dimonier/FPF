@@ -1,12 +1,12 @@
 # Agent index: ID, Title, Builds on
 
-Canonical list of FPF pattern IDs, titles, and load-order dependencies. Pattern bodies: `fpf-patterns/<ID>.md` (relative to skill root: `references/fpf-patterns/<ID>.md`). Keywords and queries: [agent_index_keywords.md](agent_index_keywords.md), [agent_index_queries.md](agent_index_queries.md). Full metadata (Coordinates with, Used by, Prerequisite for): [intro_table_of_content.md](intro_table_of_content.md).
+Canonical list of FPF pattern IDs, titles, and load-order dependencies. Pattern bodies: `reference/fpf-patterns/<ID>.md` (relative to skill root). Keywords and queries: [agent_index_keywords.md](agent_index_keywords.md), [agent_index_queries.md](agent_index_queries.md).
 
 ## How to use
 
 1. **Find pattern** by ID or title.
-2. **Load order:** Column **Builds on** lists pattern IDs to load before this one. To use pattern X: load every ID in "Builds on" (and their dependencies recursively if needed), then load X. Body path: `references/fpf-patterns/<ID>.md`; batch multiple files when loading several.
-3. **Builds on:** "—" = no pattern dependencies (kernel or pillar-only). Entries like "Part C (CHR)" or "Kind-CAL (C.3)" are not file IDs; treat as already covered or see ToC. Ranges (e.g. C.17–C.19) are expanded as comma-separated IDs.
+2. **Load order:** Column **Builds on** lists pattern IDs to load before this one. To use pattern X: load every ID in "Builds on" (and their dependencies recursively if needed), then load X. Body path: `reference/fpf-patterns/<ID>.md`; batch multiple files when loading several.
+3. **Builds on:** "—" = no pattern dependencies (kernel or pillar-only). Entries like "Part C (CHR)" or "Kind-CAL (C.3)" are not file IDs; treat as already covered or see this index. Ranges (e.g. C.17–C.19) are expanded as comma-separated IDs.
 
 ## ID | Title | Builds on
 
@@ -217,4 +217,4 @@ Canonical list of FPF pattern IDs, titles, and load-order dependencies. Pattern 
 | G.12 | DHC Dashboards | G.Core, C.21, G.6, G.11, A.19, G.0, F.17, F.18, E.5.2, E.10 |
 | G.13 | External Interop Hooks for SoTA Discipline Packs | G.Core, G.2–G.7, G.9–G.12, A.19, A.18, G.0, F.17, E.5.2, E.18 |
 
-**Total: 204 patterns.** Aligned with [intro_table_of_content.md](intro_table_of_content.md); full titles and status in ToC.
+**Total: 204 patterns.** Full titles and dependencies in this index.
