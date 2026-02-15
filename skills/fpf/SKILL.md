@@ -9,17 +9,34 @@ auto_load: true
 
 FPF is an "Operating System for Thought" - a rigorous architecture for thinking that ensures auditable reasoning, evidence-based decisions, and clear distinction between plans and execution.
 
-## Start Here (Agent Entry)
+## Paths and how to load patterns
 
-- **Start here (references hub):** [references/index.md](references/index.md)
-- **MUST**: follow the workflow → [references/guides/workflow.md](references/guides/workflow.md)
-- **MUST**: structure work with the standard plan → [references/guides/initial-plan.md](references/guides/initial-plan.md)
+- **Base path**: Paths written as `references/...` are relative to the directory that contains this SKILL.md (the **skill root**). When the skill is loaded from the project (e.g. repo FPF), skill root is `skills/fpf`. When loaded globally, skill root is the skill folder. Use the same base for all `references/` links.
+- **Loading patterns**: To find pattern IDs quickly, use one of:
+  - [Agent index: query → pattern ID](references/agent_index_queries.md) — match natural-language questions to pattern IDs.
+  - [Agent index: keyword → pattern IDs](references/agent_index_keywords.md) — match task vocabulary to keywords.
+  - [FPF pattern index (ID, Title, Dependencies)](references/agent_index_patterns.md) — browse by ID or title; load order via Builds on.
+  Then read the pattern body from `references/fpf-patterns/<ID>.md` (e.g. `references/fpf-patterns/A.1.md`). **Batch** multiple pattern files in one step when loading several.
+
+## Start Here
+
+**Agent Entry**
+
+- [FPF specification preface](references/intro_preface_non-normative.md)
+- [FPF Table Of Contents](references/intro_table_of_content.md) — full index: pattern IDs, Keywords & Search Queries, Dependencies.
+- For fast lookup: [keyword index](references/agent_index_keywords.md) | [query index](references/agent_index_queries.md) | [pattern index (ID, Title, Builds on)](references/agent_index_patterns.md).
+
+**При первом применении скилла**
+
+1. Прочитать этот SKILL.md полностью (включая Pattern Selection Logic и Critical Disciplines).
+2. По запросу пользователя определить тип задачи по таблице Pattern Selection Logic выше.
+3. Выбрать 3–5 паттернов: по индексам (keyword/query) или по Table of Content; при необходимости уточнить зависимости в ToC.
+4. Загрузить выбранные `references/fpf-patterns/<ID>.md` одним батчем.
+5. Строить рассуждение и план, ссылаясь на загруженные паттерны по ID; при необходимости подгружать ещё.
 
 ## Pattern Selection Logic
 
 **Start here to find the right patterns for your task:**
-
-### By Task Type
 
 **Modeling & Design:**
 - System modeling → **foundations** (A.1 Entity/Holon, A.2 Roles) → **transformation** (A.15 Role-Method-Work)
@@ -46,66 +63,37 @@ FPF is an "Operating System for Thought" - a rigorous architecture for thinking 
 - Work execution → **transformation** (A.15.1 Work, A.3 Transformer Quartet)
 - State modeling → **foundations** (A.2.5 RoleStateGraph, A.19 CharacteristicSpace)
 
-### By Domain (Load Order)
-
-**Most common progression:**
-1. **foundations** → understand entities, roles, distinctions
-2. **transformation** → plan and execute work
-3. **trust-evidence** → validate with evidence
-4. **reasoning** OR **aggregation** → problem-solve or compose
-
-**Specialized needs:**
-- **signature** → when defining interfaces/boundaries (often with foundations)
-- **architheories** → when domain-specific calculi needed (C.2-C.25)
-- **constitution** → when authoring FPF content (E.8, E.10)
-- **unification** → when bridging contexts (F.9, F.18)
-- **sota** → when benchmarking or discipline-specific work (G.0-G.13)
-
 ## Core Workflow (B.5 Canonical Reasoning Cycle)
 
 For every task:
 
 1. **OBSERVE**: Understand request → identify task type above
-2. **SEARCH**: Use domain selection logic → load relevant domain index
-3. **LOAD**: Read specific patterns identified in domain index
+2. **SEARCH**: Pick pattern IDs via [keyword index](references/agent_index_keywords.md), [query index](references/agent_index_queries.md), [pattern index](references/agent_index_patterns.md), or [Table of Content](references/intro_table_of_content.md) (for full metadata)
+3. **LOAD**: Read pattern file `references/fpf-patterns/<ID>.md` for each ID (e.g. `A.1.md`, `B.5.md`). Batch multiple reads in one step when loading several patterns.
 4. **PLAN**: Reference pattern IDs in reasoning (MethodDescription)
 5. **EXECUTE**: Deploy plan (Work), maintain strict Object≠Description distinction (A.7)
 6. **AUDIT**: Log evidence chains (A.10), reference source patterns
 
+**Agent workflow checklist**
+
+| Step | Check |
+|------|--------|
+| OBSERVE | Task type identified from Pattern Selection Logic (modeling / analysis / problem-solving / composition / process)? |
+| SEARCH | Pattern IDs chosen from index or ToC; dependencies checked in ToC if needed? |
+| LOAD | Pattern files read in batch; Starter (A.1, A.7, A.10) included when relevant? |
+| PLAN | Reasoning cites pattern IDs; MethodDescription vs Work distinction clear? |
+| EXECUTE | Object≠Description (A.7); Role≠Work; no category errors? |
+| AUDIT | Claims linked to evidence; source patterns referenced? |
+
 ## Navigation Hub
 
-**Master patterns index:** [references/fpf-patterns/index.md](references/fpf-patterns/index.md) - domain overview with expanded guidance
+**Layout:**
 
-**Maintenance rule:** Patterns whose TOC **Status** is exactly `Stub` are intentionally **excluded** from this skill (not decomposed, not indexed, not audited as missing).
+- **Discovery (lightweight):** [keyword → IDs](references/agent_index_keywords.md), [query → ID](references/agent_index_queries.md), [pattern index (ID, Title, Builds on)](references/agent_index_patterns.md). Use for fast lookup.
+- **[Table of Content](references/intro_table_of_content.md)** — canonical index: pattern IDs, titles, **Keywords & Search Queries**, **Dependencies**. Use when you need full metadata or dependency graph.
+- **Pattern bodies** live in `references/fpf-patterns/<ID>.md` (e.g. `A.1.md`, `B.3.md`).
 
-**Domain indexes:**
-- [foundations](references/fpf-patterns/foundations/index.md) - entities, roles, distinctions, characteristics
-- [transformation](references/fpf-patterns/transformation/index.md) - methods, work, execution, evolution
-- [reasoning](references/fpf-patterns/reasoning/index.md) - problem-solving, abduction, exploration
-- [trust-evidence](references/fpf-patterns/trust-evidence/index.md) - F-G-R calculus, evidence graphs, reliability
-- [aggregation](references/fpf-patterns/aggregation/index.md) - Gamma operator, meta-holon transitions, composition
-- [signature](references/fpf-patterns/signature/index.md) - boundaries, interfaces, slot discipline, morphisms
-- [architheories](references/fpf-patterns/architheories/index.md) - domain calculi (KD-CAL, Kind-CAL, etc.)
-- [constitution](references/fpf-patterns/constitution/index.md) - FPF authoring rules, lexical discipline
-- [unification](references/fpf-patterns/unification/index.md) - bridges, concept-sets, context mapping
-- [ethics](references/fpf-patterns/ethics/index.md) - bias-audit, ethical assurance
-- [sota](references/fpf-patterns/sota/index.md) - benchmarks, discipline packs, telemetry
-
-## Available Prompt Templates
-
-Ready-to-use prompt templates for common tasks → **[references/prompts/index.md](references/prompts/index.md)**
-
-## Agent Navigation (MUST/SHOULD)
-
-To avoid ontological drift and ensure you always start correctly, use the agent guides:
-
-- **MUST**: [references/guides/workflow.md](references/guides/workflow.md) (execute for EVERY request)
-- **MUST**: [references/guides/initial-plan.md](references/guides/initial-plan.md) (standard task execution plan)
-- **SHOULD**: [references/guides/keywords.md](references/guides/keywords.md) (domain navigation & keywords)
-- **SHOULD**: [references/guides/principles.md](references/guides/principles.md) (core pattern quick reference)
-
-For the full structured navigation (guides vs prompts vs patterns vs scripts), go to:
-- [references/index.md](references/index.md)
+Domain groupings (foundations, transformation, reasoning, trust-evidence, aggregation, signature, architheories, constitution, unification, ethics, sota) appear in the Table of Content. Find patterns by keyword/query or by section; open the corresponding `<ID>.md` for the full pattern body.
 
 ## Starter Patterns
 
@@ -114,7 +102,7 @@ For the full structured navigation (guides vs prompts vs patterns vs scripts), g
 - **A.7** - Strict Distinction (avoid category errors: Object≠Description, Role≠Work)
 - **A.10** - Evidence Graph (traceability)
 
-**Most common by domain:**
+**Most common by domain** (see [pattern index](references/agent_index_patterns.md) or [Table of Content](references/intro_table_of_content.md)):
 - foundations: A.1, A.2, A.7
 - transformation: A.3, A.15, A.15.1 (Work)
 - reasoning: B.5, B.5.2 (Abduction)
@@ -171,9 +159,9 @@ Essential FPF terms for decomposition and reasoning.
 | **Deduction** | B.5 | Derive conclusions from premises. Logical necessity. |
 | **Induction** | B.5 | Generalize from specific cases. Probabilistic. |
 
-### Search Keywords
+### Search keywords
 
-Use ONLY these keywords with `fpf_search_index()`:
+For **keyword lookup** use [agent_index_keywords.md](references/agent_index_keywords.md). For **question-style lookup** use [agent_index_queries.md](references/agent_index_queries.md). Methodology terms that map to patterns include:
 
 ```
 holon, system, episteme, role, method, work, trust, evidence,
@@ -182,4 +170,4 @@ budget, context, deduction, induction, abduction, formality,
 evolution, agent
 ```
 
-**Important:** DO NOT search for task-topic words (e.g., "AI agents", "web search"). FPF is a methodology, not a knowledge base about your task topic.
+**Important:** Do not search for task-topic words (e.g. "AI agents", "web search"). FPF is a methodology, not a knowledge base about your task topic.

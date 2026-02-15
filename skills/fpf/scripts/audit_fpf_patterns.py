@@ -101,8 +101,8 @@ def extract_ids_from_decomposed_patterns(patterns_root: Path) -> set[str]:
     ids: set[str] = set()
 
     for p in patterns_root.rglob("*.md"):
-        # skip indexes / non-pattern files
-        if p.name.lower() == "index.md":
+        # skip index and introduction (non-pattern files)
+        if p.name.lower() in ("index.md", "introduction.md"):
             continue
 
         stem = p.stem  # filename without .md

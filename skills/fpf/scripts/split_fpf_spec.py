@@ -1,14 +1,14 @@
-"""Split FPF-Spec.md into domain-organized files with 4-level progressive disclosure.
+"""Split FPF-Spec.md into a single folder of pattern files plus one general index.
 
 This script:
 1. Reads the large FPF-Spec.md file
-2. Splits it into individual .md files by pattern (## A.1, ## B.3, etc.)
-3. Organizes files into semantic domain directories (foundations, reasoning, etc.)
-4. Generates index.md per domain with pattern TOC and "Load when..." guidance
+2. Writes introduction (everything before the first pattern) to introduction.md
+3. Splits the rest into individual .md files by pattern (## A.0, ## A.1, etc.) in one folder
+4. Generates a single index.md with intro link and full pattern table (ID, title, domain, status, link)
 
 Usage:
     uv run skills/fpf/scripts/split_fpf_spec.py           # Generate files
-    uv run skills/fpf/scripts/split_fpf_spec.py --analyze # Analyze without writing
+    uv run skills/fpf/scripts/split_fpf_spec.py --analyze  # Analyze without writing
 """
 
 import argparse
@@ -291,72 +291,146 @@ def parse_toc_metadata(content: str) -> dict[str, dict]:
     return metadata
 
 
-def split_spec() -> dict[str, list[dict]]:
-    """Split FPF-Spec.md into individual files organized by domain.
-    
+def extract_introduction(content: str) -> str:
+    """Extract introduction: everything before the first pattern header (## A.0, ## A.1, etc.)."""
+    lines = content.split("\n")
+    for i, line in enumerate(lines):
+        if PATTERN_REGEX.match(line):
+            return "\n".join(lines[:i]).rstrip()
+    return content.rstrip()
+
+
+def split_introduction_by_h1(intro_text: str) -> list[tuple[str, str]]:
+    """Split intro text into sections by first-level headers (# only, not ##).
+    Returns list of (title, content) where content includes the # line and all lines until next #.
+    """
+    sections: list[tuple[str, str]] = []
+    lines = intro_text.split("\n")
+    current_title: str | None = None
+    current_lines: list[str] = []
+
+    for line in lines:
+        stripped = line.strip()
+        # H1: starts with "# " but not "## "
+        if stripped.startswith("# ") and not stripped.startswith("## "):
+            if current_title is not None:
+                sections.append((current_title, "\n".join(current_lines)))
+            current_title = stripped[2:].strip().strip("*").strip()  # after "# ", trim bold
+            current_lines = [line]
+        else:
+            if current_title is not None:
+                current_lines.append(line)
+
+    if current_title is not None:
+        sections.append((current_title, "\n".join(current_lines)))
+    return sections
+
+
+def write_introduction(content: str) -> None:
+    """Write intro as one file per H1 section (intro_<slug>.md) and introduction.md as index."""
+    intro_text = extract_introduction(content)
+    if not intro_text.strip():
+        return
+
+    sections = split_introduction_by_h1(intro_text)
+    if not sections:
+        return
+
+    FPF_PATTERNS_DIR.mkdir(parents=True, exist_ok=True)
+    index_lines = [
+        "# Introduction",
+        "",
+        "Content before the pattern bodies, split by first-level headings.",
+        "",
+    ]
+
+    for title, body in sections:
+        slug = sanitize_filename(title)
+        if not slug:
+            slug = "section"
+        filename = f"intro_{slug}.md"
+        filepath = FPF_PATTERNS_DIR / filename
+        filepath.write_text(body.rstrip(), encoding="utf-8")
+        title_clean = title.replace("**", "").strip()
+        index_lines.append(f"- **[{title_clean}]({filename})**")
+        logger.info(f"  Written intro section: {filename}")
+
+    index_lines.append("")
+    (FPF_PATTERNS_DIR / "introduction.md").write_text("\n".join(index_lines), encoding="utf-8")
+    logger.info(f"Written introduction index: introduction.md ({len(sections)} sections)")
+
+
+def split_spec() -> list[dict]:
+    """Split FPF-Spec.md into individual pattern files in a single folder.
+
     Returns:
-        Dict mapping domain name to list of pattern info dicts.
+        List of pattern info dicts (id, title, filename, domain, status, ...) for index generation.
     """
     if not FPF_SPEC_PATH.exists():
         logger.error(f"FPF-Spec.md not found at {FPF_SPEC_PATH}")
-        return {}
-    
+        return []
+
     logger.info(f"Reading {FPF_SPEC_PATH}...")
     content = FPF_SPEC_PATH.read_text(encoding="utf-8")
-    
+
+    # Write introduction (everything before first pattern header)
+    logger.info("Writing introduction...")
+    write_introduction(content)
+
     # Parse TOC metadata first
     logger.info("Parsing TOC metadata...")
     toc_metadata = parse_toc_metadata(content)
     logger.info(f"Extracted metadata for {len(toc_metadata)} patterns from TOC")
-    
+
     lines = content.split("\n")
-    
-    # Clean and create domain directories
+
+    # Single output folder: clean old pattern .md files (keep introduction.md, index.md)
+    FPF_PATTERNS_DIR.mkdir(parents=True, exist_ok=True)
     logger.info("Cleaning old pattern files...")
+    for old_file in FPF_PATTERNS_DIR.glob("*.md"):
+        if old_file.name in ("introduction.md", "index.md"):
+            continue
+        if old_file.name.startswith("intro_") and old_file.name.endswith(".md"):
+            continue
+        old_file.unlink()
+    # Remove legacy domain subdirs (no longer used)
     for domain in DOMAINS.keys():
         domain_dir = FPF_PATTERNS_DIR / domain
-        if domain_dir.exists():
-            # Remove all .md files except index.md
-            for old_file in domain_dir.glob("*.md"):
-                if old_file.name != "index.md":
-                    old_file.unlink()
-        domain_dir.mkdir(parents=True, exist_ok=True)
-    
-    # Collect patterns per domain
-    domain_patterns: dict[str, list[dict]] = {domain: [] for domain in DOMAINS.keys()}
-    
+        if domain_dir.is_dir():
+            for f in domain_dir.iterdir():
+                f.unlink()
+            domain_dir.rmdir()
+            logger.info(f"Removed legacy dir: {domain}/")
+
+    all_patterns: list[dict] = []
     current_pattern_id = None
     current_pattern_title = None
     current_content_lines = []
     patterns_found = 0
     body_pattern_ids: set[str] = set()
-    
+
     def save_current_pattern():
-        """Save accumulated content to file in appropriate domain."""
         nonlocal patterns_found
         if current_pattern_id and current_content_lines:
             domain = get_domain_for_pattern(current_pattern_id)
-            filename = f"{current_pattern_id}_{sanitize_filename(current_pattern_title or 'pattern')}.md"
-            filepath = FPF_PATTERNS_DIR / domain / filename
-            
+            filename = f"{current_pattern_id}.md"
+            filepath = FPF_PATTERNS_DIR / filename
+
             content_text = "\n".join(current_content_lines)
             filepath.write_text(content_text, encoding="utf-8")
-            
-            # Get metadata from TOC
+
             pattern_meta = toc_metadata.get(current_pattern_id, {})
-            
-            # Track pattern info for index generation
-            domain_patterns[domain].append({
+            all_patterns.append({
                 "id": current_pattern_id,
                 "title": current_pattern_title or pattern_meta.get("title") or current_pattern_id,
                 "filename": filename,
+                "domain": domain,
                 "size_kb": len(content_text.encode("utf-8")) / 1024,
                 "status": pattern_meta.get("status", ""),
                 "keywords": pattern_meta.get("keywords", ""),
                 "queries": pattern_meta.get("queries", ""),
                 "dependencies": pattern_meta.get("dependencies", ""),
             })
-            
             patterns_found += 1
             body_pattern_ids.add(current_pattern_id)
     
@@ -391,8 +465,8 @@ def split_spec() -> dict[str, list[dict]]:
         domain = get_domain_for_pattern(pattern_id)
         pattern_meta = toc_metadata.get(pattern_id, {})
         title = pattern_meta.get("title") or pattern_id
-        filename = f"{pattern_id}_{sanitize_filename(title)}.md"
-        filepath = FPF_PATTERNS_DIR / domain / filename
+        filename = f"{pattern_id}.md"
+        filepath = FPF_PATTERNS_DIR / filename
 
         stub_lines = [
             f"## {pattern_id} - {title}",
@@ -411,155 +485,49 @@ def split_spec() -> dict[str, list[dict]]:
         content_text = "\n".join(stub_lines)
         filepath.write_text(content_text, encoding="utf-8")
 
-        domain_patterns[domain].append({
+        all_patterns.append({
             "id": pattern_id,
             "title": title,
             "filename": filename,
+            "domain": domain,
             "size_kb": len(content_text.encode("utf-8")) / 1024,
             "status": pattern_meta.get("status", ""),
             "keywords": pattern_meta.get("keywords", ""),
             "queries": pattern_meta.get("queries", ""),
             "dependencies": pattern_meta.get("dependencies", ""),
         })
-    
-    return domain_patterns
+
+    return all_patterns
 
 
-def parse_existing_navigation(index_path: Path) -> str:
-    """Extract navigation sections from existing index.md (everything before ## Patterns).
-    
-    Returns:
-        The navigation content as string, or empty string if not found.
-    """
-    if not index_path.exists():
-        return ""
-    
-    try:
-        content = index_path.read_text(encoding="utf-8")
-        lines = content.split("\n")
-        
-        # Find where the pattern table starts
-        pattern_section_idx = None
-        for i, line in enumerate(lines):
-            if line.strip() in ["## Patterns", "## All Patterns"]:
-                pattern_section_idx = i
-                break
-        
-        if pattern_section_idx is None:
-            # No pattern section found, assume the whole thing is navigation
-            return content
-        
-        # Extract everything before the pattern section
-        navigation_lines = lines[:pattern_section_idx]
-        return "\n".join(navigation_lines).rstrip()
-    
-    except Exception as e:
-        logger.warning(f"Could not parse existing navigation from {index_path}: {e}")
-        return ""
-
-
-def generate_domain_indexes(domain_patterns: dict[str, list[dict]]):
-    """Generate index.md for each domain, preserving existing navigation sections."""
-    for domain, patterns in domain_patterns.items():
-        if not patterns:
-            continue
-        
-        domain_info = DOMAINS[domain]
-        index_path = FPF_PATTERNS_DIR / domain / "index.md"
-        
-        # Sort patterns by ID
-        patterns.sort(key=lambda p: p["id"])
-        
-        # Try to preserve existing navigation
-        existing_nav = parse_existing_navigation(index_path)
-        
-        if existing_nav:
-            # Use existing navigation (includes title, description, and all custom sections)
-            logger.info(f"  {domain}: preserving existing navigation")
-            lines = [existing_nav, ""]
-        else:
-            # Generate minimal navigation for new domains
-            logger.info(f"  {domain}: generating new navigation")
-            lines = [
-                f"# {domain.replace('-', ' ').title()}",
-                "",
-                domain_info["description"],
-                "",
-                f"**Load when**: {domain_info['load_when']}",
-                "",
-            ]
-        
-        # Add pattern table header
-        lines.extend([
-            "## Patterns",
-            "",
-            "| Pattern | Title | Status | Keywords & Search Queries | Dependencies | Size |",
-            "|---------|-------|--------|---------------------------|--------------|------|",
-        ])
-        
-        # Add pattern rows
-        for p in patterns:
-            size_str = f"{p['size_kb']:.1f} KB"
-            
-            # Combine keywords and queries into single column
-            kw_queries = ""
-            if p.get("keywords") or p.get("queries"):
-                parts = []
-                if p.get("keywords"):
-                    parts.append(f"*Keywords:* {p['keywords']}")
-                if p.get("queries"):
-                    parts.append(f"*Queries:* {p['queries']}")
-                kw_queries = " ".join(parts)
-            
-            lines.append(
-                f"| [{p['id']}]({p['filename']}) | {p['title']} | {p.get('status', '')} | "
-                f"{kw_queries} | {p.get('dependencies', '')} | {size_str} |"
-            )
-        
-        # Write the merged content
-        index_path.write_text("\n".join(lines), encoding="utf-8")
-        
-        logger.info(f"  {domain}: {len(patterns)} patterns -> index.md")
-
-
-def generate_master_index(domain_patterns: dict[str, list[dict]]):
-    """Generate master index showing all domains (basic structure only).
-    
-    Note: The actual master index is manually maintained with enhanced navigation.
-    This function creates a minimal version that can be used as a starting point.
-    """
+def generate_index(all_patterns: list[dict]) -> None:
+    """Generate single index.md: intro link and full pattern table (ID, title, domain, status, link)."""
     lines = [
         "# FPF Core Reference",
         "",
-        "Progressive disclosure index for FPF patterns.",
+        "Progressive disclosure index for FPF patterns (one folder, one index).",
         "",
-        "## Domains",
+        "- **[Introduction](introduction.md)** — title, TOC, and preface (everything before pattern bodies).",
         "",
-        "| Domain | Patterns | Load when... |",
-        "|--------|----------|--------------|",
+        "## All patterns",
+        "",
+        "| ID | Title | Domain | Status | Link |",
+        "|----|-------|--------|--------|------|",
     ]
-    
-    for domain, patterns in domain_patterns.items():
-        if not patterns:
-            continue
-        domain_info = DOMAINS[domain]
-        count = len(patterns)
-        lines.append(f"| [{domain}]({domain}/index.md) | {count} | {domain_info['load_when']} |")
-    
-    total = sum(len(p) for p in domain_patterns.values())
-    domain_count = len([d for d in domain_patterns.values() if d])
+
+    for p in sorted(all_patterns, key=lambda x: x["id"]):
+        link = f"[{p['filename']}]({p['filename']})"
+        title_esc = p["title"].replace("|", "\\|")[:80]
+        lines.append(
+            f"| {p['id']} | {title_esc} | {p.get('domain', '')} | {p.get('status', '')} | {link} |"
+        )
+
     lines.append("")
-    lines.append(f"**Total: {total} patterns across {domain_count} domains**")
-    
+    lines.append(f"**Total: {len(all_patterns)} patterns**")
+
     index_path = FPF_PATTERNS_DIR / "index.md"
-    
-    # Only write if it doesn't exist or user wants to regenerate
-    # (to avoid overwriting manually enhanced version)
-    if not index_path.exists():
-        index_path.write_text("\n".join(lines), encoding="utf-8")
-        logger.info(f"Generated master index: {index_path}")
-    else:
-        logger.info(f"Master index exists, skipping (manually maintained)")
+    index_path.write_text("\n".join(lines), encoding="utf-8")
+    logger.info(f"Generated index: {index_path} ({len(all_patterns)} patterns)")
 
 
 def analyze_spec():
@@ -659,10 +627,9 @@ def main():
         logger.info("FPF Specification Splitter (4-Level Progressive Disclosure)")
         logger.info("=" * 60)
         
-        domain_patterns = split_spec()
-        if domain_patterns:
-            generate_domain_indexes(domain_patterns)
-            generate_master_index(domain_patterns)
+        all_patterns = split_spec()
+        if all_patterns:
+            generate_index(all_patterns)
             logger.info("Done!")
         else:
             logger.error("Failed to split specification")

@@ -1,13 +1,13 @@
 """FPF Tool Functions for Progressive Disclosure.
 
 These tools provide access to the FPF specification without context overflow:
-- fpf_search_index: Low token cost keyword search across domains
+- fpf_search_index: Low token cost keyword search across patterns
 - fpf_read_pattern: Load specific pattern content on demand
 
-Index structure (4-level progressive disclosure):
-- references/fpf-patterns/index.md (master index listing domains)
-- references/fpf-patterns/{domain}/index.md (domain index with pattern TOC)
-- references/fpf-patterns/{domain}/{pattern_id}_{title}.md (individual patterns)
+Index structure (single folder):
+- references/fpf-patterns/introduction.md — title, TOC, preface
+- references/fpf-patterns/index.md — single table (ID, title, domain, status, link)
+- references/fpf-patterns/{pattern_id}_{title}.md — individual pattern files
 """
 
 import logging
@@ -36,8 +36,8 @@ DOMAINS = [
     "sota",
 ]
 
-# Cache for parsed indexes
-_domain_patterns_cache: dict[str, list[dict]] = {}
+# Cache for parsed single index
+_all_patterns_cache: list[dict] | None = None
 
 
 def _normalize_search_text(text: str) -> str:
@@ -46,53 +46,57 @@ def _normalize_search_text(text: str) -> str:
     return re.sub(r"\s+", " ", normalized).strip()
 
 
-def _parse_domain_index(domain: str) -> list[dict]:
-    """Parse domain index.md and extract pattern info.
-    
-    Returns list of dicts:
-    [{"id": "A.1", "title": "...", "filename": "...", "keywords": "..."}, ...]
-    """
-    if domain in _domain_patterns_cache:
-        return _domain_patterns_cache[domain]
-    
-    index_path = FPF_PATTERNS_PATH / domain / "index.md"
+def _parse_single_index() -> list[dict]:
+    """Parse references/fpf-patterns/index.md (single table: ID | Title | Domain | Status | Link)."""
+    global _all_patterns_cache
+    if _all_patterns_cache is not None:
+        return _all_patterns_cache
+
+    index_path = FPF_PATTERNS_PATH / "index.md"
     if not index_path.exists():
+        _all_patterns_cache = []
         return []
-    
+
     content = index_path.read_text(encoding="utf-8")
     patterns = []
+    # Table: | ID | Title | Domain | Status | Link |
+    link_re = re.compile(r"\]\(([^)]+)\)")
 
     for line in content.splitlines():
         if not line.startswith("|"):
             continue
         cells = [c.strip() for c in line.split("|")[1:-1]]
-        if len(cells) < 2:
+        if len(cells) < 5:
             continue
-        match = re.match(r"\[([A-G]\.[^\]]+)\]\(([^)]+)\)", cells[0])
-        if not match:
+        pattern_id = cells[0].strip()
+        if not re.match(r"^[A-G]\.[A-Za-z0-9.]+$", pattern_id):
             continue
-        pattern_id = match.group(1).strip()
-        filename = match.group(2).strip()
         title = cells[1].strip()
-        keywords = cells[3].strip() if len(cells) > 3 else ""
+        domain = cells[2].strip() if len(cells) > 2 else ""
+        link_match = link_re.search(cells[4])
+        filename = link_match.group(1).strip() if link_match else ""
+        if not filename:
+            continue
         patterns.append({
             "id": pattern_id,
             "title": title,
             "filename": filename,
-            "keywords": keywords,
+            "keywords": "",
             "domain": domain,
         })
-    
-    _domain_patterns_cache[domain] = patterns
+
+    _all_patterns_cache = patterns
     return patterns
 
 
+def _parse_domain_index(domain: str) -> list[dict]:
+    """Return patterns in the given domain (filter from single index)."""
+    return [p for p in _parse_single_index() if p.get("domain") == domain]
+
+
 def _get_all_patterns() -> list[dict]:
-    """Get all patterns from all domains."""
-    all_patterns = []
-    for domain in DOMAINS:
-        all_patterns.extend(_parse_domain_index(domain))
-    return all_patterns
+    """Get all patterns from the single index."""
+    return _parse_single_index()
 
 
 def _search_patterns(keyword: str) -> list[dict]:
@@ -114,30 +118,28 @@ def _search_patterns(keyword: str) -> list[dict]:
 
 
 def _find_pattern_file(pattern_id: str) -> Path | None:
-    """Find the file path for a specific pattern ID."""
-    pattern_id = pattern_id.strip().upper()
-    # Normalize: ensure letter is uppercase, rest as-is
-    if pattern_id and pattern_id[0].isalpha():
-        pattern_id = pattern_id[0].upper() + pattern_id[1:]
-    
-    for domain in DOMAINS:
-        patterns = _parse_domain_index(domain)
-        for p in patterns:
-            if p["id"].upper() == pattern_id:
-                return FPF_PATTERNS_PATH / domain / p["filename"]
-    
-    # Fallback: search files directly
-    for domain in DOMAINS:
-        domain_path = FPF_PATTERNS_PATH / domain
-        if not domain_path.exists():
-            continue
-        for file in domain_path.glob(f"{pattern_id}_*.md"):
-            return file
-        # Try case-insensitive
-        for file in domain_path.glob("*.md"):
-            if file.name.lower().startswith(pattern_id.lower() + "_"):
-                return file
-    
+    """Find the file path for a specific pattern ID (single folder)."""
+    raw_id = pattern_id.strip()
+    if raw_id and raw_id[0].isalpha():
+        pattern_id_norm = raw_id[0].upper() + raw_id[1:]
+    else:
+        pattern_id_norm = raw_id
+
+    for p in _parse_single_index():
+        if p["id"].upper() == pattern_id_norm.upper():
+            return FPF_PATTERNS_PATH / p["filename"]
+
+    # Fallback: exact ID.md or legacy ID_slug.md
+    if not FPF_PATTERNS_PATH.exists():
+        return None
+    exact = FPF_PATTERNS_PATH / f"{pattern_id_norm}.md"
+    if exact.exists():
+        return exact
+    for f in FPF_PATTERNS_PATH.glob(f"{pattern_id_norm}_*.md"):
+        return f
+    for f in FPF_PATTERNS_PATH.glob("*.md"):
+        if f.name.lower().startswith(pattern_id_norm.lower() + "_"):
+            return f
     return None
 
 
@@ -206,7 +208,7 @@ async def fpf_read_pattern(ctx: RunContext[None], pattern_id: str) -> str:
     file_path = _find_pattern_file(pattern_id)
     
     if file_path and file_path.exists():
-        logger.info(f"FPF read pattern: {pattern_id} from {file_path.parent.name}")
+        logger.info(f"FPF read pattern: {pattern_id} from {file_path.name}")
         return file_path.read_text(encoding="utf-8")
     
     # Pattern not found - provide helpful suggestions
